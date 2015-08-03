@@ -1,70 +1,29 @@
-var react = require('react')
-var constants = require('./constants.jsx')
+var React = require('react')
+var constants = require('./constants/constants.js')
+var todoStore = require('./stores/mainStore');
+var todoActions = require('./actions/mainActions');
 
-//set tile
+var SetTile = require('./components/SetTile')
+var TrackTile = require('./components/TrackTile')
+var EventTile = require('./components/EventTile')
 
-	var SetTile = React.createClass({
-		//for testing
-		getDefaultProps: function() {
-			return {
-				set: null,
-				artist: null,
-				playCount: null,
-				setLength: null,
-				imageUrl: null
-			}
-		},
-		handlePlay: function() {
-			console.log('set playing');
-		},
-		render: function() {
-			return (
-				<div className="flex-column overlay-container set-tile">
-					<img className="event-image" src={S3_ROOT_FOR_IMAGES + this.props.set.main_eventimageURL} />
-				    <div className="overlay"></div>
-				    <div className="buffer-4x"></div>
-				    <div className="flex-column flex tile-controls">
-				        <div className="flex-row flex">
-				            <div className="flex-column flex overlay-container">
-				                <img className="artist-image" src={this.props.set.artistimageURL} />
-				            </div>
-				            <div className="flex-column flex set-info">
-				                <div className="center click flex">{this.props.set.set}</div>
-				                <div className="center click flex">{this.props.set.artist}</div>
-				                <div className="flex-row flex-2x">
-				                    <i className="fa fa-fw fa-star center click flex"></i>
-				                    <i className="fa fa-fw fa-share-o center click flex"></i>
-				                </div>
-				            </div>
-				        </div>
-				        <div className="divider"></div>
-				        <div className="flex-row flex-2x">
-				            <div className="flex-fixed set-flex play-count click tile-button" onClick={this.hanldePlay}>
-				                <i className="fa fa-play center">{this.props.set.popularity}</i>
-				            </div>
-				            <div className="divider"></div>
-				            <div className="flex-fixed set-flex set-length">
-				                <i className="fa fa-clock-o center">{this.props.set.set_ength}</i>
-				            </div>
-				        </div>
-				    </div>
-				</div>
-			)
-		}
-	})
+var Player = require('./components/Player')
+var Footer = require('./components/Footer')
 
-//browse page
+var FeaturedView = require('./components/FeaturedView')
+var BrowseView = require('./components/BrowseView')
 
-	var BrowseView = React.createClass({
-		render: function() {
-			return (
-				<div id="browse" className="view overlay-container hidden">
-					<ViewTitleContainer type={this.props.type} />
-					<ResultsContainer results={this.props.results} />
-				</div>
-			);
-		}
-	})
+var App = React.createClass({
+	render: function() {
+		return (
+			<div className="main-container">
+				<Header />
+				<LandingView type={this.props.type} />
+				<Footer />
+			</div>
+		);
+	}
+})
 	
 //detail page
 
@@ -230,94 +189,6 @@ var constants = require('./constants.jsx')
 		}
 	})
 
-//event tile
-
-	var EventTile = React.createClass({
-		getInitialState: function() {
-			return {
-				event: null
-			}
-		},
-		//for testing
-		getDefaultProps: function() {
-			return {
-				event: 'Coachella 2015',
-				image: 'images/coachella.jpg',
-				month: 'APR',
-				day: '20',
-				location: 'Indio, CA',
-				ticketLink: null,
-			};
-		},
-		render: function() {
-			return (
-				<div className="flex-column overlay-container event-tile">
-				    <img className="event-image" src={this.props.event.main_imageURL} />
-				    <div className="overlay"></div>
-				    <EventDate event={this.props.event} />
-				    <div className="divider"></div>
-				    <EventController />
-				</div>
-			);
-		}
-	})
-	
-	var EventDate = React.createClass({
-	    render: function () {
-	    	var month = moment(this.props.event.start_date).format('MMM')
-	    	var day = moment(this.props.event.start_date).format('D')
-
-	        return (
-	        	<div className="event-date-container flex-5x flex-column">
-			        <div className="month">{month}</div>
-			        <div className="divider"></div>
-			        <div className="day">{day}</div>
-			    </div>
-	        );
-	    }
-	})
-
-	var EventController = React.createClass({
-		render: function() {
-			return (
-				<div className="tile-controls flex-row flex">
-			        <a href={this.props.ticketLink} className="set-flex flex click ticket-link tile-button">
-			            <i className="fa fa-fw fa-ticket center"></i>
-			        </a>
-			        <div className="flex-3x flex-column event-info">
-			            <div className="click center">{this.props.event}</div>
-			            <div className="click center">{this.props.location}</div>
-			        </div>
-			        <div className="set-flex flex click event view-trigger tile-button">
-			            <i className="fa fa-fw fa-long-arrow-right center"></i>
-			        </div>
-			    </div>
-			);
-		}
-	})
-
-//track tile
-
-	var TrackTile = React.createClass({
-		render: function() {
-			return (
-				<div className="track-tile flex-column flex overlay-container">
-				    <div className="overlay"></div>
-				    <div className="flex-column flex">
-				        <div className="track-name">{this.props.track.songname}</div>
-				        <div className="track-artist">{this.props.track.artistname}</div>
-				        <i className="fa fa-play fa-2x click animated"></i>
-				        <div className="track-time center">{this.props.track.starttime+' | '+this.props.track.set_length}</div>
-				    </div>
-				    <div className="tile-controls flex-column">
-				        <div className="set-name click view-trigger">{this.props.track.event}</div>
-				        <div className="artist-name click view-trigger">{this.props.track.artist}</div>
-				    </div>
-				</div>
-			);
-		}
-	})
-
 //activity tile
 
 	// var ActivityTile = React.createClass({
@@ -355,113 +226,7 @@ var constants = require('./constants.jsx')
 	
 	});
 
-//featured view
-
-	var FeaturedView = React.createClass({
-		render: function() {
-			return (
-				<div id="featured" className="view flex-column hidden">
-					<ViewTitleContainer />
-					<FeaturedContainer />
-	                <FeaturedResultsHeader />
-	                <ResultsContainer />
-                </div>
-			);
-		}
-	});
-
-	var FeaturedContainer = React.createClass({
-		render: function() {
-			return (
-				<div className="flex-row flex featured-container overlay-container">
-                    <div className="overlay flex-column left-arrow click">
-                        <i className="fa fa-2x fa-chevron-left center"></i>
-                    </div>
-                    <div className="overlay flex-column right-arrow click">
-                        <i className="fa fa-2x fa-chevron-right center"></i>
-                    </div>
-                    <FeaturedTile />
-                </div>
-			);
-		}
-	})
-
-	var FeaturedResultsHeader = React.createClass({
-		render: function() {
-			return (
-				<div className="flex-row featured-results-header">
-                    <div className="flex center">Upcoming Events</div>
-                    <div className="buffer-2x"></div>
-                    <div className="flex center flex-row">
-                        <i className="flex fa fa-map-marker"></i>
-                        <div className="flex user-location">Dania Beach, FL, USA</div>
-                        <div className="flex change-location">Change</div>
-                    </div>
-                </div>
-			);
-		}
-	});
-
-	var FeaturedTile = React.createClass({
-		handleMouseOver: function(){
-			console.log('mouseOver');
-			$('.featured-info', '.featured-tile').addClass('slideInUp');
-		},
-		handleMouseOut: function(){
-			$('.featured-info', '.featured-tile').removeClass('slideInUp');
-			console.log('mouseOut');
-		},
-		render: function() {
-			return (
-				<div className="flex-column flex featured-tile event overlay-container click view-trigger" onClick={this.handleMouseOver}>
-				    <div className="overlay"></div>
-				    <div className="flex-column featured-info animated">
-				        <div className="event-name">{this.props.event.event}</div>
-				        <div className="event-date">{this.props.event.start_date}</div>
-				        <div className="featured-type">{this.props.event.type}</div>
-				    </div>
-				</div>
-			);
-		}
-	});
-
-//footer
-	
-	var Footer = React.createClass({
-		scrollToTop: function() {
-			$(window).scrollTo(0, 400);
-		},
-		render: function() {
-			return (
-				<footer className="flex-row">
-		            <div className="buffer"></div>
-		            <div className="flex-column flex-zero">
-		                <a className="click" id="contact">Contact Us</a>
-		                <a className="click" href="http://setmine.com/invest">Invest</a>
-		                <a className="click" id="dmca">DMCA Notice</a>
-		                <br />
-		                <a className="click" onClick={this.scrollToTop}>Back To Top</a>
-		            </div>
-		            <div className="buffer-lg"></div>
-		            <div className="flex-column flex">
-		                <div className="flex-row center">
-		                    <a href="https://www.facebook.com/SetmineApp"><i className="fa fa-2x fa-facebook fa-fw"></i></a>
-		                    <a href="https://twitter.com/setmineapp"><i className="fa fa-2x fa-twitter fa-fw"></i></a>
-		                    <a href="https://instagram.com/setmine/"><i className="fa fa-2x fa-instagram fa-fw"></i></a>
-		                </div>
-		                <div className="divider"></div>
-		                <div className="center"><i className="fa fa-copyright"></i> Setmine. 2015</div>
-		            </div>
-		            <div className="buffer-lg"></div>
-		            <div className="flex-column flex-zero">
-		                <a className="center" href="https://teamtreehouse.com"><img src="images/treehouse.png" /></a>
-		                <a className="center" href="https://mixpanel.com/f/partner"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics" /></a>
-		            </div>
-		            <div className="buffer"></div>
-		        </footer>
-			);
-		}
-	});
+//featured vi
 
 //Header
 
@@ -625,7 +390,7 @@ var constants = require('./constants.jsx')
 			return (
 				<div className="flex-column flex-fixed sidebar">
                     <div className="flex flex-column overlay-container user-background">
-                        <img className="user-image center" src="images/website/userImage.jpg" />
+                        <img className="user-image center" src="images/userImage.jpg" />
                     </div>
                     <div className="flex-2x flex-column user-nav">
                         <div className="view-trigger click flex flex-row active" name="my-sets">
@@ -710,7 +475,7 @@ var constants = require('./constants.jsx')
                             <div className="buffer-5x"></div>
                         </div>
                         <div className="flex-column flex-fixed image-container">
-                            <img className="center wow slideInUp" src="images/website/slide-2.jpg" />
+                            <img className="center wow slideInUp" src="images/slide-2.jpg" />
                         </div>
                     </div>
                     <div className="flex-row overlay-container slide slide-2 hidden">
@@ -722,7 +487,7 @@ var constants = require('./constants.jsx')
                             <div className="buffer-5x"></div>
                         </div>
                         <div className="flex-column flex-fixed image-container">
-                            <img className="center animated slideInUp" src="images/website/slide-2.jpg" />
+                            <img className="center animated slideInUp" src="images/slide-2.jpg" />
                         </div>
                     </div>
                     <div className="flex-row overlay-container slide slide-3">
@@ -734,7 +499,7 @@ var constants = require('./constants.jsx')
                             <div className="buffer-5x"></div>
                         </div>
                         <div className="flex-column flex-fixed image-container">
-                            <img className="center animated fadeIn" src="images/website/slide-3.jpg" />
+                            <img className="center animated fadeIn" src="images/slide-3.jpg" />
                         </div>
                     </div>
                     <div className="flex-row overlay-container slide slide-4 hidden">
@@ -752,7 +517,7 @@ var constants = require('./constants.jsx')
                             <div className="buffer"></div>
                         </div>
                         <div className="flex-column flex-fixed image-container">
-                            <img className="center animated slideInUp" src="images/website/slide-4.jpg" />
+                            <img className="center animated slideInUp" src="images/slide-4.jpg" />
                         </div>
                     </div>
                     <LandingSlideControls />
@@ -824,122 +589,6 @@ var constants = require('./constants.jsx')
 		}
 	});
 
-//player
-
-	var Player = React.createClass({
-		getInitialState: function() {
-			return {
-				playing: false,
-				hidden: true,
-				currentPosition: 0,
-				currentTime: "00:00"
-			}
-		},
-		getDefaultProps: function () {
-			return {
-				setName: 'TomorrowLand 2015',
-				artist: 'Deadmau5',
-				currentTrack: 'Animals - Martin Garrix',
-				setLength: 0,
-			}
-		},
-		render: function() {
-			return (
-				<div className="player flex-row hidden">
-				    <PlayerControl />
-				    <div className="flex-column flex">
-				        <PlayerSeek />
-				        <div className="flex-row flex">
-				            <PlayerSetInfo set={this.props.set.name} artist={this.props.artist} />
-				            <PlayerTrackInfo track={this.props.set}/>
-				        </div>
-				    </div>
-				</div>
-			);
-		}
-	});
-
-	var PlayerControl = React.createClass({
-		getInitialState: function() {
-			return {
-				playing: false, 
-			};
-		},
-		togglePlay: function() {
-			this.setState({
-				playing: !this.state.playing
-			});
-		},
-		populatePlayer: function() {
-			if(this.state.playing) {
-
-			}
-		},
-		render: function() {
-			return (
-				<div className="player-image-container overlay-container click" onClick={this.togglePlay}>
-			        <div className="overlay set-flex">
-			            <i className={this.state.playing ? "fa fa-pause center" : "fa fa-play center"} id="play-button"></i>
-			        </div>
-			        <img />
-			    </div>
-			);
-		}
-	});
-
-	var PlayerSetInfo = React.createClass({
-		render: function() {
-			return (
-				<div className="player-set-info flex-column flex-fixed">
-	                <div className="set-name flex">{this.props.set.artist + ' - ' + this.props.set.event}</div> 
-	                <div className="set-time flex">{this.props.set.set_length}</div>
-	            </div>
-			);
-		}
-	});
-
-	var PlayerTrackInfo = React.createClass({
-		render: function() {
-			return (
-				<div className="player-track-info flex-row flex-fixed">
-	                <div className="current-track center flex">{this.props.track.trackname}</div>
-	                <i className="fa fa-fw fa-bars click flex-zero"></i>
-	                <i className="fa fa-fw fa-share click flex-zero"></i>
-	            </div>
-			);
-		}
-	});
-
-	var PlayerTrack = React.createClass({
-		render: function() {
-			return (
-				<div className="tracklist-item flex-row">
-					<div className="center">{this.props.track.trackname}</div>
-				</div>
-			);
-		}
-	});
-
-	var PlayerTrackList = React.createClass({
-		render: function() {
-			return (
-				<div className="player-tracklist">
-					<PlayerTrack track=''/>
-				</div>
-			);
-		}
-	})
-
-	var PlayerSeek = React.createClass({
-		render: function() {
-			return (
-				<div className="player-seek-container">
-		            <div className="player-seek-position"></div>
-		        </div>
-			);
-		}
-	})
-
 //search view
 
 	var SearchResultsView = React.createClass({
@@ -969,33 +618,7 @@ var constants = require('./constants.jsx')
 		}
 	});
 
-//misc conponents
-
-	var ResultsContainer = React.createClass({
-		render: function() {
-			return (
-				<div className="results-container flex-row flex">
-					<SetTile />
-				</div>
-			);
-		}
-	});
-
-	var ViewTitleContainer = React.createClass({
-		getInitialState: function() {
-			return {
-				title: 'Featured' //default
-			};
-		},
-		render: function() {
-			return (
-				<div className="flex-column view-title-container flex-zero">
-                    <div className="center view-title">{this.state.title}</div>
-                    <div className="divider"></div>
-                </div>
-			);
-		}
-	});
+	
 
 //main view controller
 	var MainViewController = React.createClass({
@@ -1040,4 +663,4 @@ var constants = require('./constants.jsx')
 		}
 	});
 
-React.render(<Header/>, document.getElementById('app'));
+React.render(<App/>, document.getElementById('app'));
