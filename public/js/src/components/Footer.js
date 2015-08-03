@@ -6,7 +6,7 @@ var Footer = React.createClass({
 	},
 	render: function() {
 		return (
-			<footer className="flex-row">
+			<footer className="flex-row flex-zero">
 	            <div className="buffer"></div>
 	            <div className="flex-column flex-zero">
 	                <a className="click" id="contact">Contact Us</a>

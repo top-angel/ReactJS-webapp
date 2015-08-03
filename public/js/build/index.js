@@ -20977,7 +20977,7 @@ var BrowseView = require('./components/BrowseView')
 var App = React.createClass({displayName: "App",
 	render: function() {
 		return (
-			React.createElement("div", {className: "main-container"}, 
+			React.createElement("div", {className: "main-container flex-column"}, 
 				React.createElement(Header, null), 
 				React.createElement(LandingView, {type: this.props.type}), 
 				React.createElement(Footer, null)
@@ -21194,7 +21194,7 @@ var App = React.createClass({displayName: "App",
 	var Header = React.createClass({displayName: "Header",
 		render: function() {
 			return (
-				React.createElement("header", {className: "flex-row"}, 
+				React.createElement("header", {className: "flex-row flex-zero"}, 
 		            React.createElement("i", {className: "nav-button fa fa-bars click center nav-toggle"}), 
 		            React.createElement("i", {className: "nav-button fa icon-setmine fa-2x click center", title: "Setmine Home"}), 
 		            React.createElement(SearchBar, null), 

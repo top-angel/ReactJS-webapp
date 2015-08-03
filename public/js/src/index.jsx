@@ -16,7 +16,7 @@ var BrowseView = require('./components/BrowseView')
 var App = React.createClass({
 	render: function() {
 		return (
-			<div className="main-container">
+			<div className="main-container flex-column">
 				<Header />
 				<LandingView type={this.props.type} />
 				<Footer />
@@ -233,7 +233,7 @@ var App = React.createClass({
 	var Header = React.createClass({
 		render: function() {
 			return (
-				<header className="flex-row">
+				<header className="flex-row flex-zero">
 		            <i className="nav-button fa fa-bars click center nav-toggle"></i>
 		            <i className="nav-button fa icon-setmine fa-2x click center" title="Setmine Home"></i>
 		            <SearchBar />
@@ -421,7 +421,7 @@ var App = React.createClass({
 	var LandingView = React.createClass({
 		render: function() {
 			return (
-				<div id="landing" className="flex-column view">
+				<div id="landing" className="flex-column view flex">
 					<LandingHome />
 					<LandingApp />
 					<LandingEvents />
