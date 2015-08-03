@@ -77,9 +77,9 @@ var SearchBar = React.createClass({
 	},
 	render: function() {
 		return (
-			<div className="search-bar flex-fixed-5x flex-row">
-				<i className="nav-button fa fa-search center click"></i>
-                <input id="search" className="nav-button flex-zero" placeholder="search an artist, festival, radio mix or track" value={this.state.searchInput} onChange={this.handleChange} />
+			<div className="search-bar flex-row flex">
+				<i className="nav-button fa fa-search center click flex-zero"></i>
+                <input id="search" className="nav-button flex" placeholder="search an artist, festival, radio mix or track" value={this.state.searchInput} onChange={this.handleChange} />
             </div>
 		);
 	}

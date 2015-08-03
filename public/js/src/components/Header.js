@@ -1,9 +1,11 @@
 var React = require('react');
+var MenuController = require('./MenuController');
 var SearchBar = require('./SearchBar');
 var LoginButton = require('./LoginButton');
 var MenuController = requrie('./MenuController');
 
 var Header = React.createClass({
+
 	getInitialState: function() {
 		return {
 			menuActive: false,
@@ -25,12 +27,13 @@ var Header = React.createClass({
 			<header className="flex-row flex-zero">
 	            <MenuController onClick={this.toggleMenu} />
 	            <i className="nav-button fa icon-setmine fa-2x click center" title="Setmine Home"></i>
+	            <Buffer/>
 	            <SearchBar onClick={this.toggleSearch} />
+	            <Buffer/>
 	            <LoginButton />
 	        </header>
 		);
 	}
-
 });
 
 module.exports = Header;

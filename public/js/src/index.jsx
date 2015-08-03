@@ -10,6 +10,7 @@ var EventTile = require('./components/EventTile');
 var Player = require('./components/Player');
 var Footer = require('./components/Footer');
 var Header - require('./Header');
+var Buffer = require('./components/Buffer')
 
 var FeaturedView = require('./components/FeaturedView');
 var BrowseView = require('./components/BrowseView');
@@ -48,7 +49,7 @@ var App = React.createClass({
 	// 	}
 	// });
 
-//main view controller WILL DELETE
+
 	var MainViewController = React.createClass({
 		render: function() {
 			return (
