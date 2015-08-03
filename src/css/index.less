@@ -1,0 +1,547 @@
+
+/* Variables */
+
+
+@import "colors.less";
+@import "mixins.less";
+@import "overlays.css";
+@import "variables.less";
+@import "fonts.less";
+
+/* CSS */
+a {
+    color:inherit;
+    text-decoration:none;
+    &:hover {
+        color:inherit;
+    }
+}
+.activity-tile {
+    .size(200px, 200px);
+    color: white;
+    cursor:pointer;
+    .overlay {
+        .createOverlay(50%);
+    }
+}
+#alphabet {
+    position: absolute;
+    line-height: 1px;
+    font-size: 1rem;
+    right:5px;
+    height:80vh;
+}
+body {
+    font-family: @defaultFontStyle;
+    font-size: @defaultFontSize;
+    margin:0;
+    padding:0;
+    cursor:default;
+    width:100vw!important;
+    overflow-x:hidden;
+}
+.browse.results-container {
+    position: relative;
+}
+.browse-tile {
+    .size(200px, 200px);
+    .overlay {
+        .createOverlay(50%);
+        .set-flex;
+        .desktop({
+            display:none;
+            })
+    }
+    &:hover {
+        .overlay {
+            display:flex;
+        }
+    }
+}
+.browse-tile-image {
+    .size(100%, 100%);
+}
+.change-location {
+    color:@set-blue;
+    cursor:pointer;
+    font-family:Source Sans Pro;
+}
+#detail-button {
+    #listen-now;
+    .border-radius(30px);
+}
+.detail-page {
+    .background(@set-white, white);
+    text-align: center;
+    .overlay {
+        .createOverlay(80%, @set-blue);
+    }
+    >.image-container {
+        height: 45vh;
+    }
+    >.divider {
+        .createDivider(100%, 2px, @set-gray);
+    }
+    .tile-controls {
+        background-color: @set-darker-gray;
+    }
+}
+.detail-results-container {
+    padding: 2vw;
+    &.lineup{
+        padding:0;
+    }
+}
+.event-date-container {
+    padding:1vw;
+    font-size: @defaultFontSize*2;
+    font-family: Source Sans Pro;
+    text-align: left;
+    .divider {
+        .createDivider(6%, 2px, white)!important;
+    }
+}
+.event-image {
+    .size(100%, 100%);
+    z-index: 1;
+    position: absolute;
+}
+.event-info {
+    border-right: solid 1px white;
+    border-left: solid 1px white;
+    font-size: 1rem;
+}
+.event-tile {
+    width:33%;
+    height: 200px;
+    margin: 2vw 1vw;
+    color:white;
+    .overlay {
+        .createOverlay(30%);
+    }
+    >.divider {
+        .createDivider(100%, 5px, @set-purple);
+    }
+    .tile-controls {
+        .gradient(@set-darker-gray, @set-darker-gray*0.5);
+    }
+    .mobile({
+        width: 100%;
+        })
+}
+.fa-facebook:hover{color:@facebook-blue;}
+.fa-twitter:hover{color:@twitter-blue;}
+.fa-instagram:hover{color:@instagram-blue;}
+.web-link:hover{color:@set-purple;}
+.featured-container {
+    min-height: 30vh;
+    background-color: @set-light-gray;
+    .background(@set-light-gray, @set-gray);
+    >.overlay {
+        .createOverlay(30%);
+        width:3%;
+    }
+    .left-arrow {
+        left:0;
+        z-index: 4;
+    }
+    .right-arrow {
+        right:0;
+        z-index: 4;
+    }
+}
+.featured-results-header {
+    color:inherit;
+    height: @headerHeight;
+    padding: 0 6vw;
+}
+.featured-tile {
+    background: url(../images/edc-nyc-2013.jpg);
+    background-size: 100% 100%;
+    max-width:33%;
+    min-height: 200px;
+    color:white;
+    .overlay {
+        .createOverlay(20%);
+        .transition(@panel-transition-duration);
+    }
+    &:hover {
+        .overlay {
+            .createOverlay(80%);
+        }
+        .featured-info {
+            visibility: visible;
+        }
+    }
+    .event-name {
+        font-size: @defaultFontSize*1.5;
+        font-family: Source Sans Pro;
+    }
+}
+.featured-info {
+    position: absolute;
+    left: 6%;
+    bottom: 8%;
+    visibility: hidden;
+    .animation(@panel-transition-duration);
+}
+footer {
+    position: relative;
+    top: 10vh;
+    .background(@set-black, white);
+    padding: 1vh 0;
+    font-size: 1rem;
+    // margin-bottom: @playerHeight;
+}
+header {
+    background-color: @set-purple;
+    color:white;
+    height: @headerHeight;
+    padding: 0 2%;
+    font-family: Source Sans Pro;
+    position:fixed;
+    width:96%;
+    z-index: 100;
+    .nav-button:hover {
+        color: #fff*0.85;
+    }
+    .fa-search {
+        margin-right:10px;
+    }
+}
+#home {
+    color:white;
+    height:90vh;
+    .sidebar {
+        .view-trigger {
+            border-bottom: solid white 1px;
+            &:hover {
+                border-left: solid @set-green 10px;
+            }
+            div {
+                margin: auto 3vw;
+                font-size: 2rem;
+            }
+            &.active {
+                border-left: solid @set-green 10px;
+                color: @set-green;
+            }
+        }
+    }
+    .results-container {
+        overflow-y: scroll;
+    }
+}
+input#search {
+    font-size: @defaultFontSize*0.65;
+    font-family: inherit;
+    .border-radius(25px);
+    padding: 1vh 1vw;
+    color: @set-dark-gray;
+    outline:0;
+    margin: auto 0;
+    border:none;
+    width:0;
+}
+.landing-view {
+    height:90vh;
+}
+#landing-1 {
+    .size(100vw, 90vh);
+    background: url(../images/website/landing-1.jpg);
+    background-size: 100% 100%;
+    .overlay {
+       .createOverlay(40%); 
+    }
+}
+#landing-2 {
+}
+#landing-3 {
+    background: url(../images/website/landing-3.jpg);
+    background-size: 100% 100%;
+    color:white;
+    .text-container {
+        .background(@set-purple, white);
+    }
+    .divider {
+        .createDivider(80%, 1px, white);
+    }
+    .overlay {
+        .createOverlay(30%);
+    }
+    .header-medium {
+        padding:2vw;
+    }
+}
+.links-container {
+    .background(@set-darker-gray, white);
+    padding: 2vh 0;
+    text-align: center;
+    height: 10%;
+    .flex;
+    >.divider {
+        .createDivider(2px, initial, @set-gray);
+    }
+    .sets:hover {
+        color:@set-blue;
+    }
+    .events:hover {
+        color:@set-purple;
+    }
+}
+#listen-now {
+    border: solid 1px;
+    padding: 1vh 2vw;
+    &:hover {
+        background-color: fade(@set-blue, 10%);
+    }
+    &:active {
+        background-color:@set-blue;
+    }
+}
+#main-container {
+    position:relative;
+    top:10vh;
+}
+#nav-menu {
+    width:0%;
+    position:fixed;
+    left:0;
+    top:10vh;
+    height:80vh;
+    z-index: 100;
+    .background(@set-black, @set-white);
+    .mobile({
+        width: 66%;
+    })
+}
+.nav-list-item {
+    font-family: Source Sans Pro;
+    left: 2vw;
+    > div {
+        margin: auto 2vw;
+    }
+    &:not(:nth-child(1)):hover {
+        border-left: solid 5px @set-green;
+        background-color: @set-black*1.1;
+    }
+    &:nth-child(1) {
+        color:@set-dark-gray;
+    }
+}
+.nav-list-item-focused {
+    border-left: solid 5px @set-green;
+    background-color: @set-black*1.1;
+}
+.player {
+    height: @playerHeight;
+    width: 100%;
+    position:fixed;
+    bottom:0!important;
+    .background(fade(@set-black, 90%), white);
+    z-index: 100;
+    .flex-row.flex {
+        width: 100%;
+    }
+    .current-track {
+        text-align: center;
+    }
+    .fa:not(#play-button) {
+        margin: auto 1vw;
+    }
+    #play-button {
+        visibility: hidden;
+    }
+}
+.player-image-container {
+    background-color: white;
+    .size(@playerHeight, 100%);
+    img {
+        .size(100%,100%);
+    }
+    &:hover {
+        .overlay {
+            .createOverlay(50%);
+            #play-button {
+                visibility: visible;
+            }
+        }
+    }
+}
+.player-seek-container {
+    height:10px;
+    background-color: @set-gray;
+}
+.player-seek-position {
+    background-color: @set-blue;
+    height:100%;
+    width:50%;
+}
+.player-set-info {
+    border-right: solid 1px @set-gray;
+    div {
+        margin-left: 1vw;
+        &:not(.set-name) {
+            font-size: @defaultFontSize*0.8;
+            color:@set-gray;
+        }
+    }
+}
+.results-container {
+    padding: 0 1vw;
+}
+.results-filter {
+    cursor: pointer;
+}
+.search-results {
+    height:80vh;
+}
+.set-tile {
+    color:white;
+    width: 33%;
+    height: 200px;
+    margin: 2vw 1vw;
+    .artist-image {
+        .size(70px, 70px);
+        border-radius: 50%;
+        border: solid 4px @set-blue;
+        z-index: 4;
+        position: absolute;
+        left:25%;
+        top:-20%;
+    }
+    .overlay {
+        .createOverlay(30%);
+    }
+    .tile-controls {
+        background-color: fade(@set-darker-gray, 70%);
+        font-size: 1rem;
+        >.divider {
+            .createDivider(100%, 1px, @set-gray);
+        }
+        .flex-row .divider {
+            .createDivider(1px, initial, @set-gray);
+        }
+    }
+}
+.set-info {
+    padding: 1vh;
+}
+.slide-controls {
+    position: absolute;
+    bottom: 4vh;
+    left: 25%;
+}
+.slide {
+    height:100%;
+    width:100%;
+    img {
+        .size(100%, 90vh);
+    }
+}
+.slide-1 {
+    .text-container {
+        .background(@set-green, white);
+    }
+}
+.slide-2 {
+    .text-container {
+        .background(@set-blue, white);
+    }
+}
+.slide-3 {
+    .text-container {
+        .background(@set-gray, white);
+    }
+}
+.slide-4 {
+    .text-container {
+        .background(@set-salmon, white);
+    }
+    .image-container {
+        background-color:#ebebeb;
+    }
+    .divider {
+        .createDivider(60%, 2px, @set-white);
+    }
+}
+.text-container {
+    padding: 0 4vw;
+}
+.tile-button {
+    &:hover {
+        background-color: rgba(255,255,255,0.2);
+        .transition(0.3s);
+    }
+}
+.track-tile {
+    background: url(../images/edc-nyc-2013.jpg);
+    background-size: cover;
+    color:white;
+    cursor: pointer;
+    max-width: 220px;
+    margin: 2vw 1vw;
+    .flex-column {
+        padding:1vmin;
+    }
+    .tile-controls {
+        .gradient(@set-darker-gray, @set-darker-gray*0.5);
+        text-align: center;
+    }
+    .overlay {
+        .createOverlay(30%);
+    }
+    .fa-play {
+        margin: 1vw auto;
+        visibility: hidden;
+    }
+    &:hover {
+        .fa-play {
+            visibility: visible;
+            .animation(0.3s);
+        }
+    }
+}
+.user-background {
+    background-color: @set-light-gray;
+}
+.user-nav {
+    background-color: fade(@set-black, 50%);
+}
+.user-image {
+    .size(100px, 100px);
+    border-radius: 50%;
+    border:solid;
+}
+.view {
+    min-height:90vh;//make sure this doesn't fuck up any other pages
+    &#featured {
+        color:@set-dark-gray;
+        .results-container {
+            min-height: 40vh;
+        }
+    }
+    &#search-results {
+        color: @set-dark-gray;
+    }
+    &#landing {
+        color:white;
+    }
+    &#browse {
+        color: @set-dark-gray;
+    }
+}
+.view-title-container {
+    height: @headerHeight;
+    font-size: @defaultFontSize*1.5;
+    position:relative;
+    .divider {
+        .createDivider(33%, 4px, @set-blue);
+        position:absolute;
+        bottom:0;
+        left:33%;
+    }
+    &.sets .divider {
+        left:0;
+    }
+}

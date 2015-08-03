@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Setmine | View Lineups & Play Sets | Relive Your Favorite Events</title>
+        <meta charset = "utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+        <meta property="description" content="Setmine is a music app dedicated to live events! Relive past music festivals: Ultra, Coachella + more! Find upcoming shows + buy tix + listen to DJs' sets">
+        <meta property="og:site_name" content="Setmine">
+        <meta property="og:url" content=<%= metadataurl %>>
+        <meta property="fb:app_id" content="648288801959503">
+        <meta property="og:description" content="Setmine offers live music enthusiasts a new way to experience their favorite festival music.  No more struggling to find your favorite sets--we've done it all for you.  Listen to Ultra, Coachella, TomorrowWorld, and many more! Also don't forget to listen your favorite DJ's radio shows!">
+        <meta property="og:image" content="http://setmine.com/images/setmine-logo-facebook.png">
+        <meta property="og:title" content="Setmine | View Lineups & Play Sets | Relive Your Favorite Events">
+        <meta property="og:type" content="website">
+        <meta name="google-site-verification" content="T4hZD9xTwig_RvyoXaV9XQDYw5ksKEQywRkqaW-CGY4" />
+        <link rel="Publisher" href="https://plus.google.com/+StredmMusic/about">
+        <link rel="image_src" href="http://setmine.com/images/setmine-logo-facebook.png">
+        <link rel="canonical" href="http://setmine.com/getMetaData">
+        
+        <!-- JQuery (CDN and Local) -->
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+        <!-- Twitter Web Intents -->
+        <script type="text/javascript" async src="//platform.twitter.com/widgets.js"></script>
+
+        <!-- react -->
+        <script src="https://fb.me/react-0.13.3.js"></script>
+        <script src="js/JSXTransformer.js"></script>
+
+        <!-- Google Maps API -->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADGal4lCpj2Ykfyn63K1-8lLBj_7V9tz0"></script>
+
+        <!-- Google analytics script -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-55911982-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+
+        <!-- Facebook Ads -->
+        <script>(function() {
+            var _fbq = window._fbq || (window._fbq = []);
+            if (!_fbq.loaded) {
+              var fbds = document.createElement('script');
+              fbds.async = true;
+              fbds.src = '//connect.facebook.net/en_US/fbds.js';
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(fbds, s);
+              _fbq.loaded = true;
+            }
+            _fbq.push(['addPixelId', '1560739110857252']);
+            })();
+            window._fbq = window._fbq || [];
+            window._fbq.push(['track', 'PixelInitialized', {}]);
+        </script>
+        <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=1560739110857252&amp;ev=PixelInitialized" /></noscript>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/animate.css">
+        <link href="css/index.css" rel="stylesheet" media="screen">
+        <link href="css/fontcustom.css" rel="stylesheet" media="screen">
+        <link href="../public/favicon.ico" rel="icon" type="image/x-icon">
+
+        <!-- Custom JS -->
+        <script src="js/animations.js"></script>
+        <script src="js/constants.js"></script>
+        <script src="js/scrollTo.js"></script>
+        <script src="js/async.js"></script>
+        <script src="js/soundmanager2.js"></script>
+        <script src="js/index.js" type="text/jsx"></script>
+        <script src="js/wow.min.js"></script>
+        <script>
+            new WOW().init({
+                boxClass:'wow',
+                animateClass:'animated'
+            });
+        </script>
+
+    </head>
+
+    <body>
+        <div class="main-loader flex-column">
+            <div class="buffer"></div>
+            <div class="buffer"></div>
+            <div class="loader-bar">
+            <div class="loader-bar-progress"></div>
+            </div>
+            <div class="buffer"></div>
+        </div>   
+    </body>
+</html>
