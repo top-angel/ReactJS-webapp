@@ -20451,7 +20451,7 @@ var mainActions = {
 
 module.exports = mainActions;
 
-},{"../constants/constants":180,"../dispatcher/AppDispatcher":181}],162:[function(require,module,exports){
+},{"../constants/constants":181,"../dispatcher/AppDispatcher":182}],162:[function(require,module,exports){
 var React = require('react')
 var ViewTitleContainer = require('./ViewTitleContainer')
 var ResultsContainer = require('./ResultsContainer')
@@ -20469,7 +20469,21 @@ var BrowseView = React.createClass({displayName: "BrowseView",
 
 module.exports = BrowseView
 
-},{"./ResultsContainer":176,"./ViewTitleContainer":179,"react":160}],163:[function(require,module,exports){
+},{"./ResultsContainer":177,"./ViewTitleContainer":180,"react":160}],163:[function(require,module,exports){
+var React = require('react')
+
+var Buffer = React.createClass({displayName: "Buffer",
+	render: function() {
+		return (
+			React.createElement("div", {className: "buffer"})
+		);
+	}
+})
+
+
+module.exports = Buffer
+
+},{"react":160}],164:[function(require,module,exports){
 var React = require('react')
 
 var EventController = React.createClass({displayName: "EventController",
@@ -20493,7 +20507,7 @@ var EventController = React.createClass({displayName: "EventController",
 
 module.exports = EventController
 
-},{"react":160}],164:[function(require,module,exports){
+},{"react":160}],165:[function(require,module,exports){
 var React = require('react')
 
 var EventDate = React.createClass({displayName: "EventDate",
@@ -20513,7 +20527,7 @@ var EventDate = React.createClass({displayName: "EventDate",
 
 module.exports = EventDate
 
-},{"react":160}],165:[function(require,module,exports){
+},{"react":160}],166:[function(require,module,exports){
 var React = require('react')
 var EventDate = require('./EventDate')
 var EventController = require('./EventController')
@@ -20551,7 +20565,7 @@ var EventTile = React.createClass({displayName: "EventTile",
 
 module.exports = EventTile
 
-},{"./EventController":163,"./EventDate":164,"react":160}],166:[function(require,module,exports){
+},{"./EventController":164,"./EventDate":165,"react":160}],167:[function(require,module,exports){
 var React = require('react')
 var FeaturedTile = require('./FeaturedTile')
 
@@ -20573,7 +20587,7 @@ var FeaturedContainer = React.createClass({displayName: "FeaturedContainer",
 
 module.exports = FeaturedContainer
 
-},{"./FeaturedTile":168,"react":160}],167:[function(require,module,exports){
+},{"./FeaturedTile":169,"react":160}],168:[function(require,module,exports){
 var React = require('react')
 
 var FeaturedResultsHeader = React.createClass({displayName: "FeaturedResultsHeader",
@@ -20594,7 +20608,7 @@ var FeaturedResultsHeader = React.createClass({displayName: "FeaturedResultsHead
 
 module.exports = FeaturedResultsHeader
 
-},{"react":160}],168:[function(require,module,exports){
+},{"react":160}],169:[function(require,module,exports){
 var React = require('react')
 
 var FeaturedTile = React.createClass({displayName: "FeaturedTile",
@@ -20622,7 +20636,7 @@ var FeaturedTile = React.createClass({displayName: "FeaturedTile",
 
 module.exports = FeaturedTile
 
-},{"react":160}],169:[function(require,module,exports){
+},{"react":160}],170:[function(require,module,exports){
 var React = require('react')
 var ViewTitleContainer = require('./ViewTitleContainer')
 var FeaturedContainer = require('./FeaturedContainer')
@@ -20645,7 +20659,7 @@ var FeaturedView = React.createClass({displayName: "FeaturedView",
 
 module.exports = FeaturedView
 
-},{"./FeaturedContainer":166,"./FeaturedResultsHeader":167,"./ResultsContainer":176,"./ViewTitleContainer":179,"react":160}],170:[function(require,module,exports){
+},{"./FeaturedContainer":167,"./FeaturedResultsHeader":168,"./ResultsContainer":177,"./ViewTitleContainer":180,"react":160}],171:[function(require,module,exports){
 var React = require('react')
 
 var Footer = React.createClass({displayName: "Footer",
@@ -20654,7 +20668,7 @@ var Footer = React.createClass({displayName: "Footer",
 	},
 	render: function() {
 		return (
-			React.createElement("footer", {className: "flex-row"}, 
+			React.createElement("footer", {className: "flex-row flex-zero"}, 
 	            React.createElement("div", {className: "buffer"}), 
 	            React.createElement("div", {className: "flex-column flex-zero"}, 
 	                React.createElement("a", {className: "click", id: "contact"}, "Contact Us"), 
@@ -20686,7 +20700,7 @@ var Footer = React.createClass({displayName: "Footer",
 
 module.exports = Footer
 
-},{"react":160}],171:[function(require,module,exports){
+},{"react":160}],172:[function(require,module,exports){
 var React = require('react')
 var PlayerControl = require('./PlayerControl')
 var PlayerSeek = require('./PlayerSeek')
@@ -20728,7 +20742,7 @@ var Player = React.createClass({displayName: "Player",
 
 module.exports = Player
 
-},{"./PlayerControl":172,"./PlayerSeek":173,"./PlayerSetInfo":174,"./PlayerTrackInfo":175,"react":160}],172:[function(require,module,exports){
+},{"./PlayerControl":173,"./PlayerSeek":174,"./PlayerSetInfo":175,"./PlayerTrackInfo":176,"react":160}],173:[function(require,module,exports){
 var React = require('react')
 
 var PlayerControl = React.createClass({displayName: "PlayerControl",
@@ -20761,7 +20775,7 @@ var PlayerControl = React.createClass({displayName: "PlayerControl",
 
 module.exports = PlayerControl
 
-},{"react":160}],173:[function(require,module,exports){
+},{"react":160}],174:[function(require,module,exports){
 var React = require('react')
 
 var PlayerSeek = React.createClass({displayName: "PlayerSeek",
@@ -20776,7 +20790,7 @@ var PlayerSeek = React.createClass({displayName: "PlayerSeek",
 
 module.exports = PlayerSeek
 
-},{"react":160}],174:[function(require,module,exports){
+},{"react":160}],175:[function(require,module,exports){
 var React = require('react')
 
 var PlayerSetInfo = React.createClass({displayName: "PlayerSetInfo",
@@ -20793,7 +20807,7 @@ var PlayerSetInfo = React.createClass({displayName: "PlayerSetInfo",
 
 module.exports = PlayerSetInfo
 
-},{"react":160}],175:[function(require,module,exports){
+},{"react":160}],176:[function(require,module,exports){
 var React = require('react')
 
 var PlayerTrackInfo = React.createClass({displayName: "PlayerTrackInfo",
@@ -20810,7 +20824,7 @@ var PlayerTrackInfo = React.createClass({displayName: "PlayerTrackInfo",
 
 module.exports = PlayerTrackInfo
 
-},{"react":160}],176:[function(require,module,exports){
+},{"react":160}],177:[function(require,module,exports){
 var React = require('react')
 var SetTile = require('./SetTile')
 
@@ -20827,7 +20841,7 @@ var ResultsContainer = React.createClass({displayName: "ResultsContainer",
 
 module.exports = ResultsContainer
 
-},{"./SetTile":177,"react":160}],177:[function(require,module,exports){
+},{"./SetTile":178,"react":160}],178:[function(require,module,exports){
 var React = require('react')
 
 var SetTile = React.createClass({displayName: "SetTile",
@@ -20881,7 +20895,7 @@ var SetTile = React.createClass({displayName: "SetTile",
 
 module.exports = SetTile
 
-},{"react":160}],178:[function(require,module,exports){
+},{"react":160}],179:[function(require,module,exports){
 var React = require('react')
 
 var TrackTile = React.createClass({displayName: "TrackTile",
@@ -20906,7 +20920,7 @@ var TrackTile = React.createClass({displayName: "TrackTile",
 
 module.exports = TrackTile
 
-},{"react":160}],179:[function(require,module,exports){
+},{"react":160}],180:[function(require,module,exports){
 var React = require('react')
 
 var ViewTitleContainer = React.createClass({displayName: "ViewTitleContainer",
@@ -20927,7 +20941,7 @@ var ViewTitleContainer = React.createClass({displayName: "ViewTitleContainer",
 
 module.exports = ViewTitleContainer
 
-},{"react":160}],180:[function(require,module,exports){
+},{"react":160}],181:[function(require,module,exports){
 var API_VERSION = 7;
 var S3_ROOT = "http://stredm.s3-website-us-east-1.amazonaws.com/namecheap/";
 var S3_ROOT_FOR_IMAGES = "http://d1wbxby8dwa4u.cloudfront.net/namecheap/";
@@ -20945,7 +20959,7 @@ var colors = {
 	youtube: "#cd201f"
 }
 
-},{}],181:[function(require,module,exports){
+},{}],182:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 var AppDispatcher = new Dispatcher();
 
@@ -20958,7 +20972,7 @@ AppDispatcher.handleAction = function(action){
 
 module.exports = AppDispatcher;
 
-},{"flux":3}],182:[function(require,module,exports){
+},{"flux":3}],183:[function(require,module,exports){
 var React = require('react')
 var constants = require('./constants/constants.js')
 var todoStore = require('./stores/mainStore');
@@ -20970,6 +20984,7 @@ var EventTile = require('./components/EventTile')
 
 var Player = require('./components/Player')
 var Footer = require('./components/Footer')
+var Buffer = require('./components/Buffer')
 
 var FeaturedView = require('./components/FeaturedView')
 var BrowseView = require('./components/BrowseView')
@@ -21195,9 +21210,11 @@ var App = React.createClass({displayName: "App",
 		render: function() {
 			return (
 				React.createElement("header", {className: "flex-row flex-zero"}, 
-		            React.createElement("i", {className: "nav-button fa fa-bars click center nav-toggle"}), 
-		            React.createElement("i", {className: "nav-button fa icon-setmine fa-2x click center", title: "Setmine Home"}), 
+					React.createElement(MenuController, null), 
+		            React.createElement("i", {className: "nav-button fa icon-setmine fa-2x click center flex-zero", title: "Setmine Home"}), 
+		            React.createElement(Buffer, null), 
 		            React.createElement(SearchBar, null), 
+		            React.createElement(Buffer, null), 
 		            React.createElement(LoginButton, null)
 		        )
 			);
@@ -21206,7 +21223,7 @@ var App = React.createClass({displayName: "App",
 
 	var MenuController = React.createClass({displayName: "MenuController",
 		render: function() {
-			React.createElement("i", {className: "nav-button fa fa-bars click center nav-toggle"})
+			React.createElement("i", {className: "nav-button fa fa-bars click center nav-toggle flex-zero"})
 		}
 	})
 
@@ -21285,7 +21302,6 @@ var App = React.createClass({displayName: "App",
 					}
 				}
 			});
-			
 		},
 		handleChange: function(e) {
 			this.setState({
@@ -21295,9 +21311,9 @@ var App = React.createClass({displayName: "App",
 		},
 		render: function() {
 			return (
-				React.createElement("div", {className: "search-bar flex-fixed-5x flex-row"}, 
-					React.createElement("i", {className: "nav-button fa fa-search center click"}), 
-	                React.createElement("input", {id: "search", className: "nav-button flex-zero", placeholder: "search an artist, festival, radio mix or track", value: this.state.searchInput, onChange: this.handleChange})
+				React.createElement("div", {className: "search-bar flex-row flex"}, 
+					React.createElement("i", {className: "nav-button fa fa-search center click flex-zero"}), 
+	                React.createElement("input", {id: "search", className: "nav-button flex", placeholder: "search an artist, festival, radio mix or track", value: this.state.searchInput, onChange: this.handleChange})
 	            )
 			);
 		}
@@ -21382,7 +21398,7 @@ var App = React.createClass({displayName: "App",
 	var LandingView = React.createClass({displayName: "LandingView",
 		render: function() {
 			return (
-				React.createElement("div", {id: "landing", className: "flex-column view"}, 
+				React.createElement("div", {id: "landing", className: "flex-column view flex"}, 
 					React.createElement(LandingHome, null), 
 					React.createElement(LandingApp, null), 
 					React.createElement(LandingEvents, null)
@@ -21626,7 +21642,7 @@ var App = React.createClass({displayName: "App",
 
 React.render(React.createElement(App, null), document.getElementById('app'));
 
-},{"./actions/mainActions":161,"./components/BrowseView":162,"./components/EventTile":165,"./components/FeaturedView":169,"./components/Footer":170,"./components/Player":171,"./components/SetTile":177,"./components/TrackTile":178,"./constants/constants.js":180,"./stores/mainStore":183,"react":160}],183:[function(require,module,exports){
+},{"./actions/mainActions":161,"./components/BrowseView":162,"./components/Buffer":163,"./components/EventTile":166,"./components/FeaturedView":170,"./components/Footer":171,"./components/Player":172,"./components/SetTile":178,"./components/TrackTile":179,"./constants/constants.js":181,"./stores/mainStore":184,"react":160}],184:[function(require,module,exports){
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var constants = require('../constants/constants');
 var objectAssign = require('react/lib/Object.assign');
@@ -21676,4 +21692,4 @@ AppDispatcher.register(function(payload){
 
 module.exports = mainStore;
 
-},{"../constants/constants":180,"../dispatcher/AppDispatcher":181,"events":1,"react/lib/Object.assign":31}]},{},[182]);
+},{"../constants/constants":181,"../dispatcher/AppDispatcher":182,"events":1,"react/lib/Object.assign":31}]},{},[183]);

@@ -9,6 +9,7 @@ var EventTile = require('./components/EventTile')
 
 var Player = require('./components/Player')
 var Footer = require('./components/Footer')
+var Buffer = require('./components/Buffer')
 
 var FeaturedView = require('./components/FeaturedView')
 var BrowseView = require('./components/BrowseView')
@@ -234,9 +235,11 @@ var App = React.createClass({
 		render: function() {
 			return (
 				<header className="flex-row flex-zero">
-		            <i className="nav-button fa fa-bars click center nav-toggle"></i>
-		            <i className="nav-button fa icon-setmine fa-2x click center" title="Setmine Home"></i>
+					<MenuController />
+		            <i className="nav-button fa icon-setmine fa-2x click center flex-zero" title="Setmine Home"></i>
+		            <Buffer/>
 		            <SearchBar />
+		            <Buffer/>
 		            <LoginButton />
 		        </header>
 			);
@@ -245,7 +248,7 @@ var App = React.createClass({
 
 	var MenuController = React.createClass({
 		render: function() {
-			<i className="nav-button fa fa-bars click center nav-toggle"></i>
+			<i className="nav-button fa fa-bars click center nav-toggle flex-zero"></i>
 		}
 	})
 
@@ -324,7 +327,6 @@ var App = React.createClass({
 					}
 				}
 			});
-			
 		},
 		handleChange: function(e) {
 			this.setState({
@@ -334,9 +336,9 @@ var App = React.createClass({
 		},
 		render: function() {
 			return (
-				<div className="search-bar flex-fixed-5x flex-row">
-					<i className="nav-button fa fa-search center click"></i>
-	                <input id="search" className="nav-button flex-zero" placeholder="search an artist, festival, radio mix or track" value={this.state.searchInput} onChange={this.handleChange} />
+				<div className="search-bar flex-row flex">
+					<i className="nav-button fa fa-search center click flex-zero"></i>
+	                <input id="search" className="nav-button flex" placeholder="search an artist, festival, radio mix or track" value={this.state.searchInput} onChange={this.handleChange} />
 	            </div>
 			);
 		}

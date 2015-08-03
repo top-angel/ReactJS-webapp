@@ -9,6 +9,12 @@
 @import "fonts.less";
 
 /* CSS */
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 a {
     color:inherit;
     text-decoration:none;
@@ -197,16 +203,15 @@ header {
     background-color: @set-purple;
     color:white;
     height: @headerHeight;
-    padding: 0 2%;
+    padding: 0 2vw;
     font-family: Source Sans Pro;
     position:fixed;
-    width:96%;
+    width:100%;
     z-index: 100;
     .nav-button:hover {
         color: #fff*0.85;
     }
     .fa-search {
-        margin-right:10px;
     }
 }
 #home {
@@ -314,6 +319,9 @@ input#search {
     .mobile({
         width: 66%;
     })
+}
+.nav-button {
+    padding:0 1vw;
 }
 .nav-list-item {
     font-family: Source Sans Pro;
@@ -515,6 +523,7 @@ input#search {
 }
 .view {
     min-height:90vh;//make sure this doesn't fuck up any other pages
+    padding-top: 10vh;
     &#featured {
         color:@set-dark-gray;
         .results-container {
