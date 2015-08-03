@@ -21109,169 +21109,6 @@ var App = React.createClass({displayName: "App",
 	// 	}
 	// });
 
-//browse tile
-	
-	var BrowseTile = React.createClass({displayName: "BrowseTile",
-		render: function() {
-			return (
-				React.createElement("div", {className: "browse-tile flex-column overlay-container click view-trigger"}, 
-				    React.createElement("div", {className: "overlay"}, 
-				        React.createElement("div", {className: "browse-name center"}, this.props.name)
-				    ), 
-				    React.createElement("img", {className: "browse-tile-image", src: S3_ROOT_FOR_IMAGES + this.props.object.imageURL})
-				)
-			);
-		}
-	
-	});
-
-//featured vi
-
-//Header
-
-	var Header = React.createClass({displayName: "Header",
-		render: function() {
-			return (
-				React.createElement("header", {className: "flex-row flex-zero"}, 
-					React.createElement(MenuController, null), 
-		            React.createElement("i", {className: "nav-button fa icon-setmine fa-2x click center flex-zero", title: "Setmine Home"}), 
-		            React.createElement(Buffer, null), 
-		            React.createElement(SearchBar, null), 
-		            React.createElement(Buffer, null), 
-		            React.createElement(LoginButton, null)
-		        )
-			);
-		}
-	});
-
-	var MenuController = React.createClass({displayName: "MenuController",
-		render: function() {
-			React.createElement("i", {className: "nav-button fa fa-bars click center nav-toggle flex-zero"})
-		}
-	})
-
-	var LoginButton = React.createClass({displayName: "LoginButton",
-		render: function() {
-			return (
-				// <div className="nav-button click center login" id="login">{loginAction}</div>
-				React.createElement("div", {className: "nav-button click center login", id: "login"}, "Login")
-			);
-		}
-	});
-
-	var SearchBar = React.createClass({displayName: "SearchBar",
-		getInitialState: function() {
-			return {
-				searchInput: ''
-			};
-		},
-		search: function(query) {
-			var results = null;
-			$(".search-loader").removeClass("hidden")
-			$(".search-loader").removeClass("hidden-fade")
-			if(activeSearchAjax != null) {
-				activeSearchAjax.abort();
-				activeSearchAjax = null;
-			}
-			activeSearchAjax = $.ajax({
-				type: "GET",
-				url: API_ROOT + "search/" + query,
-				success: function(response) {
-					console.log(response)
-					if(response.status == "success") {
-						results = response.payload.search;
-						spliceBigArray(results.sets)
-						spliceBigArray(results.upcomingEvents)
-						spliceBigArray(results.tracks)
-						
-						var allResults = 0;
-
-						$('.search-results .search-section').empty();
-
-						// Generate search containers
-
-						var setsContainer = $(".search-results .search-section.sets");
-						setsContainer.parents(".search-results-container").find(".item-number.sets").text(results.sets.length);
-						var uEventsContainer= $(".search-results .search-section.upcoming-events");
-						uEventsContainer.parents(".search-results-container").find(".item-number.upcoming-events").text(results.upcomingEvents.length);
-						var tracksContainer = $(".search-results .search-section.tracks");
-						tracksContainer.parents(".search-results-container").find(".item-number.tracks").text(results.tracks.length);
-
-						// Populate search containers
-
-						for(var s in results.sets) {
-							createSetTile(results.sets[s], setsContainer);
-							allResults++
-							if(allResults == (results.sets.length + results.upcomingEvents.length + results.tracks.length)) {
-								displaySearchSections()
-							}
-						}
-						for(var u in results.upcomingEvents) {
-							createUpcomingEventTile(results.upcomingEvents[u], uEventsContainer);
-							allResults++
-							if(allResults == (results.sets.length + results.upcomingEvents.length + results.tracks.length)) {
-								displaySearchSections()
-							}
-						}
-						for(var t in results.tracks) {
-							createTrackTile(results.tracks[t], tracksContainer);
-							allResults++
-							if(allResults == (results.sets.length + results.upcomingEvents.length + results.tracks.length)) {
-								displaySearchSections()
-							}
-						}
-					} else {
-						results = null;
-					}
-				}
-			});
-		},
-		handleChange: function(e) {
-			this.setState({
-				searchInput: e.target.value
-			});
-			search();
-		},
-		render: function() {
-			return (
-				React.createElement("div", {className: "search-bar flex-row flex"}, 
-					React.createElement("i", {className: "nav-button fa fa-search center click flex-zero"}), 
-	                React.createElement("input", {id: "search", className: "nav-button flex", placeholder: "search an artist, festival, radio mix or track", value: this.state.searchInput, onChange: this.handleChange})
-	            )
-			);
-		}
-	})
-
-	var NavMenu = React.createClass({displayName: "NavMenu",
-		getInitialState: function() {
-			return {
-				focused: 0,
-				hidden: true
-			};
-		},
-		clicked: function(index) {
-			this.setState({
-				focused: index 
-			});
-		},
-		render: function() {
-			if(this.state.hidden) {
-				var style = {
-					display: 'none'
-				};
-			} else {
-				var style = undefined;
-			}
-			return (
-				React.createElement("div", {id: "nav-menu", className: "flex-column", style: style}, 
-					this.props.items.map(function(m, index){
-						return React.createElement("div", {className: "nav-list-item click flex flex-row", onClick: this.clicked.bind(this, index)}, m)
-					})
-				)
-			);
-		}
-	})
-
 //home view
 
 	var HomeView = React.createClass({displayName: "HomeView",
@@ -21518,8 +21355,6 @@ var App = React.createClass({displayName: "App",
 		}
 	});
 
-	
-
 //main view controller
 	var MainViewController = React.createClass({displayName: "MainViewController",
 		render: function() {
@@ -21616,3 +21451,4 @@ AppDispatcher.register(function(payload){
 module.exports = mainStore;
 
 },{"../constants/constants":181,"../dispatcher/AppDispatcher":182,"events":1,"react/lib/Object.assign":31}]},{},[183]);
+
