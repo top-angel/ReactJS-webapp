@@ -13,14 +13,6 @@ var Player = React.createClass({
 			currentTime: "00:00"
 		}
 	},
-	getDefaultProps: function () {
-		return {
-			setName: 'TomorrowLand 2015',
-			artist: 'Deadmau5',
-			currentTrack: 'Animals - Martin Garrix',
-			setLength: 0,
-		}
-	},
 	render: function() {
 		return (
 			<div className="player flex-row hidden">

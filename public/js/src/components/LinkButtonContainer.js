@@ -1,15 +1,12 @@
 var React = require('react');
-var LinkButton = require('./LinkButton');
 
 var LinkButtonContainer = React.createClass({
 
 	render: function() {
-		var linkItems = []
-		for(var i in this.props.links) {
-
-		}
+		var linkItems = [];
 		this.props.links.map(function(link) {
-			linkItems.push(<LinkButton type={link.type} url={link.url}/>)
+			linkItems.push(<a url={links.url}><i className={'fa fa-fw fa-2x click fa-'+{link.type}}></i></a>)
+
 		})
 		return (
 			<div className="flex-row links-container">{linkItems}</div>

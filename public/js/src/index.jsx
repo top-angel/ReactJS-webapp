@@ -22,48 +22,27 @@ var App = React.createClass({
 				<Header />
 				<NavMenu items={['Home', 'Sets', 'Upcoming', 'Artists', 'Festivals', 'Mixes', 'Genres']} />
 				<LandingView type={this.props.type} />
+				<Player set={this.props.set} />
 				<Footer />
 			</div>
 		);
 	}
 })
 
-//activity tile
-
-	// var ActivityTile = React.createClass({
-	// 	render: function() {
-	// 		return (
-	// 			<div>
-	// 				<div className="activity-tile flex-column overlay-container" style={{background: "url('" + S3_ROOT_FOR_IMAGES + this.props.activity.imageURL + "')"}}>
-	// 				<div className="activity-tile flex-column overlay-container">
-	// 				    <div className="overlay"></div>
-	// 				    <div className="flex-row flex-3x">
-	// 				        <i className="fa fa-fw fa-random center click"></i>
-	// 				        <i className="fa fa-4x center"></i>
-	// 				        <i className="fa fa-fw fa-bars center click"></i>
-	// 				    </div>
-	// 				    <div className="set-flex flex actvity-name center">{this.props.activity.activity}</div>
-	// 				</div>
-	// 			</div>
-	// 		);
-	// 	}
-	// });
-
-
-	var MainViewController = React.createClass({
-		render: function() {
-			return (
-				<div id="main-container">
-					<LandingView />
-					<SearchResultsView />
-					<BrowseView />
-					<HomeView />
-					<FeaturedView />
-					<DetailView data={this.props.data} />
-				</div>
-			);
-		}
-	});
+var MainViewController = React.createClass({
+	render: function() {
+		return (
+			<div id="main-container">
+				<LandingView />
+				<SearchResultsView />
+				<BrowseView />
+				<HomeView />
+				<FeaturedView />
+				<DetailView data={this.props.data} />
+			</div>
+		);
+	}
+});
 
 //testing environment
 
