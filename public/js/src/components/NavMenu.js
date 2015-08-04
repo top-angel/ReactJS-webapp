@@ -24,7 +24,7 @@ var NavMenu = React.createClass({
 		return (
 			<div id="nav-menu" className='flex-column' style={style}>
 				{this.props.items.map(function(m, index){
-					return <div className='nav-list-item click flex flex-row' onClick={this.clicked.bind(this, index)}>{m}</div>
+					return <div className='nav-list-item click flex flex-row'>{m}</div>
 				})}
 			</div>
 		);
