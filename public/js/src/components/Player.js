@@ -20,7 +20,7 @@ var Player = React.createClass({
 			    <div className="flex-column flex">
 			        <PlayerSeek />
 			        <div className="flex-row flex">
-			            <PlayerSetInfo set={this.props.set.name} artist={this.props.artist} />
+			            <PlayerSetInfo set={this.props.set}/>
 			            <PlayerTrackInfo track={this.props.set}/>
 			        </div>
 			    </div>

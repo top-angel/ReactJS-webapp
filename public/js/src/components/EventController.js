@@ -8,8 +8,8 @@ var EventController = React.createClass({
                     <i className="fa fa-fw fa-ticket center"></i>
                 </a>
                 <div className="flex-3x flex-column event-info">
-                    <div className="click center">{this.props.event}</div>
-                    <div className="click center">{this.props.location}</div>
+                    <div className="click center">{this.props.event.event}</div>
+                    <div className="click center">{this.props.event.address}</div>
                 </div>
                 <div className="set-flex flex click event view-trigger tile-button">
                     <i className="fa fa-fw fa-long-arrow-right center"></i>

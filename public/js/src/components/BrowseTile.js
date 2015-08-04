@@ -6,7 +6,7 @@ var BrowseTile = React.createClass({
 		return (
 			<div className="browse-tile flex-column overlay-container click view-trigger">
 			    <div className="overlay">
-			        <div className="browse-name center">{this.props.name}</div>
+			        <div className="browse-name center">{this.props.object.name}</div>
 			    </div>
 			    <img className="browse-tile-image" src={S3_ROOT_FOR_IMAGES + this.props.object.imageURL} />
 			</div>
