@@ -9,11 +9,14 @@ var EventTile = require('./components/EventTile');
 
 var Player = require('./components/Player');
 var Footer = require('./components/Footer');
-var Header - require('./Header');
-var Buffer = require('./components/Buffer')
+var Header = require('./components/Header');
+var Buffer = require('./components/Buffer');
+var NavMenu = require('./components/NavMenu');
 
 var FeaturedView = require('./components/FeaturedView');
 var BrowseView = require('./components/BrowseView');
+var LandingView = require('./components/LandingView');
+
 
 var App = React.createClass({
 	render: function() {

@@ -2,7 +2,8 @@ var React = require('react');
 var MenuController = require('./MenuController');
 var SearchBar = require('./SearchBar');
 var LoginButton = require('./LoginButton');
-var MenuController = requrie('./MenuController');
+var MenuController = require('./MenuController');
+var Buffer = require('./Buffer');
 
 var Header = React.createClass({
 
@@ -21,7 +22,7 @@ var Header = React.createClass({
 		this.setState({
 			searchActive: true 
 		});
-	}
+	},
 	render: function() {
 		return (
 			<header className="flex-row flex-zero">
