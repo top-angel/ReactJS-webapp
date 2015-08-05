@@ -21,10 +21,12 @@ var DetailView = require('./components/DetailView');
 
 var App = React.createClass({
 	render: function() {
+		
 		return (
 			<div className="main-container flex-column">
 				<Header />
 				<NavMenu items={['Home', 'Featured', 'Artists', 'Festivals', 'Mixes', 'Genres']} />
+				<ViewContainer />
 				<LandingView data={this.props.data} />
 				<Footer />
 				<Player />
