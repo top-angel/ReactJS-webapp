@@ -19,7 +19,7 @@ var LandingView = require('./components/LandingView');
 var DetailView = require('./components/DetailView');
 
 
-var App = React.createClass({//this.props.data={models}
+var App = React.createClass({
 	render: function() {
 		return (
 			<div className="main-container flex-column">
@@ -61,4 +61,4 @@ var sampleSet = {
 	"model_type": "set"
 }
 
-React.render(<App data={sampleSet} />, document.getElementById('app'));
+React.render(<App />, document.getElementById('app'));
