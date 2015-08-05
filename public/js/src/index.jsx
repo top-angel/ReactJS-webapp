@@ -16,17 +16,18 @@ var NavMenu = require('./components/NavMenu');
 var FeaturedView = require('./components/FeaturedView');
 var BrowseView = require('./components/BrowseView');
 var LandingView = require('./components/LandingView');
+var DetailView = require('./components/DetailView');
 
 
-var App = React.createClass({
+var App = React.createClass({//this.props.data={models}
 	render: function() {
 		return (
 			<div className="main-container flex-column">
 				<Header />
-				<NavMenu items={['Home', 'Sets', 'Upcoming', 'Artists', 'Festivals', 'Mixes', 'Genres']} />
-				<LandingView type={this.props.type} />
+				<NavMenu items={['Home', 'Featured', 'Artists', 'Festivals', 'Mixes', 'Genres']} />
+				<LandingView data={this.props.data} />
 				<Footer />
-				<Player set={sampleSet} />
+				<Player />
 			</div>
 		);
 	}
@@ -60,31 +61,4 @@ var sampleSet = {
 	"model_type": "set"
 }
 
-var MainViewController = React.createClass({
-	render: function() {
-		return (
-			<div id="main-container">
-				<LandingView />
-				<SearchResultsView />
-				<BrowseView />
-				<HomeView />
-				<FeaturedView />
-				<DetailView data={this.props.data} />
-			</div>
-		);
-	}
-});
-
-//testing environment
-
-	var TestView = React.createClass({
-		render: function() {
-			return (
-				<div className="flex-row flex">
-					<SetTile data={this.props.data} />
-				</div>
-			);
-		}
-	});
-
-React.render(<App/>, document.getElementById('app'));
+React.render(<App data={sampleSet} />, document.getElementById('app'));

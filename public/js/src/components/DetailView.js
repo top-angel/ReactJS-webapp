@@ -1,6 +1,6 @@
 var React = require('react');
 var DetailImageContainer = require('./DetailImageContainer');
-var LinksButtonContainer = require('./LinksButtonContainer');
+var LinkButtonContainer = require('./LinkButtonContainer');
 var DetailContentContainer = require('./DetailContentContainer');
 
 var DetailView = React.createClass({

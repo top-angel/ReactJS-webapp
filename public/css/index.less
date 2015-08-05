@@ -193,11 +193,9 @@ body {
 }
 footer {
     position: relative;
-    top: 10vh;
     .background(@set-black, white);
     padding: 1vh 0;
     font-size: 1rem;
-    // margin-bottom: @playerHeight;
 }
 header {
     background-color: @set-purple;
@@ -309,11 +307,11 @@ input#search {
     top:10vh;
 }
 #nav-menu {
-    width:0%;
+    width:25%;
     position:fixed;
     left:0;
     top:10vh;
-    height:80vh;
+    height:90vh;
     z-index: 100;
     .background(@set-black, @set-white);
     .mobile({
@@ -329,12 +327,16 @@ input#search {
     > div {
         margin: auto 2vw;
     }
-    &:not(:nth-child(1)):hover {
+    // &:not(:nth-child(1)):hover {
+    //     border-left: solid 5px @set-green;
+    //     background-color: @set-black*1.1;
+    // }
+    // &:nth-child(1) {
+    //     color:@set-dark-gray;
+    // }
+    &:nth-child(n):hover {
         border-left: solid 5px @set-green;
         background-color: @set-black*1.1;
-    }
-    &:nth-child(1) {
-        color:@set-dark-gray;
     }
 }
 .nav-list-item-focused {

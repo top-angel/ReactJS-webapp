@@ -2,29 +2,15 @@ var React = require('react');
 
 var NavMenu = React.createClass({
 
-	getInitialState: function() {
-		return {
-			focused: 0,
-			hidden: true
-		};
-	},
-	clicked: function(index) {
-		this.setState({
-			focused: index 
-		});
-	},
 	render: function() {
-		if(this.state.hidden) {
-			var style = {
-				display: 'none'
-			};
-		} else {
-			var style = undefined;
-		}
 		return (
-			<div id="nav-menu" className='flex-column' style={style}>
-				{this.props.items.map(function(m, index){
-					return <div className='nav-list-item click flex flex-row'>{m}</div>
+			<div id="nav-menu" className='flex-column'>
+				{this.props.items.map(function(nav){
+					return(
+						<div className='nav-list-item click flex set-flex' key={nav.id}>
+							<div className='center'>{nav}</div>
+						</div>
+					); 
 				})}
 			</div>
 		);

@@ -28,7 +28,6 @@ var Header = React.createClass({
 			<header className="flex-row flex-zero">
 	            <MenuController onClick={this.toggleMenu} />
 	            <i className="nav-button fa icon-setmine fa-2x click center" title="Setmine Home"></i>
-	            <Buffer/>
 	            <SearchBar onClick={this.toggleSearch} />
 	            <Buffer/>
 	            <LoginButton />
