@@ -1,4 +1,5 @@
 var React = require('react');
+var DetailNavButton = require('./DetailNavButton');
 
 var DetailNavContainer = React.createClass({
 

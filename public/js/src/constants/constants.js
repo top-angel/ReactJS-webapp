@@ -14,3 +14,9 @@ var colors = {
 	soundcloud: "#ff8800",
 	youtube: "#cd201f"
 }
+
+module.exports = {
+	S3_ROOT: S3_ROOT,
+	S3_ROOT_FOR_IMAGES: S3_ROOT_FOR_IMAGES,
+	API_ROOT: API_ROOT
+}

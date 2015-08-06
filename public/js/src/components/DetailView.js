@@ -1,4 +1,6 @@
 var React = require('react');
+var constants = require('../constants/constants');
+
 var DetailImageContainer = require('./DetailImageContainer');
 var LinkButtonContainer = require('./LinkButtonContainer');
 var DetailContentContainer = require('./DetailContentContainer');
@@ -60,26 +62,10 @@ var DetailView = React.createClass({
 		return (
 			<div id="detail" className="view detail-page">
 				<DetailImageContainer title={title} button_text={button_text} imageURL={imageURL} info={info} />
-				<LinkButtonsContainer links={links} />
+				<LinkButtonContainer links={links} />
 				<div className="divider"></div>
 				<DetailContentContainer navTitles={navTitles} content={content} />
 			</div>
-		);
-	}
-});
-
-var DetailImageContainer = React.createClass({	// Displays key detail information
-	render: function() {
-		return (
-			<div className="flex-column flex image-container overlay-container" style={{background: "url('" + S3_ROOT_FOR_IMAGES + imageURL + "')"}}>
-                <div className="overlay"></div>
-                <div className="buffer"></div>
-                <div className="header center artist-name">{title}</div>
-                <div className="header-small center">{info}</div>
-                <div className="buffer"></div>
-                <div className="header-small center click" id="detail-button">{button_text}</div>
-                <div className="buffer"></div>
-            </div>
 		);
 	}
 });

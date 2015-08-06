@@ -1,22 +1,28 @@
 var React = require('react')
+var constants = require('../constants/constants')
 
 var FeaturedTile = React.createClass({
-	handleMouseOver: function(){
-		console.log('mouseOver');
-		$('.featured-info', '.featured-tile').addClass('slideInUp');
-	},
-	handleMouseOut: function(){
-		$('.featured-info', '.featured-tile').removeClass('slideInUp');
-		console.log('mouseOut');
+	componentDidMount: function() {
+		$('.featured-tile').hover(function() {
+			$('.featured-info', '.featured-tile').addClass('slideInUp');
+		}, function() {
+			$('.featured-info', '.featured-tile').removeClass('slideInUp');
+		})
 	},
 	render: function() {
+		var image = {
+			background: "url('"+constants.S3_ROOT_FOR_IMAGES+this.props.data.main_imageURL+"')",
+			backgroundSize: '100% 100%'
+		}
 		return (
-			<div className="flex-column flex featured-tile event overlay-container click view-trigger" onClick={this.handleMouseOver}>
+			<div 
+			className="featured-tile flex-column flex overlay-container click" 
+			style={image} >
 			    <div className="overlay"></div>
 			    <div className="flex-column featured-info animated">
-			        <div className="event-name">{this.props.event.event}</div>
-			        <div className="event-date">{this.props.event.start_date}</div>
-			        <div className="featured-type">{this.props.event.type}</div>
+			        <div className="event-name">{this.props.data.event}</div>
+			        <div className="event-date">{this.props.data.formattedDate}</div>
+			        <div className="featured-type">{this.props.data.type}</div>
 			    </div>
 			</div>
 		);

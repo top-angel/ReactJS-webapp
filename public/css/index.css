@@ -414,7 +414,7 @@ body {
 }
 .event-date-container .divider {
   height: 2px !important;
-  width: 6% !important;
+  width: 12% !important;
   background-color: white !important;
 }
 .event-image {
@@ -429,7 +429,7 @@ body {
   font-size: 1rem;
 }
 .event-tile {
-  width: 33%;
+  width: 30%;
   height: 200px;
   margin: 2vw 1vw;
   color: white;
@@ -464,7 +464,13 @@ body {
 .fa-instagram:hover {
   color: #3f729b;
 }
-.web-link:hover {
+.fa-soundcloud:hover {
+  color: #ff8800;
+}
+.fa-youtube:hover {
+  color: #cd201f;
+}
+.fa-globe:hover {
   color: #a74cab;
 }
 .featured-container {
@@ -491,11 +497,12 @@ body {
   padding: 0 6vw;
 }
 .featured-tile {
-  background: url(../images/edc-nyc-2013.jpg);
   background-size: 100% 100%;
   max-width: 33%;
   min-height: 200px;
   color: white;
+  transition: all 0.2s ease-out;
+  transition-duration: 0.2s;
 }
 .featured-tile .overlay {
   color: white;
@@ -752,7 +759,7 @@ input#search {
 }
 .set-tile {
   color: white;
-  width: 33%;
+  width: 30%;
   height: 200px;
   margin: 2vw 1vw;
 }
@@ -786,6 +793,7 @@ input#search {
 }
 .set-info {
   padding: 1vh;
+  width: 50%;
 }
 .slide-controls {
   position: absolute;
@@ -833,7 +841,6 @@ input#search {
   transition-duration: 0.3s;
 }
 .track-tile {
-  background: url(../images/edc-nyc-2013.jpg);
   background-size: cover;
   color: white;
   cursor: pointer;
