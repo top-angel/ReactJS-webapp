@@ -20,15 +20,19 @@ var BrowseView = require('./components/BrowseView');
 var LandingView = require('./components/LandingView');
 var DetailView = require('./components/DetailView');
 
+// <Header searchInput={this.state.searchInput} />
+// <NavMenu items={['Home', 'Featured', 'Artists', 'Festivals', 'Mixes', 'Genres']} />
+// <SearchView searchInput={this.state.searchInput} />
 
 var App = React.createClass({
+	getInitialState: function() {
+		return {
+			searchInput: '' 
+		};
+	},
 	render: function() {
-		
 		return (
 			<div className="main-container flex-column">
-				{/*
-				<Header />
-				<NavMenu items={['Home', 'Featured', 'Artists', 'Festivals', 'Mixes', 'Genres']} />*/}
 				<DetailView detailData={sampleArtist} />
 				<Footer />
 			</div>

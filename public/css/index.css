@@ -775,7 +775,7 @@ input#search {
 }
 .set-tile .overlay {
   color: white;
-  background-color: rgba(43, 43, 43, 0.3);
+  background-color: rgba(43, 43, 43, 0);
 }
 .set-tile .tile-controls {
   background-color: rgba(49, 53, 66, 0.7);

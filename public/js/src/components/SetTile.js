@@ -2,15 +2,6 @@ var React = require('react');
 var constants = require('../constants/constants');
 
 var SetTile = React.createClass({
-	getDefaultProps: function() {
-		return {
-			set: null,
-			artist: null,
-			playCount: null,
-			setLength: null,
-			imageUrl: null
-		}
-	},
 	handlePlay: function() {
 		console.log('set playing');
 	},
@@ -37,7 +28,7 @@ var SetTile = React.createClass({
 			        <div className="divider"></div>
 			        <div className="flex-row flex-2x">
 			            <div className="flex-fixed set-flex play-count click tile-button" onClick={this.hanldePlay}>
-			                <i className="fa fa-play center">{this.props.data.popularity}</i>
+			                <i className="fa fa-play center"> {this.props.data.popularity}</i>
 			            </div>
 			            <div className="divider"></div>
 			            <div className="flex-fixed set-flex set-length">
