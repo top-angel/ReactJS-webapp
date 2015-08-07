@@ -211,19 +211,19 @@
 .header {
   font-size: 4rem;
   font-weight: 400;
-  font-family: Source Sans Pro;
+  font-family: Avenir Regular;
   letter-spacing: 0.5rem;
 }
 .header-medium {
   font-size: 3rem;
   font-weight: 400;
-  font-family: Source Sans Pro;
+  font-family: Avenir Regular;
   letter-spacing: 0.2rem;
 }
 .header-small {
   font-size: 1.5rem;
   font-weight: 300;
-  font-family: Source Sans Pro;
+  font-family: Avenir Regular;
   letter-spacing: 0.1rem;
 }
 .hidden-fade {
@@ -295,6 +295,14 @@
   font-family: Source Sans Pro Extra Light;
   src: url(../fonts/SourceSansPro-ExtraLight.ttf);
 }
+@font-face {
+  font-family: Avenir Regular;
+  src: url(../fonts/AvenirNextLTPro-Regular.otf);
+}
+@font-face {
+  font-family: Avenir Light;
+  src: url(../fonts/AvenirNextLTPro-UltLtCn.otf);
+}
 /* CSS */
 * {
   -webkit-box-sizing: border-box;
@@ -326,7 +334,7 @@ a:hover {
   height: 80vh;
 }
 body {
-  font-family: Source Sans Pro Light;
+  font-family: Avenir Regular;
   font-size: 1.25rem;
   margin: 0;
   padding: 0;
@@ -344,19 +352,10 @@ body {
 .browse-tile .overlay {
   color: white;
   background-color: rgba(43, 43, 43, 0.5);
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-}
-@media screen and (min-width: 980px) {
-  .browse-tile .overlay {
-    display: none;
-  }
 }
 .browse-tile:hover .overlay {
-  display: flex;
+  color: white;
+  background-color: rgba(43, 43, 43, 0.25);
 }
 .browse-tile-image {
   width: 100% !important;
@@ -365,7 +364,7 @@ body {
 .change-location {
   color: #22a7f0;
   cursor: pointer;
-  font-family: Source Sans Pro;
+  font-family: Avenir Regular;
 }
 #detail-button {
   border: solid 1px;
@@ -385,12 +384,12 @@ body {
   color: white;
   text-align: center;
 }
-.detail-page .overlay {
-  color: white;
-  background-color: rgba(34, 167, 240, 0.8);
-}
 .detail-page > .image-container {
   height: 45vh;
+}
+.detail-page > .image-container .overlay {
+  color: white;
+  background-color: rgba(34, 167, 240, 0.8);
 }
 .detail-page > .divider {
   height: 2px;
@@ -409,7 +408,7 @@ body {
 .event-date-container {
   padding: 1vw;
   font-size: 2.5rem;
-  font-family: Source Sans Pro;
+  font-family: Avenir Regular;
   text-align: left;
 }
 .event-date-container .divider {
@@ -519,7 +518,7 @@ body {
 }
 .featured-tile .event-name {
   font-size: 1.875rem;
-  font-family: Source Sans Pro;
+  font-family: Avenir Regular;
 }
 .featured-info {
   position: absolute;
@@ -541,7 +540,7 @@ header {
   color: white;
   height: 10vh;
   padding: 0 2vw;
-  font-family: Source Sans Pro;
+  font-family: Avenir Regular;
   position: fixed;
   width: 100%;
   z-index: 100;
@@ -678,7 +677,7 @@ input#search {
   padding: 0 1vw;
 }
 .nav-list-item {
-  font-family: Source Sans Pro;
+  font-family: Avenir Regular;
   left: 2vw;
 }
 .nav-list-item > div {
@@ -747,9 +746,6 @@ input#search {
 .player-set-info div:not(.set-name) {
   font-size: 1rem;
   color: #bdc3c7;
-}
-.results-container {
-  padding: 0 1vw;
 }
 .results-filter {
   cursor: pointer;

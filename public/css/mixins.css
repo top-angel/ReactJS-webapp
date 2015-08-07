@@ -39,6 +39,14 @@
   font-family: Source Sans Pro Extra Light;
   src: url(../fonts/SourceSansPro-ExtraLight.ttf);
 }
+@font-face {
+  font-family: Avenir Regular;
+  src: url(../fonts/AvenirNextLTPro-Regular.otf);
+}
+@font-face {
+  font-family: Avenir Light;
+  src: url(../fonts/AvenirNextLTPro-UltLtCn.otf);
+}
 .blur {
   background-size: cover;
   left: -25px;
@@ -250,19 +258,19 @@
 .header {
   font-size: 4rem;
   font-weight: 400;
-  font-family: Source Sans Pro;
+  font-family: Avenir Regular;
   letter-spacing: 0.5rem;
 }
 .header-medium {
   font-size: 3rem;
   font-weight: 400;
-  font-family: Source Sans Pro;
+  font-family: Avenir Regular;
   letter-spacing: 0.2rem;
 }
 .header-small {
   font-size: 1.5rem;
   font-weight: 300;
-  font-family: Source Sans Pro;
+  font-family: Avenir Regular;
   letter-spacing: 0.1rem;
 }
 .hidden-fade {

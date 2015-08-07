@@ -3,6 +3,11 @@ var FeaturedTile = require('./FeaturedTile')
 
 var FeaturedContainer = React.createClass({
 	render: function() {
+        var featuredTiles = [];
+        this.props.data.map(function(tile, index){
+            featuredTiles.push(<FeaturedTile data={tile} key={index} />);
+            console.log(tile);
+        });
 		return (
 			<div className="flex-row flex featured-container overlay-container">
                 <div className="overlay flex-column left-arrow click">
@@ -11,7 +16,7 @@ var FeaturedContainer = React.createClass({
                 <div className="overlay flex-column right-arrow click">
                     <i className="fa fa-2x fa-chevron-right center"></i>
                 </div>
-                <FeaturedTile />
+                {featuredTiles}
             </div>
 		);
 	}

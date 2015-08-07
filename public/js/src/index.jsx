@@ -1,5 +1,5 @@
 var React = require('react');
-var constants = require('./constants/constants.js');
+var constants = require('./constants/constants');
 var todoStore = require('./stores/mainStore');
 var todoActions = require('./actions/mainActions');
 
@@ -23,6 +23,7 @@ var DetailView = require('./components/DetailView');
 // <Header searchInput={this.state.searchInput} />
 // <NavMenu items={['Home', 'Featured', 'Artists', 'Festivals', 'Mixes', 'Genres']} />
 // <SearchView searchInput={this.state.searchInput} />
+// <DetailView detailData={} detailType=''/>
 
 var App = React.createClass({
 	getInitialState: function() {
@@ -33,12 +34,34 @@ var App = React.createClass({
 	render: function() {
 		return (
 			<div className="main-container flex-column">
-				<DetailView detailData={sampleArtist} />
+				<FeaturedView data={landing}/>
 				<Footer />
 			</div>
 		);
 	}
 })
+
+var landing = [];
+$.ajax({
+	type: "GET",
+	url: 'http://setmine.com'+constants.API_ROOT + "landing",
+	success: function(response) {
+		if(response.status == "success") {
+			var landingModels = response.payload.landing;
+			for(var l in landingModels) {
+				landing.push(landingModels[l]);
+			}
+		}
+	}
+});
+
+var upcoming = [];
+
+//TODO make request for upcoming events within featured view
+	//upcoming.soonestEvents
+	//upcoming.closestEvents
+	//upcoming.soonestEventsAroundMe
+
 
 //works for passing to set tile as data={...}
 var sampleSet = {
@@ -50,7 +73,7 @@ var sampleSet = {
 	"set_length": "48:49"
 }
 
-//works for passing to event tile as data={...}
+//works for passing to event tile as data={...} and detail view as detailData={...}
 var sampleEvent = {
 	"id": 705,
 	"event": "MDBP Philadelphia 2015",

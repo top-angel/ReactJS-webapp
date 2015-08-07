@@ -53,14 +53,10 @@ body {
     .size(200px, 200px);
     .overlay {
         .createOverlay(50%);
-        .set-flex;
-        .desktop({
-            display:none;
-            })
     }
     &:hover {
         .overlay {
-            display:flex;
+            .createOverlay(25%);
         }
     }
 }
@@ -70,7 +66,7 @@ body {
 .change-location {
     color:@set-blue;
     cursor:pointer;
-    font-family:Source Sans Pro;
+    font-family: @defaultFontStyle;
 }
 #detail-button {
     #listen-now;
@@ -79,11 +75,11 @@ body {
 .detail-page {
     .background(@set-white, white);
     text-align: center;
-    .overlay {
-        .createOverlay(80%, @set-blue);
-    }
     >.image-container {
         height: 45vh;
+        .overlay {
+            .createOverlay(80%, @set-blue);
+        }
     }
     >.divider {
         .createDivider(100%, 2px, @set-gray);
@@ -101,7 +97,7 @@ body {
 .event-date-container {
     padding:1vw;
     font-size: @defaultFontSize*2;
-    font-family: Source Sans Pro;
+    font-family:  @defaultFontStyle;
     text-align: left;
     .divider {
         .createDivider(12%, 2px, white)!important;
@@ -183,7 +179,7 @@ body {
     }
     .event-name {
         font-size: @defaultFontSize*1.5;
-        font-family: Source Sans Pro;
+        font-family:  @defaultFontStyle;
     }
 }
 .featured-info {
@@ -204,7 +200,7 @@ header {
     color:white;
     height: @headerHeight;
     padding: 0 2vw;
-    font-family: Source Sans Pro;
+    font-family:  @defaultFontStyle;
     position:fixed;
     width:100%;
     z-index: 100;
@@ -324,7 +320,7 @@ input#search {
     padding:0 1vw;
 }
 .nav-list-item {
-    font-family: Source Sans Pro;
+    font-family:  @defaultFontStyle;
     left: 2vw;
     > div {
         margin: auto 2vw;
@@ -399,9 +395,9 @@ input#search {
         }
     }
 }
-.results-container {
-    padding: 0 1vw;
-}
+// .results-container {
+//     padding: 0 1vw;
+// }
 .results-filter {
     cursor: pointer;
 }

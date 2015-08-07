@@ -14,21 +14,20 @@ var DetailView = React.createClass({
 	},
 	render: function() {
 		//TEST determine if artist or event detail
-		var detailType = 'artist'; // state
-		if(detailType == 'artist') {
+		if(this.props.detailType == 'artist') {
 			title = this.props.detailData.artist
 			button_text = "Follow"
 			info = this.props.detailData.set_count + " sets | " + this.props.detailData.event_count + " events"
 			imageURL = this.props.detailData.imageURL
 			navTitles = ["sets","events"]
-		} else {
+		} else if(this.props.detailType == 'event') {
 			title = this.props.detailData.event
 			button_text = "Tickets"
-			
-			info = this.props.detailData.start_date + " - " + this.props.detailData.end_date
-
-			imageURL = this.props.detailData.main_eventimageURL
+			info = this.props.detailData.formattedDate
+			imageURL = this.props.detailData.main_imageURL
 			navTitles = ["lineup"]
+		} else {
+			return
 		}
 		content = this.props.detailData
 		var links = [
@@ -58,7 +57,6 @@ var DetailView = React.createClass({
 			}
 		]
 		console.log(this.props.detailData)
-		console.log(links)
 		return (
 			<div id="detail" className="view detail-page">
 				<DetailImageContainer title={title} button_text={button_text} imageURL={imageURL} info={info} />
