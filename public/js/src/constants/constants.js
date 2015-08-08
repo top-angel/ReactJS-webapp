@@ -6,6 +6,7 @@ var API_ROOT = '/api/v/' + API_VERSION + '/';
 var IMAGE_ROOT = '/images/';
 var ANDROID_URL = "https://play.google.com/store/apps/details?id=com.setmine.android"
 var IOS_URL = "https://itunes.apple.com/us/app/setmine/id921325688?mt=8";
+var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 var colors = {
 	fb: "#3b5998",
@@ -18,5 +19,6 @@ var colors = {
 module.exports = {
 	S3_ROOT: S3_ROOT,
 	S3_ROOT_FOR_IMAGES: S3_ROOT_FOR_IMAGES,
-	API_ROOT: API_ROOT
+	API_ROOT: API_ROOT,
+	months: months
 }

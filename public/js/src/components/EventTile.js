@@ -8,7 +8,7 @@ var EventTile = React.createClass({
 			    <img className="event-image" src={constants.S3_ROOT_FOR_IMAGES+this.props.data.main_imageURL} />
 			    <div className="overlay"></div>
 			    <div className="event-date-container flex-5x flex-column">
-			        <div className="month">{this.props.data.formattedDate.substring(0,3)}</div>
+			        <div className="month">{this.props.data.start_date.substring(5,7)}</div>
 			        <div className="divider"></div>
 			        <div className="day">{this.props.data.start_date.substring(9,10)}</div>
 			    </div>
@@ -30,5 +30,5 @@ var EventTile = React.createClass({
 	}
 })
 
-
+// <div className="month">{this.props.data.formattedDate.substring(0,3)}</div>
 module.exports = EventTile

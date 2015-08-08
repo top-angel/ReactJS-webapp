@@ -4,8 +4,8 @@ var FeaturedTile = require('./FeaturedTile')
 var FeaturedContainer = React.createClass({
 	render: function() {
         var featuredTiles = [];
-        this.props.data.map(function(tile, index){
-            featuredTiles.push(<FeaturedTile data={tile} key={index} />);
+        this.props.landingEvents.map(function(landingEvent, index){
+            featuredTiles.push(<FeaturedTile data={landingEvent} key={index} />);
             console.log(tile);
         });
 		return (
