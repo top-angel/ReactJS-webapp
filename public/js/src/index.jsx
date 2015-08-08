@@ -20,10 +20,17 @@ var BrowseView = require('./components/BrowseView');
 var LandingView = require('./components/LandingView');
 var DetailView = require('./components/DetailView');
 
+var artists = [];
+var splitArtists = [];
+var festivals = [];
+var mixes = [];
+var genres = [];
+
 // <Header searchInput={this.state.searchInput} />
 // <NavMenu items={['Home', 'Featured', 'Artists', 'Festivals', 'Mixes', 'Genres']} />
 // <SearchView searchInput={this.state.searchInput} />
 // <DetailView detailData={} detailType=''/>
+// <FeaturedView landingEvents={landing} currentEvents={sampleCurrentEvents}/>
 
 var App = React.createClass({
 	getInitialState: function() {
@@ -31,10 +38,67 @@ var App = React.createClass({
 			searchInput: '' 
 		};
 	},
+	getArtists: function() {
+		$.ajax({
+			type: 'GET',
+			url: 'http://setmine.com'+API_ROOT+'artist',
+			success: function(response) {
+				if(response.status=='success') {
+					var artistModels = response.payload.artist
+					for(var a in artistModels) {
+						artists.push(artistModels[a])
+					}
+				}
+			}
+		})
+	},
+	getFestivals: function() {
+		$.ajax({
+			type: "GET",
+			url: API_ROOT + "festival",
+			success: function(response) {
+				if(response.status == "success") {
+					var festivalModels = response.payload.festival;
+					for(var f in festivalModels) {
+						festivals[f] = festivalModels[f];
+					}
+				}
+			}
+		});
+	},
+	getMixes: function() {
+		$.ajax({
+			type: "GET",
+			url: API_ROOT + "mix",
+			success: function(response) {
+				if(response.status == "success") {
+					var mixModels = response.payload.mix;
+					for(var m in mixModels) {
+						mixes[m] = mixModels[m];
+					}
+				}
+			}
+		});
+	},
+	getGenres: function() {
+		$.ajax({
+			type: "GET",
+			url: API_ROOT + "genre",
+			success: function(response) {
+				if(response.status == "success") {
+					var genreModels = response.payload.genre;
+					for(var g in genreModels) {
+						genres[g] = genreModels[g];
+					}
+				}
+			}
+		});
+	},
 	render: function() {
 		return (
 			<div className="main-container flex-column">
-				<FeaturedView landingEvents={landing} currentEvents={sampleCurrentEvents}/>
+				<Header />
+				<BrowseView type='artist' data={artists} />
 				<Footer />
 			</div>
 		);
@@ -49,7 +113,7 @@ $.ajax({
 		if(response.status == "success") {
 			var landingModels = response.payload.landing;
 			for(var l in landingModels) {
-				landing.push(landingModels[l]);
+				landing[l] = landingModels[l]
 			}
 		}
 	}
@@ -68,7 +132,6 @@ $.ajax({
 			eventModels = response.payload.upcoming.soonestEvents;
 			for(var e in eventModels) {
 				currentEvents.push(eventModels[e]);
-				return currentEvents;
 			}
 			console.log(currentEvents)
 		}
