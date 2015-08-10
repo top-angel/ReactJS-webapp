@@ -12,11 +12,14 @@ var path = {
 };
 
 gulp.task('watch', function() {
-  browserify(path.JS)
-    .transform(reactify)
-    .bundle()
-    .pipe(source(path.OUT))
-    .pipe(gulp.dest(path.DEST_BUILD));
+  browserify(path.JS, {
+    debug: true
+  })
+  .transform(reactify)
+  .bundle()
+  .pipe(source(path.OUT))
+  .pipe(gulp.dest(path.DEST_BUILD));
+
 })
 
 // gulp.task('watch', function() {
