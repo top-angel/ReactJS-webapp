@@ -26,10 +26,14 @@ var Header = React.createClass({
 	render: function() {
 		return (
 			<header className="flex-row flex-zero">
-	            <MenuController onClick={this.toggleMenu} />
 	            <i className="nav-button fa icon-setmine fa-2x click center" title="Setmine Home"></i>
 	            <SearchBar searchInput={this.props.searchInput} onClick={this.toggleSearch} />
-	            <Buffer/>
+	            <div className='nav-button click center flex'>Home</div>
+	            <div className='nav-button click center flex'>Featured</div>
+	            <div className='nav-button click center flex'>Artists</div>
+	            <div className='nav-button click center flex'>Festivals</div>
+	            <div className='nav-button click center flex'>Mixes</div>
+	            <div className='nav-button click center flex'>Genres</div>
 	            <LoginButton />
 	        </header>
 		);

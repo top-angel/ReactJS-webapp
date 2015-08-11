@@ -1,30 +1,25 @@
-var React = require('react');
-var constants = require('./constants/constants');
-var todoStore = require('./stores/mainStore');
-var todoActions = require('./actions/mainActions');
+var React = require('react')
+var constants = require('./constants/constants')
+var todoStore = require('./stores/mainStore')
+var todoActions = require('./actions/mainActions')
+var classNames = require('classNames')
 
-var SetTile = require('./components/SetTile');
-var TrackTile = require('./components/TrackTile');
-var EventTile = require('./components/EventTile');
-var FeaturedTile = require('./components/FeaturedTile');
+var SetTile = require('./components/SetTile')
+var TrackTile = require('./components/TrackTile')
+var EventTile = require('./components/EventTile')
+var FeaturedTile = require('./components/FeaturedTile')
 
-var Player = require('./components/Player');
-var Footer = require('./components/Footer');
-var Header = require('./components/Header');
-var Buffer = require('./components/Buffer');
-var NavMenu = require('./components/NavMenu');
-var ViewContainer = require('./components/ViewContainer');
+var Player = require('./components/Player')
+var Footer = require('./components/Footer')
+var Header = require('./components/Header')
+var Buffer = require('./components/Buffer')
+var NavMenu = require('./components/NavMenu')
+var ViewContainer = require('./components/ViewContainer')
 
-var FeaturedView = require('./components/FeaturedView');
-var BrowseView = require('./components/BrowseView');
-var LandingView = require('./components/LandingView');
-var DetailView = require('./components/DetailView');
-
-var artists = [];
-var splitArtists = [];
-var festivals = [];
-var mixes = [];
-var genres = [];
+var FeaturedView = require('./components/FeaturedView')
+var BrowseView = require('./components/BrowseView')
+var LandingView = require('./components/LandingView')
+var DetailView = require('./components/DetailView')
 
 // <Header searchInput={this.state.searchInput} />
 // <NavMenu items={['Home', 'Featured', 'Artists', 'Festivals', 'Mixes', 'Genres']} />
@@ -35,22 +30,10 @@ var genres = [];
 var App = React.createClass({
 	getInitialState: function() {
 		return {
-			searchInput: '' 
+			searchInput: '',
+			setPlayig: null,
+			userLoggedIn: false
 		};
-	},
-	getArtists: function() {
-		$.ajax({
-			type: 'GET',
-			url: 'http://setmine.com'+API_ROOT+'artist',
-			success: function(response) {
-				if(response.status=='success') {
-					var artistModels = response.payload.artist
-					for(var a in artistModels) {
-						artists.push(artistModels[a])
-					}
-				}
-			}
-		})
 	},
 	getFestivals: function() {
 		$.ajax({
@@ -98,7 +81,7 @@ var App = React.createClass({
 		return (
 			<div className="main-container flex-column">
 				<Header />
-				<BrowseView type='artist' data={artists} />
+				<BrowseView type='artist' />
 				<Footer />
 			</div>
 		);
@@ -106,37 +89,37 @@ var App = React.createClass({
 })
 
 var landing = [];
-$.ajax({
-	type: "GET",
-	url: 'http://setmine.com'+constants.API_ROOT + "landing",
-	success: function(response) {
-		if(response.status == "success") {
-			var landingModels = response.payload.landing;
-			for(var l in landingModels) {
-				landing[l] = landingModels[l]
-			}
-		}
-	}
-});
+// $.ajax({
+// 	type: "GET",
+// 	url: 'http://setmine.com'+constants.API_ROOT + "landing",
+// 	success: function(response) {
+// 		if(response.status == "success") {
+// 			var landingModels = response.payload.landing;
+// 			for(var l in landingModels) {
+// 				landing[l] = landingModels[l]
+// 			}
+// 		}
+// 	}
+// });
 
 //make request for upcoming events within featured view
 	//upcoming.soonestEvents
 	//upcoming.closestEvents
 	//upcoming.soonestEventsAroundMe
 var currentEvents = [];
-$.ajax({
-	type: 'GET',
-	url: 'http://setmine.com'+constants.API_ROOT+'upcoming?',
-	success: function(response) {
-		if(response.status=='success') {
-			eventModels = response.payload.upcoming.soonestEvents;
-			for(var e in eventModels) {
-				currentEvents.push(eventModels[e]);
-			}
-			console.log(currentEvents)
-		}
-	}
-})
+// $.ajax({
+// 	type: 'GET',
+// 	url: 'http://setmine.com'+constants.API_ROOT+'upcoming?',
+// 	success: function(response) {
+// 		if(response.status=='success') {
+// 			eventModels = response.payload.upcoming.soonestEvents;
+// 			for(var e in eventModels) {
+// 				currentEvents.push(eventModels[e]);
+// 			}
+// 			console.log(currentEvents)
+// 		}
+// 	}
+// })
 
 //works for passing to eventbrowsecontainer as currentEvents={...}
 //TODO make AJAX call work & get formatted date for month

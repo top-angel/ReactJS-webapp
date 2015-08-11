@@ -539,7 +539,6 @@ header {
   background-color: #a74cab;
   color: white;
   height: 10vh;
-  padding: 0 2vw;
   font-family: Avenir Regular;
   position: fixed;
   width: 100%;
@@ -675,6 +674,7 @@ input#search {
 }
 .nav-button {
   padding: 0 1vw;
+  text-align: center;
 }
 .nav-list-item {
   font-family: Avenir Regular;
@@ -881,7 +881,7 @@ input#search {
 }
 .view {
   min-height: 90vh;
-  padding-top: 10vh;
+  margin-top: 10vh;
 }
 .view#featured {
   color: #6c7a89;
