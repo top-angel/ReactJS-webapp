@@ -35,48 +35,6 @@ var App = React.createClass({
 			userLoggedIn: false
 		};
 	},
-	getFestivals: function() {
-		$.ajax({
-			type: "GET",
-			url: API_ROOT + "festival",
-			success: function(response) {
-				if(response.status == "success") {
-					var festivalModels = response.payload.festival;
-					for(var f in festivalModels) {
-						festivals[f] = festivalModels[f];
-					}
-				}
-			}
-		});
-	},
-	getMixes: function() {
-		$.ajax({
-			type: "GET",
-			url: API_ROOT + "mix",
-			success: function(response) {
-				if(response.status == "success") {
-					var mixModels = response.payload.mix;
-					for(var m in mixModels) {
-						mixes[m] = mixModels[m];
-					}
-				}
-			}
-		});
-	},
-	getGenres: function() {
-		$.ajax({
-			type: "GET",
-			url: API_ROOT + "genre",
-			success: function(response) {
-				if(response.status == "success") {
-					var genreModels = response.payload.genre;
-					for(var g in genreModels) {
-						genres[g] = genreModels[g];
-					}
-				}
-			}
-		});
-	},
 	render: function() {
 		return (
 			<div className="main-container flex-column">
