@@ -12,7 +12,7 @@ var FeaturedView = React.createClass({
 			landingEvents: [],
 			currentEvents: [],
 			hidden: true
-		};
+		}
 	},
 	getLandingEvents: function() {
 		$.ajax({
@@ -22,12 +22,25 @@ var FeaturedView = React.createClass({
 		.done(function(response) {
 			console.log("success");
 			var landing = []
+			var splitLanding = []
 			var landingModels = response.payload.landing
 			for(var l in landingModels) {
 				landing[l] = landingModels[l]
+				if(landing.length == landingModels.length) {
+					var splits = Math.ceil(landing.length / 4)
+					for(var i = 0; i < splits; i++) {
+						splitLanding[i] = []
+						for(var j = (i*4); j < (i*4)+4; j++) {
+							if(j < landing.length) {
+								splitLanding[i].push(landing[j])
+							} else break
+						}
+					}
+				}
 			}
+			console.log(splitLanding)
 			this.setState({
-				landingEvents: landing 
+				landingEvents: splitLanding
 			});
 			console.log('landing events loaded: '+this.state.landingEvents.length)
 		}.bind(this))

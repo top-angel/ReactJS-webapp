@@ -4,9 +4,9 @@ var constants = require('../constants/constants')
 var FeaturedTile = React.createClass({
 	componentDidMount: function() {
 		$('.featured-tile').hover(function() {
-			$('.featured-info', '.featured-tile').addClass('slideInUp');
+			$('.featured-info', $(this)).addClass('slideInUp')
 		}, function() {
-			$('.featured-info', '.featured-tile').removeClass('slideInUp');
+			$('.featured-info').removeClass('slideInUp');
 		})
 	},
 	render: function() {

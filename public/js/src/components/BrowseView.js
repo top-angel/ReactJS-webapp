@@ -18,17 +18,30 @@ var BrowseView = React.createClass({
 		})
 		.done(function(response) {
 			console.log("success");
-			var artists = [];
+			var artists = []
+			var splitArtists = []
 			if(response.status=='success') {
 				var artistModels = response.payload.artist
 				for(var a in artistModels) {
-					artists.push(artistModels[a])
+					artists[a] = artistModels[a]
+					if(artists.length == artistModels.length) {
+						var splits = Math.ceil(artists.length / 50)
+						for(var i = 0 ; i < splits ; i++) {
+							splitArtists[i] = []
+							for(var j = (i*50) ; j < (i*50)+50 ; j++) {
+								if(j < artists.length) {
+									splitArtists[i].push(artists[j]);
+								} else break
+							}
+						}
+					}
 				}
 			}
 			this.setState({
-				data: artists,
+				data: splitArtists,
 				title: 'Artists'
 			})
+			console.log(this.state.data.length + ' split artist arrays')
 		}.bind(this))
 		.fail(function(xhr, status, err) {
 			console.error(this.props.url, status, err.toString());
