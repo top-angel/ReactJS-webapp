@@ -6,7 +6,7 @@ var FeaturedContainer = React.createClass({
         var featuredTiles = [];
         this.props.landingEvents.map(function(landingEvent, index){
             featuredTiles.push(<FeaturedTile data={landingEvent} key={index} />);
-            console.log(tile);
+            console.log(landingEvent);
         });
 		return (
 			<div className="flex-row flex featured-container overlay-container">

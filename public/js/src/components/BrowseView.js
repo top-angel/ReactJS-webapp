@@ -3,14 +3,12 @@ var ViewTitleContainer = require('./ViewTitleContainer')
 var ResultsContainer = require('./ResultsContainer')
 var constants = require('../constants/constants')
 
-var title
-var tileText
-
 var BrowseView = React.createClass({
 	getInitialState: function() {
 		return {
 			data: [],
-			title: undefined 
+			title: undefined,
+			hidden: true
 		};
 	},
 	getArtists: function(){
@@ -80,25 +78,6 @@ var BrowseView = React.createClass({
 			console.error(this.props.url, status, err.toString());
 		}.bind(this))	
 	},
-	getGenres: function() {
-		$.ajax({
-			url: 'http://setmine.com'+constants.API_ROOT+'genre',
-			type: 'GET',
-		})
-		.done(function(response) {
-			var genres = []
-			if(response.status == 'success') {
-				var genreModels = response.payload.genre
-				for(var g in genreModels) {
-					genres.push(genreModels[g])
-				}
-			}
-			this.setState({
-				data: genres,
-				title: 'Genres'
-			});
-		}.bind(this))
-	},
 	componentWillMount: function() {
 		if(this.props.type=='artist') {
 			this.getArtists()
@@ -106,8 +85,6 @@ var BrowseView = React.createClass({
 			this.getFestivals()
 		} else if(this.props.type=='mix') {
 			this.getMixes()
-		} else if(this.props.type=='genre') {
-			this.getGenres()
 		}
 	},
 	render: function() {

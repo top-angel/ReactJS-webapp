@@ -10,7 +10,7 @@ var EventTile = React.createClass({
 			    <div className="event-date-container flex-5x flex-column">
 			        <div className="month">{this.props.data.start_date.substring(5,7)}</div>
 			        <div className="divider"></div>
-			        <div className="day">{this.props.data.start_date.substring(9,10)}</div>
+			        <div className="day">{this.props.data.start_date.substring(8,10)}</div>
 			    </div>
 			    <div className="divider"></div>
 			    <div className="tile-controls flex-row flex">

@@ -8,61 +8,77 @@ var DetailContentContainer = require('./DetailContentContainer');
 var DetailView = React.createClass({
 	getInitialState: function() {
 		return {
-			data: [],
-			pageType: null 
+			detailData: [],
+			hidden: true
 		};
+	},
+	getArtist: function(){
+		$.ajax({
+			url: 'http://setmine.com'+constants.API_ROOT+'artist/'+this.props.artistId,
+			type: 'GET',
+		})
+		.done(function(response) {
+			console.log("success");
+			this.setState({
+				detailData: response.payload.artist
+			});
+		}.bind(this))
+		.fail(function() {
+			console.log("error");
+		}.bind(this))
+	},
+	componentWillMount: function() {
+		this.getArtist()
 	},
 	render: function() {
 		//TEST determine if artist or event detail
 		if(this.props.detailType == 'artist') {
-			title = this.props.detailData.artist
+			title = this.state.detailData.artist
 			button_text = "Follow"
-			info = this.props.detailData.set_count + " sets | " + this.props.detailData.event_count + " events"
-			imageURL = this.props.detailData.imageURL
+			info = this.state.detailData.set_count + " sets | " + this.state.detailData.event_count + " events"
+			imageURL = this.state.detailData.imageURL
 			navTitles = ["sets","events"]
 		} else if(this.props.detailType == 'event') {
-			title = this.props.detailData.event
+			title = this.state.detailData.event
 			button_text = "Tickets"
-			info = this.props.detailData.formattedDate
-			imageURL = this.props.detailData.main_imageURL
+			info = this.state.detailData.formattedDate
+			imageURL = this.state.detailData.main_imageURL
 			navTitles = ["lineup"]
 		} else {
 			return
 		}
-		content = this.props.detailData
 		var links = [
 			{
 				type: 'facebook',
-				url: this.props.detailData.fb_link
+				url: this.state.detailData.fb_link
 			},
 			{
 				type: 'twitter',
-				url: this.props.detailData.twitter_link
+				url: this.state.detailData.twitter_link
 			},
 			{
 				type: 'instagram',
-				url: this.props.detailData.instagram_link
+				url: this.state.detailData.instagram_link
 			},
 			{
 				type: 'soundcloud',
-				url: this.props.detailData.soundcloud_link
+				url: this.state.detailData.soundcloud_link
 			},
 			{
 				type: 'youtube',
-				url: this.props.detailData.youtube_link
+				url: this.state.detailData.youtube_link
 			},
 			{
 				type: 'web',
-				url: this.props.detailData.web_link
+				url: this.state.detailData.web_link
 			}
 		]
-		console.log(this.props.detailData)
 		return (
 			<div id="detail" className="view detail-page">
 				<DetailImageContainer title={title} button_text={button_text} imageURL={imageURL} info={info} />
 				<LinkButtonContainer links={links} />
 				<div className="divider"></div>
-				<DetailContentContainer navTitles={navTitles} content={content} />
+				<DetailContentContainer navTitles={navTitles} data={this.state.detailData} />
 			</div>
 		);
 	}
