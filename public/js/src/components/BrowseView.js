@@ -37,11 +37,12 @@ var BrowseView = React.createClass({
 					}
 				}
 			}
+			//TODO: load splitArtists into ResultsContainer
 			this.setState({
-				data: splitArtists,
+				data: artists,
 				title: 'Artists'
 			})
-			console.log(this.state.data.length + ' split artist arrays')
+			// console.log(this.state.data.length + ' split artist arrays')
 		}.bind(this))
 		.fail(function(xhr, status, err) {
 			console.error(this.props.url, status, err.toString());
