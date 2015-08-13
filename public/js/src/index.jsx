@@ -41,7 +41,7 @@ var App = React.createClass({
 		return (
 			<div className="main-container flex-column">
 				<Header />
-				<BrowseView type='artist' />
+				<FeaturedView />
 				<Footer />
 			</div>
 		);

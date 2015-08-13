@@ -6,7 +6,7 @@ var ViewContainer = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<DetailView detailData={this.props.data} />
+				<FeaturedView />
 			</div>
 		);
 	}

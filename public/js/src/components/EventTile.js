@@ -19,7 +19,7 @@ var EventTile = React.createClass({
 	                </a>
 	                <div className="flex-3x flex-column event-info">
 	                    <div className="click center">{this.props.data.event}</div>
-	                    <div className="click center">{this.props.data.venue}</div>
+	                    <div className="center">{this.props.data.venue}</div>
 	                </div>
 	                <div className="set-flex flex click event view-trigger tile-button">
 	                    <i className="fa fa-fw fa-long-arrow-right center"></i>

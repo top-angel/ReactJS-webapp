@@ -4,11 +4,13 @@ var constants = require('../constants/constants');
 var DetailImageContainer = require('./DetailImageContainer');
 var LinkButtonContainer = require('./LinkButtonContainer');
 var DetailContentContainer = require('./DetailContentContainer');
+var SetContainer = require('./SetContainer')
+// var EventContainer = require('./EventContainer')
 
 var DetailView = React.createClass({
 	getInitialState: function() {
 		return {
-			detailData: [],
+			data: [],
 			hidden: true
 		};
 	},
@@ -20,7 +22,7 @@ var DetailView = React.createClass({
 		.done(function(response) {
 			console.log("success");
 			this.setState({
-				detailData: response.payload.artist
+				data: response.payload.artist
 			});
 		}.bind(this))
 		.fail(function() {
@@ -33,16 +35,16 @@ var DetailView = React.createClass({
 	render: function() {
 		//TEST determine if artist or event detail
 		if(this.props.detailType == 'artist') {
-			title = this.state.detailData.artist
+			title = this.state.data.artist
 			button_text = "Follow"
-			info = this.state.detailData.set_count + " sets | " + this.state.detailData.event_count + " events"
-			imageURL = this.state.detailData.imageURL
+			info = this.state.data.set_count + " sets | " + this.state.data.event_count + " events"
+			imageURL = this.state.data.imageURL
 			navTitles = ["sets","events"]
 		} else if(this.props.detailType == 'event') {
-			title = this.state.detailData.event
+			title = this.state.data.event
 			button_text = "Tickets"
-			info = this.state.detailData.formattedDate
-			imageURL = this.state.detailData.main_imageURL
+			info = this.state.data.formattedDate
+			imageURL = this.state.data.main_imageURL
 			navTitles = ["lineup"]
 		} else {
 			return
@@ -50,27 +52,27 @@ var DetailView = React.createClass({
 		var links = [
 			{
 				type: 'facebook',
-				url: this.state.detailData.fb_link
+				url: this.state.data.fb_link
 			},
 			{
 				type: 'twitter',
-				url: this.state.detailData.twitter_link
+				url: this.state.data.twitter_link
 			},
 			{
 				type: 'instagram',
-				url: this.state.detailData.instagram_link
+				url: this.state.data.instagram_link
 			},
 			{
 				type: 'soundcloud',
-				url: this.state.detailData.soundcloud_link
+				url: this.state.data.soundcloud_link
 			},
 			{
 				type: 'youtube',
-				url: this.state.detailData.youtube_link
+				url: this.state.data.youtube_link
 			},
 			{
 				type: 'web',
-				url: this.state.detailData.web_link
+				url: this.state.data.web_link
 			}
 		]
 		return (
@@ -78,10 +80,11 @@ var DetailView = React.createClass({
 				<DetailImageContainer title={title} button_text={button_text} imageURL={imageURL} info={info} />
 				<LinkButtonContainer links={links} />
 				<div className="divider"></div>
-				<DetailContentContainer navTitles={navTitles} data={this.state.detailData} />
+				<SetContainer data={this.state.data} />
 			</div>
 		);
 	}
 });
 
+// <DetailContentContainer navTitles={navTitles} data={this.state.data} />
 module.exports = DetailView;
