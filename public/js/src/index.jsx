@@ -2,7 +2,7 @@ var React = require('react')
 var constants = require('./constants/constants')
 var todoStore = require('./stores/mainStore')
 var todoActions = require('./actions/mainActions')
-var classNames = require('classNames')
+// var classNames = require('classNames')
 
 var SetTile = require('./components/SetTile')
 var TrackTile = require('./components/TrackTile')

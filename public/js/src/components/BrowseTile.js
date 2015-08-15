@@ -2,7 +2,6 @@ var React = require('react');
 var constants = require('../constants/constants');
 
 var BrowseTile = React.createClass({
-
 	render: function() {
 		return (
 			<div className="browse-tile flex-column overlay-container click view-trigger">
@@ -13,7 +12,6 @@ var BrowseTile = React.createClass({
 			</div>
 		);
 	}
-
 });
 
 module.exports = BrowseTile;
