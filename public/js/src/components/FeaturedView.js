@@ -67,6 +67,9 @@ var FeaturedView = React.createClass({
 		this.getLandingEvents()
 		this.getUpcomingEvents()
 	},
+	componentDidMount: function() {
+		this._attachStreams();
+	},
 	render: function() {
 		return (
 			<div id="featured" className="view flex-column">
@@ -76,6 +79,9 @@ var FeaturedView = React.createClass({
                 <EventBrowseContainer currentEvents={this.state.currentEvents}/>
             </div>
 		);
+	},
+	_attachStreams: function() {
+		var _this = this;
 	}
 });
 
