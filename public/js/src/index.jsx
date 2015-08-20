@@ -1,54 +1,60 @@
 var React = require('react')
 var constants = require('./constants/constants')
-var todoStore = require('./stores/mainStore')
-var todoActions = require('./actions/mainActions')
-// var classNames = require('classNames')
-
-var SetTile = require('./components/SetTile')
-var TrackTile = require('./components/TrackTile')
-var EventTile = require('./components/EventTile')
-var FeaturedTile = require('./components/FeaturedTile')
 
 var Player = require('./components/Player')
 var Footer = require('./components/Footer')
 var Header = require('./components/Header')
-var Buffer = require('./components/Buffer')
-var NavMenu = require('./components/NavMenu')
-var ViewContainer = require('./components/ViewContainer')
+var DetailView = require('./components/DetailView');
+var LandingView = require('./components/LandingView');
+var BrowseView = require('./components/BrowseView');
+var FeaturedView = require('./components/FeaturedView');
+var HomeView = require('./components/HomeView');
+var SearchResultsView = require('./components/SearchResultsView');
 
-var FeaturedView = require('./components/FeaturedView')
-var BrowseView = require('./components/BrowseView')
-var LandingView = require('./components/LandingView')
-var DetailView = require('./components/DetailView')
+var viewStream = require('./streams/viewStream');
 
-// <Header searchInput={this.state.searchInput} />
-// <NavMenu items={['Home', 'Featured', 'Artists', 'Festivals', 'Mixes', 'Genres']} />
 // <SearchView searchInput={this.state.searchInput} />
 // <FeaturedView landingEvents={landing} currentEvents={sampleCurrentEvents}/>
 // <BrowseView type='artist' />
 // <DetailView artistId={574} detailType='artist'/>
 
+//subscribe in componentDidMount()
+//unsubscribe in componentWillUnmount()
+//call setState which pushes to event stream when receiving an event
 
 var App = React.createClass({
 	getInitialState: function() {
 		return {
 			searchInput: '',
-			setPlayig: null,
-			userLoggedIn: false
+			setPlaying: null,
+			userLoggedIn: false,
+			activeView: LandingView
 		};
 	},
+	_attachStream: function() {
+		var _this = this;
+
+		function updateActiveView (view) {
+			_this.setState({
+				activeView: view
+			});
+		}
+	},
 	render: function() {
+		var activeView = this.state.activeView;
 		return (
 			<div className="main-container flex-column">
 				<Header />
-				<FeaturedView />
+				{React.createElement(activeView, {
+					active: true,
+					searchText: this.state.searchInput,
+					userLoggedIn: this.state.userLoggedIn
+				})}
 				<Footer />
 			</div>
 		);
 	}
 })
-
-//works for passing to eventbrowsecontainer as currentEvents={...}
 
 //works for passing to set tile as data={...}
 var sampleSet = {
