@@ -7,17 +7,14 @@ Setmine Web App in React.js
 
 #### Setup the Application
 ```
+$ npm install -g webpack webpack-dev-server
 $ npm install
 ```
 
 #### Running the Application
-```
-$ npm start
-localhost:3002
-```
 
-#### Generating Styles/Transpiling JSX
-Open a new terminal tab
+This compiles all assets as well
+
 ```
-$ gulp
+$ webpack-dev-server
 ```

@@ -8,7 +8,7 @@ module.exports = {
     'click-gator-app': entryPoints
   },
   output: {
-    path: 'dist',
+    path: 'public/js',
     filename: '[name]-bundle.js',
     pathinfo: true
   },
