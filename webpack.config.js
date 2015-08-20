@@ -32,6 +32,11 @@ module.exports = {
       exclude: /node_modules/
     },
     {
+      test: /\.js$/,
+      loader: 'jsx!babel',
+      exclude: /node_modules/
+    },
+    {
       test: /\.scss$/,
       loader: 'style!css!sass?sourceMap',
       exclude: /node_modules/
