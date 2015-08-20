@@ -15,9 +15,5 @@
     "no-multi-spaces": 0,
     "comma-dangle": 0,
     "new-cap": 0
-  },
-
-  "plugins": [
-    "react"
-  ]
+  }
 }

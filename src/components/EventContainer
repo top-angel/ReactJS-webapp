@@ -1,0 +1,20 @@
+var React = require('react');
+var EventTile = require('./EventTile')
+
+var EventContainer = React.createClass({
+
+	render: function() {
+		return (
+			<div className='results-container flex-row flex'>
+				{
+					this.props.data.map(function(event) {
+						return(<EventTile data={event} key={event.id}/>)
+					})
+				}
+			</div>
+		);
+	}
+
+});
+
+module.exports = EventContainer;
