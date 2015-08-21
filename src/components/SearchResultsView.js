@@ -1,7 +1,6 @@
 var React = require('react')
 var Router = require('react-router')
 var Route = Router.Route;
-var Router = require('react-router')
 
 var SearchResultsView = React.createClass({
 	componentDidMount: function() {
