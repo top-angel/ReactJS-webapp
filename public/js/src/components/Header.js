@@ -19,15 +19,15 @@ var Header = React.createClass({
 	render: function() {
 		return (
 			<header className="flex-row flex-zero">
-          <i className="nav-button fa icon-setmine fa-2x click center" title="Setmine Home"></i>
-          <div className='nav-button click center flex' onClick={undefined}>Home</div>
-          <div className='nav-button click center flex' onClick={undefined}>Featured</div>
-          <div className='nav-button click center flex' onClick={undefined}>Artists</div>
-          <div className='nav-button click center flex' onClick={undefined}>Festivals</div>
-          <div className='nav-button click center flex' onClick={undefined}>Mixes</div>
-          <SearchBar searchInput={this.props.searchInput} onClick={this.toggleSearch} />
-          <LoginButton />
-      </header>
+	          <i className="nav-button fa icon-setmine fa-2x click center" title="Setmine Home"></i>
+	          <div className='nav-button click center flex' onClick={undefined}>Home</div>
+	          <div className='nav-button click center flex' onClick={undefined}>Featured</div>
+	          <div className='nav-button click center flex' onClick={undefined}>Artists</div>
+	          <div className='nav-button click center flex' onClick={undefined}>Festivals</div>
+	          <div className='nav-button click center flex' onClick={undefined}>Mixes</div>
+	          <SearchBar searchInput={this.props.searchInput} onClick={this.toggleSearch} />
+	          <LoginButton />
+	      </header>
 		);
 	}
 });
