@@ -1,9 +1,9 @@
 var React = require('react')
 
 var Footer = React.createClass({
-	scrollToTop: function() {
-		$(window).scrollTo(0, 400);
-	},
+	// scrollToTop: function() {
+	// 	$(window).scrollTo(0, 400);
+	// },
 	render: function() {
 		return (
 			<footer className="flex-row flex-zero">
@@ -13,7 +13,7 @@ var Footer = React.createClass({
 	                <a className="click" href="http://setmine.com/about">About</a>
 	                <a className="click" id="dmca">DMCA Notice</a>
 	                <br />
-	                <a className="click" onClick={this.scrollToTop}>Back To Top</a>
+	                <a className="click">Back To Top</a>
 	            </div>
 	            <div className="buffer-lg"></div>
 	            <div className="flex-column flex">

@@ -5,11 +5,7 @@ var LoginButton = require('./LoginButton');
 var viewStream = require('../streams/viewStream');
 
 var Header = React.createClass({
-	getInitialState: function() {
-		return {
-			searchActive: false 
-		};
-	},
+
 	componentDidMount: function() {
 		this._attachStream();
 	},
@@ -32,7 +28,4 @@ var Header = React.createClass({
 	}
 });
 
-module.exports = {
-	Header: Header,
-	viewStream: viewStream
-};
+module.exports = Header;

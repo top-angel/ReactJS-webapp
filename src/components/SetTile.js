@@ -1,9 +1,17 @@
 var React = require('react');
+var Router = require('react-router')
+var Route = Router.Route;
 var constants = require('../constants/constants');
 
 var SetTile = React.createClass({
-	handlePlay: function() {
-		console.log('set playing');
+	componentDidMount: function() {
+		//from path /play/:id
+		var id = this.props.params.id;
+		fetchMessage(id, function(err, message) {
+			this.setState({
+				message: message 
+			});
+		})
 	},
 	render: function() {
 		return (
