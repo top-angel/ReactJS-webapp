@@ -13,9 +13,7 @@ var SearchResultsView = require('./components/SearchResultsView');
 
 var viewStream = require('./streams/viewStream');
 
-// <SearchView searchInput={this.state.searchInput} />
 // <FeaturedView landingEvents={landing} currentEvents={sampleCurrentEvents}/>
-// <BrowseView type='artist' />
 // <DetailView artistId={574} detailType='artist'/>
 
 //subscribe in componentDidMount()

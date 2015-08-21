@@ -12,5 +12,8 @@ var views = {
 
 var viewStream = Rx.Observable.just(views);
 
+var responseStream = viewStream.flatMap(function(view) {
+	return Rx.Observable
+})
 
 module.exports = viewStream;
