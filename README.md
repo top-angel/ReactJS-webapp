@@ -11,7 +11,14 @@ $ npm install -g webpack webpack-dev-server
 $ npm install
 ```
 
-#### Running the Application
+#### Running the Server
+
+
+```
+$ npm start
+```
+
+#### Running the Application (in a new Terminal tab)
 
 This compiles all assets as well
 
