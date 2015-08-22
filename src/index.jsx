@@ -2,6 +2,9 @@ import React from 'react';
 import Router from 'react-router';
 import { DefaultRoute, Route, RouteHandler } from 'react-router';
 
+import GlobalEventHandler from './globalEventHandler';
+
+// TODO use ES6 imports moving forward
 //var constants = require('./constants/constants');
 
 //var Player = require('./components/Player');
@@ -27,6 +30,15 @@ var SearchResultsView = require('./components/SearchResultsView');
 //subscribe in componentDidMount()
 //unsubscribe in componentWillUnmount()
 //call setState which pushes to event stream when receiving an event
+//
+
+var evtHandler = GlobalEventHandler({hola:'world'});
+var push = evtHandler.push;
+
+evtHandler.floodGate.subscribe(x => {
+  console.log('RECEIVED', x);
+});
+
 
 var App = React.createClass({
   displayName: 'App container',
