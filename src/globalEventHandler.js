@@ -58,9 +58,9 @@ function getEventHandler(initialState) {
   // TODO ensure no race-conditions
   var floodGate = pushedMessagesObservable.flatMap(msg => {
     return eventDispatcher(msg, applicationState);
-  }).map(state => {
-    // TODO remove this.
-    return state.toJS();
+  }).map(newState => {
+    applicationState = newState;
+    return applicationState;
   });
 
   return {
