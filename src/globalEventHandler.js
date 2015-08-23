@@ -10,8 +10,7 @@ var types = {
 var obsValue = Rx.Observable.just;
 
 function getInitialAppState(initState) {
-  var newState = Immutable.Map(initState);
-  return obsValue(newState);
+  return obsValue(initState);
 }
 
 function shallowMerge(update, lastState) {
@@ -42,11 +41,11 @@ function eventDispatcher(msg, lastState) {
   return newStateObservable;
 }
 
+// initialState has to be an Immutable map
 function getEventHandler(initialState) {
 
   // SHIIIIEEEEET DAS IT MAYNE
   var applicationState = Immutable.Map({});
-
 
   // All messages will be received by this
   var messageReceiver = new Rx.Subject();
@@ -55,7 +54,6 @@ function getEventHandler(initialState) {
     if(!msg) { throw 'Push requires message'; }
     messageReceiver.onNext(msg);
   };
-
 
   var initializeMessage = {
     type: types.INITIALIZE_APP,
