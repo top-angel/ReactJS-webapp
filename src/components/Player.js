@@ -14,7 +14,7 @@ var Player = React.createClass({
 	  console.log('player props', this.props);
 
     return (
-      <div className='player flex-row hidden'>
+      <div className='player flex-row'>
           <PlayerControl />
           <div className='flex-column flex'>
               <PlayerSeek />
