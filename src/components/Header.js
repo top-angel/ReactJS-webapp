@@ -1,11 +1,10 @@
 var React = require('react');
+var Navigation = require('react-router').Navigation;
 var SearchBar = require('./SearchBar');
 var LoginButton = require('./LoginButton');
 
-var viewStream = require('../streams/viewStream');
-
 var Header = React.createClass({
-
+	mixins: [Navigation],
 	componentDidMount: function() {
 		this._attachStream();
 	},
@@ -15,15 +14,23 @@ var Header = React.createClass({
 	render: function() {
 		return (
 			<header className="flex-row flex-zero">
-          <i className="nav-button fa icon-setmine fa-2x click center" title="Setmine Home"></i>
-          <div className='nav-button click center flex' onClick={undefined}>Home</div>
-          <div className='nav-button click center flex' onClick={undefined}>Featured</div>
-          <div className='nav-button click center flex' onClick={undefined}>Artists</div>
-          <div className='nav-button click center flex' onClick={undefined}>Festivals</div>
-          <div className='nav-button click center flex' onClick={undefined}>Mixes</div>
-          <SearchBar searchInput={this.props.searchInput} onClick={this.toggleSearch} />
-          <LoginButton />
-      </header>
+	          <i className="nav-button fa icon-setmine fa-2x click center" 
+	          	title="Setmine Home"
+	          	onClick={() => this.transitionTo('landing')}>
+          	</i>
+	          <div className='nav-button click center flex' 
+	          	onClick={() => this.transitionTo('user')}>Home</div>
+	          <div className='nav-button click center flex' 
+	          	onClick={() => this.transitionTo('featured')}>Featured</div>
+	          <div className='nav-button click center flex' 
+	          	onClick={() => this.transitionTo('browse')}>Artists</div>
+	          <div className='nav-button click center flex' 
+	          	onClick={() => this.transitionTo('browse')}>Festivals</div>
+	          <div className='nav-button click center flex' 
+	          	onClick={() => this.transitionTo('browse')}>Mixes</div>
+	          <SearchBar searchInput={this.props.searchInput} onClick={this.toggleSearch} />
+	          <LoginButton />
+	      </header>
 		);
 	}
 });

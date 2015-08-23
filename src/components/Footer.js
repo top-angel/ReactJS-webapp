@@ -27,7 +27,7 @@ var Footer = React.createClass({
 	            </div>
 	            <div className="buffer-lg"></div>
 	            <div className="flex-column flex-zero">
-	                <a className="center" href="https://teamtreehouse.com"><img src="images/treehouse.png" /></a>
+	                <a className="center" href="https://teamtreehouse.com"><img src="public/images/treehouse.png" /></a>
 	                <a className="center" href="https://mixpanel.com/f/partner"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics" /></a>
 	            </div>
 	            <div className="buffer"></div>

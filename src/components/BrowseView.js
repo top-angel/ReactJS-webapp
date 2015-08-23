@@ -7,8 +7,7 @@ var BrowseView = React.createClass({
 	getInitialState: function() {
 		return {
 			data: [],
-			title: undefined,
-			hidden: true
+			title: 'Artists'
 		};
 	},
 	getArtists: function(){

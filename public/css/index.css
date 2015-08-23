@@ -813,17 +813,13 @@ input#search {
   color: white;
 }
 .slide-3 .text-container {
-  background-color: #bdc3c7;
-  color: white;
-}
-.slide-4 .text-container {
   background-color: #ff8181;
   color: white;
 }
-.slide-4 .image-container {
+.slide-3 .image-container {
   background-color: #ebebeb;
 }
-.slide-4 .divider {
+.slide-3 .divider {
   height: 2px;
   width: 60%;
   background-color: #efefef;

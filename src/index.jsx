@@ -1,7 +1,6 @@
 import React from 'react';
 import Router from 'react-router';
-import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
-
+import { DefaultRoute, Link, Route, RouteHandler, Navigation } from 'react-router';
 var constants = require('./constants/constants');
 
 var Player = require('./components/Player');
@@ -14,16 +13,9 @@ var FeaturedView = require('./components/FeaturedView');
 var HomeView = require('./components/HomeView');
 var SearchResultsView = require('./components/SearchResultsView');
 
-console.log(SearchResultsView);
-
 var SetTile = require('./components/SetTile');
 var EventTile = require('./components/EventTile');
 var TrackTile = require('./components/TrackTile');
-
-var viewStream = require('./streams/viewStream');
-
-// <FeaturedView landingEvents={landing} currentEvents={sampleCurrentEvents}/>
-// <DetailView artistId={574} detailType='artist'/>
 
 //subscribe in componentDidMount()
 //unsubscribe in componentWillUnmount()
@@ -37,55 +29,39 @@ var App = React.createClass({
 			userLoggedIn: false,
 		};
 	},
-	_attachStream: function() {
-		var _this = this;
-
-		function updateActiveView (view) {
-			_this.setState({
-				activeView: view
-			});
-		}
-	},
+	mixins: [Navigation],
 	render: function() {
-		var activeView = this.state.activeView;
 		return (
 			<div className="main-container flex-column">
 				<Header />
 				<RouteHandler />
+				<Footer />
 			</div>
 		);
 	}
 });
 
-
-var App2 = React.createClass({
-	render: function() {
-
-		return (<div>
-					<h1> FUCK </h1>
-					<RouteHandler />
-				 </div>);
-	}
-});
-
 var routes = (
 	<Route path='/' handler={App}>
-		<Route path='home' handler={LandingView} />
-		<Route path='browse' handler={BrowseView}></Route>
-		<Route path='featured' handler={FeaturedView} />
-		<Route path='user' handler={HomeView} />
-		<DefaultRoute handler={SearchResultsView} />
-		<Route path='artist/:id' handler={DetailView} />
-		<Route path='event/:id' handler={DetailView} />
+		<DefaultRoute name='landing' handler={LandingView} />
+		<Route name='user' path='user' handler={HomeView} />
+		<Route name='featured' path='featured' handler={FeaturedView} />
+		<Route name='browse' path='browse' handler={BrowseView}/>
+		<Route name='search' path='search' handler={SearchResultsView} />
+		<Route name='artist' path='artist' handler={DetailView}>
+			<Route path=':id'/>
+		</Route>
+		<Route name='event' path='event' handler={DetailView}>
+			<Route path=':id'/>
+		</Route>
 	</Route>
 );
 
 var headMount = document.getElementById('head-mount-point');
 var bodyMount = document.getElementById('body-mount-point');
 
-Router.run(routes, Router.HashLocation, (Root) => {
-	console.log(Root);
+Router.run(routes, Router.HashLocation, function(Root) {
 	React.render(<Root/>, bodyMount);
-})
+});
 
 // React.render(<App />, bodyMount);

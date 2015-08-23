@@ -6,7 +6,7 @@ var HomeView = React.createClass({
 
 	render: function() {
 		return (
-			<div id="home" className="view flex-row overlay-container hidden">
+			<div id="home" className="view flex-row overlay-container">
 				<HomeSidebar />
 				<HomeResultsContainer />
 			</div>
