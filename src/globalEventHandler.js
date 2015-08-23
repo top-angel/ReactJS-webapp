@@ -1,11 +1,22 @@
 import Rx from 'rx';
+import R from 'ramda';
 import Immutable from 'immutable';
 
-var INITIALIZE_APP = 'INITIALIZE_APP';
+var types = {
+  INITIALIZE_APP: 'INITIALIZE_APP',
+  SHALLOW_MERGE:  'SHALLOW_MERGE'
+};
+
+var obsValue = Rx.Observable.just;
 
 function getInitialAppState(initState) {
   var newState = Immutable.Map(initState);
-  return Rx.Observable.just(newState);
+  return obsValue(newState);
+}
+
+function shallowMerge(update, lastState) {
+  var newState = R.merge(lastState.toJS(), update);
+  return obsValue(Immutable.Map(newState));
 }
 
 function eventDispatcher(msg, lastState) {
@@ -21,9 +32,11 @@ function eventDispatcher(msg, lastState) {
    * MUST RETURN AN OBSERVABLE THAT WILL PUBLISH IMMUTABLEJS MAPS
    */
   switch(type) {
-    case INITIALIZE_APP:
+    case types.INITIALIZE_APP:
       newStateObservable = getInitialAppState(data, lastState);
       break;
+    case types.SHALLOW_MERGE:
+      newStateObservable = shallowMerge(data, lastState);
   }
 
   return newStateObservable;
@@ -45,7 +58,7 @@ function getEventHandler(initialState) {
 
 
   var initializeMessage = {
-    type: INITIALIZE_APP,
+    type: types.INITIALIZE_APP,
     data: initialState
   };
 
@@ -65,6 +78,7 @@ function getEventHandler(initialState) {
 
   return {
     push: push,
+    types: types,
     floodGate: floodGate
   };
 }

@@ -33,36 +33,62 @@ var SearchResultsView = require('./components/SearchResultsView');
 //
 
 var evtHandler = GlobalEventHandler({hola:'world'});
+var evtTypes = evtHandler.types;
+
 var push = evtHandler.push;
 
-evtHandler.floodGate.subscribe(x => {
-  console.log('RECEIVED', x);
+
+function lol() {
+  push({
+    type: evtTypes.SHALLOW_MERGE,
+    data: { lastClick: new Date() }
+  });
+}
+
+
+var PrintObject = React.createClass({
+  displayName: 'PrintObject',
+  render: function() {
+    var s = JSON.stringify(this.props.value, null, 2);
+    console.log('PO APP STATE', this.props.value);
+    return React.createElement('code', {
+      style: { fontSize: 10 },
+      onClick: lol
+    }, s);
+  }
 });
 
 
 var App = React.createClass({
   displayName: 'App container',
+
 	getInitialState: function() {
 		return {
-			searchInput: '',
-			setPlaying: null,
-			userLoggedIn: false,
+		  // Let's assume that other ephemeral state
+		  // MAY have to exist here.
+		  appState: {}
 		};
 	},
-	//_attachStream: function() {
-		//var _this = this;
 
-		//function updateActiveView (view) {
-			//_this.setState({
-				//activeView: view
-			//});
-		//}
-	//},
+  componentDidMount: function() {
+    this._attachStreams();
+  },
+
+  _attachStreams: function() {
+    var _this = this;
+    evtHandler.floodGate.subscribe(newState => {
+      _this.setState({ appState: newState });
+    });
+  },
+
 	render: function() {
+	  var appState = this.state;
+
 		return (
 			<div className="main-container flex-column">
-				<Header />
-				<RouteHandler />
+			  <PrintObject value={appState} />
+				<Header appState={appState} pushFn={push} />
+				<RouteHandler appState={appState} pushFn={push} />
 			</div>
 		);
 	}
