@@ -1,4 +1,5 @@
 var React = require('react');
+
 var LandingHome = require('./LandingHome');
 var LandingApp = require('./LandingApp');
 var LandingBeacon = require('./LandingBeacon');

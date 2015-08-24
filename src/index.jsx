@@ -1,12 +1,13 @@
 import React from 'react';
-// import constants from '../constants/constants';
+import constants from '../constants/constants';
 import GlobalEventHandler from './globalEventHandler';
+import Immutable from 'immutable';
 import Router from 'react-router';
 import { DefaultRoute, Link, Route, RouteHandler, Navigation } from 'react-router';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
-import Player from './components/Player';
+import PlayerWrapper from './components/Player';
 import DetailView from './components/DetailView';
 import LandingView from './components/LandingView';
 import Artists from './components/Artists';
@@ -18,8 +19,16 @@ import SetTile from './components/SetTile';
 import EventTile from './components/EventTile';
 import TrackTile from './components/TrackTile';
 
-var evtHandler = GlobalEventHandler({hola:'world'});
-var evtTypes = evtHandler.types;
+//subscribe in componentDidMount()
+//unsubscribe in componentWillUnmount()
+//call setState which pushes to event stream when receiving an event
+
+var initialAppState = Immutable.Map({
+	currentSet: {asd:123}
+});
+
+var evtHandler = GlobalEventHandler(initialAppState);
+//var evtTypes = evtHandler.types;
 
 var push = evtHandler.push;
 
@@ -50,27 +59,31 @@ var App = React.createClass({
 		return {
 			// Let's assume that other ephemeral state
 			// MAY have to exist here.
-			appState: {}
+			appState: initialAppState
 		};
 	},
+
 	componentDidMount: function() {
 		this._attachStreams();
 	},
+
 	_attachStreams: function() {
 		var _this = this;
 		evtHandler.floodGate.subscribe(newState => {
+			console.log('UPDATE', newState);
 			_this.setState({ appState: newState });
 		});
 	},
+
 	render: function() {
-		var appState = this.state;
+		var appState = this.state.appState;
 
 		return (
 			<div className="main-container flex-column">
-				<PrintObject value={appState} />
 				<Header appState={appState} pushFn={push} />
-				<RouteHandler appState={appState} pushFn={push} />
-				<Footer />
+				<PlayerWrapper appState={appState}
+											 pushFn={push}
+											 routeHandler={RouteHandler} />
 			</div>
 		);
 	}
