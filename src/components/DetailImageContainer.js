@@ -1,22 +1,22 @@
-var React = require('react');
+import React from 'react';
 var constants = require('../constants/constants');
 
-var DetailImageContainer = React.createClass({	// Displays key detail information
+var DetailImageContainer = React.createClass({
 	render: function() {
-        var image = {
-            background: "url('" + constants.S3_ROOT_FOR_IMAGES + imageURL + "')",
-            backgroundSize: '100%'
-        }
+		var imageStyle = {
+				background: "url('" + constants.S3_ROOT_FOR_IMAGES + this.props.imageURL + "')",
+				backgroundSize: '100%'
+		}
 		return (
-			<div className="flex-column flex image-container overlay-container" style={image}>
-                <div className="overlay"></div>
-                <div className="buffer"></div>
-                <div className="header center artist-name">{title}</div>
-                <div className="header-small center">{info}</div>
-                <div className="buffer"></div>
-                <div className="header-small center click" id="detail-button">{button_text}</div>
-                <div className="buffer"></div>
-            </div>
+			<div className="flex-column flex image-container overlay-container" style={imageStyle}>
+				<div className="overlay"/>
+				<div className="buffer"/>
+				<div className="header center artist-name">{title}</div>
+				<div className="header-small center">{info}</div>
+				<div className="buffer"/>
+				<div className="header-small center click" id="detail-button">{this.props.buttonText || null}</div>
+				<div className="buffer"/>
+			</div>
 		);
 	}
 	

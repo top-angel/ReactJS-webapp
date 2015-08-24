@@ -4,21 +4,42 @@ var LandingApp = React.createClass({
 	componentDidMount: function() {
 		var activeSlide = 'fa fa-fw fa-circle click';
 		var inactiveSlide = 'fa fa-fw fa-circle-o click';
-		var slide = $('.slide');
-		$('i', '.slide-controls').click(function() {
-			var id = $(this).attr('id');
-			$(this).attr('class', activeSlide)
-				.siblings().attr('class', inactiveSlide);
-			fadeTransition(slide, $('.slide'+'.'+id));
-		})
+		var slides = $('.slide'),
+			 dots = $('.slide-controls i'),
+			 sLength = slides.length,
+			 current,
+			 changeTimeout;
 
-		window.setInterval(function() {
-		}, 5000);
+		function moveTo(newIndex) {
+			var i = newIndex;
+			if(newIndex == 'prev') {
+				i = (current > 0) ? (current - 1) : (sLength - 1);
+			} 
+			if(newIndex =='next') {
+				i = (current < sLength - 1) ? (current + 1): 0;
+			}
+			dots.attr('class', inactiveSlide).eq(i).attr('class', activeSlide);
+			fadeTransition(slides, slides.eq(i));
+			current = i;
+			clearTimeout(changeTimeout);
+			changeTimeout = setTimeout(function() {
+				moveTo('next');
+			}, 7000);
+		}
+
+		//change slides by clicking on dots
+		dots.click(function() {
+			var i = dots.index(this);
+			moveTo(i);
+		});
+
+		//initialize slider on load
+		moveTo('next');
 	},
 	render: function() {
 		return (
 			<div className="flex-column landing-view overlay-container" id="landing-2">
-				<div className="flex-row overlay-container slide slide-1">
+				<div className="flex-row overlay-container slide slide-1 animated fadeIn">
 					<div className="flex-column flex-fixed text-container">
 						<div className="buffer"/>
 						<div className="header-medium center wow bounceInLeft">
@@ -54,7 +75,7 @@ var LandingApp = React.createClass({
 					   <img className="center animated fadeIn" src="public/images/slide-2.jpg" />
 					</div>
 				</div>
-	          <div className="flex-row overlay-container slide slide-3 hidden">
+	          <div className="flex-row overlay-container slide slide-3 animated fadeIn hidden">
 					<div className="flex-column flex-fixed text-container">
 						<div className="buffer"/>
 						<div className="animated bounceInLeft">
@@ -65,7 +86,7 @@ var LandingApp = React.createClass({
 							{'Save your favorite sets for quick and easy listening.'}
 						</div>
 						<div className="buffer"/>
-						<div className="divider center animated zoomIn"></div>
+						<div className="divider center"></div>
 						<div className="buffer"/>
 						<div className="animated bounceInLeft">
 							{'You can enjoy these features with a quick one-time facebook login.'}

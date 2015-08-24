@@ -16,7 +16,7 @@ var colors = {
 	youtube: '#cd201f'
 };
 
-module.exports = {
+module.exports =  {
 	S3_ROOT: S3_ROOT,
 	S3_ROOT_FOR_IMAGES: S3_ROOT_FOR_IMAGES,
 	API_ROOT: API_ROOT,

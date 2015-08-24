@@ -64,8 +64,8 @@ var FeaturedView = React.createClass({
 		}.bind(this))
 	},
 	componentWillMount: function() {
-		this.getLandingEvents()
-		this.getUpcomingEvents()
+		this.getLandingEvents();
+		// this.getUpcomingEvents()
 	},
 	componentDidMount: function() {
 		this._attachStreams();

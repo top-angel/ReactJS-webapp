@@ -1,5 +1,4 @@
 import React from 'react';
-// import constants from '../constants/constants';
 import GlobalEventHandler from './globalEventHandler';
 import Immutable from 'immutable';
 import Router from 'react-router';
@@ -10,10 +9,14 @@ import Header from './components/Header';
 import PlayerWrapper from './components/Player';
 import DetailView from './components/DetailView';
 import LandingView from './components/LandingView';
-import Artists from './components/Artists';
 import FeaturedView from './components/FeaturedView';
 import HomeView from './components/HomeView';
 import SearchResultsView from './components/SearchResultsView';
+
+import Artists from './components/Artists';
+import Festivals from './components/Festivals';
+import Mixes from './components/Mixes';
+import Activities from './components/Activities';
 
 import SetTile from './components/SetTile';
 import EventTile from './components/EventTile';
@@ -30,7 +33,23 @@ var initialAppState = Immutable.Map({
 			"artist": '12th Planet',
 			"imageURL": "313e875b84fe6e0844b02509a8635cebb9f7d128.jpg"
 		}
-	]
+	],
+	detaildata: {
+		"id": 574,
+		"artist": "Kygo",
+		"bio": "No Biography Available",
+		"fb_link": "https://www.facebook.com/kygoofficial",
+		"twitter_link": "https://twitter.com/kygomusic",
+		"web_link": "https://www.google.com/",
+		"instagram_link": null,
+		"soundcloud_link": null,
+		"youtube_link": null,
+		"imageURL": "a7f7aaec8ecd0cdec444b8abb06dbc66.jpg",
+		"musicbrainz_id": null,
+		"set_count": 6,
+		"event_count": 0,
+		"sets": []
+	}
 });
 
 var evtHandler = GlobalEventHandler(initialAppState);
@@ -86,10 +105,11 @@ var App = React.createClass({
 
 		return (
 			<div className="main-container flex-column">
-				<Header appState={appState} pushFn={push} />
+				<Header appState={appState} pushFn={push}/>
 				<PlayerWrapper appState={appState}
 											 pushFn={push}
-											 routeHandler={RouteHandler} />
+											 routeHandler={RouteHandler}/>
+				<Footer />
 			</div>
 		);
 	}
@@ -98,12 +118,16 @@ var App = React.createClass({
 var routes = (
 	<Route path='/' handler={App}>
 		<DefaultRoute name='landing' handler={LandingView}/>
-		<Route name='user' path='user' handler={HomeView} />
-		<Route name='featured' path='featured' handler={FeaturedView} />
+		<Route name='user' path='user' handler={HomeView}/>
+		<Route name='featured' path='featured' handler={FeaturedView}/>
 		<Route name='artists' path='artists' handler={Artists}/>
-		<Route name='search' path='search' handler={SearchResultsView} />
-		<Route name='artist' path='artist' handler={DetailView}>
-			<Route path=':id'/>
+		<Route name='festivals' path='festivals' handler={Festivals}/>
+		<Route name='mixes' path='mixes' handler={Mixes}/>
+		<Route name='activities' handler={Activities}/>
+		<Route name='search' path='search' handler={SearchResultsView}/>
+		<Route name='artist' path='artist/:id' handler={ArtistDetail}>
+			<Route name='artistSets' path='sets'/>
+			<Route name='artistEvents' path='events'/>
 		</Route>
 		<Route name='event' path='event' handler={DetailView}>
 			<Route path=':id'/>

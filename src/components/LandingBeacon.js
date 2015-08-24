@@ -8,7 +8,7 @@ var LandingBeacon = React.createClass({
                 <div className="flex-column flex-3x image-container overlay-container">
                     <div className="overlay"/>
                     <div className="header-medium wow bounceInLeft">
-                        {'Introducing a new way to unlock music while supporting your favorite artists'}
+                        {'Introducing a new way to unlock music'}
                     </div>
                 </div>
                 <div className="flex-column flex text-container">

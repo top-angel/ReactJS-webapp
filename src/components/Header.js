@@ -25,9 +25,9 @@ var Header = React.createClass({
 	          <div className='nav-button click center flex' 
 	          	onClick={() => this.transitionTo('artists')}>Artists</div>
 	          <div className='nav-button click center flex' 
-	          	onClick={() => this.transitionTo('browse')}>Festivals</div>
+	          	onClick={() => this.transitionTo('festivals')}>Festivals</div>
 	          <div className='nav-button click center flex' 
-	          	onClick={() => this.transitionTo('browse')}>Mixes</div>
+	          	onClick={() => this.transitionTo('mixes')}>Mixes</div>
 	          <div className='nav-button click center flex'
 	          	onClick={() => this.transitionTo('activities')}>Activities</div>
 	          <SearchBar searchInput={this.props.searchInput} onClick={this.toggleSearch} />
