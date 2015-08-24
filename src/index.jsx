@@ -1,14 +1,15 @@
 import React from 'react';
+// import constants from '../constants/constants';
+import GlobalEventHandler from './globalEventHandler';
 import Router from 'react-router';
 import { DefaultRoute, Link, Route, RouteHandler, Navigation } from 'react-router';
-import constants from './constants/constants';
-import GlobalEventHandler from './globalEventHandler';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
+import Player from './components/Player';
 import DetailView from './components/DetailView';
 import LandingView from './components/LandingView';
-import BrowseView from './components/BrowseView';
+import Artists from './components/Artists';
 import FeaturedView from './components/FeaturedView';
 import HomeView from './components/HomeView';
 import SearchResultsView from './components/SearchResultsView';
@@ -21,7 +22,6 @@ var evtHandler = GlobalEventHandler({hola:'world'});
 var evtTypes = evtHandler.types;
 
 var push = evtHandler.push;
-
 
 function lol() {
 	push({
@@ -78,10 +78,10 @@ var App = React.createClass({
 
 var routes = (
 	<Route path='/' handler={App}>
-		<DefaultRoute name='landing' handler={LandingView} />
+		<DefaultRoute name='landing' handler={LandingView}/>
 		<Route name='user' path='user' handler={HomeView} />
 		<Route name='featured' path='featured' handler={FeaturedView} />
-		<Route name='browse' path='browse' handler={BrowseView}/>
+		<Route name='artists' path='artists' handler={Artists}/>
 		<Route name='search' path='search' handler={SearchResultsView} />
 		<Route name='artist' path='artist' handler={DetailView}>
 			<Route path=':id'/>
@@ -98,5 +98,3 @@ var bodyMount = document.getElementById('body-mount-point');
 Router.run(routes, Router.HashLocation, function(Root) {
 	React.render(<Root/>, bodyMount);
 });
-
-// React.render(<App />, bodyMount);

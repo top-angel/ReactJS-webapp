@@ -2,12 +2,23 @@ var React = require('react');
 
 var LandingApp = React.createClass({
 	componentDidMount: function() {
-		
+		var activeSlide = 'fa fa-fw fa-circle click';
+		var inactiveSlide = 'fa fa-fw fa-circle-o click';
+		var slide = $('.slide');
+		$('i', '.slide-controls').click(function() {
+			var id = $(this).attr('id');
+			$(this).attr('class', activeSlide)
+				.siblings().attr('class', inactiveSlide);
+			fadeTransition(slide, $('.slide'+'.'+id));
+		})
+
+		window.setInterval(function() {
+		}, 5000);
 	},
 	render: function() {
 		return (
 			<div className="flex-column landing-view overlay-container" id="landing-2">
-				<div className="flex-row overlay-container slide slide-1 hidden">
+				<div className="flex-row overlay-container slide slide-1">
 					<div className="flex-column flex-fixed text-container">
 						<div className="buffer"/>
 						<div className="header-medium center wow bounceInLeft">
@@ -28,7 +39,7 @@ var LandingApp = React.createClass({
 					</div>
 				</div>
 				<div className="flex-row overlay-container slide slide-2 hidden">
-					<div className="flex-column flex-fixed text-container">
+					<div className="flex-column flex-fixed text-container animated fadeIn">
 					   <div className="buffer"/>
 					   <div className="header-medium center animated bounceInLeft">
 					   		{'Discover upcoming events near you'}
@@ -40,25 +51,21 @@ var LandingApp = React.createClass({
 					   <div className="buffer-5x"/>
 					</div>
 					<div className="flex-column flex-fixed image-container">
-					   <img className="center animated slideInUp" src="public/images/slide-2.3.jpg" />
+					   <img className="center animated fadeIn" src="public/images/slide-2.jpg" />
 					</div>
 				</div>
-	          <div className="flex-row overlay-container slide slide-3">
+	          <div className="flex-row overlay-container slide slide-3 hidden">
 					<div className="flex-column flex-fixed text-container">
 						<div className="buffer"/>
 						<div className="animated bounceInLeft">
-							{'Setmine\'s Activities make it easy to find the perfect set for whatever you\'re doing.'}
+							{'Your stream lists new sets, upcoming events, and exclusive content from your favorite artists.'}
 						</div>
 						<div className="buffer"/>
 						<div className="animated bounceInLeft">
-							{'Get pumped to workout to Skrillex. Relax and chill with Kygo and Thomas Jack. Zone into a study sesh with Above & Beyond.'}
+							{'Save your favorite sets for quick and easy listening.'}
 						</div>
 						<div className="buffer"/>
 						<div className="divider center animated zoomIn"></div>
-						<div className="buffer"/>
-						<div className="animated bounceInLeft">
-							{'Save your favorite sets for quick and easy listening with My Sets'}
-						</div>
 						<div className="buffer"/>
 						<div className="animated bounceInLeft">
 							{'You can enjoy these features with a quick one-time facebook login.'}
@@ -66,13 +73,13 @@ var LandingApp = React.createClass({
 						<div className="buffer"/>
 					</div>
 					<div className="flex-column flex-fixed image-container">
-						<img className="center animated slideInUp" src="public/images/slide-3.jpg" />
-				</div>
+						<img className="center animated zoomIn" src="public/images/slide-3.jpg" />
+					</div>
           	</div>
 				<div className="flex-row slide-controls">
-					<i className={'fa fa-fw fa-circle click'}></i>
-					<i className={'fa fa-fw fa-circle-o click'}></i>
-					<i className={'fa fa-fw fa-circle-o click'}></i>
+					<i className={'fa fa-fw fa-circle click'} id='slide-1'></i>
+					<i className={'fa fa-fw fa-circle-o click'} id='slide-2'></i>
+					<i className={'fa fa-fw fa-circle-o click'} id='slide-3'></i>
 				</div>
 			</div>
 		);

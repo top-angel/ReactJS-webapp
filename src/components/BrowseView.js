@@ -1,7 +1,7 @@
-var React = require('react')
-var ViewTitleContainer = require('./ViewTitleContainer')
-var ResultsContainer = require('./ResultsContainer')
-var constants = require('../constants/constants')
+import React from 'react';
+import ViewTitleContainer from './ViewTitleContainer';
+import ResultsContainer from './ResultsContainer';
+import constants from '../constants/constants';
 
 var BrowseView = React.createClass({
 	getInitialState: function() {
@@ -91,23 +91,14 @@ var BrowseView = React.createClass({
 			console.error(this.props.url, status, err.toString());
 		}.bind(this))	
 	},
-	componentWillMount: function() {
-		if(this.props.type=='artist') {
-			this.getArtists()
-		} else if(this.props.type=='festival') {
-			this.getFestivals()
-		} else if(this.props.type=='mix') {
-			this.getMixes()
-		}
-	},
 	render: function() {
 		return (
 			<div id="browse" className="view overlay-container">
-				<ViewTitleContainer title={this.state.title} />
-				<ResultsContainer data={this.state.data} type={this.props.type}/>
+				<ViewTitleContainer title={this.props.title} />
+				<ResultsContainer data={this.props.data} type={this.props.type}/>
 			</div>
 		)
 	}
-})
+})		
 
-module.exports = BrowseView
+module.exports = BrowseView;

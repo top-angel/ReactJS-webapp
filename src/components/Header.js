@@ -23,11 +23,13 @@ var Header = React.createClass({
 	          <div className='nav-button click center flex' 
 	          	onClick={() => this.transitionTo('featured')}>Featured</div>
 	          <div className='nav-button click center flex' 
-	          	onClick={() => this.transitionTo('browse')}>Artists</div>
+	          	onClick={() => this.transitionTo('artists')}>Artists</div>
 	          <div className='nav-button click center flex' 
 	          	onClick={() => this.transitionTo('browse')}>Festivals</div>
 	          <div className='nav-button click center flex' 
 	          	onClick={() => this.transitionTo('browse')}>Mixes</div>
+	          <div className='nav-button click center flex'
+	          	onClick={() => this.transitionTo('activities')}>Activities</div>
 	          <SearchBar searchInput={this.props.searchInput} onClick={this.toggleSearch} />
 	          <LoginButton />
 	      </header>
