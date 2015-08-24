@@ -1,15 +1,9 @@
 import React from 'react';
 import ViewTitleContainer from './ViewTitleContainer';
-import ResultsContainer from './ResultsContainer';
 import constants from '../constants/constants';
+import BrowseTile from './BrowseTile';
 
 var BrowseView = React.createClass({
-	getInitialState: function() {
-		return {
-			data: [],
-			title: 'Artists'
-		};
-	},
 	getArtists: function(){
 		$.ajax({
 			url: 'http://setmine.com'+constants.API_ROOT+'artist',
@@ -89,16 +83,22 @@ var BrowseView = React.createClass({
 		}.bind(this))
 		.fail(function(xhr, status, err) {
 			console.error(this.props.url, status, err.toString());
-		}.bind(this))	
+		}.bind(this));	
 	},
 	render: function() {
+		var tiles = [];
+		this.props.data.map(function(tile, index) {
+			tiles.push(<BrowseTile text={tile.artist} key={index} image={tile.imageURL} />);
+		});
 		return (
 			<div id="browse" className="view overlay-container">
 				<ViewTitleContainer title={this.props.title} />
-				<ResultsContainer data={this.props.data} type={this.props.type}/>
+				<div className="results-container flex-row flex">
+					{tiles}
+				</div>
 			</div>
-		)
+		);
 	}
-})		
+});		
 
 module.exports = BrowseView;

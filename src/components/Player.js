@@ -191,7 +191,7 @@ var PlayerWrapper = React.createClass({
 
 		return (
 			<div>
-				<Rh />
+				<Rh appState={appState}/>
 				<Player set={currentSet} pushFn={push} />
 			</div>
 		);

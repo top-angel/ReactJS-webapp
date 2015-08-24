@@ -1,5 +1,5 @@
 import React from 'react';
-import constants from '../constants/constants';
+// import constants from '../constants/constants';
 import GlobalEventHandler from './globalEventHandler';
 import Immutable from 'immutable';
 import Router from 'react-router';
@@ -24,7 +24,13 @@ import TrackTile from './components/TrackTile';
 //call setState which pushes to event stream when receiving an event
 
 var initialAppState = Immutable.Map({
-	currentSet: {asd:123}
+	currentSet: {asd:123},
+	browseData: [
+		{
+			"artist": '12th Planet',
+			"imageURL": "313e875b84fe6e0844b02509a8635cebb9f7d128.jpg"
+		}
+	]
 });
 
 var evtHandler = GlobalEventHandler(initialAppState);
