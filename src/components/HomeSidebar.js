@@ -1,11 +1,13 @@
-var React = require('react');
+import React from 'react';
+import {Navigation} from 'react-router';
 
 var HomeSidebar = React.createClass({
+	mixins: [Navigation],
 	render: function() {
 		return (
 			<div className="flex-column flex-fixed sidebar">
 				<div className="flex flex-column overlay-container user-background">
-				  <img className="user-image center" src="public/images/userImage.jpg" />
+				  <img className="user-image center" src='' />
 				</div>
 				<div className="flex-2x flex-column user-nav">
 					<div className="view-trigger click flex flex-row active" name="my-sets">

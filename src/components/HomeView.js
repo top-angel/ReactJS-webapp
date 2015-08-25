@@ -1,6 +1,6 @@
 var React = require('react');
 var HomeSidebar = require('./HomeSidebar');
-var HomeResultsContainer = require('./HomeResultsContainer');
+var HomeContainer = require('./HomeContainer');
 
 var HomeView = React.createClass({
 
@@ -8,7 +8,7 @@ var HomeView = React.createClass({
 		return (
 			<div id="home" className="view flex-row overlay-container">
 				<HomeSidebar />
-				<HomeResultsContainer />
+				<HomeContainer />
 			</div>
 		);
 	}

@@ -1,15 +1,14 @@
 import React from 'react';
 import DetailView from './DetailView';
 
-var data = this.props.appState.get('detailData');
-var TITLES = ['lineup'];
-var buttonText = 'Tickets';
-var info = data.formattedDate;
-var title = data.event;
-
 var EventDetail = React.createClass({
-	displayName: 'ArtistDetail',
+	displayName: 'EventDetail',
 	render: function() {
+		var data = this.props.appState.get('detailData');
+		var TITLES = ['lineup'];
+		var buttonText = 'Tickets';
+		var info = data.formattedDate;
+		var title = data.event;
 		return (
 			React.createElement(DetailView, {
 				navTiles: TILES,

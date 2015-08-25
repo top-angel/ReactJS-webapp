@@ -13,6 +13,10 @@ import FeaturedView from './components/FeaturedView';
 import HomeView from './components/HomeView';
 import SearchResultsView from './components/SearchResultsView';
 
+// import ArtistDetail from './components/ArtistDetail';
+// import EventDetail from './components/EventDetail';
+// import FestivalDetail from './components/FestivalDetail';
+
 import Artists from './components/Artists';
 import Festivals from './components/Festivals';
 import Mixes from './components/Mixes';
@@ -118,22 +122,25 @@ var App = React.createClass({
 var routes = (
 	<Route path='/' handler={App}>
 		<DefaultRoute name='landing' handler={LandingView}/>
-		<Route name='user' path='user' handler={HomeView}/>
+		<Route name='user' path='user' handler={HomeView}>
+			<Route name='mysets' />
+			<Route name='new' />
+		</Route>
 		<Route name='featured' path='featured' handler={FeaturedView}/>
 		<Route name='artists' path='artists' handler={Artists}/>
 		<Route name='festivals' path='festivals' handler={Festivals}/>
 		<Route name='mixes' path='mixes' handler={Mixes}/>
 		<Route name='activities' handler={Activities}/>
 		<Route name='search' path='search' handler={SearchResultsView}/>
-		<Route name='artist' path='artist/:id' handler={ArtistDetail}>
-			<Route name='artistSets' path='sets'/>
-			<Route name='artistEvents' path='events'/>
-		</Route>
-		<Route name='event' path='event' handler={DetailView}>
-			<Route path=':id'/>
-		</Route>
 	</Route>
 );
+
+// <Route name='artist' path='artist/:id' handler={ArtistDetail}>
+// 			<Route name='artistSets' path='sets'/>
+// 			<Route name='artistEvents' path='events'/>
+// 		</Route>
+// 		<Route name='event' path='event/:id' handler={EventDetail}>
+// 		</Route>
 
 //var headMount = document.getElementById('head-mount-point');
 var bodyMount = document.getElementById('body-mount-point');
