@@ -7,6 +7,7 @@ var SearchResultsView = React.createClass({
 		//this._attachStream();
 	},
 	render: function() {
+		var data = this.props.appState.get('search');
 		return (
 			<div id="search-results" className="view overlay-container hidden">
 	          <div className="flex-row view-title-container sets">
@@ -22,6 +23,7 @@ var SearchResultsView = React.createClass({
 					<div className="divider"></div>
 	          </div>
 				<div className="search-results">
+					<p>FUCK</p>
 				</div>
           </div>
 		);

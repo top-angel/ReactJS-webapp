@@ -7,6 +7,7 @@ var SearchBar = React.createClass({
 			searchInput: ''
 		};
 	},
+	//old search functionality for reference; delete later
 	search: function(query) {
 		var results = null;
 		$(".search-loader").removeClass("hidden")
@@ -69,18 +70,12 @@ var SearchBar = React.createClass({
 		});
 		
 	},
-	handleChange: function(e) {
-		this.setState({
-			searchInput: e.target.value
-		});
-		search();
-	},
 	render: function() {
 		return (
-			<div className="search-bar flex-row flex-3x">
-				<i className="nav-button fa fa-search center click flex-zero"></i>
-                <input id="search" className="flex" placeholder='search' value={this.props.searchInput} onChange={this.handleChange} />
-            </div>
+			<div className='center flex'>
+				<i className="nav-button fa fa-search click"></i>
+                <input id="search" className="flex" placeholder='search'/>
+          </div>
 		);
 	}
 

@@ -38,7 +38,7 @@ var FeaturedView = React.createClass({
 					}
 				}
 			}
-			console.log(splitLanding)
+			// console.log(splitLanding)
 			this.setState({
 				landingEvents: splitLanding
 			});
@@ -75,8 +75,9 @@ var FeaturedView = React.createClass({
 			<div id="featured" className="view flex-column">
 				<ViewTitleContainer title='Featured'/>
 				<FeaturedContainer landingEvents={this.state.landingEvents}/>
-                <FeaturedResultsHeader />
-                <EventBrowseContainer currentEvents={this.state.currentEvents}/>
+                <FeaturedResultsHeader appState={this.props.appState}/>
+                <EventBrowseContainer currentEvents={this.state.currentEvents} 
+                		appState={this.props.appState}/>
             </div>
 		);
 	},

@@ -33,7 +33,9 @@ var Header = React.createClass({
 	          <Link className='nav-button click flex set-flex' to='activities'>
 	          	<div className='center'>Activities</div>
 	          </Link>
-	          <SearchBar searchInput={this.props.searchInput}/>
+	          <Link className='search-bar flex-row flex-3x' to='search'>
+		          <SearchBar searchInput={this.props.searchInput}/>
+		       </Link>   
 	          <LoginButton />
 	      </header>
 		);

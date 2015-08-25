@@ -4,7 +4,8 @@ import BrowseTile from './BrowseTile';
 var BrowseContainer = React.createClass({
 
 	render: function() {
-		var tiles = this.props.data.map(function(set) {
+		var data = this.props.appState.get('browseData');
+		var tiles = data.map(function(set) {
 			return(<BrowseTile data={set} key={set.id}/>)
 		});
 		return (

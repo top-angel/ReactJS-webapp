@@ -4,7 +4,8 @@ import EventTile from './EventTile';
 var EventContainer = React.createClass({
 
 	render: function() {
-		var tiles = this.props.data.map(function(set) {
+		var data = this.props.appState.get('eventData');
+		var tiles = data.map(function(set) {
 			return(<EventTile data={set} key={set.id}/>)
 		});
 		return (

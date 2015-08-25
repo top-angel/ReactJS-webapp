@@ -17,6 +17,9 @@ import SearchResultsView from './components/SearchResultsView';
 // import EventDetail from './components/EventDetail';
 // import FestivalDetail from './components/FestivalDetail';
 
+import Favorites from './components/Favorites';
+import New from './components/New';
+
 import Artists from './components/Artists';
 import Festivals from './components/Festivals';
 import Mixes from './components/Mixes';
@@ -25,6 +28,8 @@ import Activities from './components/Activities';
 import SetTile from './components/SetTile';
 import EventTile from './components/EventTile';
 import TrackTile from './components/TrackTile';
+
+// import FeaturedResultsHeader from './components/FeaturedResultsHeader';
 
 //subscribe in componentDidMount()
 //unsubscribe in componentWillUnmount()
@@ -38,6 +43,16 @@ var initialAppState = Immutable.Map({
 			"imageURL": "313e875b84fe6e0844b02509a8635cebb9f7d128.jpg"
 		}
 	],
+	setData: [],
+	eventData: [],
+	landingData: [],
+	mySets: [],
+	userData: {
+		isUserLoggedIn: false,
+		favorites: [],
+		new: [],
+		profilePic: undefined
+	},
 	detaildata: {
 		"id": 574,
 		"artist": "Kygo",
@@ -53,6 +68,15 @@ var initialAppState = Immutable.Map({
 		"set_count": 6,
 		"event_count": 0,
 		"sets": []
+	},
+	location: {
+		city: 'Dania Beach',
+		state: 'FL'
+	},
+	search: {
+		sets: [],
+		events: [],
+		tracks: [],
 	}
 });
 
@@ -67,7 +91,6 @@ function lol() {
 		data: { lastClick: new Date() }
 	});
 }
-
 
 var PrintObject = React.createClass({
 	displayName: 'PrintObject',
@@ -111,20 +134,30 @@ var App = React.createClass({
 			<div className="main-container flex-column">
 				<Header appState={appState} pushFn={push}/>
 				<PlayerWrapper appState={appState}
-											 pushFn={push}
-											 routeHandler={RouteHandler}/>
+					pushFn={push}
+					routeHandler={RouteHandler}/>
 				<Footer />
 			</div>
 		);
 	}
 });
 
+// var wrapComponent = function(Component, props) {
+// 	return React.createClass({
+// 		render: function() {
+// 			return (
+// 				React.createElement(Component, props);
+// 			);
+// 		}
+// 	});
+// };
+
 var routes = (
 	<Route path='/' handler={App}>
 		<DefaultRoute name='landing' handler={LandingView}/>
 		<Route name='user' path='user' handler={HomeView}>
-			<Route name='mysets' />
-			<Route name='new' />
+			<Route name='favorites' path='favorites' handler={Favorites}/>
+			<Route name='new' path='new' handler={New}/>
 		</Route>
 		<Route name='featured' path='featured' handler={FeaturedView}/>
 		<Route name='artists' path='artists' handler={Artists}/>
@@ -132,6 +165,8 @@ var routes = (
 		<Route name='mixes' path='mixes' handler={Mixes}/>
 		<Route name='activities' handler={Activities}/>
 		<Route name='search' path='search' handler={SearchResultsView}/>
+		<Route name='artist'/>
+		<Route name='event'/>
 	</Route>
 );
 
