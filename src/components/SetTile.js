@@ -6,12 +6,12 @@ var constants = require('../constants/constants');
 var SetTile = React.createClass({
 	componentDidMount: function() {
 		//from path /play/:id
-		var id = this.props.params.id;
-		fetchMessage(id, function(err, message) {
-			this.setState({
-				message: message 
-			});
-		})
+		// var id = this.props.params.id;
+		// fetchMessage(id, function(err, message) {
+		// 	this.setState({
+		// 		message: message 
+		// 	});
+		// })
 	},
 	render: function() {
 		return (

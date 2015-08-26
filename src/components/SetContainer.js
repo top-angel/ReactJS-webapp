@@ -4,7 +4,7 @@ import SetTile from './SetTile';
 var SetContainer = React.createClass({
 
 	render: function() {
-		var data = this.props.appState.get('setData');
+		var data = this.props.data;
 		var tiles = data.map(function(set) {
 			return(<SetTile data={set} key={set.id}/>);
 		});

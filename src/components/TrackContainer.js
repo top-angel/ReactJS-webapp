@@ -4,7 +4,7 @@ import TrackTile from './TrackTile';
 var TrackContainer = React.createClass({
 
 	render: function() {
-		var data = this.props.appState.get('trackData');
+		var data = this.props.data;
 		var tiles = data.map(function(set) {
 			return(<TrackTile data={set} key={set.id}/>)
 		});

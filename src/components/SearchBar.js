@@ -68,13 +68,12 @@ var SearchBar = React.createClass({
 				}
 			}
 		});
-		
 	},
 	render: function() {
 		return (
-			<div className='center flex'>
-				<i className="nav-button fa fa-search click"></i>
-                <input id="search" className="flex" placeholder='search'/>
+			<div className='center flex flex-row'>
+				<i className="nav-button fa fa-search center click"/>
+				<input id="search" className="flex" placeholder='search'/>
           </div>
 		);
 	}

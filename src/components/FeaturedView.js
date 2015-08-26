@@ -6,15 +6,17 @@ var FeaturedContainer = require('./FeaturedContainer')
 var FeaturedResultsHeader = require('./FeaturedResultsHeader')
 var EventBrowseContainer = require('./EventBrowseContainer')
 
+
+//TODO: shit breaks when you render
 var FeaturedView = React.createClass({
-	getInitialState: function() {
+	getInitialState: function() {//TODO delete this shit
 		return {
 			landingEvents: [],
 			currentEvents: [],
 			hidden: true
 		}
 	},
-	getLandingEvents: function() {
+	getLandingEvents: function() {//PUT IN EVENT STREAM FUCKTARD
 		$.ajax({
 			url: 'http://setmine.com'+constants.API_ROOT+'landing',
 			type: 'GET',
@@ -75,10 +77,13 @@ var FeaturedView = React.createClass({
 			<div id="featured" className="view flex-column">
 				<ViewTitleContainer title='Featured'/>
 				<FeaturedContainer landingEvents={this.state.landingEvents}/>
-                <FeaturedResultsHeader appState={this.props.appState}/>
-                <EventBrowseContainer currentEvents={this.state.currentEvents} 
-                		appState={this.props.appState}/>
-            </div>
+				<FeaturedResultsHeader
+					pushFn={this.props.pushFn}
+                	appState={this.props.appState}/>
+				<EventBrowseContainer 
+					pushFn={this.props.pushFn}
+					appState={this.props.appState}/>
+          </div>
 		);
 	},
 	_attachStreams: function() {
