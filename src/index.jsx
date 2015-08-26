@@ -1,8 +1,10 @@
 import React from 'react';
-import GlobalEventHandler from './globalEventHandler';
 import Immutable from 'immutable';
 import Router from 'react-router';
 import { DefaultRoute, Link, Route, RouteHandler, Navigation } from 'react-router';
+
+
+import GlobalEventHandler from './services/globalEventHandler';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -34,11 +36,49 @@ import TrackTile from './components/TrackTile';
 //call setState which pushes to event stream when receiving an event
 
 var initialAppState = Immutable.Map({
-	currentSet: {asd:123},
+  setSMObject: null,
+	currentSet: {
+    selectedSet: {
+      id: 1903,
+      artist_id: [
+        574
+      ],
+      artist: 'Kygo',
+      event: 'Tomorrowland 2014 W2',
+      event_id: 116,
+      episode: '',
+      genre: 'Progressive House',
+      episode_imageURL: null,
+      eventimageURL: 'dbd5bd7900531575c9bbfaba0ae434c4.jpg',
+      main_eventimageURL: '12141ddad8636c5804c86dc685550ee1.jpg',
+      artistimageURL: 'a7f7aaec8ecd0cdec444b8abb06dbc66.jpg',
+      songURL: '8bf16c6bb2609bcbb7a00940d65038a9e992c98b.mp3',
+      datetime: '2014-07-28T19:53:38.000Z',
+      popularity: 1017,
+      is_radiomix: 0,
+      set_length: '10:32',
+      tracklistURL: null,
+      imageURL: 'dbd5bd7900531575c9bbfaba0ae434c4.jpg',
+      artist_preview: [
+        {
+          id: 574,
+          artist: 'Kygo',
+          imageURL: 'a7f7aaec8ecd0cdec444b8abb06dbc66.jpg',
+          set_count: 6,
+          event_count: 0
+        }
+      ],
+      model_type: 'set'
+    },
+    isPlaying: false,
+    timePosition: 0
+	},
+
+	// TODO FIX
 	browseData: [
 		{
-			"artist": '12th Planet',
-			"imageURL": "313e875b84fe6e0844b02509a8635cebb9f7d128.jpg"
+			'artist': '12th Planet',
+			'imageURL': '313e875b84fe6e0844b02509a8635cebb9f7d128.jpg'
 		}
 	],
 	setData: [],
@@ -171,7 +211,7 @@ var initialAppState = Immutable.Map({
 });
 
 var evtHandler = GlobalEventHandler(initialAppState);
-//var evtTypes = evtHandler.types;
+var evtTypes = evtHandler.types;
 
 var push = evtHandler.push;
 

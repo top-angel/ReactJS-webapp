@@ -1,5 +1,5 @@
 import React from 'react';
-import GlobalEventHandler from '../globalEventHandler';
+import GlobalEventHandler from '../services/globalEventHandler';
 import constants from '../constants/constants';
 
 var BrowseTile = React.createClass({
