@@ -1,5 +1,5 @@
-var React = require('react')
-var constants = require('../constants/constants')
+import React from 'react';
+import constants from '../constants/constants';
 
 var EventTile = React.createClass({
 	render: function() {

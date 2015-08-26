@@ -1,5 +1,5 @@
-var React = require('react')
-var constants = require('../constants/constants')
+import React from 'React';
+import constants from '../constants/constants';
 
 var TrackTile = React.createClass({
 	render: function() {
