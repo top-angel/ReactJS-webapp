@@ -12,6 +12,8 @@ var SearchResultsView = React.createClass({
 			var scrollOffset = -$('header').height()*2;
 			var type = $(this).attr('data-type');
 			//TODO; clean up and make divider move when scrolling
+
+			//search results scroll handlers
 			if($(this).is('.sets')) {
 				$('.divider', '#search-results .view-title-container').animate({
 					left: '0'

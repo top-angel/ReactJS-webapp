@@ -19,7 +19,7 @@ var Header = React.createClass({
 	          	<div className='center'>Home</div>
 	          </Link>
 	          <Link className='nav-button click flex set-flex' to='featured'>
-	          	<div className='center'>Featured</div>
+	          	<div className='center'>DON'T FUCKING CLICK THIS</div>
 	          </Link>
 	          <Link className='nav-button click flex set-flex' to='artists'>
 	          	<div className='center'>Artists</div>
