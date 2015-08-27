@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import constants from '../constants/constants';
 
 var TrackTile = React.createClass({
@@ -8,7 +8,7 @@ var TrackTile = React.createClass({
 			backgroundSize: '100% 100%'
 		}
 		return (
-			<div className="track-tile flex-column flex overlay-container" style={image} >
+			<div className="track-tile flex-column overlay-container" style={image} >
 			    <div className="overlay"></div>
 			    <div className="flex-column flex">
 			        <div className="track-name">{this.props.data.songname}</div>

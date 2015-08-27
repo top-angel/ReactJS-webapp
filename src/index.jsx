@@ -147,15 +147,41 @@ var initialAppState = Immutable.Map({
 		sets: [],
 		upcomingEvents: [],
 		tracks: [
-			{//XXX TODO delete
-				"songName": "fuck",
-				"artistImage": undefined,
-				"eventImage": undefined,
-				"artist": "Riff Raff",
-				"event": "Ultra Somalia",
-				"starttime": "04:20",
-				"set_length": "69:69",
-				"popularity": 42069
+			{
+				"id": 33,
+				"trackname": "Dimitri Vegas & Like Mike & Wolfpack - Ocarina (TomorrowWorld Anthem) (Bodybangers Remix)",
+				"artistname": "Dimitri Vegas & Like Mike & Wolfpack",
+				"songname": "Ocarina (TomorrowWorld Anthem) (Bodybangers Remix)",
+				"starttime": "03:35",
+				"artist_id": [
+					389
+				],
+				"artist": "Dimitri Vegas & Like Mike",
+				"event": "Tomorrowland 2013",
+				"event_id": 16,
+				"episode": null,
+				"genre": "House",
+				"episode_imageURL": null,
+				"eventimageURL": "5d397d27bbd628eabea4ebe4095bd7e6635d1c2a.jpg",
+				"main_eventimageURL": "333f53d5f2095423677f30154a245a00949c0998.jpg",
+				"artistimageURL": "84349e9e4d7d9d25f4c67ed2ce263c2f.jpg",
+				"songURL": "c2ed21deb220e9d5b9dfb8a9d9ed3348e3a80a34.mp3",
+				"datetime": "2014-02-18T22:26:18.000Z",
+				"popularity": 137,
+				"is_radiomix": 0,
+				"set_length": "41:30",
+				"tracklistURL": null,
+				"imageURL": "5d397d27bbd628eabea4ebe4095bd7e6635d1c2a.jpg",
+				"artist_preview": [
+					{
+						"id": 389,
+						"artist": "Dimitri Vegas & Like Mike",
+						"imageURL": "84349e9e4d7d9d25f4c67ed2ce263c2f.jpg",
+						"set_count": 15,
+						"event_count": 1
+					}
+				],
+				"model_type": "set"
 			}
 		]
 	}

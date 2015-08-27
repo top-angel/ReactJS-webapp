@@ -48,7 +48,7 @@ var SearchResultsView = React.createClass({
 		//TODO DELETE
 		var FUCK = this.props.appState.get('searchText');
 		var testStyle = {
-			height: 200,
+			height: 100,
 			fontSize: 36
 		}
 		return (
@@ -67,7 +67,7 @@ var SearchResultsView = React.createClass({
 				</div>
 				<div className="search-results flex-column">
 
-					<div style={testStyle} className='center'>{FUCK}</div>
+					<div style={testStyle}>{FUCK}</div>
 
 					<SetContainer data={data.sets} pushFn={this.props.pushFn}/>
 					<EventContainer data={data.upcomingEvents} pushFn={this.props.pushFn}/>

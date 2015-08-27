@@ -1,11 +1,9 @@
 import React from 'react';
-import Q from 'q';
-// import $ from 'jquery';
+import {Navigation} from 'react-router';
 import constants from '../constants/constants';
-// import searchService from '../services/searchService';
 
 var SearchBar = React.createClass({
-
+	mixins: [Navigation],
 	componentDidMount: function() {
 		var _this = this;
 		$('#search').keyup(function() {
@@ -28,7 +26,6 @@ var SearchBar = React.createClass({
 		})
 		.done(function(response) {
 			results = response.payload.search;
-			console.log(results.events);
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
@@ -48,7 +45,8 @@ var SearchBar = React.createClass({
 				<i className="nav-button fa fa-search center click"/>
 				<input id="search" 
 					className="flex"
-					placeholder='search'/>
+					placeholder='search'
+					onKeyPress={() => this.transitionTo('search')}/>
           </div>
 		);
 	}

@@ -9,7 +9,7 @@ var EventContainer = React.createClass({
 			return(<EventTile data={set} key={set.id}/>)
 		});
 		return (
-			<div className='flex-row flex results events'>
+			<div className='flex-row results events'>
 				{tiles}
 			</div>
 		);
