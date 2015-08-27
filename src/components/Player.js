@@ -46,13 +46,13 @@ var PlayerWrapper = React.createClass({
 
 	render: function() {
 
-		var push = this.props.pushFn;
+		var push = this.props.push;
 		var appState = this.props.appState; // <- IMMUTABLE MAP
 		var Rh = this.props.routeHandler;
 
 		return (
 			<div>
-				<Rh appState={appState}/>
+				<Rh appState={appState} push={push} />
 				<Player appState={appState} pushFn={push} />
 			</div>
 		);
