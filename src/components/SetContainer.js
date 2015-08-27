@@ -9,7 +9,7 @@ var SetContainer = React.createClass({
 			return(<SetTile data={set} key={set.id}/>);
 		});
 		return (
-			<div className='results-container flex-row flex'>
+			<div className='flex-row flex results sets'>
 				{tiles}
 			</div>
 		);

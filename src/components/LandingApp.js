@@ -1,4 +1,5 @@
-var React = require('react');
+import React from 'react';
+import $ from 'jquery';
 
 var LandingApp = React.createClass({
 	componentDidMount: function() {

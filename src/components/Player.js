@@ -11,21 +11,22 @@ var Player = React.createClass({
 	displayName: 'Player',
 
 	componentDidMount: function() {
-		var push = this.props.pushFn;
-		playerService.generateSound(0, this.props.appState, push)
-		  .then(function(smObj) {
-		    console.log('AYYLMAO', smObj);
-		  });
+		// var push = this.props.pushFn;
+		// playerService.generateSound(0, this.props.appState, push)
+		//   .then(function(smObj) {
+		//     console.log('AYYLMAO', smObj);
+		//   });
 	},
 
 	render: function() {
-	  var appState = this.props.appState;
+		var appState = this.props.appState;
 		var currentSet = appState.get('currentSet'); // <- NOT IMMUTABLE MAP
 		var selectedSet = currentSet.selectedSet;
 		var setSMObject = currentSet.setSMObject;
 
+		//UNHIDE 
 		return (
-			<div className='player flex-row'>
+			<div className='player flex-row hidden'>
 					<PlayerControl />
 					<div className='flex-column flex'>
 							<PlayerSeek />

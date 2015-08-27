@@ -1,4 +1,6 @@
 import React from 'react';
+// import $ from 'jquery';
+
 import SetContainer from './SetContainer';
 import EventContainer from './EventContainer';
 import TrackContainer from './TrackContainer';
@@ -38,11 +40,16 @@ var SearchResultsView = React.createClass({
 	},
 	_attachStreams: function() {
 		var _this = this;
+
 	},
 	render: function() {
 		var data = this.props.appState.get('searchResults');
+
+		//TODO DELETE
+		var FUCK = this.props.appState.get('searchText');
 		var testStyle = {
-			height: 800
+			height: 200,
+			fontSize: 36
 		}
 		return (
 			<div id="search-results" className="view overlay-container">
@@ -59,16 +66,12 @@ var SearchResultsView = React.createClass({
 					<div className="divider"></div>
 				</div>
 				<div className="search-results flex-column">
-					<div className='results sets'>
-						<SetContainer data={data.sets} pushFn={this.props.pushFn}/>
-					</div>
-					<div className="results events">
-						<EventContainer data={data.events} pushFn={this.props.pushFn}/>
-					</div>
-					<div className="results tracks" style={testStyle}>
-						AYY LMAO
-						<TrackContainer data={data.tracks} pushFn={this.props.pushFn}/>
-					</div>
+
+					<div style={testStyle} className='center'>{FUCK}</div>
+
+					<SetContainer data={data.sets} pushFn={this.props.pushFn}/>
+					<EventContainer data={data.upcomingEvents} pushFn={this.props.pushFn}/>
+					<TrackContainer data={data.tracks} pushFn={this.props.pushFn}/>
 				</div>
 			</div>
 		);

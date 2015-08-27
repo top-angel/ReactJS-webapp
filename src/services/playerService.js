@@ -26,8 +26,8 @@ soundManager.setup({
 
 
 function errorPromise(jqXHR, textStatus, errorThrown) {
-	console.log('ERROR MAKING AJAX CALL', jqXHR, textStatus, errorThrown);
-	return  Q.reject(errorThrown);
+  console.log('ERROR MAKING AJAX CALL', jqXHR, textStatus, errorThrown);
+  return  Q.reject(errorThrown);
 }
 
 
@@ -61,9 +61,9 @@ function generateSound(loadStart, appState, push) {
   }
 
 
-fetchTrackList(selectedSet).then(function(response) {
-  return response.payload;
-}, errorPromise);
+  fetchTrackList(selectedSet).then(function(response) {
+    return response.payload;
+  }, errorPromise);
 
 
   var songURL = constants.S3_ROOT + selectedSet.songURL;

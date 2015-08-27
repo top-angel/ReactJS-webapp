@@ -4,13 +4,6 @@ import SearchBar from './SearchBar';
 import LoginButton from './LoginButton';
 
 var Header = React.createClass({
-	mixins: [Navigation],
-	componentDidMount: function() {
-		this._attachStream();
-	},
-	_attachStream: function() {
-		var _this = this;
-	},
 	render: function() {
 		return (
 			<header className="flex-row flex-zero">
@@ -34,7 +27,7 @@ var Header = React.createClass({
 	          	<div className='center'>Activities</div>
 	          </Link>
 	          <Link className='search-bar flex-row flex-3x' to='search'>
-		          <SearchBar searchInput={this.props.searchInput}/>
+		          <SearchBar push={this.props.push} appState={this.props.appState}/>
 		       </Link>   
 	          <LoginButton />
 	      </header>
