@@ -15,7 +15,7 @@ var SearchBar = React.createClass({
 			}
 		});
 	},
-	search: function search(query) {
+	search: function(query) {
 		var push = this.props.push;
 		var results,
 			searchUrl = constants.API_ROOT + 'search/' + query;

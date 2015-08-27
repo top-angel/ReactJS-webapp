@@ -13,7 +13,7 @@ var SearchResultsView = React.createClass({
 			e.stopPropagation();
 			var scrollOffset = -$('header').height()*2;
 			var type = $(this).attr('data-type');
-			//TODO; clean up and make divider move when scrolling
+			//TODO make divider move when scrolling
 
 			//search results scroll handlers
 			if($(this).is('.sets')) {
@@ -37,10 +37,9 @@ var SearchResultsView = React.createClass({
 				});
 			}
 		});
-	},
-	_attachStreams: function() {
-		var _this = this;
 
+		//TODO clear search results view on search click/empty input bar
+		//line 2173 in master-original
 	},
 	render: function() {
 		var data = this.props.appState.get('searchResults');
@@ -69,9 +68,9 @@ var SearchResultsView = React.createClass({
 
 					<div style={testStyle}>{FUCK}</div>
 
-					<SetContainer data={data.sets} pushFn={this.props.pushFn}/>
-					<EventContainer data={data.upcomingEvents} pushFn={this.props.pushFn}/>
-					<TrackContainer data={data.tracks} pushFn={this.props.pushFn}/>
+					<SetContainer data={data.sets} push={this.props.push}/>
+					<EventContainer data={data.upcomingEvents} push={this.props.push}/>
+					<TrackContainer data={data.tracks} push={this.props.push}/>
 				</div>
 			</div>
 		);

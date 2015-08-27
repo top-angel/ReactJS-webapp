@@ -68,17 +68,21 @@ var initialAppState = Immutable.Map({
 		isPlaying: false,
 		timePosition: 0
 	},
+	browseData: {
+		artists: [
+			{
+				'artist': '12th Planet',
+				'imageURL': '313e875b84fe6e0844b02509a8635cebb9f7d128.jpg'
+			}
+		],
+		festivals: [],
+		mixes: [],
+		activities: []
+	},
 
-	// TODO FIX
-	browseData: [//ref'd in other components
-		{
-			'artist': '12th Planet',
-			'imageURL': '313e875b84fe6e0844b02509a8635cebb9f7d128.jpg'
-		}
-	],
-	setData: [],
 	eventData: [],
 	landingData: [],
+
 	mySets: [],
 	userData: {
 		isUserLoggedIn: false,
@@ -86,6 +90,7 @@ var initialAppState = Immutable.Map({
 		new: [],
 		profilePic: undefined
 	},
+
 	detaildata: {
 		"id": 574,
 		"artist": "Kygo",
@@ -140,6 +145,7 @@ var initialAppState = Immutable.Map({
 		state: 'FL'
 	},
 
+//TODO delete
 	searchText: 'Ayy lmao',
 
 	searchResults: {
