@@ -3,6 +3,7 @@ import constants from '../constants/constants';
 import BrowseView from './BrowseView';
 
 var TITLE = 'Artists';
+var TYPE = 'artist';
 var Artists = React.createClass({
 
 	componentDidMount: function() {
@@ -35,7 +36,10 @@ var Artists = React.createClass({
 		var appState = this.props.appState.get('browseData');
 		var data = appState.artists;
 		return (
-			<BrowseView title={TITLE} data={data}/>
+			<BrowseView 
+				title={TITLE}
+				data={data}
+				push={this.props.push}/>
 		);
 	}
 

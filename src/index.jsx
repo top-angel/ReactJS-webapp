@@ -69,12 +69,7 @@ var initialAppState = Immutable.Map({
 		timePosition: 0
 	},
 	browseData: {
-		artists: [
-			{
-				'artist': '12th Planet',
-				'imageURL': '313e875b84fe6e0844b02509a8635cebb9f7d128.jpg'
-			}
-		],
+		artists: [],
 		festivals: [],
 		mixes: [],
 		activities: []
