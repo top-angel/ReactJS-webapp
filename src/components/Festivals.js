@@ -6,7 +6,7 @@ var TITLE = 'Festivals';
 var TYPE = 'event';
 var Festivals = React.createClass({
 
-	componentDidMount: function() {
+	componentWillMount: function() {
 		 this.getFestivals();
 	},
 	getFestivals: function() {
@@ -25,18 +25,15 @@ var Festivals = React.createClass({
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					browseData: {
-						festivals: results
-					}
+					festivalBrowseData: results
 				}
 			});
 		});
 	},
 	render: function() {
-		var appState = this.props.appState.get('browseData');
-		var data = appState.festivals;
+		var appState = this.props.appState.get('festivalBrowseData');
 		return (
-			<BrowseView title={TITLE} data={data} type={TYPE}/>
+			<BrowseView title={TITLE} data={appState} type={TYPE}/>
 		);
 	}
 

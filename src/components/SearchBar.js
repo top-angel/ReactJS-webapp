@@ -9,9 +9,9 @@ var SearchBar = React.createClass({
 		$('#search').keyup(function() {
 			var query = $(this).val();
 
-			//TODO throttle results
+			//TODO make this a little cleaner
 			if(query.length > 3) {
-				_this.search(query);
+				setTimeout(_this.search(query), 400);
 			}
 		});
 	},

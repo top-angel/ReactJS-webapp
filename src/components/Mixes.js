@@ -6,7 +6,7 @@ var TITLE = 'Mixes';
 var TYPE = 'mix';
 var Mixes = React.createClass({
 
-	componentDidMount: function() {
+	componentWillMount: function() {
 		 this.getMixes();
 	},
 	getMixes: function() {
@@ -20,23 +20,19 @@ var Mixes = React.createClass({
 		})
 		.done(function(response) {
 			results = response.payload.mix;
-			console.log(results);
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					browseData: {
-						mixes: results
-					}
+					mixBrowseData: results
 				}
 			});
 		});
 	},
 	render: function() {
 
-		var appState = this.props.appState.get('browseData');
-		var data = appState.mixes;
+		var appState = this.props.appState.get('mixBrowseData');
 		return (
-			<BrowseView title={TITLE} data={data} type={TYPE}/>
+			<BrowseView title={TITLE} data={appState} type={TYPE}/>
 		);
 	}
 

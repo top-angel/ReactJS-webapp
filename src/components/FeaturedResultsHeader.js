@@ -2,7 +2,12 @@ import React from 'react';
 
 var FeaturedResultsHeader = React.createClass({
 	getNewLocation: function() {
-
+		var push = this.props.push;
+		//TODO location functionality
+	},
+	changeEventType: function() {
+		var push = this.props.push;
+		//switch between soonestEvents, closestEvents, soonestEventsAroundMe
 	},
 	render: function() {
 		var data = this.props.appState.get('location');

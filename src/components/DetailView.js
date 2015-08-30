@@ -1,44 +1,45 @@
-var React = require('react');
-var constants = require('../constants/constants');
+import React from 'react';
+import constants from '../constants/constants';
 
-var DetailImageContainer = require('./DetailImageContainer');
-var LinkButtonContainer = require('./LinkButtonContainer');
-var DetailContentContainer = require('./DetailContentContainer');
-var SetContainer = require('./SetContainer')
+import DetailImageContainer from './DetailImageContainer';
+import LinkButtonContainer from './LinkButtonContainer';
+import DetailContentContainer from './DetailContentContainer';
+import SetContainer from './SetContainer';
 
 var DetailView = React.createClass({
 	render: function() {
+		var linkUrls = this.props.data.links;
 		var links = [
 			{
 				type: 'facebook',
-				url: this.props.data.fb_link
+				url: linkUrls.facebook
 			},
 			{
 				type: 'twitter',
-				url: this.props.data.twitter_link
+				url: linkUrls.twitter
 			},
 			{
 				type: 'instagram',
-				url: this.props.data.instagram_link
+				url: linkUrls.instagram
 			},
 			{
 				type: 'soundcloud',
-				url: this.props.data.soundcloud_link
+				url: linkUrls.soundcloud
 			},
 			{
 				type: 'youtube',
-				url: this.props.data.youtube_link
+				url: linkUrls.youtube
 			}
 		];
-		return (
-			<div id="detail" className="view detail-page">
-				<DetailImageContainer 
+		return(
+			<div id='detail' className='view detail-page'>
+				<DetailImageContainer
 					title={this.props.title}
 					buttonText={this.props.buttonText}
 					imageURL={this.props.data.imageURL}
-					info={this.props.info} />
-				<LinkButtonContainer links={links} />
-				<div className="divider"/>
+					info={this.props.info}/>
+				<LinkButtonContainer links={links}/>
+				<div className='divider'/>
 				<DetailContentContainer data={this.props.data} navTitles={this.props.navTitles}/>
 			</div>
 		);

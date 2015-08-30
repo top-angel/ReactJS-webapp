@@ -9,9 +9,8 @@ var DetailContentContainer = React.createClass({
 		return (
 			<div>
 				<DetailNavContainer navTitles={this.props.navTitles} />
-				<SetContainer data={this.props.data}/>
-				<EventContainer data={this.props.data}/>
-				<BrowseContainer data={this.props.data}/>
+				<SetContainer data={this.props.data.sets}/>
+				<EventContainer data={this.props.data.upcomingEvents}/>
 			</div>
 		);
 	}

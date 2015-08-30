@@ -6,12 +6,11 @@ var TITLE = 'Artists';
 var TYPE = 'artist';
 var Artists = React.createClass({
 
-	componentDidMount: function() {
+	componentWillMount: function() {
 		this.getArtists();
 	},
 	getArtists: function() {
 		var push = this.props.push;
-		console.log(push);
 		var results,
 			artistUrl = constants.API_ROOT + 'artist';
 
@@ -21,25 +20,22 @@ var Artists = React.createClass({
 		})
 		.done(function(response) {
 			results = response.payload.artist;
-			console.log(results);
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					browseData: {
-						artists: results
-					}
+					artistBrowseData: results
 				}
 			});
 		});
 	},
 	render: function() {
-		var appState = this.props.appState.get('browseData');
-		var data = appState.artists;
+		var appState = this.props.appState.get('artistBrowseData');
+		var push = this.props.push;
 		return (
 			<BrowseView 
 				title={TITLE}
-				data={data}
-				push={this.props.push}/>
+				data={appState}
+				push={push}/>
 		);
 	}
 

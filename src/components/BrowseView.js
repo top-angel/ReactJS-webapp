@@ -1,39 +1,29 @@
 import React from 'react';
-import ViewTitleContainer from './ViewTitleContainer';
 import constants from '../constants/constants';
 import BrowseTile from './BrowseTile';
 
 var BrowseView = React.createClass({
 
-	componentWillUnmount: function() {
-		var push = this.props.push;
-		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				browseData: {
-					artists: [],
-					festivals: [],
-					mixes: [],
-					activities: []
-				}
-			}
-		})
-	},
-
+	//TODO find a way to update the props received so the site stops breaking when I load different data into this view
 	render: function() {
-		var tiles = [];
 		var data = this.props.data;
-		data.map(function(tile, index) {
-			tiles.push(<BrowseTile 
+		var push = this.props.push;
+
+		var tiles = data.map(function(tile, index) {
+			return(<BrowseTile 
+				push={push}
 				text={tile.artist || tile.event || tile.activity}
 				key={index}
+				dataId={tile.id}
 				image={tile.imageURL}/>);
 		});
 
-
 		return (
 			<div id="browse" className="view overlay-container">
-				<ViewTitleContainer title={this.props.title} />
+				<div className="flex-column view-title-container flex-zero">
+					<div className="center view-title">{this.props.title}</div>
+					<div className="divider"></div>
+				</div>
 				<div className="results-container flex-row flex">
 					{tiles}
 				</div>

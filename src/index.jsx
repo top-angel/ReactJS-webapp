@@ -2,8 +2,11 @@ import React from 'react';
 import Immutable from 'immutable';
 import Router from 'react-router';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
-
 import GlobalEventHandler from './services/globalEventHandler';
+
+import mui from 'material-ui';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+var ThemeManager = new mui.Styles.ThemeManager();
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -14,9 +17,9 @@ import FeaturedView from './components/FeaturedView';
 import HomeView from './components/HomeView';
 import SearchResultsView from './components/SearchResultsView';
 
-// import ArtistDetail from './components/ArtistDetail';
+import ArtistDetail from './components/ArtistDetail';
+import FestivalDetail from './components/FestivalDetail';
 // import EventDetail from './components/EventDetail';
-// import FestivalDetail from './components/FestivalDetail';
 
 import Favorites from './components/Favorites';
 import New from './components/New';
@@ -26,9 +29,9 @@ import Festivals from './components/Festivals';
 import Mixes from './components/Mixes';
 import Activities from './components/Activities';
 
-// import SetTile from './components/SetTile';
-// import EventTile from './components/EventTile';
-// import TrackTile from './components/TrackTile';
+import SetContainer from './components/SetContainer';
+import EventContainer from './components/EventContainer';
+// import BrowseContainer from './components/BrowseContainer';
 
 var initialAppState = Immutable.Map({
 	setSMObject: null,
@@ -68,12 +71,11 @@ var initialAppState = Immutable.Map({
 		isPlaying: false,
 		timePosition: 0
 	},
-	browseData: {
-		artists: [],
-		festivals: [],
-		mixes: [],
-		activities: []
-	},
+
+	artistBrowseData: [],
+	festivalBrowseData: [],
+	mixBrowseData: [],
+	activityBrowseData: [],
 
 	eventData: [],
 	landingData: [],
@@ -83,58 +85,22 @@ var initialAppState = Immutable.Map({
 		isUserLoggedIn: false,
 		favorites: [],
 		new: [],
-		profilePic: undefined
+		profilePic: null
 	},
 
-	detaildata: {
-		"id": 574,
-		"artist": "Kygo",
-		"bio": "No Biography Available",
-		"fb_link": "https://www.facebook.com/kygoofficial",
-		"twitter_link": "https://twitter.com/kygomusic",
-		"web_link": "https://www.google.com/",
-		"instagram_link": null,
-		"soundcloud_link": null,
-		"youtube_link": null,
-		"imageURL": "a7f7aaec8ecd0cdec444b8abb06dbc66.jpg",
-		"musicbrainz_id": null,
-		"set_count": 6,
-		"event_count": 0,
-		"sets": [
-			{
-				"id": 2314,
-				"artist_id": [
-					574
-				],
-				"artist": "Kygo",
-				"event": "Diplo & Friends",
-				"event_id": 44,
-				"episode": "",
-				"genre": "Deep House",
-				"episode_imageURL": null,
-				"eventimageURL": "6e85b515644e0ec38e115142656004e8.jpg",
-				"main_eventimageURL": "ca6a250fc84f30e571a62286fc8c2c16c7ce64b4.png",
-				"artistimageURL": "a7f7aaec8ecd0cdec444b8abb06dbc66.jpg",
-				"songURL": "9980d7213c9eb692b44c2c0572282753ad1a196c.mp3",
-				"datetime": "2014-09-20T04:03:04.000Z",
-				"popularity": 5229,
-				"is_radiomix": 1,
-				"set_length": "59:58",
-				"tracklistURL": "http://www.1001tracklists.com/tracklist/46356_diplo-kygo-zebra-katz-diplo-friends-2014-03-23.html",
-				"imageURL": "6e85b515644e0ec38e115142656004e8.jpg",
-				"artist_preview": [
-					{
-						"id": 574,
-						"artist": "Kygo",
-						"imageURL": "a7f7aaec8ecd0cdec444b8abb06dbc66.jpg",
-						"set_count": 6,
-						"event_count": 0
-					}
-				],
-				"model_type": "set"
-			}
-		]
+	detailId: 347,//TODO clean up if possible
+	detailData: {//minimum properties needed for rendering
+		"sets": [],
+		"upcomingEvents": [],
+		"links": {
+			"facebook": null,
+			"twitter": null,
+			"instagram": null,
+			"soundcloud": null,
+			"youtube": null
+		}
 	},
+
 	location: {
 		city: 'Dania Beach',
 		state: 'FL'
@@ -147,44 +113,7 @@ var initialAppState = Immutable.Map({
 		artists: [],
 		sets: [],
 		upcomingEvents: [],
-		tracks: [
-			{
-				"id": 33,
-				"trackname": "Dimitri Vegas & Like Mike & Wolfpack - Ocarina (TomorrowWorld Anthem) (Bodybangers Remix)",
-				"artistname": "Dimitri Vegas & Like Mike & Wolfpack",
-				"songname": "Ocarina (TomorrowWorld Anthem) (Bodybangers Remix)",
-				"starttime": "03:35",
-				"artist_id": [
-					389
-				],
-				"artist": "Dimitri Vegas & Like Mike",
-				"event": "Tomorrowland 2013",
-				"event_id": 16,
-				"episode": null,
-				"genre": "House",
-				"episode_imageURL": null,
-				"eventimageURL": "5d397d27bbd628eabea4ebe4095bd7e6635d1c2a.jpg",
-				"main_eventimageURL": "333f53d5f2095423677f30154a245a00949c0998.jpg",
-				"artistimageURL": "84349e9e4d7d9d25f4c67ed2ce263c2f.jpg",
-				"songURL": "c2ed21deb220e9d5b9dfb8a9d9ed3348e3a80a34.mp3",
-				"datetime": "2014-02-18T22:26:18.000Z",
-				"popularity": 137,
-				"is_radiomix": 0,
-				"set_length": "41:30",
-				"tracklistURL": null,
-				"imageURL": "5d397d27bbd628eabea4ebe4095bd7e6635d1c2a.jpg",
-				"artist_preview": [
-					{
-						"id": 389,
-						"artist": "Dimitri Vegas & Like Mike",
-						"imageURL": "84349e9e4d7d9d25f4c67ed2ce263c2f.jpg",
-						"set_count": 15,
-						"event_count": 1
-					}
-				],
-				"model_type": "set"
-			}
-		]
+		tracks: []
 	}
 });
 
@@ -273,19 +202,19 @@ var routes = (
 		<Route name='mixes' path='mixes' handler={Mixes}/>
 		<Route name='activities' handler={Activities}/>
 		<Route name='search' path='search' handler={SearchResultsView}/>
-		<Route name='artist'>
+		<Route name='artist' path='artist' handler={ArtistDetail}>
+			<Route path='sets' handler={SetContainer}/>
+			<Route path='events' handler={EventContainer}/>
 		</Route>
-		<Route name='event'>
-		</Route>
+		<Route name='festival' path='festival' handler={FestivalDetail}/>
 	</Route>
 );
 
 // <Route name='artist' path='artist/:id' handler={ArtistDetail}>
-// 			<Route name='artistSets' path='sets'/>
-// 			<Route name='artistEvents' path='events'/>
-// 		</Route>
-// 		<Route name='event' path='event/:id' handler={EventDetail}>
-// 		</Route>
+// 	<Route name='artistSets' path='sets'/>
+// 	<Route name='artistEvents' path='events'/>
+// </Route>
+
 
 //var headMount = document.getElementById('head-mount-point');
 var bodyMount = document.getElementById('body-mount-point');

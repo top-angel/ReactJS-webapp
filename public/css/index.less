@@ -51,6 +51,7 @@ body {
 }
 .browse-tile {
     .size(200px, 200px);
+    text-align: center;
     .overlay {
         .createOverlay(50%);
     }
@@ -77,6 +78,8 @@ body {
     text-align: center;
     >.image-container {
         height: 45vh;
+        background-size: 100%;
+        background-position-y: 40%;
         .overlay {
             .createOverlay(80%, @set-blue);
         }
@@ -280,6 +283,7 @@ input#search {
     }
 }
 .links-container {
+    .card(3);
     .background(@set-darker-gray, white);
     padding: 2vh 0;
     text-align: center;
@@ -410,6 +414,7 @@ input#search {
     top: 10vh;
 }
 .set-tile {
+    .card(2);
     color:white;
     width: 30%;
     height: 200px;

@@ -6,7 +6,7 @@ var TITLE = 'Activities';
 var TYPE = 'activity';
 var Activities = React.createClass({
 
-	componentDidMount: function() {
+	componentWillMount: function() {
 		this.getActivities();
 	},
 	getActivities: function() {
@@ -21,23 +21,19 @@ var Activities = React.createClass({
 		})
 		.done(function(response) {
 			results = response.payload.activity;
-			console.log(results);
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					browseData: {
-						activities: results
-					}
+					activityBrowseData: results
 				}
 			});
 		});
 	},
 	render: function() {
 
-		var appState = this.props.appState.get('browseData');
-		var data = appState.activities;
+		var appState = this.props.appState.get('activityBrowseData');
 		return (
-			<BrowseView title={TITLE} data={data} type={TYPE}/>
+			<BrowseView title={TITLE} data={appState} type={TYPE}/>
 		);
 	}
 
