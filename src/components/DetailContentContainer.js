@@ -6,11 +6,12 @@ import BrowseContainer from './BrowseContainer';
 
 var DetailContentContainer = React.createClass({
 	render: function() {
+		var upcomingEvents = this.props.data.upcomingEvents || [];
 		return (
 			<div>
 				<DetailNavContainer navTitles={this.props.navTitles} />
 				<SetContainer data={this.props.data.sets}/>
-				<EventContainer data={this.props.data.upcomingEvents}/>
+				<EventContainer data={upcomingEvents}/>
 			</div>
 		);
 	}

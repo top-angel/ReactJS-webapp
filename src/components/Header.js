@@ -12,7 +12,7 @@ var Header = React.createClass({
 	          	<div className='center'>Home</div>
 	          </Link>
 	          <Link className='nav-button click flex set-flex' to='featured'>
-	          	<div className='center'>DON'T FUCKING CLICK THIS</div>
+	          	<div className='center'>Featured [still don't work]</div>
 	          </Link>
 	          <Link className='nav-button click flex set-flex' to='artists'>
 	          	<div className='center'>Artists</div>
@@ -29,7 +29,7 @@ var Header = React.createClass({
 	          <Link className='search-bar flex-row flex-3x' to='search'>
 		          <SearchBar push={this.props.push} appState={this.props.appState}/>
 		       </Link>   
-	          <LoginButton />
+	          <LoginButton push={this.props.push} appState={this.props.appState}/>
 	      </header>
 		);
 	}

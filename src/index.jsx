@@ -19,6 +19,8 @@ import SearchResultsView from './components/SearchResultsView';
 
 import ArtistDetail from './components/ArtistDetail';
 import FestivalDetail from './components/FestivalDetail';
+import ActivityDetail from './components/ActivityDetail';
+
 // import EventDetail from './components/EventDetail';
 
 import Favorites from './components/Favorites';
@@ -83,9 +85,7 @@ var initialAppState = Immutable.Map({
 	mySets: [],
 	userData: {
 		isUserLoggedIn: false,
-		favorites: [],
-		new: [],
-		profilePic: null
+		user: {}
 	},
 
 	detailId: 347,//TODO clean up if possible
@@ -207,6 +207,7 @@ var routes = (
 			<Route path='events' handler={EventContainer}/>
 		</Route>
 		<Route name='festival' path='festival' handler={FestivalDetail}/>
+		<Route name='activity' path='activity' handler={ActivityDetail}/>
 	</Route>
 );
 

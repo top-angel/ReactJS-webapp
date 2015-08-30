@@ -2,31 +2,31 @@ import React from 'react';
 import DetailView from './DetailView';
 import constants from '../constants/constants';
 
-var FestivalDetail = React.createClass({
-	displayName: 'FestivalDetail',
+var MixDetail = React.createClass({
+	displayName: 'MixDetail',
 	componentWillMount: function() {
 		var _this = this;
-		_this.getFestivalData();
+		_this.getMixData();
 	},
-	getFestivalData: function() {
+	getMixData: function() {
 		var push = this.props.push;
-		var festivalId = this.props.appState.get('detailId');
-		var festivalData,
-			festivalUrl = constants.API_ROOT + 'festival/' + festivalId;
+		var mixId = this.props.appState.get('detailId');
+		var mixData,
+			mixUrl = constants.API_ROOT + 'mix/' + mixId;
 
-		//TODO find out the link to get a single festival
+		//TODO find out the link to get a single Mix
 		$.ajax({
-			url: festivalUrl,
+			url: mixUrl,
 			type: 'get',
 		})
 		.done(function(response) {
-			festivalData = response.payload.festival;
-			console.log(festivalData);
+			mixData = response.payload.Mix;
+			console.log(mixData);
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					detailId: festivalData.id,
-					detailData: festivalData
+					detailId: mixData.id,
+					detailData: mixData
 				}
 			});
 		});
@@ -46,4 +46,4 @@ var FestivalDetail = React.createClass({
 	}
 });
 
-module.exports = FestivalDetail;
+module.exports = MixDetail;

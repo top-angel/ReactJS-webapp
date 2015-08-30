@@ -8,8 +8,12 @@ import SetContainer from './SetContainer';
 
 var DetailView = React.createClass({
 	render: function() {
-		var linkUrls = this.props.data.links;
-		var links = [
+		var linkUrls = this.props.data.links || null;
+		var links;
+		if(linkUrls == null) {
+			links = [];
+		} else {
+			links = [
 			{
 				type: 'facebook',
 				url: linkUrls.facebook
@@ -31,6 +35,8 @@ var DetailView = React.createClass({
 				url: linkUrls.youtube
 			}
 		];
+		}
+		
 		return(
 			<div id='detail' className='view detail-page'>
 				<DetailImageContainer

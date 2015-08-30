@@ -18,7 +18,7 @@ var BrowseTile = React.createClass({
 		});
 
 		//TODO make this work for all other components
-		this.transitionTo('artist');
+		this.transitionTo('activity');
 	},
 	render: function() {
 		return (

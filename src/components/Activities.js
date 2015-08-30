@@ -30,10 +30,10 @@ var Activities = React.createClass({
 		});
 	},
 	render: function() {
-
+		var push = this.props.push;
 		var appState = this.props.appState.get('activityBrowseData');
 		return (
-			<BrowseView title={TITLE} data={appState} type={TYPE}/>
+			<BrowseView title={TITLE} push={push} data={appState} type={TYPE}/>
 		);
 	}
 

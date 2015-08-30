@@ -1,7 +1,6 @@
 import React from 'react';
 import constants from '../constants/constants';
 
-import ViewTitleContainer from './ViewTitleContainer';
 import FeaturedContainer from './FeaturedContainer';
 import FeaturedResultsHeader from './FeaturedResultsHeader';
 import EventBrowseContainer from './EventBrowseContainer';
