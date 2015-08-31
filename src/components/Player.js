@@ -32,7 +32,7 @@ var Player = React.createClass({
 							<PlayerSeek />
 							<div className='flex-row flex'>
 									<PlayerSetInfo set={selectedSet}
-									               time={currentSet.timePosition}/>
+										time={currentSet.timePosition}/>
 									<PlayerTrackInfo track={setSMObject}/>
 							</div>
 					</div>

@@ -1,16 +1,23 @@
 import React from 'react';
+import moment from 'moment';
 import constants from '../constants/constants';
 
 var EventTile = React.createClass({
 	render: function() {
+		var month = moment(this.props.data.start_date).format('MMM');
+    	var day = moment(this.props.data.start_date).format('DD');
 		return (
 			<div className="flex-column overlay-container event-tile">
 			    <img className="event-image" src={constants.S3_ROOT_FOR_IMAGES+this.props.data.main_imageURL} />
 			    <div className="overlay"></div>
 			    <div className="event-date-container flex-5x flex-column">
-			        <div className="month">{this.props.data.start_date.substring(5,7)}</div>
+			        <div className="month">
+				        {month}
+			        </div>
 			        <div className="divider"></div>
-			        <div className="day">{this.props.data.start_date.substring(8,10)}</div>
+			        <div className="day">
+				        {day}
+			        </div>
 			    </div>
 			    <div className="divider"></div>
 			    <div className="tile-controls flex-row flex">
@@ -30,5 +37,4 @@ var EventTile = React.createClass({
 	}
 })
 
-// <div className="month">{this.props.data.formattedDate.substring(0,3)}</div>
-module.exports = EventTile
+module.exports = EventTile;

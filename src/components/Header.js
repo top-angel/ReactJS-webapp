@@ -11,21 +11,16 @@ var Header = React.createClass({
 	          <Link className='nav-button click center flex set-flex' to='user'>
 	          	<div className='center'>Home</div>
 	          </Link>
-	          <Link className='nav-button click flex set-flex' to='featured'>
-	          	<div className='center'>Featured [still don't work]</div>
+	          <Link className='nav-button click center flex set-flex' to='sets'>
+	          	<div className='center'>Sets</div>
+	          </Link>
+	          <Link className='nav-button click flex set-flex' to='events'>
+	          	<div className='center'>Events</div>
 	          </Link>
 	          <Link className='nav-button click flex set-flex' to='artists'>
 	          	<div className='center'>Artists</div>
 	          </Link>
-	          <Link className='nav-button click flex set-flex' to='festivals'>
-	          	<div className='center'>Festivals</div>
-	          </Link>
-	          <Link className='nav-button click flex set-flex' to='mixes'>
-	          	<div className='center'>Mixes</div>
-	          </Link>
-	          <Link className='nav-button click flex set-flex' to='activities'>
-	          	<div className='center'>Activities</div>
-	          </Link>
+	          <div className='buffer-4x'/>
 	          <Link className='search-bar flex-row flex-3x' to='search'>
 		          <SearchBar push={this.props.push} appState={this.props.appState}/>
 		       </Link>   

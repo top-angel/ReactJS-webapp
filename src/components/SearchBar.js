@@ -11,7 +11,7 @@ var SearchBar = React.createClass({
 
 			//TODO make this a little cleaner
 			if(query.length > 3) {
-				setTimeout(_this.search(query), 400);
+				setTimeout(_this.search(query), 600);
 			}
 		});
 	},

@@ -7,8 +7,6 @@ import TrackContainer from './TrackContainer';
 
 var SearchResultsView = React.createClass({
 	componentDidMount: function() {
-		// this._attachStreams();
-
 		$('.results-filter').click(function(e){
 			e.stopPropagation();
 			var scrollOffset = -$('header').height()*2;
@@ -43,13 +41,6 @@ var SearchResultsView = React.createClass({
 	},
 	render: function() {
 		var data = this.props.appState.get('searchResults');
-
-		//TODO DELETE
-		var FUCK = this.props.appState.get('searchText');
-		var testStyle = {
-			height: 100,
-			fontSize: 36
-		}
 		return (
 			<div id="search-results" className="view overlay-container">
 				<div className="flex-row view-title-container search">
@@ -65,9 +56,6 @@ var SearchResultsView = React.createClass({
 					<div className="divider"></div>
 				</div>
 				<div className="search-results flex-column">
-
-					<div style={testStyle}>{FUCK}</div>
-
 					<SetContainer data={data.sets} push={this.props.push}/>
 					<EventContainer data={data.upcomingEvents} push={this.props.push}/>
 					<TrackContainer data={data.tracks} push={this.props.push}/>

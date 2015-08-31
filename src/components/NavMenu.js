@@ -1,4 +1,5 @@
-var React = require('react');
+import React from 'react';
+import {Link} from 'react-router';
 
 var NavMenu = React.createClass({
 
@@ -7,9 +8,9 @@ var NavMenu = React.createClass({
 			<div id="nav-menu" className='flex-column'>
 				{this.props.items.map(function(nav){
 					return(
-						<div className='nav-list-item click flex set-flex' key={nav.id}>
-							<div className='center'>{nav}</div>
-						</div>
+						<Link className='nav-list-item click flex set-flex' to={nav.link}>
+							<div className='center'>{nav.text}</div>
+						</Link>
 					); 
 				})}
 			</div>

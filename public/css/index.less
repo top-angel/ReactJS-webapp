@@ -74,7 +74,7 @@ body {
     .border-radius(30px);
 }
 .detail-page {
-    .background(@set-white, white);
+    .background(@set-nearly-white, white);
     text-align: center;
     >.image-container {
         height: 45vh;
@@ -88,7 +88,7 @@ body {
         .createDivider(100%, 2px, @set-gray);
     }
     .tile-controls {
-        background-color: @set-darker-gray;
+        background-color: @set-dark-gray;
     }
 }
 .detail-results-container {
@@ -128,7 +128,7 @@ body {
         .createDivider(100%, 5px, @set-purple);
     }
     .tile-controls {
-        .gradient(@set-darker-gray, @set-darker-gray*0.5);
+        .gradient(@set-dark-gray, @set-dark-gray*0.5);
     }
     .mobile({
         width: 100%;
@@ -150,12 +150,17 @@ body {
     }
     .left-arrow {
         left:0;
-        z-index: 4;
+        z-index: 10;
     }
     .right-arrow {
         right:0;
-        z-index: 4;
+        z-index: 10;
     }
+}
+.featured-tiles {
+    white-space: nowrap;
+    overflow-x: scroll;
+    .flexContainer(row,horizontal,nowrap);
 }
 .featured-results-header {
     color:inherit;
@@ -164,8 +169,7 @@ body {
 }
 .featured-tile {
     background-size: 100% 100%;
-    max-width:33%;
-    min-height: 200px;
+    min-width: 25vw;
     color:white;
     .transition(0.2s);
     .overlay {
@@ -201,9 +205,8 @@ footer {
 }
 header {
     background-color: @set-purple;
-    color: #fff*.75;
+    color: #fff*.85;
     height: @headerHeight;
-    // padding: 0 2vw;
     font-family:  @defaultFontStyle;
     position:fixed;
     width:100%;
@@ -217,12 +220,20 @@ header {
     .active {
         color: white;
     }
+    .nav-button {
+        padding:0 1vw;
+        text-align: center;
+    }
 }
 #home {
     color:white;
     height:90vh;
-    .sidebar {
-        .view-trigger {
+    .results-container {
+        overflow-y: scroll;
+    }
+}
+.home-sidebar {
+        .nav-button {
             border-bottom: solid white 1px;
             &:hover {
                 border-left: solid @set-green 10px;
@@ -237,10 +248,6 @@ header {
             }
         }
     }
-    .results-container {
-        overflow-y: scroll;
-    }
-}
 input#search {
     font-size: @defaultFontSize*0.65;
     font-family: inherit;
@@ -263,8 +270,6 @@ input#search {
        .createOverlay(40%); 
     }
 }
-#landing-2 {
-}
 #landing-3 {
     background: url(../images/landing-3.jpg);
     background-size: 100% 100%;
@@ -284,7 +289,7 @@ input#search {
 }
 .links-container {
     .card(3);
-    .background(@set-darker-gray, white);
+    .background(@set-dark-gray, white);
     padding: 2vh 0;
     text-align: center;
     height: 10%;
@@ -314,21 +319,25 @@ input#search {
     top:10vh;
 }
 #nav-menu {
-    width:25%;
+    width:20%;
     position:fixed;
     left:0;
     top:10vh;
     height:90vh;
     z-index: 100;
-    .background(@set-black, @set-white);
+    .background(@set-black, @set-nearly-white);
     .mobile({
         width: 66%;
-    })
+    });
+    .acitive {
+        border-left: solid 5px @set-green;
+        background-color: @set-black*1.1;
+    }
 }
-.nav-button {
-    padding:0 1vw;
-    text-align: center;
-}
+// .nav-button {
+//     padding:0 1vw;
+//     text-align: center;
+// }
 .nav-list-item {
     font-family:  @defaultFontStyle;
     left: 2vw;
@@ -432,7 +441,7 @@ input#search {
         .createOverlay(0%);
     }
     .tile-controls {
-        background-color: fade(@set-darker-gray, 70%);
+        background-color: fade(@set-dark-gray, 70%);
         font-size: 1rem;
         >.divider {
             .createDivider(100%, 1px, @set-gray);
@@ -476,7 +485,7 @@ input#search {
     background-color:#ebebeb;
     }
     .divider {
-    .createDivider(60%, 2px, @set-white);
+    .createDivider(60%, 2px, @set-nearly-white);
     }
 }
 .text-container {
@@ -500,7 +509,7 @@ input#search {
         padding:1vmin;
     }
     .tile-controls {
-        .gradient(@set-darker-gray, @set-darker-gray*0.5);
+        .gradient(@set-dark-gray, @set-dark-gray*0.5);
         text-align: center;
         }
     .overlay {
@@ -521,7 +530,7 @@ input#search {
     background-color: @set-light-gray;
 }
 .user-nav {
-    background-color: fade(@set-black, 50%);
+    background-color: fade(@set-dark-gray, 50%);
 }
 .user-image {
     .size(100px, 100px);

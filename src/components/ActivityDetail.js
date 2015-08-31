@@ -39,11 +39,13 @@ var ActivityDetail = React.createClass({
 		var navTitles = ['sets'];
 		var info = data.sets.length + ' sets';
 		var title = data.activity;
+		var buttonText = 'Shuffle';
 		return (
 			<DetailView
 				data={data}
 				navTitles={navTitles}
 				info={info}
+				buttonText={buttonText}
 				title={title}/>
 		);
 	}

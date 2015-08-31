@@ -15,6 +15,7 @@ import DetailView from './components/DetailView';
 import LandingView from './components/LandingView';
 import FeaturedView from './components/FeaturedView';
 import HomeView from './components/HomeView';
+import SetsView from './components/SetsView';
 import SearchResultsView from './components/SearchResultsView';
 
 import ArtistDetail from './components/ArtistDetail';
@@ -24,7 +25,8 @@ import ActivityDetail from './components/ActivityDetail';
 // import EventDetail from './components/EventDetail';
 
 import Favorites from './components/Favorites';
-import New from './components/New';
+import NewSets from './components/NewSets';
+import NewEvents from './components/NewEvents';
 
 import Artists from './components/Artists';
 import Festivals from './components/Festivals';
@@ -79,8 +81,10 @@ var initialAppState = Immutable.Map({
 	mixBrowseData: [],
 	activityBrowseData: [],
 
-	eventData: [],
+	allLanding: [],
 	landingData: [],
+	activeLanding: [],
+	upcomingEventData: [],
 
 	mySets: [],
 	userData: {
@@ -105,9 +109,6 @@ var initialAppState = Immutable.Map({
 		city: 'Dania Beach',
 		state: 'FL'
 	},
-
-//TODO delete
-	searchText: 'Ayy lmao',
 
 	searchResults: {
 		artists: [],
@@ -179,45 +180,32 @@ var App = React.createClass({
 	}
 });
 
-// var wrapComponent = function(Component, props) {
-// 	return React.createClass({
-// 		render: function() {
-// 			return (
-// 				React.createElement(Component, props);
-// 			);
-// 		}
-// 	});
-// };
-
 var routes = (
 	<Route path='/' handler={App}>
 		<DefaultRoute name='landing' handler={LandingView}/>
 		<Route name='user' path='user' handler={HomeView}>
-			<Route name='favorites' path='favorites' handler={Favorites}/>
-			<Route name='new' path='new' handler={New}/>
+			<DefaultRoute name='user-favorites' handler={Favorites}/>
+			<Route name='user-new-sets' path='sets' handler={NewSets}/>
+			<Route name='user-new-events' path='events' handler={NewEvents}/>
 		</Route>
-		<Route name='featured' path='featured' handler={FeaturedView}/>
+		<Route name='sets' path='sets' handler={SetsView}>
+			<Route name='mixes' path='mixes' handler={Mixes}/>
+			<Route name='festivals' path='festivals' handler={Festivals}/>
+			<Route name='activities' path='activities' handler={Activities}/>
+		</Route>
+		<Route name='events' path='events' handler={FeaturedView}/>
 		<Route name='artists' path='artists' handler={Artists}/>
-		<Route name='festivals' path='festivals' handler={Festivals}/>
-		<Route name='mixes' path='mixes' handler={Mixes}/>
-		<Route name='activities' handler={Activities}/>
 		<Route name='search' path='search' handler={SearchResultsView}/>
 		<Route name='artist' path='artist' handler={ArtistDetail}>
-			<Route path='sets' handler={SetContainer}/>
-			<Route path='events' handler={EventContainer}/>
+			{/*TODO add routes for sets & events*/}
 		</Route>
 		<Route name='festival' path='festival' handler={FestivalDetail}/>
 		<Route name='activity' path='activity' handler={ActivityDetail}/>
 	</Route>
 );
 
-// <Route name='artist' path='artist/:id' handler={ArtistDetail}>
-// 	<Route name='artistSets' path='sets'/>
-// 	<Route name='artistEvents' path='events'/>
-// </Route>
 
-
-//var headMount = document.getElementById('head-mount-point');
+var headMount = document.getElementById('head-mount-point');
 var bodyMount = document.getElementById('body-mount-point');
 
 Router.run(routes, Router.HashLocation, function(Root) {

@@ -11,12 +11,11 @@ var FeaturedTile = React.createClass({
 	},
 	render: function() {
 		var image = {
-			background: "url("+constants.S3_ROOT_FOR_IMAGES+this.props.data.main_imageURL+")",
-			backgroundSize: '100% 100%'
+			backgroundImage: "url(" + constants.S3_ROOT_FOR_IMAGES +this.props.data.main_imageURL+")"
 		}
 		return (
 			<div 
-			className="featured-tile flex-column flex overlay-container click" 
+			className="featured-tile flex-column overlay-container click" 
 			style={image} >
 			    <div className="overlay"></div>
 			    <div className="flex-column featured-info animated">
