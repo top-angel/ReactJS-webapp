@@ -4,10 +4,6 @@ import Router from 'react-router';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 import GlobalEventHandler from './services/globalEventHandler';
 
-import mui from 'material-ui';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-var ThemeManager = new mui.Styles.ThemeManager();
-
 import Footer from './components/Footer';
 import Header from './components/Header';
 import PlayerWrapper from './components/Player';
@@ -28,14 +24,12 @@ import Favorites from './components/Favorites';
 import NewSets from './components/NewSets';
 import NewEvents from './components/NewEvents';
 
+import Recent from './components/Recent';
+import Popular from './components/Popular';
 import Artists from './components/Artists';
 import Festivals from './components/Festivals';
 import Mixes from './components/Mixes';
 import Activities from './components/Activities';
-
-import SetContainer from './components/SetContainer';
-import EventContainer from './components/EventContainer';
-// import BrowseContainer from './components/BrowseContainer';
 
 var initialAppState = Immutable.Map({
 	setSMObject: null,
@@ -80,17 +74,20 @@ var initialAppState = Immutable.Map({
 	festivalBrowseData: [],
 	mixBrowseData: [],
 	activityBrowseData: [],
+	recentBrowseData: [],
+	popularBrowseData: [],
 
 	allLanding: [],
 	landingData: [],
 	activeLanding: [],
 	upcomingEventData: [],
 
-	mySets: [],
-	userData: {
-		isUserLoggedIn: false,
-		user: {}
-	},
+	isUserLoggedIn: false,
+	userId: 108,
+	user: {},
+	favorites: [],
+	newSets: [],
+	newEvents: [],
 
 	detailId: 347,//TODO clean up if possible
 	detailData: {//minimum properties needed for rendering
@@ -153,7 +150,9 @@ var App = React.createClass({
 		};
 	},
 
-	componentDidMount: function() {
+//TODO change this back to cdm if anything fucks up in the future
+//WHY? this removes one render per page load
+	componentWillMount: function() {
 		this._attachStreams();
 	},
 
@@ -169,7 +168,7 @@ var App = React.createClass({
 		var appState = this.state.appState;
 		//pass in appState and push to every component you want to access event dispatcher
 		return (
-			<div className="main-container flex-column">
+			<div id='App' className='flex-column'>
 				<Header appState={appState} push={push}/>
 				<PlayerWrapper appState={appState}
 					push={push}
@@ -181,15 +180,17 @@ var App = React.createClass({
 });
 
 var routes = (
-	<Route path='/' handler={App}>
+	<Route handler={App}>
 		<DefaultRoute name='landing' handler={LandingView}/>
 		<Route name='user' path='user' handler={HomeView}>
 			<DefaultRoute name='user-favorites' handler={Favorites}/>
-			<Route name='user-new-sets' path='sets' handler={NewSets}/>
-			<Route name='user-new-events' path='events' handler={NewEvents}/>
+			<Route name='user-sets' path='sets' handler={NewSets}/>
+			<Route name='user-events' path='events' handler={NewEvents}/>
 		</Route>
 		<Route name='sets' path='sets' handler={SetsView}>
+			<DefaultRoute name='recent' handler={Recent}/>
 			<Route name='mixes' path='mixes' handler={Mixes}/>
+			<Route name='popular' path='popular' handler={Popular}/>
 			<Route name='festivals' path='festivals' handler={Festivals}/>
 			<Route name='activities' path='activities' handler={Activities}/>
 		</Route>
@@ -204,6 +205,7 @@ var routes = (
 	</Route>
 );
 
+module.exports = routes;
 
 var headMount = document.getElementById('head-mount-point');
 var bodyMount = document.getElementById('body-mount-point');

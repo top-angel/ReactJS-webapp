@@ -8,10 +8,10 @@ var Header = React.createClass({
 		return (
 			<header className="flex-row flex-zero">
           	<Link className='nav-button fa icon-setmine fa-2x click center' to='landing'/>
-	          <Link className='nav-button click center flex set-flex' to='user'>
+	          <Link className='nav-button click flex set-flex' to='user'>
 	          	<div className='center'>Home</div>
 	          </Link>
-	          <Link className='nav-button click center flex set-flex' to='sets'>
+	          <Link className='nav-button click flex set-flex' to='sets'>
 	          	<div className='center'>Sets</div>
 	          </Link>
 	          <Link className='nav-button click flex set-flex' to='events'>

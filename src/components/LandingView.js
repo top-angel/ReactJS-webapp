@@ -1,13 +1,12 @@
-var React = require('react');
-
-var LandingHome = require('./LandingHome');
-var LandingApp = require('./LandingApp');
-var LandingBeacon = require('./LandingBeacon');
+import React from 'react';
+import LandingHome from './LandingHome';
+import LandingApp from './LandingApp';
+import LandingBeacon from './LandingBeacon';
 
 var LandingView = React.createClass({
 	render: function() {
 		return (
-			<div id="landing" className="flex-column view flex">
+			<div id="LandingView" className="flex-column view flex">
 				<LandingHome />
 				<LandingApp />
 				<LandingBeacon />

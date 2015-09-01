@@ -11,7 +11,6 @@ var Activities = React.createClass({
 	},
 	getActivities: function() {
 		var push = this.props.push;
-		console.log(push);
 		var results,
 			activityUrl = constants.API_ROOT + 'activity';
 
@@ -32,8 +31,15 @@ var Activities = React.createClass({
 	render: function() {
 		var push = this.props.push;
 		var appState = this.props.appState.get('activityBrowseData');
+		var browseClass = 'flex-row flex-fixed-4x scrollable';
+
 		return (
-			<BrowseView title={TITLE} push={push} data={appState} type={TYPE}/>
+			<BrowseView
+				title={TITLE}
+				push={push}
+				data={appState}
+				type={TYPE}
+				browseClass={browseClass}/>
 		);
 	}
 

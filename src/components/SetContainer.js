@@ -5,11 +5,12 @@ var SetContainer = React.createClass({
 
 	render: function() {
 		var data = this.props.data;
+		var push = this.props.push;
 		var tiles = data.map(function(set, index) {
-			return(<SetTile data={set} key={index}/>);
+			return(<SetTile data={set} key={index} push={push}/>);
 		});
 		return (
-			<div className='flex-row results sets'>
+			<div className={this.props.setClass} id={this.props.containerId}>
 				{tiles}
 			</div>
 		);

@@ -4,16 +4,23 @@ import {Link} from 'react-router';
 var NavMenu = React.createClass({
 
 	render: function() {
+		var links = this.props.items.map(function(nav){
+			return(
+				<Link className='nav-button click flex flex-row' to={nav.link}>
+					<i className={nav.icon}/>
+					<div className='center'>{nav.text}</div>
+				</Link>
+			); 
+		});
+		
 		return (
-			<div id="nav-menu" className='flex-column'>
-				{this.props.items.map(function(nav){
-					return(
-						<Link className='nav-list-item click flex set-flex' to={nav.link}>
-							<div className='center'>{nav.text}</div>
-						</Link>
-					); 
-				})}
-			</div>
+			<nav id='NavMenu' className='flex-column flex-fixed'>
+				<div className='set-flex flex'>
+					<div className='nav-header'>MENU</div>
+				</div>
+				{links}
+				<div className='buffer-3x'/>
+			</nav>
 		);
 	}
 

@@ -35,7 +35,7 @@ var ActivityDetail = React.createClass({
 	},
 	render: function() {
 		var data = this.props.appState.get('detailData');
-		console.log(data);
+		var push = this.props.push;
 		var navTitles = ['sets'];
 		var info = data.sets.length + ' sets';
 		var title = data.activity;
@@ -43,6 +43,7 @@ var ActivityDetail = React.createClass({
 		return (
 			<DetailView
 				data={data}
+				push={push}
 				navTitles={navTitles}
 				info={info}
 				buttonText={buttonText}

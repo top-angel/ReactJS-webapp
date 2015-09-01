@@ -8,7 +8,9 @@
 @import "variables.less";
 @import "fonts.less";
 
-/* CSS */
+// @set-purple: #9b59b6;
+
+//css
 
 * {
     -webkit-box-sizing: border-box;
@@ -30,12 +32,15 @@ a {
         .createOverlay(50%);
     }
 }
-#alphabet {
-    position: absolute;
-    line-height: 1px;
-    font-size: 1rem;
-    right:5px;
+#AlphabetScroller {
+    position: fixed;
+    width: 5%;
+    right:0;
+    top: @headerHeight;
     height:80vh;
+    background-color: @set-green;//test
+    color: @set-dark-gray;
+    text-align: center;
 }
 body {
     font-family: @defaultFontStyle;
@@ -46,8 +51,9 @@ body {
     width:100vw!important;
     overflow-x:hidden;
 }
-.browse.results-container {
-    position: relative;
+#BrowseView {
+    height:90vh;
+    color: @set-dark-gray;
 }
 .browse-tile {
     .size(200px, 200px);
@@ -198,6 +204,7 @@ body {
 }
 footer {
     position: relative;
+    top:@headerHeight;
     .background(@set-black, white);
     padding: 1vh 0;
     font-size: 1rem;
@@ -205,6 +212,7 @@ footer {
 }
 header {
     background-color: @set-purple;
+    background-color: #9b59b6;
     color: #fff*.85;
     height: @headerHeight;
     font-family:  @defaultFontStyle;
@@ -225,29 +233,42 @@ header {
         text-align: center;
     }
 }
-#home {
-    color:white;
+#HomeView {
+    color: @set-dark-gray;
     height:90vh;
     .results-container {
+        height: 90vh;
         overflow-y: scroll;
     }
 }
-.home-sidebar {
-        .nav-button {
-            border-bottom: solid white 1px;
-            &:hover {
-                border-left: solid @set-green 10px;
-            }
-            div {
-                margin: auto 3vw;
-                font-size: 2rem;
-            }
-            &.active {
-                border-left: solid @set-green 10px;
-                color: @set-green;
-            }
+#HomeSidebar {
+    .nav-button {
+        color: @set-nearly-white;
+        &:hover {
+            background-color: @set-dark-gray*0.9;
+        } 
+        &.active {
+            border-left: solid @set-blue 5px;
+            background-color: @set-dark-gray*0.8;
+            color: white;
+        }
+        div {
+            margin: auto 3vw;
         }
     }
+    .user-background {
+        background-color: @set-light-gray;
+        .background(@set-light-gray, white);
+    }
+    .user-nav {
+        background-color: @set-dark-gray;
+    }
+    img {
+        .size(100px, 100px);
+        border-radius: 50%;
+        border: solid white;
+    }
+}
 input#search {
     font-size: @defaultFontSize*0.65;
     font-family: inherit;
@@ -261,6 +282,9 @@ input#search {
 }
 .landing-view {
     height:90vh;
+}
+#LandingView {
+    color:white;
 }
 #landing-1 {
     .size(100vw, 90vh);
@@ -314,51 +338,27 @@ input#search {
         background-color:@set-blue;
     }
 }
-#main-container {
-    position:relative;
-    top:10vh;
-}
-#nav-menu {
-    width:20%;
-    position:fixed;
-    left:0;
-    top:10vh;
-    height:90vh;
-    z-index: 100;
-    .background(@set-black, @set-nearly-white);
-    .mobile({
-        width: 66%;
-    });
-    .acitive {
-        border-left: solid 5px @set-green;
-        background-color: @set-black*1.1;
+#NavMenu {
+    .background(@set-dark-gray, @set-gray);
+    i {
+        margin: auto 10px;
     }
-}
-// .nav-button {
-//     padding:0 1vw;
-//     text-align: center;
-// }
-.nav-list-item {
-    font-family:  @defaultFontStyle;
-    left: 2vw;
-    > div {
-        margin: auto 2vw;
+    .nav-header {
+        margin: auto 20px;
     }
-    // &:not(:nth-child(1)):hover {
-    //     border-left: solid 5px @set-green;
-    //     background-color: @set-black*1.1;
-    // }
-    // &:nth-child(1) {
-    //     color:@set-dark-gray;
-    // }
-    &:nth-child(n):hover {
-        border-left: solid 5px @set-green;
-        background-color: @set-black*1.1;
+    .nav-button {
+        font-family:  @defaultFontStyle;
+        > div {
+            margin: auto 30px;
+        }
+        &:hover {
+            .background(@set-dark-gray*0.9, white);
+        }
+        &.active {
+            border-left: solid 5px @set-blue;
+            .background(@set-dark-gray*0.8, white);
+        }
     }
-}
-.nav-list-item-focused {
-    border-left: solid 5px @set-green;
-    background-color: @set-black*1.1;
 }
 .player {
     height: @playerHeight;
@@ -420,7 +420,7 @@ input#search {
 .search-results {
     min-height:80vh;
     position: relative;
-    top: 10vh;
+    top: @headerHeight;
 }
 .set-tile {
     .card(2);
@@ -452,8 +452,14 @@ input#search {
     }
 }
 .set-info {
+    text-align: center;
     padding: 1vh;
     width:50%;
+}
+#SetsView {
+    height:90vh;
+    position:relative;
+    top: @headerHeight;
 }
 .slide-controls {
     position: absolute;
@@ -526,20 +532,10 @@ input#search {
         }
     }
 }
-.user-background {
-    background-color: @set-light-gray;
-}
-.user-nav {
-    background-color: fade(@set-dark-gray, 50%);
-}
-.user-image {
-    .size(100px, 100px);
-    border-radius: 50%;
-    border:solid;
-}
 .view {
-    min-height:90vh;//make sure this doesn't fuck up any other pages
-    margin-top: 10vh;
+    top: @headerHeight;
+    position: relative;
+    overflow-y: scroll;
     &#featured {
         color:@set-dark-gray;
         .results-container {
@@ -549,15 +545,10 @@ input#search {
     &#search-results {
         color: @set-dark-gray;
     }
-    &#landing {
-        color:white;
-    }
-    &#browse {
-        color: @set-dark-gray;
-    }
 }
 .view-title-container {
     height: @headerHeight;
+    width:100%;
     font-size: @defaultFontSize*1.5;
     position:relative;
     background-color: white;

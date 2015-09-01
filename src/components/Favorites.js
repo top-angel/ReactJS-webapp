@@ -1,16 +1,42 @@
 import React from 'react';
-import SetTile from './SetTile';
+import constants from '../constants/constants';
+import SetContainer from './SetContainer';
 
 var Favorites = React.createClass({
 
+	componentWillMount: function() {
+		this.getFavorites();
+	},
+	getFavorites: function() {
+		var userId = this.props.appState.get('userId');
+		var push = this.props.push;
+		var results,
+			favoritesUrl = constants.API_ROOT + 'user/stream/' + userId + '?filter=favorites';
+
+		$.ajax({
+			url: favoritesUrl,
+			type: 'get'
+		})
+		.done(function(response) {
+			results = response.payload.user.favorites;
+			push({
+				type: 'SHALLOW_MERGE',
+				data: {
+					favorites: results
+				}
+			});
+		});
+	},
 	render: function() {
-		// var data = this.props.data.favorites;
-		// var tiles = data.map(function(set) {
-		// 	return (<SetTile data={set} key={set.id}/>);
-		// })
+		var favorites = this.props.appState.get('favorites');
+		var setClass = 'flex-row flex-fixed-3x results-container';
+		var containerId = 'Favorites';
+
 		return (
-			<div className="flex-row flex-fixed-3x results-container">
-			</div>
+			<SetContainer
+				setClass={setClass}
+				containerId={containerId}
+				data={favorites}/>
 		);
 	}
 

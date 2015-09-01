@@ -13,6 +13,21 @@ var SetTile = React.createClass({
 		// 	});
 		// })
 	},
+	favoriteSet: function() {
+		var push = this.props.push;
+		var favoriteUrl = API_ROOT + 'user/updateFavoriteSets';
+
+		// $.ajax({
+		// 	type: 'POST',
+		// 	url: favoriteUrl,
+		// 	data: {
+		// 		'userData': {
+		// 			'userID': '',
+		// 			'setId': ''
+		// 		}
+		// 	}
+		// });
+	},
 	render: function() {
 		return (
 			<div className="flex-column overlay-container set-tile">

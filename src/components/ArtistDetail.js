@@ -35,6 +35,7 @@ var ArtistDetail = React.createClass({
 	render: function() {
 		var appState = this.props.appState
 		var data = appState.get('detailData');
+		var push = this.props.push;
 
 		var navTitles = ['sets', 'events'];
 		var buttonText = 'Shuffle';//TODO delete if we don't have functionality
@@ -46,6 +47,7 @@ var ArtistDetail = React.createClass({
 		return (
 			<DetailView
 				navTitles={navTitles}
+				push={push}
 				data={data}
 				info={info}
 				title={title}

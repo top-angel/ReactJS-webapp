@@ -14,29 +14,29 @@ var DetailView = React.createClass({
 			links = [];
 		} else {
 			links = [
-			{
-				type: 'facebook',
-				url: linkUrls.facebook
-			},
-			{
-				type: 'twitter',
-				url: linkUrls.twitter
-			},
-			{
-				type: 'instagram',
-				url: linkUrls.instagram
-			},
-			{
-				type: 'soundcloud',
-				url: linkUrls.soundcloud
-			},
-			{
-				type: 'youtube',
-				url: linkUrls.youtube
-			}
-		];
+				{
+					type: 'facebook',
+					url: linkUrls.facebook
+				},
+				{
+					type: 'twitter',
+					url: linkUrls.twitter
+				},
+				{
+					type: 'instagram',
+					url: linkUrls.instagram
+				},
+				{
+					type: 'soundcloud',
+					url: linkUrls.soundcloud
+				},
+				{
+					type: 'youtube',
+					url: linkUrls.youtube
+				}
+			];
 		}
-		
+		var push = this.props.push;
 		return(
 			<div id='detail' className='view detail-page'>
 				<DetailImageContainer
@@ -46,7 +46,7 @@ var DetailView = React.createClass({
 					info={this.props.info}/>
 				<LinkButtonContainer links={links}/>
 				<div className='divider'/>
-				<DetailContentContainer data={this.props.data} navTitles={this.props.navTitles}/>
+				<DetailContentContainer data={this.props.data} navTitles={this.props.navTitles} push={push}/>
 			</div>
 		);
 	}

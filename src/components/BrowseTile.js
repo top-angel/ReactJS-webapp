@@ -10,6 +10,7 @@ var BrowseTile = React.createClass({
 		var dataId = this.props.dataId;
 		var push = this.props.push;
 		console.log(dataId);
+		console.log(this.props.firstLetter);
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
@@ -18,14 +19,15 @@ var BrowseTile = React.createClass({
 		});
 
 		//TODO make this work for all other components
-		this.transitionTo('activity');
+		// this.transitionTo('artist');
+		//Link to={this.props.type}
 	},
 	render: function() {
 		return (
-			<div 
-				className="browse-tile flex-column overlay-container click view-trigger" 
+			<div className='browse-tile flex-column overlay-container click' 
 				onClick={this.openDetail}
-				dataId={this.props.id}>
+				dataId={this.props.id}
+				firstLetter={this.props.firstLetter}>
 				<div className="overlay set-flex">
 					<div className="browse-name center">{this.props.text}</div>
 				</div>

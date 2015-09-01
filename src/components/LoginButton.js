@@ -75,13 +75,12 @@ var LoginButton = React.createClass({
         }).done(function(response) {
             if(response.status == "success") {
                 var push = this.props.push;
+
                 push({
                     type: 'SHALLOW_MERGE',
                     data: {
-                        userData: {
-                            isUserLoggedIn: true,
-                            user: response.payload.user
-                        }
+                        isUserLoggedIn: true,
+                        user: response.payload.user
                     }
                 });
 
@@ -95,7 +94,12 @@ var LoginButton = React.createClass({
         });
     },
     render: function() {
-        var text = 'Login';
+        var loginStatus = this.props.appState.get('isUserLoggedIn');
+        if(loginStatus) {
+            var text = 'Logout';
+        } else {
+            var text = 'Login'
+        }
 
         return (
             <div className="nav-button click center login" id="login" onClick={this.login}>{text}</div>

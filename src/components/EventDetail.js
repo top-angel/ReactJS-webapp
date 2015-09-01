@@ -5,6 +5,7 @@ var EventDetail = React.createClass({
 	displayName: 'EventDetail',
 	render: function() {
 		var data = this.props.appState.get('detailData');
+		var push = thie.props.push;
 		var TITLES = ['lineup'];
 		var buttonText = 'Tickets';
 		var info = data.formattedDate;
@@ -15,7 +16,8 @@ var EventDetail = React.createClass({
 				data: data,
 				buttonText: buttonText,
 				info: info,
-				title: title
+				title: title,
+				push: push
 			});
 		);
 	}

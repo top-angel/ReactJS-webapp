@@ -9,7 +9,7 @@ var TrackContainer = React.createClass({
 			return(<TrackTile data={set}/>);
 		});
 		return (
-			<div className='flex-row results tracks'>
+			<div className={this.props.trackClass}>
 				{tiles}
 			</div>
 		);

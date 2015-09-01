@@ -29,10 +29,16 @@ var Mixes = React.createClass({
 		});
 	},
 	render: function() {
-
+		var browseClass='flex-row flex-fixed-4x scrollable';
+		var push = this.props.push;
 		var appState = this.props.appState.get('mixBrowseData');
 		return (
-			<BrowseView title={TITLE} data={appState} type={TYPE}/>
+			<BrowseView
+				title={TITLE}
+				push={push}
+				data={appState}
+				type={TYPE}
+				browseClass={browseClass}/>
 		);
 	}
 

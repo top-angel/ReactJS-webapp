@@ -33,11 +33,13 @@ var MixDetail = React.createClass({
 	},
 	render: function() {
 		var data = this.props.appState.get('detailData');
+		var push = this.props.push;
 		var navTitles = ['sets'];
 		var info = data.set_count + ' sets';
 		var title = data.event;
 		return (
 			<DetailView
+				push={push}
 				data={data}
 				navTitles={navTitles}
 				info={info}

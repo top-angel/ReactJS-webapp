@@ -32,8 +32,16 @@ var Festivals = React.createClass({
 	},
 	render: function() {
 		var appState = this.props.appState.get('festivalBrowseData');
+		var push = this.props.push;
+		var browseClass = 'flex-row flex-fixed-4x scrollable';
+		
 		return (
-			<BrowseView title={TITLE} data={appState} type={TYPE}/>
+			<BrowseView
+				title={TITLE}
+				push={push}
+				data={appState}
+				type={TYPE}
+				browseClass={browseClass}/>
 		);
 	}
 

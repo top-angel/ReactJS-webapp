@@ -59,7 +59,7 @@ var FeaturedView = React.createClass({
 			type: 'GET'
 		})
 		.done(function(response) {
-			eventData = response.payload.upcoming.soonestEvents;
+			eventData = response.payload.upcoming.soonestEventsAroundMe;
 			console.log('upcoming events loaded: ' + eventData.length);
 			push({
 				type: 'SHALLOW_MERGE',

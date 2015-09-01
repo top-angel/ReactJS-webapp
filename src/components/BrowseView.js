@@ -10,26 +10,30 @@ var BrowseView = React.createClass({
 		var push = this.props.push;
 
 		var tiles = data.map(function(tile, index) {
+			var text = tile.artist || tile.event || tile.activity;
 			return(<BrowseTile 
 				push={push}
-				text={tile.artist || tile.event || tile.activity}
+				text={text}
+				firstLetter={text[0]}
 				key={index}
 				dataId={tile.id}
 				image={tile.imageURL}/>);
 		});
 
 		return (
-			<div id="browse" className="view overlay-container">
-				<div className="flex-column view-title-container flex-zero">
-					<div className="center view-title">{this.props.title}</div>
-					<div className="divider"></div>
+			<div id='BrowseView' className={this.props.browseClass}>
+				<div className='flex-column view-title-container flex'>
+					<div className='center view-title'>{this.props.title}</div>
+					<div className='divider'/>
 				</div>
-				<div className="results-container flex-row flex">
+				<div className='flex-row flex'>
 					{tiles}
 				</div>
 			</div>
 		);
 	}
 });		
+
+// className="view overlay-container"
 
 module.exports = BrowseView;

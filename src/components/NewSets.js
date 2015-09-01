@@ -1,24 +1,42 @@
 import React from 'react';
-import SetTile from './SetTile';
-
-// import {State} from 'react-router';
+import constants from '../constants/constants';
+import SetContainer from './SetContainer';
 
 var NewSets = React.createClass({
 
-	// mixins: [State],
+	componentWillMount: function() {
+		this.getNewSets();
+	},
+	getNewSets: function() {
+		var userId = this.props.appState.get('userId');
+		var push = this.props.push;
+		var results,
+			newSetsUrl = constants.API_ROOT + 'user/stream/' + userId + '?filter=sets';
+
+		$.ajax({
+			url: newSetsUrl,
+			type: 'get'
+		})
+		.done(function(response) {
+			results = response.payload.user.stream;
+			push({
+				type: 'SHALLOW_MERGE',
+				data: {
+					newSets: results
+				}
+			});
+		});
+	},
 	render: function() {
-		// var data = this.props.data;
-		// var tiles = data.map(function(set) {
-		// 	return (<SetTile data={set} key={set.id}/>);
-		// });
-		var testStyle={
-			fontSize: '3rem',
-			color: 'black'
-		}
+		var newSets = this.props.appState.get('newSets');
+		var setClass = 'flex-row flex-fixed-3x results-container';
+		var containerId = 'NewSets';
+
 		return (
-			<div className="flex-row flex-fixed-3x results-container">
-				<p style={testStyle}>FUCK</p>
-			</div>
+			<SetContainer
+			setClass={setClass}
+			containerId={containerId}
+			data={newSets}/>
 		);
 	}
 

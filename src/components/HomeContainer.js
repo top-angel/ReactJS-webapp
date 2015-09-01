@@ -9,11 +9,8 @@ var HomeContainer = React.createClass({
 
 	mixins: [State],
 	render: function() {
-		var name = this.getParams().name;
-		console.log(name);
 		return (
 			<div className='flex-row flex-fixed-3x results-container'>
-				{name}
 			</div>
 		);
 	}
