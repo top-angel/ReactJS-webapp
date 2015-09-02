@@ -9,7 +9,7 @@ var TrackContainer = React.createClass({
 			return(<TrackTile data={set}/>);
 		});
 		return (
-			<div className={this.props.trackClass}>
+			<div className={this.props.containerClass}>
 				{tiles}
 			</div>
 		);

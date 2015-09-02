@@ -11,7 +11,7 @@ var FeaturedTile = React.createClass({
 	},
 	render: function() {
 		var image = {
-			backgroundImage: "url(" + constants.S3_ROOT_FOR_IMAGES +this.props.data.main_imageURL+")"
+			backgroundImage: "url(" + constants.S3_ROOT_FOR_IMAGES + 'small_' + this.props.data.main_imageURL+")"
 		}
 		return (
 			<div 

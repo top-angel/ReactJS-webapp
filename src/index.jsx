@@ -9,15 +9,16 @@ import Header from './components/Header';
 import PlayerWrapper from './components/Player';
 import DetailView from './components/DetailView';
 import LandingView from './components/LandingView';
-import FeaturedView from './components/FeaturedView';
+import EventsView from './components/EventsView';
 import HomeView from './components/HomeView';
 import SetsView from './components/SetsView';
 import SearchResultsView from './components/SearchResultsView';
+import TestView from './components/TestView';
 
 import ArtistDetail from './components/ArtistDetail';
 import FestivalDetail from './components/FestivalDetail';
 import ActivityDetail from './components/ActivityDetail';
-
+// import MixDetail from './components/MixDetail';
 // import EventDetail from './components/EventDetail';
 
 import Favorites from './components/Favorites';
@@ -30,6 +31,9 @@ import Artists from './components/Artists';
 import Festivals from './components/Festivals';
 import Mixes from './components/Mixes';
 import Activities from './components/Activities';
+
+import SetContainer from './components/SetContainer';
+import EventContainer from './components/EventContainer';
 
 var initialAppState = Immutable.Map({
 	setSMObject: null,
@@ -181,6 +185,7 @@ var App = React.createClass({
 
 var routes = (
 	<Route handler={App}>
+		<Route name='test' path='sandbox' handler={TestView}/>
 		<DefaultRoute name='landing' handler={LandingView}/>
 		<Route name='user' path='user' handler={HomeView}>
 			<DefaultRoute name='user-favorites' handler={Favorites}/>
@@ -194,11 +199,12 @@ var routes = (
 			<Route name='festivals' path='festivals' handler={Festivals}/>
 			<Route name='activities' path='activities' handler={Activities}/>
 		</Route>
-		<Route name='events' path='events' handler={FeaturedView}/>
+		<Route name='events' path='events' handler={EventsView}/>
 		<Route name='artists' path='artists' handler={Artists}/>
 		<Route name='search' path='search' handler={SearchResultsView}/>
 		<Route name='artist' path='artist' handler={ArtistDetail}>
-			{/*TODO add routes for sets & events*/}
+			<DefaultRoute name='artist-sets' handler={SetContainer}/>
+			<Route name='artist-events' path='events' handler={EventContainer}/>
 		</Route>
 		<Route name='festival' path='festival' handler={FestivalDetail}/>
 		<Route name='activity' path='activity' handler={ActivityDetail}/>

@@ -4,7 +4,6 @@ import constants from '../constants/constants';
 import DetailImageContainer from './DetailImageContainer';
 import LinkButtonContainer from './LinkButtonContainer';
 import DetailContentContainer from './DetailContentContainer';
-import SetContainer from './SetContainer';
 
 var DetailView = React.createClass({
 	render: function() {

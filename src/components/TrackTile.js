@@ -4,25 +4,39 @@ import constants from '../constants/constants';
 var TrackTile = React.createClass({
 	render: function() {
 		var image = {
-			background: "url('"+constants.S3_ROOT_FOR_IMAGES+this.props.data.main_eventimageURL+"')",
-			backgroundSize: '100% 100%'
+			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + 'small_' + this.props.data.main_eventimageURL + "')"
 		}
+		var artistImage = this.props.data.artistimageURL;
+		var songname = this.props.data.songname;
+		var artistname = this.props.data.artistname;
+		var track = artistname + ' - ' + songname;
+		var time = (this.props.data.starttime + ' | ' + this.props.data.set_length);
+		var event = this.props.data.event;
+		var artist = this.props.data.artist;
+
 		return (
-			<div className="track-tile flex-column overlay-container" style={image} >
-			    <div className="overlay"></div>
-			    <div className="flex-column flex">
-			        <div className="track-name">{this.props.data.songname}</div>
-			        <div className="track-artist">{this.props.data.artistname}</div>
-			        <i className="fa fa-play fa-2x click animated"></i>
-			        <div className="track-time center">{this.props.data.starttime+' | '+this.props.data.set_length}</div>
+			<div className="track-tile flex-column overlay-container click" style={image} >
+
+			    <div className='flex-row track'>
+			    	<img src={constants.S3_ROOT_FOR_IMAGES + 'small_' +artistImage}/>
+			    	<p className='text'>
+				    	{track}
+				    	<br/>
+				    	{time}
+			    	</p>
 			    </div>
-			    <div className="tile-controls flex-column">
-			        <div className="set-name click view-trigger">{this.props.data.event}</div>
-			        <div className="artist-name click view-trigger">{this.props.data.artist}</div>
-			    </div>
+
+			    <div className='set flex-column'>
+					<span className='artist'>{artist}</span>
+					<span className='event'>{event}</span>
+				</div>
+
 			</div>
 		);
 	}
-})
+});
+
+// <div>{track}</div>
+// 				    	<div>{time}</div>
 
 module.exports = TrackTile;

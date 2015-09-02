@@ -5,8 +5,7 @@ import constants from '../constants/constants';
 var FestivalDetail = React.createClass({
 	displayName: 'FestivalDetail',
 	componentWillMount: function() {
-		var _this = this;
-		_this.getFestivalData();
+		this.getFestivalData();
 	},
 	getFestivalData: function() {
 		var push = this.props.push;

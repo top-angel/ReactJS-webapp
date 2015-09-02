@@ -1,5 +1,4 @@
 import React from 'react';
-// import $ from 'jquery';
 
 import SetContainer from './SetContainer';
 import EventContainer from './EventContainer';
@@ -41,9 +40,10 @@ var SearchResultsView = React.createClass({
 	},
 	render: function() {
 		var data = this.props.appState.get('searchResults');
-		var setClass='flex-row results sets';
-		var eventClass='flex-row results events';
-		var trackClass='flex-row results tracks';
+		var setClass = 'flex-row results sets';
+		var eventClass = 'flex-row results events';
+		var trackClass = 'flex-row results tracks';
+
 		return (
 			<div id="search-results" className="view overlay-container">
 				<div className="flex-row view-title-container search">
@@ -59,18 +59,22 @@ var SearchResultsView = React.createClass({
 					<div className="divider"></div>
 				</div>
 				<div className="search-results flex-column">
+					<div className='center'>SETS</div>
 					<SetContainer
-						data={data.sets}
+						sets={data.sets}
 						push={this.props.push}
-						setClass={setClass}/>
+						containerClass={setClass}
+					/>
 					<EventContainer
-						data={data.upcomingEvents}
+						events={data.upcomingEvents}
 						push={this.props.push}
-						eventClass={eventClass}/>
+						containerClass={eventClass}
+					/>
 					<TrackContainer
 						data={data.tracks}
 						push={this.props.push}
-						trackClass={trackClass}/>
+						containerClass={trackClass}
+					/>
 				</div>
 			</div>
 		);

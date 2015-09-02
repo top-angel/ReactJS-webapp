@@ -2,7 +2,7 @@ import React from 'react';
 import constants from '../constants/constants';
 import {RouteHandler} from 'react-router';
 import HomeSidebar from './HomeSidebar';
-import Routes from '../Routes';
+import Routes from '../index';
 
 var HomeView = React.createClass({
 

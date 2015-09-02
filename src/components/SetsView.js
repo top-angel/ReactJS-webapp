@@ -1,6 +1,7 @@
 import React from 'react';
 import {RouteHandler} from 'react-router';
-import Routes from '../Routes';
+import Routes from '../index';
+// import Routes from '../Routes';
 import NavMenu from './NavMenu';
 
 var SetsView = React.createClass({

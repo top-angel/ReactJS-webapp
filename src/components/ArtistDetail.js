@@ -36,8 +36,16 @@ var ArtistDetail = React.createClass({
 		var appState = this.props.appState
 		var data = appState.get('detailData');
 		var push = this.props.push;
-
-		var navTitles = ['sets', 'events'];
+		var navTitles = [
+			{
+				title: 'sets',
+				to: 'artist-sets'
+			},
+			{
+				title: 'events',
+				to: 'artist-events'
+			}
+		];
 		var buttonText = 'Shuffle';//TODO delete if we don't have functionality
 		var info = data.set_count + ' sets | ' + data.event_count + ' events';
 		var title = data.artist;

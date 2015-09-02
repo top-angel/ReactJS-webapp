@@ -5,7 +5,7 @@ import FeaturedContainer from './FeaturedContainer';
 import FeaturedResultsHeader from './FeaturedResultsHeader';
 import EventContainer from './EventContainer';
 
-var FeaturedView = React.createClass({
+var EventsView = React.createClass({
 	getLandingEvents: function() {
 		var push = this.props.push;
 		var landingUrl = constants.API_ROOT + 'landing';
@@ -60,7 +60,8 @@ var FeaturedView = React.createClass({
 		})
 		.done(function(response) {
 			eventData = response.payload.upcoming.soonestEventsAroundMe;
-			console.log('upcoming events loaded: ' + eventData.length);
+			// console.log('upcoming events loaded: ' + eventData.length);
+			
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
@@ -76,30 +77,36 @@ var FeaturedView = React.createClass({
 	render: function() {
 		var push = this.props.push;
 		var appState = this.props.appState;
+		var containerClass='flex-row flex results-container';
 
 		var landingData = appState.get('landingData');
 		var activeLanding = appState.get('activeLanding');
 		var allLanding = appState.get('allLanding');
 		var eventData = appState.get('upcomingEventData');
-		console.log(eventData);
 
 		return (
 			<div id="featured" className="view flex-column">
 				<div className="flex-column view-title-container flex-zero">
 					<div className="center view-title">Recent</div>
-					<div className="divider"></div>
+					<div className="divider"/>
 				</div>
 				<FeaturedContainer 
 					data={landingData}
 					activeLanding={allLanding}
-					push={push}/>
+					push={push}
+				/>
 				<FeaturedResultsHeader
 					push={push}
-                	appState={appState}/>
-				<EventContainer push={push} data={eventData}/>
+                	appState={appState}
+            	/>
+				<EventContainer 
+					push={push} 
+					events={eventData}
+					containerClass={containerClass}
+				/>
           </div>
 		);
 	}
 });
 
-module.exports = FeaturedView
+module.exports = EventsView

@@ -69,6 +69,7 @@
 }
 
 .card(@level: 1) {
+    .border-radius(4px);
     & when (@level = 1) {
         box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
     }
@@ -92,9 +93,6 @@
 .click {
     cursor:pointer;
     .transition(0.1s, ease-in, color);
-    &:hover {
-        color: @set-light-gray;
-    }
 }
 .createBlur(@image, @length) {
     filter: blur(@length);
@@ -249,12 +247,12 @@
     position:absolute;
     width:100%;
     height:100%;
-    z-index: 2;
+    z-index: 1;
     ~ * {
-        z-index: 3;
+        z-index: 2;
     }
     ~ img {
-        z-index: 1;
+        z-index: 3;
     }
 }
 .scrollable {

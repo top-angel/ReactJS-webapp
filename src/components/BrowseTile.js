@@ -18,9 +18,7 @@ var BrowseTile = React.createClass({
 			}
 		});
 
-		//TODO make this work for all other components
-		// this.transitionTo('artist');
-		//Link to={this.props.type}
+		this.transitionTo('artist');
 	},
 	render: function() {
 		return (

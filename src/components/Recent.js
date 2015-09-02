@@ -32,13 +32,13 @@ var Recent = React.createClass({
 	render: function() {
 		var data = this.props.appState.get('recentBrowseData');
 		var push = this.props.push;
-		var setClass = 'flex-row flex-fixed-4x scrollable';
+		var containerClass = 'flex-row flex-fixed-4x scrollable results-container';
 		
 		return (
 			<SetContainer
 				push={push}
-				data={data}
-				setClass={setClass}/>
+				sets={data}
+				containerClass={containerClass}/>
 		);
 	}
 

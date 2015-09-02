@@ -29,14 +29,14 @@ var NewSets = React.createClass({
 	},
 	render: function() {
 		var newSets = this.props.appState.get('newSets');
-		var setClass = 'flex-row flex-fixed-3x results-container';
+		var containerClass = 'flex-row flex-fixed-3x results-container';
 		var containerId = 'NewSets';
 
 		return (
 			<SetContainer
-			setClass={setClass}
+			containerClass={containerClass}
 			containerId={containerId}
-			data={newSets}/>
+			sets={newSets}/>
 		);
 	}
 

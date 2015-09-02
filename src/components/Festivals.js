@@ -2,6 +2,8 @@ import React from 'react';
 import constants from '../constants/constants';
 import BrowseView from './BrowseView';
 
+import FestivalTile from './FestivalTile';
+
 var TITLE = 'Festivals';
 var TYPE = 'event';
 var Festivals = React.createClass({
@@ -34,14 +36,24 @@ var Festivals = React.createClass({
 		var appState = this.props.appState.get('festivalBrowseData');
 		var push = this.props.push;
 		var browseClass = 'flex-row flex-fixed-4x scrollable';
-		
+
+		var tiles = appState.map(function(tile, index) {
+			return <FestivalTile
+						data={tile}
+						key={index}
+						dataId={tile.id}
+						push={push}
+					/>
+		});
+
 		return (
-			<BrowseView
-				title={TITLE}
-				push={push}
-				data={appState}
-				type={TYPE}
-				browseClass={browseClass}/>
+			<div className={browseClass}>
+				<div className='flex-column view-title-container flex'>
+					<div className='center view-title'>{TITLE}</div>
+					<div className='divider'/>
+				</div>
+				{tiles}
+			</div>
 		);
 	}
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 var DetailNavContainer = React.createClass({
 
@@ -6,9 +7,12 @@ var DetailNavContainer = React.createClass({
 		var navTitles = this.props.navTitles;
 		var titles = navTitles.map(function(title, index) {
 			return(
-				<div className='center click flex-fixed' key={index}>
-					{title}
-				</div>
+				<Link className='center click flex-fixed' 
+					key={index} 
+					to={title.to}
+				>
+					{title.title}
+				</Link>
 			);
 		});
 		return (

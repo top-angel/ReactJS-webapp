@@ -1,9 +1,11 @@
 import React from 'react';
 import constants from '../constants/constants';
 import BrowseView from './BrowseView';
+import MixTile from './MixTile';
 
 var TITLE = 'Mixes';
 var TYPE = 'mix';
+
 var Mixes = React.createClass({
 
 	componentWillMount: function() {
@@ -29,16 +31,22 @@ var Mixes = React.createClass({
 		});
 	},
 	render: function() {
-		var browseClass='flex-row flex-fixed-4x scrollable';
 		var push = this.props.push;
 		var appState = this.props.appState.get('mixBrowseData');
+		var browseClass='flex-row flex-fixed-4x scrollable results-container';
+
+		var tiles = appState.map(function(tile, index) {
+			return <MixTile
+						data={tile}
+						key={index}
+						dataId={tile.id}
+						push={push}
+					/>
+		})
 		return (
-			<BrowseView
-				title={TITLE}
-				push={push}
-				data={appState}
-				type={TYPE}
-				browseClass={browseClass}/>
+			<div className={browseClass}>
+				{tiles}
+			</div>
 		);
 	}
 

@@ -29,14 +29,14 @@ var NewEvents = React.createClass({
 	},
 	render: function() {
 		var newEvents = this.props.appState.get('newEvents');
-		var eventClass = 'flex-row flex-fixed-3x results-container';
+		var containerClass = 'flex-row flex-fixed-3x results-container';
 		var containerId = 'NewEvents';
 
 		return (
 			<EventContainer
-				eventClass={eventClass}
+				containerClass={containerClass}
 				containerId={containerId}
-				data={newEvents}/>
+				events={newEvents}/>
 		);
 	}
 

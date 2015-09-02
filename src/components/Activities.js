@@ -1,6 +1,6 @@
 import React from 'react';
 import constants from '../constants/constants';
-import BrowseView from './BrowseView';
+import ActivityTile from './ActivityTile';
 
 var TITLE = 'Activities';
 var TYPE = 'activity';
@@ -31,15 +31,21 @@ var Activities = React.createClass({
 	render: function() {
 		var push = this.props.push;
 		var appState = this.props.appState.get('activityBrowseData');
-		var browseClass = 'flex-row flex-fixed-4x scrollable';
+		var browseClass = 'flex-row flex-fixed-4x scrollable results-container';
+
+		var tiles = appState.map(function(tile, index) {
+			return <ActivityTile
+						data={tile}
+						key={index}
+						dataId={tile.id}
+						push={push}
+					/>
+		});
 
 		return (
-			<BrowseView
-				title={TITLE}
-				push={push}
-				data={appState}
-				type={TYPE}
-				browseClass={browseClass}/>
+			<div className={browseClass}>
+				{tiles}
+			</div>
 		);
 	}
 
