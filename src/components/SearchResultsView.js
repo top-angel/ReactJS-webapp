@@ -71,7 +71,7 @@ var SearchResultsView = React.createClass({
 						containerClass={eventClass}
 					/>
 					<TrackContainer
-						data={data.tracks}
+						tracks={data.tracks}
 						push={this.props.push}
 						containerClass={trackClass}
 					/>

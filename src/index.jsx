@@ -13,7 +13,7 @@ import EventsView from './components/EventsView';
 import HomeView from './components/HomeView';
 import SetsView from './components/SetsView';
 import SearchResultsView from './components/SearchResultsView';
-import TestView from './components/TestView';
+import Sandbox from './components/Sandbox';
 
 import ArtistDetail from './components/ArtistDetail';
 import FestivalDetail from './components/FestivalDetail';
@@ -93,7 +93,7 @@ var initialAppState = Immutable.Map({
 	newSets: [],
 	newEvents: [],
 
-	detailId: 347,//TODO clean up if possible
+	detailId: null,//TODO clean up if possible
 	detailData: {//minimum properties needed for rendering
 		"sets": [],
 		"upcomingEvents": [],
@@ -106,9 +106,12 @@ var initialAppState = Immutable.Map({
 		}
 	},
 
-	location: {
-		city: 'Dania Beach',
-		state: 'FL'
+	currentLocation: {
+		default: true,
+		city: 'Gainesville',
+		state: 'FL',
+		latitude: 29.652175,
+		longitude: -82.325856
 	},
 
 	searchResults: {
@@ -156,6 +159,16 @@ var App = React.createClass({
 
 //TODO change this back to cdm if anything fucks up in the future
 //WHY? this removes one render per page load
+	componentDidMount: function() {
+		//from path /play/:id
+		// var id = this.props.params.id;
+		// fetchMessage(id, function(err, message) {
+		// 	this.setState({
+		// 		message: message 
+		// 	});
+		// })
+	},
+
 	componentWillMount: function() {
 		this._attachStreams();
 	},
@@ -185,7 +198,7 @@ var App = React.createClass({
 
 var routes = (
 	<Route handler={App}>
-		<Route name='test' path='sandbox' handler={TestView}/>
+		<Route name='test' path='sandbox' handler={Sandbox}/>
 		<DefaultRoute name='landing' handler={LandingView}/>
 		<Route name='user' path='user' handler={HomeView}>
 			<DefaultRoute name='user-favorites' handler={Favorites}/>

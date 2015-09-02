@@ -1,18 +1,11 @@
-var React = require('react');
-var Router = require('react-router')
-var Route = Router.Route;
-var constants = require('../constants/constants');
+import React from 'react';
+import constants from '../constants/constants';
+import {Navigation} from 'react-router';
 
 var SetTile = React.createClass({
-	componentDidMount: function() {
-		//from path /play/:id
-		// var id = this.props.params.id;
-		// fetchMessage(id, function(err, message) {
-		// 	this.setState({
-		// 		message: message 
-		// 	});
-		// })
-	},
+
+	displayName: 'SetTile',
+	mixins: [Navigation],
 	favoriteSet: function() {
 		var push = this.props.push;
 		var favoriteUrl = API_ROOT + 'user/updateFavoriteSets';
@@ -28,40 +21,60 @@ var SetTile = React.createClass({
 		// 	}
 		// });
 	},
+	openArtistPage: function() {
+		var push = this.props.push;
+		var artist_id = this.props.data.artist_id;
+		console.log(artist_id);
+
+		push({
+			type: 'SHALLOW_MERGE',
+			data: {
+				detailId: artist_id
+			}
+		});
+		
+		this.transitionTo('artist');
+	},
 	render: function() {
+		var eventImage = {
+			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + this.props.data.main_eventimageURL + "')"
+		};
+		var event = this.props.data.event;
+		var artist = this.props.data.artist;
+		var artistImage = constants.S3_ROOT_FOR_IMAGES+'small_'+this.props.data.artistimageURL;
+		var playCount = this.props.data.popularity;
+		var time = this.props.data.set_length;
+
 		return (
-			<div className="flex-column overlay-container set-tile">
-				<img className="event-image" src={constants.S3_ROOT_FOR_IMAGES + this.props.data.main_eventimageURL} />
-			    <div className="overlay"></div>
-			    <div className="buffer-4x"></div>
-			    <div className="flex-column flex tile-controls">
-			        <div className="flex-row flex">
-			            <div className="flex-column flex overlay-container">
-			                <img className="artist-image" src={constants.S3_ROOT_FOR_IMAGES+this.props.data.artistimageURL} />
-			            </div>
-			            <div className="flex-column flex set-info">
-			                <div className="center click flex">{this.props.data.event}</div>
-			                <div className="center click flex">{this.props.data.artist}</div>
-			                <div className="flex-row flex-2x">
-			                    <i className="fa fa-fw fa-star-o center click flex"></i>
-			                    <i className="fa fa-fw fa-share center click flex"></i>
-			                </div>
-			            </div>
-			        </div>
-			        <div className="divider"></div>
-			        <div className="flex-row flex-2x">
-			            <div className="flex-fixed set-flex play-count click tile-button" onClick={this.hanldePlay}>
-			                <i className="fa fa-play center"> {this.props.data.popularity}</i>
-			            </div>
-			            <div className="divider"></div>
-			            <div className="flex-fixed set-flex set-length">
-			                <i className="fa fa-clock-o center">{this.props.data.set_length}</i>
-			            </div>
-			        </div>
-			    </div>
+			<div className='flex-column click set-tile' style={eventImage}>
+
+				<div className='detail flex-column'>
+					<div className='flex-row flex-fixed-2x'>
+						<img src={artistImage} />
+						<div className='flex-column flex'>
+							<div className='flex link'>{event}</div>
+							<div className='flex link' onClick={this.openArtistPage}>{artist}</div>
+	                    <div className='flex flex-row'>
+								<i className='fa fa-fw fa-star-o center click link'/>
+								<i className='fa fa-fw fa-share center click link'/>
+	                    </div>
+						</div>
+					</div>
+					<div className='divider center'/>
+					<div className='flex-row flex-fixed'>
+						<div className='flex-fixed set-flex play'>
+							<i className='fa fa-play center'>{'  '+playCount}</i>
+						</div>
+						<div className='divider'/>
+						<div className='flex-fixed set-flex'>
+							<i className='fa fa-clock-o center'>{'  '+time}</i>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		)
 	}
-})
+});
 
-module.exports = SetTile
+module.exports = SetTile;

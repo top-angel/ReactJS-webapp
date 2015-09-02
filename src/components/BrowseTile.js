@@ -21,15 +21,20 @@ var BrowseTile = React.createClass({
 		this.transitionTo('artist');
 	},
 	render: function() {
+		var image = {
+			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + 'small_'+this.props.image+"')"
+		}
 		return (
 			<div className='browse-tile flex-column overlay-container click' 
 				onClick={this.openDetail}
 				dataId={this.props.id}
-				firstLetter={this.props.firstLetter}>
+				firstLetter={this.props.firstLetter}
+				style={image}
+			>
 				<div className="overlay set-flex">
 					<div className="browse-name center">{this.props.text}</div>
 				</div>
-				<img className="browse-tile-image" src={constants.S3_ROOT_FOR_IMAGES + 'small_'+this.props.image} />
+				<img className="browse-tile-image hidden" src={constants.S3_ROOT_FOR_IMAGES + 'small_'+this.props.image} />
 			</div>
 		);
 	}

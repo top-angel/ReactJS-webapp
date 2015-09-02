@@ -29,14 +29,15 @@ var Favorites = React.createClass({
 	},
 	render: function() {
 		var favorites = this.props.appState.get('favorites');
-		var containerClass = 'flex-row flex-fixed-3x results-container';
 		var containerId = 'Favorites';
 
 		return (
 			<SetContainer
-				containerClass={containerClass}
+				containerClass={this.props.containerClass}
 				containerId={containerId}
-				sets={favorites}/>
+				sets={favorites}
+				push={this.props.push}
+			/>
 		);
 	}
 

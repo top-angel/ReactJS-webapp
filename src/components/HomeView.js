@@ -7,10 +7,16 @@ import Routes from '../index';
 var HomeView = React.createClass({
 
 	render: function() {
+		var containerClass = 'flex-row flex-fixed-4x results-container';
+
 		return (
 			<div id="HomeView" className="view flex-row overlay-container">
 				<HomeSidebar appState={this.props.appState}/>
-				<RouteHandler appState={this.props.appState} push={this.props.push}/>
+				<RouteHandler
+					appState={this.props.appState}
+					push={this.props.push}
+					containerClass={containerClass}
+					/>
 			</div>
 		);
 	}

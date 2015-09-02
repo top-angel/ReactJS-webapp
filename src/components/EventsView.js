@@ -2,7 +2,7 @@ import React from 'react';
 import constants from '../constants/constants';
 
 import FeaturedContainer from './FeaturedContainer';
-import FeaturedResultsHeader from './FeaturedResultsHeader';
+import LocationModule from './LocationModule';
 import EventContainer from './EventContainer';
 
 var EventsView = React.createClass({
@@ -61,7 +61,7 @@ var EventsView = React.createClass({
 		.done(function(response) {
 			eventData = response.payload.upcoming.soonestEventsAroundMe;
 			// console.log('upcoming events loaded: ' + eventData.length);
-			
+
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
@@ -95,7 +95,7 @@ var EventsView = React.createClass({
 					activeLanding={allLanding}
 					push={push}
 				/>
-				<FeaturedResultsHeader
+				<LocationModule
 					push={push}
                 	appState={appState}
             	/>

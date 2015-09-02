@@ -2,9 +2,14 @@ import React from 'react';
 var constants = require('../constants/constants');
 
 var DetailImageContainer = React.createClass({
+
+	displayName: 'DetailImageContainer',
+	shuffleSets: function() {
+
+	},
 	render: function() {
 		var imageStyle = {
-				backgroundImage: "url('" + constants.S3_ROOT_FOR_IMAGES + this.props.imageURL + "')"
+				backgroundImage: "url('" + constants.S3_ROOT_FOR_IMAGES + 'large_' + this.props.imageURL + "')"
 		};
 		return (
 			<div className="flex-column flex image-container overlay-container" style={imageStyle}>

@@ -8,9 +8,19 @@
 @import "variables.less";
 @import "fonts.less";
 
-// @set-purple: #9b59b6;
-
 //css
+
+body {
+    margin:0;
+    padding:0;
+    cursor:default;
+    width:100vw!important;
+    overflow-x:hidden;
+}
+html {
+    font-family: @defaultFontStyle;
+    font-size: @defaultFontSize;
+}
 
 * {
     -webkit-box-sizing: border-box;
@@ -24,6 +34,7 @@ a {
         color:inherit;
     }
 }
+
 .activity-tile {
     margin: 1vw;
     .card(2);
@@ -50,6 +61,7 @@ a {
         width:100%;
     }
 }
+
 #AlphabetScroller {
     position: fixed;
     width: 5%;
@@ -60,21 +72,15 @@ a {
     color: @set-dark-gray;
     text-align: center;
 }
-body {
-    font-family: @defaultFontStyle;
-    font-size: @defaultFontSize;
-    margin:0;
-    padding:0;
-    cursor:default;
-    width:100vw!important;
-    overflow-x:hidden;
-}
+
 #BrowseView {
     height:90vh;
     color: @set-dark-gray;
 }
+
 .browse-tile {
     .size(200px, 200px);
+    background-size: 100% 100%;
     text-align: center;
     .overlay {
         .createOverlay(50%);
@@ -85,9 +91,7 @@ body {
         }
     }
 }
-.browse-tile-image {
-    .size(100%, 100%);
-}
+
 .change-location {
     color:@set-blue;
     cursor:pointer;
@@ -145,22 +149,23 @@ body {
     font-size: 0.75rem;
 }
 .event-tile {
+    .card(2);
     width:30%;
-    height: 200px;
-    margin: 2vw 1vw;
+    height: @tileHeight;
+    margin: 1vw;
     color:white;
     .overlay {
         .createOverlay(30%);
     }
     >.divider {
-        .createDivider(100%, 5px, @set-purple);
+        .createDivider(100%, 3px, @set-purple);
     }
     .tile-controls {
-        .gradient(@set-dark-gray, @set-dark-gray*0.5);
+        background-color: @set-dark-gray;
     }
     .mobile({
         width: 100%;
-        })
+        });
 }
 .fa-facebook:hover{color:@facebook-blue;}
 .fa-twitter:hover{color:@twitter-blue;}
@@ -264,25 +269,21 @@ footer {
 }
 header {
     background-color: @set-purple;
-    background-color: #9b59b6;
-    color: #fff*.85;
     height: @headerHeight;
     font-family:  @defaultFontStyle;
     position:fixed;
     width:100%;
     z-index: 100;
-    .nav-button:hover {
-        color:white;
-    }
     .icon-setmine {
-        color: white;
-    }
-    .active {
         color: white;
     }
     .nav-button {
         padding:0 1vw;
         text-align: center;
+        .hover(@set-light-gray, 2);
+    }
+    .active {
+        color: white;
     }
 }
 #HomeView {
@@ -322,7 +323,7 @@ header {
     }
 }
 input#search {
-    font-size: @defaultFontSize*0.65;
+    font-size: 1rem;
     font-family: inherit;
     .border-radius(25px);
     padding: 1vh 1vw;
@@ -492,40 +493,44 @@ input#search {
     top: @headerHeight;
 }
 .set-tile {
+    @setImg: 80px;
     .card(2);
-    background-color: white;
-    color:white;
-    width: 30%;
-    height: 200px;
-    margin: 2vw 1vw;
-    .artist-image {
-        .size(70px, 70px);
+    flex-direction: column-reverse;
+    background-size: 100% 100%;
+    width: 25vw;
+    height: @tileHeight;
+    margin: 1vw 0.5vw;
+    img {
+        .size(@setImg, @setImg);
         border-radius: 50%;
-        border: solid 4px @set-blue;
-        z-index: 4;
+        border: solid 3px @set-purple;
         position: absolute;
-        left:25%;
-        top:-20%;
+        top: -@setImg/2;
+        left: -(25%-@setImg)/10;
     }
-    .overlay {
-        .createOverlay(0%);
-    }
-    .tile-controls {
-        background-color: fade(@set-dark-gray, 70%);
-        font-size: 1rem;
-        >.divider {
-            .createDivider(100%, 1px, @set-gray);
+    .detail {
+        .background(fade(@set-dark-gray, 90%), white);
+        position: relative;
+        height: 50%;
+        .flex-column {
+            padding: 5px;
+            margin-left: 25%;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+        .divider {
+            .createDivider(96%, 1px, @set-gray);
         }
         .flex-row .divider {
-            .createDivider(1px, initial, @set-gray);
+            .createDivider(1px, 30px, @set-gray);
         }
     }
+    .link:hover {color:@set-blue;}
+    .play:hover {
+        background-color: fade(@set-dark-gray, 80%);
+    }
 }
-.set-info {
-    text-align: center;
-    padding: 1vh;
-    width:50%;
-}
+
 #SetsView {
     height:90vh;
     position:relative;
@@ -577,12 +582,12 @@ input#search {
     }
 }
 .track-tile {
-    @imgDim: 64px;
+    @trackImg: 64px;
     .card(2);
     .border-radius(3px);
     background-size: 100% 100%;
     width: 25%;
-    height: 30vh;
+    height: @tileHeight;
     margin: 2vw 1vw;
     font-size: 16px;
     .track {
@@ -595,15 +600,16 @@ input#search {
             overflow: hidden;
             text-overflow: ellipsis;
             line-height: 1.5rem;
+            font-size: 0.8rem;
         }
     }
     img {
         .border-radius(50%);
         border: solid 3px @set-purple;
-        .size(@imgDim, @imgDim);
+        .size(@trackImg, @trackImg);
         position:absolute;
-        left: -(30%-@imgDim)/8;
-        bottom: -@imgDim/2;
+        left: -(30%-@trackImg)/8;
+        bottom: -@trackImg/2;
     }
     .set {
         position: absolute;
@@ -616,12 +622,13 @@ input#search {
         }
     }
     .artist {
-        background-color: @set-blue;
+        .hover-bg(@set-blue, 0.8);
     }
     .event {
-        background-color: @set-dark-gray;
+        .hover-bg(@set-dark-gray, 0.8);
     }
 }
+
 .view {
     top: @headerHeight;
     position: relative;
