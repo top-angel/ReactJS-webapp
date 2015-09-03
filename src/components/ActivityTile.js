@@ -7,14 +7,13 @@ var ActivityTile = React.createClass({
 	displayName: 'ActivityTile',
 	mixins: [Navigation],
 	openDetail: function() {
-		var detailId = this.props.dataId;
+		var detailId = this.props.data.id;
 		var push = this.props.push;
-		console.log(dataId);
 
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
-				detailId: dataId
+				detailId: detailId
 			}
 		});
 
@@ -26,10 +25,9 @@ var ActivityTile = React.createClass({
 		};
 		var setCount = this.props.data.set_ids.length + ' sets';
 		var event = this.props.data.activity;
-		var dataId = this.props.dataId;
 
 		return (
-			<div className='activity-tile flex-column overlay-container click' dataId={this.props.dataId} style={image}>
+			<div className='activity-tile flex-column overlay-container click' style={image} onClick={this.openDetail}>
 				<span className='activity'>{event}</span>
 				<div className='info flex-row overlay-container'>
 					<img src={constants.S3_ROOT_FOR_IMAGES + 'small_' + this.props.data.imageURL}/>

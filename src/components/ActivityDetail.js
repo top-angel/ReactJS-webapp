@@ -2,12 +2,11 @@ import React from 'react';
 import DetailView from './DetailView';
 import constants from '../constants/constants';
 
-
 var ActivityDetail = React.createClass({
+
 	displayName: 'activityDetail',
 	componentWillMount: function() {
-		var _this = this;
-		_this.getactivityData();
+		this.getactivityData();
 	},
 	getactivityData: function() {
 		var push = this.props.push;
@@ -21,9 +20,9 @@ var ActivityDetail = React.createClass({
 			type: 'get',
 		})
 		.done(function(response) {
-			console.log(response)
 			activityData = response.payload.activity;
 			console.log(activityData);
+
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
@@ -40,6 +39,7 @@ var ActivityDetail = React.createClass({
 		var info = data.sets.length + ' sets';
 		var title = data.activity;
 		var buttonText = 'Shuffle';
+
 		return (
 			<DetailView
 				data={data}
@@ -50,6 +50,7 @@ var ActivityDetail = React.createClass({
 				title={title}/>
 		);
 	}
+
 });
 
 module.exports = ActivityDetail;

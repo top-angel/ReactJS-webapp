@@ -8,6 +8,7 @@ var BrowseContainer = React.createClass({
 		var tiles = data.map(function(set) {
 			return(<BrowseTile data={set} key={set.id}/>)
 		});
+		
 		return (
 			<div className='results-container flex-row flex'>
 				{tiles}

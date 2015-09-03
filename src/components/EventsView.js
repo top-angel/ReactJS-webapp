@@ -6,6 +6,11 @@ import LocationModule from './LocationModule';
 import EventContainer from './EventContainer';
 
 var EventsView = React.createClass({
+	
+	componentWillMount: function() {
+		// this.getLandingEvents();
+		// this.getUpcomingEvents();
+	},
 	getLandingEvents: function() {
 		var push = this.props.push;
 		var landingUrl = constants.API_ROOT + 'landing';
@@ -69,10 +74,6 @@ var EventsView = React.createClass({
 				}
 			});
 		});
-	},
-	componentWillMount: function() {
-		this.getLandingEvents();
-		this.getUpcomingEvents();
 	},
 	render: function() {
 		var push = this.props.push;

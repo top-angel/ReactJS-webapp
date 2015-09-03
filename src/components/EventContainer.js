@@ -5,6 +5,7 @@ var EventContainer = React.createClass({
 
 	render: function() {
 		var data = this.props.events;
+		var push = this.props.push;
 
 		if(data.length == 0 || data == undefined) {
 			var tiles = <p className='flex error'>
@@ -13,7 +14,7 @@ var EventContainer = React.createClass({
 							</p>
 		} else {
 			var tiles = data.map(function(set) {
-				return(<EventTile data={set} key={set.id}/>);
+				return(<EventTile data={set} key={set.id} push={push}/>);
 			});
 		}
 

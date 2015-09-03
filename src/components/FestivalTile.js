@@ -7,15 +7,17 @@ var FestivalTile = React.createClass({
 	
 	displayName: 'FestivalTile',
 	mixins: [Navigation],
-	openDetail: function() {
-		var detailId = this.props.dataId;
+	openFestivalPage: function() {
+		console.log(this.props.data);
+
+		var detailId = this.props.data.id;
 		var push = this.props.push;
-		console.log(dataId);
+		console.log(detailId);
 
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
-				detailId: dataId
+				detailId: detailId
 			}
 		});
 
@@ -32,9 +34,8 @@ var FestivalTile = React.createClass({
 
 		return (
 			<div className='festival-tile flex-column overlay-container click'
-				onClick={this.openDetail} 
-				style={image}
-				dataId={this.props.dataId}>
+				onClick={this.openFestivalPage} 
+				style={image}>
 				<div className='overlay'/>
 				<div className='detail flex-column'>
 					<span className='info'>{info}</span>

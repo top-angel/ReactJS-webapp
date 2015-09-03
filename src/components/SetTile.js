@@ -22,6 +22,8 @@ var SetTile = React.createClass({
 		// });
 	},
 	openArtistPage: function() {
+		console.log(this.props.data);
+
 		var push = this.props.push;
 		var artist_id = this.props.data.artist_id;
 		console.log(artist_id);

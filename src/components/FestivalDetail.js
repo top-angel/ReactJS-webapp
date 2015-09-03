@@ -3,6 +3,7 @@ import DetailView from './DetailView';
 import constants from '../constants/constants';
 
 var FestivalDetail = React.createClass({
+
 	displayName: 'FestivalDetail',
 	componentWillMount: function() {
 		this.getFestivalData();
@@ -10,10 +11,10 @@ var FestivalDetail = React.createClass({
 	getFestivalData: function() {
 		var push = this.props.push;
 		var festivalId = this.props.appState.get('detailId');
-		var festivalData,
-			festivalUrl = constants.API_ROOT + 'festival/' + festivalId;
 
-		//TODO find out the link to get a single festival
+		var festivalData,
+			festivalUrl = constants.API_ROOT + 'festival/id/' + festivalId;
+
 		$.ajax({
 			url: festivalUrl,
 			type: 'get',
@@ -21,6 +22,7 @@ var FestivalDetail = React.createClass({
 		.done(function(response) {
 			festivalData = response.payload.festival;
 			console.log(festivalData);
+
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
@@ -31,18 +33,29 @@ var FestivalDetail = React.createClass({
 		});
 	},
 	render: function() {
-		var data = this.props.appState.get('detailData');
+		var appState = this.props.appState;
+		var data = appState.get('detailData');
+		console.log(data);
+
 		var push = this.props.push;
-		var navTitles = ['sets'];
+		var navTitles = [
+			{
+				title: 'sets',
+				to: 'festival-sets'
+			}
+		];
 		var info = data.set_count + ' sets';
 		var title = data.event;
+		var buttonText = 'Shuffle';
+
 		return (
 			<DetailView
-				data={data}
-				push={push}
 				navTitles={navTitles}
+				push={push}
+				data={data}
 				info={info}
-				title={title}/>
+				title={title}
+				buttonText={buttonText}/>
 		);
 	}
 });

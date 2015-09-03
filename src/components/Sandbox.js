@@ -4,10 +4,21 @@ import TrackContainer from './TrackContainer';
 import SetContainer from './SetContainer';
 import EventContainer from'./EventContainer';
 
+import ArtistTile from './ArtistTile';
+
 var Sandbox = React.createClass({
 
 	render: function() {
+		var push = this.props.push;
+		var appState = this.props.appState;
 		var containerClass = 'flex-row flex view';
+		var TITLES = [
+			{
+				title: 'sets',
+				to: 'event-lineup'
+			}
+		];
+
 		var sampleTrack = [
 			{
 				"songname": "Take Me Over ft. SAFIA",
@@ -101,8 +112,18 @@ var Sandbox = React.createClass({
 			}
 		];
 
+		var sampleArtist = {
+			"artist": "Kygo",
+			"id": 574,
+			"imageURL": "a7f7aaec8ecd0cdec444b8abb06dbc66.jpg",
+		};
+
 		return (
-			<SetContainer containerClass={containerClass} sets={sampleSet}/>
+			<div className='view'>
+				<ArtistTile dataId={sampleArtist.id} push={push} artists={sampleArtist}>
+					{sampleArtist.artist}
+				</ArtistTile>
+			</div>
 		);
 	}
 

@@ -1,8 +1,28 @@
 import React from 'react';
 import moment from 'moment';
+import {Navigation} from 'react-router';
 import constants from '../constants/constants';
 
 var EventTile = React.createClass({
+
+	displayName: 'EventTile',
+	mixins: [Navigation],
+	openEventPage: function() {
+		console.log(this.props.data);
+
+		var push = this.props.push;
+		var eventId = this.props.data.id;
+		console.log(eventId);
+
+		push({
+			type: 'SHALLOW_MERGE',
+			data: {
+				detailId: eventId
+			}
+		});
+		
+		this.transitionTo('event');
+	},
 	render: function() {
 		var month = moment(this.props.data.start_date).format('MMM');
     	var day = moment(this.props.data.start_date).format('DD');
@@ -28,7 +48,7 @@ var EventTile = React.createClass({
 	                    <div className="click center">{this.props.data.event}</div>
 	                    <div className="center">{this.props.data.venue}</div>
 	                </div>
-	                <div className="set-flex flex click event view-trigger tile-button">
+	                <div className="set-flex flex click event view-trigger tile-button" onClick={this.openEventPage}>
 	                    <i className="fa fa-fw fa-long-arrow-right center"></i>
 	                </div>
 	            </div>

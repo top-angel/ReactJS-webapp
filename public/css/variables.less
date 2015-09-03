@@ -4,14 +4,17 @@
 @panel-transition-duration:0.2s;
 @defaultFontSize: 16px;
 
-@pageHeight: 90vh;
 @headerHeight: 8vh;
 @headerWidth: 100vw;
 @footerHeight: 10vh;
 @playerHeight: 10vh;
-@pageWidth: 100vw;
-
 @tileHeight: 30vh;
+
+@pageHeight: @windowHeight - @headerHeight;
+@pageWidth: @windowWidth;
+
+@windowWidth: 100vw;
+@windowHeight: 100vh;
 
 @defaultFontStyle: Avenir Regular;
 @lightFontStyle: Avenir Light;

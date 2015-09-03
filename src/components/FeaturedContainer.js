@@ -23,12 +23,13 @@ var FeaturedContainer = React.createClass({
     },
     render: function() {
         var activeLanding = this.props.activeLanding;
+        
         var featuredTiles = activeLanding.map(function(event, index) {
             return(<FeaturedTile data={event} key={index} dataId={event.id}/>);
         });
 
         return (
-        <div className='featured-container overlay-container flex-row'>
+        <div id='FeaturedContainer' className='overlay-container flex-row'>
             <div className="featured-tiles overlay-container">
                 {featuredTiles}
             </div>

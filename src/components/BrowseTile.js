@@ -1,5 +1,4 @@
 import React from 'react';
-import GlobalEventHandler from '../services/globalEventHandler';
 import constants from '../constants/constants';
 import {Navigation} from 'react-router';
 
@@ -11,6 +10,7 @@ var BrowseTile = React.createClass({
 		var push = this.props.push;
 		console.log(dataId);
 		console.log(this.props.firstLetter);
+
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
@@ -23,7 +23,8 @@ var BrowseTile = React.createClass({
 	render: function() {
 		var image = {
 			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + 'small_'+this.props.image+"')"
-		}
+		};
+		
 		return (
 			<div className='browse-tile flex-column overlay-container click' 
 				onClick={this.openDetail}

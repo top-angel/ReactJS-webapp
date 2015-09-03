@@ -4,13 +4,12 @@ import {Link} from 'react-router';
 var DetailNavContainer = React.createClass({
 
 	render: function() {
-		var navTitles = this.props.navTitles;
+		var navTitles = this.props.navTitles || [];
 		var titles = navTitles.map(function(title, index) {
 			return(
 				<Link className='center click flex-fixed' 
 					key={index} 
-					to={title.to}
-				>
+					to={title.to}>
 					{title.title}
 				</Link>
 			);

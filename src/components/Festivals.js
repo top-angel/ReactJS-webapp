@@ -24,6 +24,7 @@ var Festivals = React.createClass({
 		.done(function(response) {
 			results = response.payload.festival;
 			console.log(results);
+
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
@@ -35,19 +36,18 @@ var Festivals = React.createClass({
 	render: function() {
 		var appState = this.props.appState.get('festivalBrowseData');
 		var push = this.props.push;
-		var browseClass = 'flex-row flex-fixed-4x scrollable';
+		var containerClass = 'flex-row flex-fixed-4x scrollable';
 
-		var tiles = appState.map(function(tile, index) {
+		var tiles = appState.map(function(festival, index) {
 			return <FestivalTile
-						data={tile}
+						data={festival}
 						key={index}
-						dataId={tile.id}
 						push={push}
 					/>
 		});
 
 		return (
-			<div className={browseClass}>
+			<div className={containerClass}>
 				<div className='flex-column view-title-container flex'>
 					<div className='center view-title'>{TITLE}</div>
 					<div className='divider'/>

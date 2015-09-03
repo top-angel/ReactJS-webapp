@@ -37,7 +37,7 @@ a {
 
 .activity-tile {
     margin: 1vw;
-    .card(2);
+    .card(1);
     .background(@set-blue, white);
     background-size: 100% 100%;
     width: 25%;
@@ -78,17 +78,28 @@ a {
     color: @set-dark-gray;
 }
 
-.browse-tile {
-    .size(200px, 200px);
+.artist-tile {
     background-size: 100% 100%;
+    color:white;
+    .size(200px, 200px);
     text-align: center;
-    .overlay {
-        .createOverlay(50%);
+    position: relative;
+    z-index: 1;
+    &::before {
+        content: "";
+        opacity: 0.5;
+        background-color: @set-dark-gray;
+        .size(100%, 100%);
+        position: absolute;
+        z-index: 2;
     }
     &:hover {
-        .overlay {
-            .createOverlay(25%);
+        &::before {
+            opacity: 0.25;
         }
+    }
+    .center {
+        z-index: 3;
     }
 }
 
@@ -149,7 +160,7 @@ a {
     font-size: 0.75rem;
 }
 .event-tile {
-    .card(2);
+    .card(1);
     width:30%;
     height: @tileHeight;
     margin: 1vw;
@@ -173,7 +184,8 @@ a {
 .fa-soundcloud:hover{color:@soundcloud-orange;}
 .fa-youtube:hover{color:@youtube-red;}
 .fa-globe:hover{color:@set-purple;}
-.featured-container {
+
+#FeaturedContainer {
     min-height: 30vh;
     background-color: @set-light-gray;
     .background(@set-light-gray, @set-gray);
@@ -184,10 +196,12 @@ a {
     .left-arrow {
         left:0;
         z-index: 10;
+        background: linear-gradieunt(to right, fade(@set-dark-gray, 50%), fade(@set-dark-gray, 0%));
     }
     .right-arrow {
         right:0;
         z-index: 10;
+        background: linear-gradieunt(to left, fade(@set-dark-gray, 50%), fade(@set-dark-gray, 0%));
     }
 }
 .featured-tiles {
@@ -229,9 +243,10 @@ a {
     visibility: hidden;
     .animation(@panel-transition-duration);
 }
+
 .festival-tile {
     margin: 1vw;
-    .card(2);
+    .card(1);
     width: 30%;
     height: 30vh;
     background-size: 100% 100%;
@@ -259,6 +274,7 @@ a {
         margin: 1vw 0.5vw 0.5vw 0.5vw;
     }
 }
+
 footer {
     position: relative;
     top:@headerHeight;
@@ -267,8 +283,9 @@ footer {
     font-size: 1rem;
     z-index: 3;
 }
+
 header {
-    background-color: @set-purple;
+    background-color: @set-dark-gray;
     height: @headerHeight;
     font-family:  @defaultFontStyle;
     position:fixed;
@@ -286,6 +303,7 @@ header {
         color: white;
     }
 }
+
 #HomeView {
     color: @set-dark-gray;
     height:90vh;
@@ -294,6 +312,7 @@ header {
         overflow-y: scroll;
     }
 }
+
 #HomeSidebar {
     .nav-button {
         color: @set-nearly-white;
@@ -322,6 +341,7 @@ header {
         border: solid white;
     }
 }
+
 input#search {
     font-size: 1rem;
     font-family: inherit;
@@ -333,14 +353,15 @@ input#search {
     border:none;
     width:0;
 }
-.landing-view {
-    height:90vh;
-}
+
 #LandingView {
     color:white;
 }
+.landing-view {
+    height:@pageHeight;
+}
 #landing-1 {
-    .size(100vw, 90vh);
+    height: @pageHeight;
     background: url(../images/landing-1.jpg);
     background-size: 100% 100%;
     .overlay {
@@ -382,6 +403,7 @@ input#search {
         color: @set-blue;
     }
 }
+
 #listen-now {
     border: solid 1px;
     padding: 1vh 2vw;
@@ -392,12 +414,13 @@ input#search {
         background-color:@set-blue;
     }
 }
+
 .mix-tile {
     .background(white, @set-dark-gray);
     margin: 1vw;
     padding: 25px;
     text-align: center;
-    .card(2);
+    .card(1);
     width: 20%;
     height: 40vh;
     background-size: 100% 100%;
@@ -408,8 +431,10 @@ input#search {
 
     }
 }
+
 #NavMenu {
-    .background(@set-dark-gray, @set-gray);
+    .background(@set-gray, @set-dark-gray);
+    .card(3);
     i {
         margin: auto 10px;
     }
@@ -417,19 +442,21 @@ input#search {
         margin: auto 20px;
     }
     .nav-button {
+        font-size: 1.2rem;
         font-family:  @defaultFontStyle;
         > div {
             margin: auto 30px;
         }
         &:hover {
-            .background(@set-dark-gray*0.9, white);
+            .background(@set-gray*0.9, @set-dark-gray*1.5);
         }
         &.active {
             border-left: solid 5px @set-blue;
-            .background(@set-dark-gray*0.8, white);
+            .background(@set-gray*0.8, white);
         }
     }
 }
+
 .player {
     height: @playerHeight;
     width: 100%;
@@ -484,24 +511,33 @@ input#search {
         }
     }
 }
-.results-filter {
-    cursor: pointer;
+
+#SearchResultsView {
+    color: @set-dark-gray;
+    .header-small {
+        margin: 1vh 0;
+        padding: 5px 1vw;
+        background-color: @set-gray;
+    }
+    .results-filter {
+        cursor: pointer;
+    }
+    .results-container {
+        position: relative;
+        top: 6vh;
+    }
 }
-.search-results {
-    min-height:80vh;
-    position: relative;
-    top: @headerHeight;
-}
+
 .set-tile {
     @setImg: 80px;
-    .card(2);
-    flex-direction: column-reverse;
+    .card(1);
     background-size: 100% 100%;
-    width: 25vw;
+    width:30%;
     height: @tileHeight;
     margin: 1vw 0.5vw;
     img {
         .size(@setImg, @setImg);
+        background-color: white;
         border-radius: 50%;
         border: solid 3px @set-purple;
         position: absolute;
@@ -512,6 +548,7 @@ input#search {
         .background(fade(@set-dark-gray, 90%), white);
         position: relative;
         height: 50%;
+        margin-top: auto;
         .flex-column {
             padding: 5px;
             margin-left: 25%;
@@ -527,14 +564,12 @@ input#search {
     }
     .link:hover {color:@set-blue;}
     .play:hover {
-        background-color: fade(@set-dark-gray, 80%);
+        background-color: fade(@set-dark-gray, 100%);
     }
 }
 
 #SetsView {
-    height:90vh;
-    position:relative;
-    top: @headerHeight;
+    height: @pageHeight;
     .results-container {
         background-color: @set-nearly-white;
     }
@@ -583,7 +618,7 @@ input#search {
 }
 .track-tile {
     @trackImg: 64px;
-    .card(2);
+    .card(1);
     .border-radius(3px);
     background-size: 100% 100%;
     width: 25%;
@@ -632,7 +667,8 @@ input#search {
 .view {
     top: @headerHeight;
     position: relative;
-    overflow-y: scroll;
+    min-height: @pageHeight - @headerHeight;
+    // overflow-y: scroll;
     background-color: @set-nearly-white;
 
     //TODO reorganize/delete
@@ -642,10 +678,8 @@ input#search {
             min-height: 40vh;
         }
     }
-    &#search-results {
-        color: @set-dark-gray;
-    }
 }
+
 .view-title-container {
     height: @headerHeight*0.75;
     width:100%;

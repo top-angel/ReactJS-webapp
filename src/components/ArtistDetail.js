@@ -13,8 +13,12 @@ var ArtistDetail = React.createClass({
 	getArtistData: function() {
 		var push = this.props.push;
 		var artistId = this.props.appState.get('detailId');
+		console.log(artistId);
+
 		var artistData,
 			artistUrl = constants.API_ROOT + 'artist/' + artistId;
+
+			console.log(artistUrl);
 
 		$.ajax({
 			url: artistUrl,
@@ -23,6 +27,7 @@ var ArtistDetail = React.createClass({
 		.done(function(response) {
 			artistData = response.payload.artist;
 			console.log(artistData);
+
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
@@ -35,6 +40,7 @@ var ArtistDetail = React.createClass({
 	render: function() {
 		var appState = this.props.appState
 		var data = appState.get('detailData');
+
 		var push = this.props.push;
 		var navTitles = [
 			{

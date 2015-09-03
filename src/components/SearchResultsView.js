@@ -22,14 +22,14 @@ var SearchResultsView = React.createClass({
 				$('.divider', '#search-results .view-title-container').animate({
 					left: '33%'
 				}, 200);
-				$(window).scrollTo($('.results.events'), 200, {
+				$(window).scrollTo($('.header-small.events'), 200, {
 					offset: scrollOffset
 				});
 			} else if($(this).is('.tracks')) {
 				$('.divider', '#search-results .view-title-container').animate({
 					left: '66%'
 				}, 200);
-				$(window).scrollTo($('.results.tracks'), 200, {
+				$(window).scrollTo($('.header-small.tracks'), 200, {
 					offset: scrollOffset
 				});
 			}
@@ -45,7 +45,7 @@ var SearchResultsView = React.createClass({
 		var trackClass = 'flex-row results tracks';
 
 		return (
-			<div id="search-results" className="view overlay-container">
+			<div id="SearchResultsView" className="view overlay-container">
 				<div className="flex-row view-title-container search">
 					<div className="view-title sets results-filter flex set-flex" data-type='sets'>
 						<div className="center">Sets</div>
@@ -56,20 +56,21 @@ var SearchResultsView = React.createClass({
 					<div className="view-title tracks results-filter flex set-flex" data-type='tracks'>
 							<div className="center">Tracks</div>
 					</div>
-					<div className="divider"></div>
+					<div className="divider"/>
 				</div>
-				<div className="search-results flex-column">
-					<div className='center'>SETS</div>
+				<div className="results-container flex-column">
 					<SetContainer
 						sets={data.sets}
 						push={this.props.push}
 						containerClass={setClass}
 					/>
+					<div className='header-small events'>EVENTS</div>
 					<EventContainer
 						events={data.upcomingEvents}
 						push={this.props.push}
 						containerClass={eventClass}
 					/>
+					<div className='header-small tracks'>TRACKS</div>
 					<TrackContainer
 						tracks={data.tracks}
 						push={this.props.push}

@@ -19,7 +19,7 @@ import ArtistDetail from './components/ArtistDetail';
 import FestivalDetail from './components/FestivalDetail';
 import ActivityDetail from './components/ActivityDetail';
 // import MixDetail from './components/MixDetail';
-// import EventDetail from './components/EventDetail';
+import EventDetail from './components/EventDetail';
 
 import Favorites from './components/Favorites';
 import NewSets from './components/NewSets';
@@ -34,6 +34,7 @@ import Activities from './components/Activities';
 
 import SetContainer from './components/SetContainer';
 import EventContainer from './components/EventContainer';
+import ArtistTileContainer from './components/ArtistTileContainer';
 
 var initialAppState = Immutable.Map({
 	setSMObject: null,
@@ -93,7 +94,7 @@ var initialAppState = Immutable.Map({
 	newSets: [],
 	newEvents: [],
 
-	detailId: null,//TODO clean up if possible
+	detailId: 1685,// change to 1685 for testing upcoming event
 	detailData: {//minimum properties needed for rendering
 		"sets": [],
 		"upcomingEvents": [],
@@ -106,6 +107,7 @@ var initialAppState = Immutable.Map({
 		}
 	},
 
+	address: null,
 	currentLocation: {
 		default: true,
 		city: 'Gainesville',
@@ -197,7 +199,7 @@ var App = React.createClass({
 });
 
 var routes = (
-	<Route handler={App}>
+	<Route path='/' handler={App}>
 		<Route name='test' path='sandbox' handler={Sandbox}/>
 		<DefaultRoute name='landing' handler={LandingView}/>
 		<Route name='user' path='user' handler={HomeView}>
@@ -215,11 +217,20 @@ var routes = (
 		<Route name='events' path='events' handler={EventsView}/>
 		<Route name='artists' path='artists' handler={Artists}/>
 		<Route name='search' path='search' handler={SearchResultsView}/>
+
 		<Route name='artist' path='artist' handler={ArtistDetail}>
 			<DefaultRoute name='artist-sets' handler={SetContainer}/>
 			<Route name='artist-events' path='events' handler={EventContainer}/>
 		</Route>
-		<Route name='festival' path='festival' handler={FestivalDetail}/>
+
+		<Route name='festival' path='festival' handler={FestivalDetail}>
+			<DefaultRoute name='festival-sets' handler={SetContainer}/>
+		</Route>
+
+		<Route name='event' path='event' handler={EventDetail}>
+			<DefaultRoute name='event-lineup' handler={ArtistTileContainer}/>
+		</Route>
+
 		<Route name='activity' path='activity' handler={ActivityDetail}/>
 	</Route>
 );

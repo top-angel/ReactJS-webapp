@@ -19,6 +19,19 @@ var TrackTile = React.createClass({
 		});
 		this.transitionTo('artist');
 	},
+	openFestivalPage: function() {
+		var push = this.props.push;
+		var festival_id = this.props.data.event_id;
+		console.log(festival_id);
+
+		push({
+			type: 'SHALLOW_MERGE',
+			data: {
+				detailId: festival_id
+			}
+		});
+		this.transitionTo('festival');
+	},
 	render: function() {
 		var image = {
 			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + 'small_' + this.props.data.main_eventimageURL + "')"
@@ -45,7 +58,7 @@ var TrackTile = React.createClass({
 
 			    <div className='set flex-column'>
 					<span className='artist' onClick={this.openArtistPage}>{artist}</span>
-					<span className='event'>{event}</span>
+					<span className='event' onClick={this.openFestivalPage}>{event}</span>
 				</div>
 
 			</div>
