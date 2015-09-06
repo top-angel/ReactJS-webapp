@@ -86,7 +86,7 @@ var EventsView = React.createClass({
 		var eventData = appState.get('upcomingEventData');
 
 		return (
-			<div id="featured" className="view flex-column">
+			<div id="EventsView" className="view flex-column">
 				<div className="flex-column view-title-container flex-zero">
 					<div className="center view-title">Recent</div>
 					<div className="divider"/>

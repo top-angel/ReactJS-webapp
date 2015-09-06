@@ -32,13 +32,14 @@ var ArtistTile = React.createClass({
 	},
 	render: function() {
 		var image = {
-			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + 'small_'+this.props.artists.imageURL+"')"
+			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + 'small_'+this.props.imageURL+"')"
 		}
 
 		return (
 			<div className='artist-tile flex-column click'
 				style={image}
 				onClick={this.openArtistPage}
+				dataId={this.props.dataId}
 			>
 				<div className='center'>{this.props.children}</div>
 			</div>

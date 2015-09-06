@@ -1,6 +1,7 @@
 import React from 'react';
 import constants from '../constants/constants';
 import BrowseTile from './BrowseTile';
+import ArtistTile from './ArtistTile';
 
 var BrowseView = React.createClass({
 

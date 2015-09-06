@@ -59,16 +59,13 @@ var LocationModule = React.createClass({
 		var data = this.props.appState.get('currentLocation');
 
 		return (
-			<div className="flex-row featured-results-header">
-				<div className="flex center">Upcoming Events</div>
-				<div className="buffer-2x"/>
-				<div className="flex center flex-row">
-					<i className="flex fa fa-map-marker"></i>
-					<div className="flex user-location">{data.city}</div>
-					<div className="flex change-location" onClick={this.changeLocation}>
-						Change
-					</div>
-				</div>
+			<div id='LocationModule' className='flex-row'>
+				<div className='flex click'>Upcoming</div>
+				<div className='flex click'>Around</div>
+				<div className='buffer-lg'/>
+				<i className='flex fa fa-map-marker'/>
+				<div className='flex'>{data.city}</div>
+				<div className='flex click'>CHANGE</div>
 			</div>
 		);
 	}

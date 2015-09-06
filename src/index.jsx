@@ -15,10 +15,13 @@ import SetsView from './components/SetsView';
 import SearchResultsView from './components/SearchResultsView';
 import Sandbox from './components/Sandbox';
 
+import UpcomingEvents from './components/UpcomingEvents';
+import ClosestEvents from './components/ClosestEvents';
+
 import ArtistDetail from './components/ArtistDetail';
 import FestivalDetail from './components/FestivalDetail';
 import ActivityDetail from './components/ActivityDetail';
-// import MixDetail from './components/MixDetail';
+import MixDetail from './components/MixDetail';
 import EventDetail from './components/EventDetail';
 
 import Favorites from './components/Favorites';
@@ -94,7 +97,7 @@ var initialAppState = Immutable.Map({
 	newSets: [],
 	newEvents: [],
 
-	detailId: 1685,// change to 1685 for testing upcoming event
+	detailId: 1,// change to 1685 for testing upcoming event
 	detailData: {//minimum properties needed for rendering
 		"sets": [],
 		"upcomingEvents": [],
@@ -214,7 +217,10 @@ var routes = (
 			<Route name='festivals' path='festivals' handler={Festivals}/>
 			<Route name='activities' path='activities' handler={Activities}/>
 		</Route>
-		<Route name='events' path='events' handler={EventsView}/>
+		<Route name='events' path='events' handler={EventsView}>
+			<DefaultRoute name='upcoming' handler={UpcomingEvents}/>
+			<Route name='closest' handler={ClosestEvents}/>
+		</Route>
 		<Route name='artists' path='artists' handler={Artists}/>
 		<Route name='search' path='search' handler={SearchResultsView}/>
 
@@ -229,6 +235,10 @@ var routes = (
 
 		<Route name='event' path='event' handler={EventDetail}>
 			<DefaultRoute name='event-lineup' handler={ArtistTileContainer}/>
+		</Route>
+
+		<Route name='mix' path='mix' handler={MixDetail}>
+			<DefaultRoute name='mix-sets' handler={SetContainer}/>
 		</Route>
 
 		<Route name='activity' path='activity' handler={ActivityDetail}/>

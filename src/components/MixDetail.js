@@ -5,22 +5,20 @@ import constants from '../constants/constants';
 var MixDetail = React.createClass({
 	displayName: 'MixDetail',
 	componentWillMount: function() {
-		var _this = this;
-		_this.getMixData();
+		this.getMixData();
 	},
 	getMixData: function() {
 		var push = this.props.push;
 		var mixId = this.props.appState.get('detailId');
 		var mixData,
-			mixUrl = constants.API_ROOT + 'mix/' + mixId;
+			mixUrl = constants.API_ROOT + 'mix/id/' + mixId;
 
-		//TODO find out the link to get a single Mix
 		$.ajax({
 			url: mixUrl,
 			type: 'get',
 		})
 		.done(function(response) {
-			mixData = response.payload.Mix;
+			mixData = response.payload.mix;
 			console.log(mixData);
 			push({
 				type: 'SHALLOW_MERGE',

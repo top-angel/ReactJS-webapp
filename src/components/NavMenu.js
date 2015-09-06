@@ -16,7 +16,7 @@ var NavMenu = React.createClass({
 		return (
 			<nav id='NavMenu' className='flex-column flex-fixed'>
 				<div className='set-flex flex'>
-					<div className='nav-header'>MENU</div>
+					<div className='nav-header'>BROWSE</div>
 				</div>
 				{links}
 				<div className='buffer-3x'/>

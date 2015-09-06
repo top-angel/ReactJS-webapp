@@ -22,11 +22,8 @@ var SetTile = React.createClass({
 		// });
 	},
 	openArtistPage: function() {
-		console.log(this.props.data);
-
 		var push = this.props.push;
 		var artist_id = this.props.data.artist_id;
-		console.log(artist_id);
 
 		push({
 			type: 'SHALLOW_MERGE',
@@ -36,6 +33,19 @@ var SetTile = React.createClass({
 		});
 		
 		this.transitionTo('artist');
+	},
+	openFestivalPage: function() {
+		var push = this.props.push;
+		var event_id = this.props.data.event_id;
+
+		push({
+			type: 'SHALLOW_MERGE',
+			data: {
+				detailId: event_id
+			}
+		});
+
+		this.transitionTo('festival');
 	},
 	render: function() {
 		var eventImage = {
@@ -54,7 +64,7 @@ var SetTile = React.createClass({
 					<div className='flex-row flex-fixed-2x'>
 						<img src={artistImage} />
 						<div className='flex-column flex'>
-							<div className='flex link'>{event}</div>
+							<div className='flex link' onClick={this.openFestivalPage}>{event}</div>
 							<div className='flex link' onClick={this.openArtistPage}>{artist}</div>
 	                    <div className='flex flex-row'>
 								<i className='fa fa-fw fa-star-o center click link'/>

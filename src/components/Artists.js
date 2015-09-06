@@ -1,7 +1,11 @@
 import React from 'react';
 import constants from '../constants/constants';
-import BrowseView from './BrowseView';
+import Loader from 'react-loader';
+
+import BrowseView from './BrowseView';//delete possibly
 import AlphabetScroller from './AlphabetScroller';
+
+import ArtistTile from './ArtistTile';
 
 var TITLE = 'Artists';
 var TYPE = 'artist';
@@ -16,7 +20,6 @@ var Artists = React.createClass({
 			var letter = event.target.innerText;
 			console.log(letter);
 			// $('#BrowseView').scrollTo($('.browse-tile').attr(), 300);
-			debugger;
 		});
 	},
 	getArtists: function() {
@@ -41,20 +44,32 @@ var Artists = React.createClass({
 	render: function() {
 		var appState = this.props.appState.get('artistBrowseData');
 		var push = this.props.push;
-		var browseClass = 'flex-row flex view scrollable';
+		var containerClass = 'flex-row flex view scrollable';
+
+		var tiles = appState.map(function(artist, index) {
+			return (
+				<ArtistTile key={index} dataId={artist.id} push={push} imageURL={artist.imageURL}>
+					{artist.artist}
+				</ArtistTile>
+			);
+		});
 
 		return (
 			<div>
-				<BrowseView 
-					title={TITLE}
-					browseClass={browseClass}
-					data={appState}
-					push={push}/>
+				<div className={containerClass}>
+					{tiles}
+				</div>
 				<AlphabetScroller/>
 			</div>
 		);
 	}
 
 });
+
+// <BrowseView 
+// 					title={TITLE}
+// 					browseClass={browseClass}
+// 					data={appState}
+// 					push={push}/>
 
 module.exports = Artists;

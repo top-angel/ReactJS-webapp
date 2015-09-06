@@ -209,11 +209,6 @@ a {
     overflow-x: scroll;
     .flexContainer(row,horizontal,nowrap);
 }
-.featured-results-header {
-    color:inherit;
-    height: @headerHeight;
-    padding: 0 6vw;
-}
 .featured-tile {
     background-size: 100% 100%;
     min-width: 25vw;
@@ -299,8 +294,9 @@ header {
         text-align: center;
         .hover(@set-light-gray, 2);
     }
-    .active {
+    .active:not(.icon-setmine) {
         color: white;
+        background-color: @set-dark-gray*1.2;
     }
 }
 
@@ -412,6 +408,24 @@ input#search {
     }
     &:active {
         background-color:@set-blue;
+    }
+}
+
+#LocationModule {
+    .background(@set-nearly-white, @set-gray);
+    height: @headerHeight*1.25;
+    padding: 0 6vw;
+    * {
+        margin-top: 3%;
+        &:last-child {
+            color: @set-blue;
+        }
+    }
+    .click:hover {
+        color: @set-dark-gray;
+    }
+    i {
+        color: @set-blue;
     }
 }
 
@@ -670,13 +684,13 @@ input#search {
     min-height: @pageHeight - @headerHeight;
     // overflow-y: scroll;
     background-color: @set-nearly-white;
+}
 
-    //TODO reorganize/delete
-    &#featured {
-        color:@set-dark-gray;
-        .results-container {
-            min-height: 40vh;
-        }
+#EventsView {
+    color: @set-dark-gray;
+    .results-container {
+        min-height: 40vh;
+        background-color: white;
     }
 }
 
