@@ -1,7 +1,7 @@
 import React from 'react';
 import constants from '../constants/constants';
 import Loader from 'react-loader';
-import $ from 'jquery';
+
 import BrowseView from './BrowseView';//delete possibly
 import AlphabetScroller from './AlphabetScroller';
 
@@ -16,18 +16,8 @@ var Artists = React.createClass({
 			loaded: false
 		};
 	},
-	// componentWillMount: function() {
-	// 	this.getArtists();
-	// },
-	componentDidMount: function() {
+	componentWillMount: function() {
 		this.getArtists();
-		console.log($('#AlphabetScroller'));
-		// $('#AlphabetScroller div').on('click', function(event) {
-		// 	event.stopPropagation();
-		// 	var letter = event.target.innerText;
-		// 	console.log(letter);
-		// 	// $('#BrowseView').scrollTo($('.browse-tile').attr(), 300);
-		// });
 	},
 	getArtists: function() {
 		var push = this.props.push;
@@ -71,17 +61,10 @@ var Artists = React.createClass({
 				<div className={containerClass}>
 					{tiles}
 				</div>
-				<AlphabetScroller/>
 			</Loader>
 		);
 	}
 
 });
-
-// <BrowseView 
-// 					title={TITLE}
-// 					browseClass={browseClass}
-// 					data={appState}
-// 					push={push}/>
 
 module.exports = Artists;

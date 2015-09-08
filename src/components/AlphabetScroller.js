@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 
 var AlphabetScroller = React.createClass({
 
@@ -8,13 +9,12 @@ var AlphabetScroller = React.createClass({
 			var letter = event.target.innerText;
 			console.log(letter);
 
-			var artist = $('.artist-tile[firstLetter^=' + letter + ']');
-			console.log(artist);
-			console.log(artist.scrollTop());
+			var artist = $('.artist-tile').attr('firstLetter');
+			var target = $(".artist-tile[attribute^='"+letter+"']");
 
+			console.log(target.scrollTop());
 
-			debugger;
-			window.scrollTo(0, 400);
+			window.scrollTo(0, target.scrollTop());
 		});
 	},
 	createAlphabet: function(start, stop) {

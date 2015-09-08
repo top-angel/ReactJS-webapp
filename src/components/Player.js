@@ -2,10 +2,10 @@ import React from 'react';
 
 import playerService from '../services/playerService.js';
 
-var PlayerControl = require('./PlayerControl');
-var PlayerSeek = require('./PlayerSeek');
-var PlayerSetInfo = require('./PlayerSetInfo');
-var PlayerTrackInfo = require('./PlayerTrackInfo');
+// import PlayerControl from './PlayerControl';
+import PlayerSeek from './PlayerSeek';
+import PlayerSetInfo from './PlayerSetInfo';
+import PlayerTrackInfo from './PlayerTrackInfo';
 
 var Player = React.createClass({
 	displayName: 'Player',
@@ -26,10 +26,13 @@ var Player = React.createClass({
 		var selectedSet = currentSet.selectedSet;
 		var setSMObject = currentSet.setSMObject;
 
+		var playingClass = 'fa center fa-pause';
+		var pausedClass = 'fa center fa-play';
+
 		//UNHIDE 
 		return (
-			<div className='player flex-row hidden'>
-					<PlayerControl selectedSet={selectedSet} push={push}/>
+			<div className='flex-row' id='Player'>
+					<PlayerControl />
 					<div className='flex-column flex'>
 							<PlayerSeek selectedSet={selectedSet} push={push}/>
 							<div className='flex-row flex'>

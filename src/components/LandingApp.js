@@ -39,7 +39,7 @@ var LandingApp = React.createClass({
 	},
 	render: function() {
 		return (
-			<div className="flex-column landing-view overlay-container" id="landing-2">
+			<div className="flex-column landing-view overlay-container" id="LandingApp">
 				<div className="flex-row overlay-container slide slide-1 animated fadeIn">
 					<div className="flex-column flex-fixed text-container">
 						<div className="buffer"/>

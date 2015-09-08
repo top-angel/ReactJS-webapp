@@ -8,7 +8,7 @@ var Footer = React.createClass({
 			<footer className="flex-row flex-zero">
 	            <div className="buffer"/>
 	            <div className="flex-column flex-zero">
-	                <a className="click" id="contact">Contact Us</a>
+	                <a className="click hidden" id="contact">Contact Us</a>
 	                <a className="click" href="http://setmine.com/about">About</a>
 	                <a className="click" id="dmca">DMCA Notice</a>
 	                <br />

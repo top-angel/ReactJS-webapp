@@ -1,8 +1,14 @@
+
 import React from 'react';
 
 var PlayerControl = React.createClass({
 
 	displayName: 'PlayerControls',
+	getDefaultProps: function() {
+		return {
+			selectedSet: {}
+		};
+	},
 	togglePlay: function() {
 		//How am I gonna do this?
 	},

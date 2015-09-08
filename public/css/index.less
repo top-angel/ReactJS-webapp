@@ -383,7 +383,7 @@ input#search {
 .landing-view {
     height:@pageHeight;
 }
-#landing-1 {
+#LandingHome {
     height: @pageHeight;
     background: url(../images/landing-1.jpg);
     background-size: 100% 100%;
@@ -391,7 +391,43 @@ input#search {
        .createOverlay(40%); 
     }
 }
-#landing-3 {
+#LandingApp {
+    font-size: 1.2rem;
+    .slide-controls {
+        position: absolute;
+        bottom: 4vh;
+        left: 25%;
+    }
+    .slide {
+        height:100%;
+        width:100%;
+        img {
+            .size(100%, 90vh);
+        }
+    }
+    .slide-1 {
+        .text-container {
+            .background(@set-green, white);
+        }
+    }
+    .slide-2 {
+        .text-container {
+            .background(@set-blue, white);
+        }
+    }
+    .slide-3 {
+        .text-container {
+        .background(@set-salmon, white);
+        }
+        .image-container {
+        background-color:#ebebeb;
+        }
+        .divider {
+        .createDivider(60%, 2px, @set-nearly-white);
+        }
+    }
+}
+#LandingBeacon {
     background: url(../images/landing-3.jpg);
     background-size: 100% 100%;
     color:white;
@@ -516,7 +552,7 @@ input#search {
     }
 }
 
-.player {
+#Player {
     height: @playerHeight;
     width: 100%;
     position:fixed;
@@ -529,7 +565,7 @@ input#search {
     .current-track {
         text-align: center;
     }
-    .fa:not(#play-button) {
+    .fa:not(#PlayButton) {
         margin: auto 1vw;
     }
     #play-button {
@@ -639,39 +675,6 @@ input#search {
         .flex-fixed-4x;
         .scrollable;
         #SetsView .results-container;
-    }
-}
-.slide-controls {
-    position: absolute;
-    bottom: 4vh;
-    left: 25%;
-}
-.slide {
-    height:100%;
-    width:100%;
-    img {
-        .size(100%, 90vh);
-    }
-}
-.slide-1 {
-    .text-container {
-        .background(@set-green, white);
-    }
-}
-.slide-2 {
-    .text-container {
-        .background(@set-blue, white);
-    }
-}
-.slide-3 {
-    .text-container {
-    .background(@set-salmon, white);
-    }
-    .image-container {
-    background-color:#ebebeb;
-    }
-    .divider {
-    .createDivider(60%, 2px, @set-nearly-white);
     }
 }
 .text-container {
