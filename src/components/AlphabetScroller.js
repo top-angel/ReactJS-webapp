@@ -3,17 +3,24 @@ import React from 'react';
 var AlphabetScroller = React.createClass({
 
 	componentDidMount: function() {
-		// $('#AlphabetScroller div').on('click', function(event) {
-		// 	event.stopPropagation();
-		// 	var letter = event.target.innerText;
-		// 	console.log(letter);
-		// 	$('#Artists').scrollTo(50%);
-		// });
+		$('#AlphabetScroller div').on('click', function(event) {
+			event.stopPropagation();
+			var letter = event.target.innerText;
+			console.log(letter);
+
+			var artist = $('.artist-tile[firstLetter^=' + letter + ']');
+			console.log(artist);
+			console.log(artist.scrollTop());
+
+
+			debugger;
+			window.scrollTo(0, 400);
+		});
 	},
 	createAlphabet: function(start, stop) {
 		var alphabet = [];
-		for (var idx=start.charCodeAt(0),end=stop.charCodeAt(0); idx <= end; ++idx){
-			alphabet.push(String.fromCharCode(idx));
+		for (var i=start.charCodeAt(0),end=stop.charCodeAt(0); i <= end; ++i){
+			alphabet.push(String.fromCharCode(i));
 		}
 		return alphabet;
 	},

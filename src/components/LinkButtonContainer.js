@@ -3,6 +3,11 @@ import React from 'react';
 var LinkButtonContainer = React.createClass({
 
 	displayName: 'LinkButtonContainer',
+	getDefaultProps: function() {
+		return {
+			links: []
+		};
+	},
 	render: function() {
 		var links = this.props.links;
 
@@ -26,7 +31,6 @@ var LinkButtonContainer = React.createClass({
 		});
 
 		var classString = 'flex-row links-container ' + hidden;
-		console.log(classString);
 
 		return (
 			<div className={classString}>{icons}</div>

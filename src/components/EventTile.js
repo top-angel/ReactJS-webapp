@@ -8,8 +8,6 @@ var EventTile = React.createClass({
 	displayName: 'EventTile',
 	mixins: [Navigation],
 	openEventPage: function() {
-		console.log(this.props.data);
-
 		var push = this.props.push;
 		var eventId = this.props.data.id;
 		console.log(eventId);
@@ -20,12 +18,13 @@ var EventTile = React.createClass({
 				detailId: eventId
 			}
 		});
-		
+
 		this.transitionTo('event');
 	},
 	render: function() {
 		var month = moment(this.props.data.start_date).format('MMM');
     	var day = moment(this.props.data.start_date).format('DD');
+
 		return (
 			<div className="flex-column overlay-container event-tile">
 			    <img className="event-image" src={constants.S3_ROOT_FOR_IMAGES+this.props.data.main_imageURL} />

@@ -1,47 +1,80 @@
 import React from 'react';
+import constants from '../constants/constants';
+import utilities from '../services/utilities';
+import Loader from 'react-loader';
+
 import FeaturedTile from './FeaturedTile';
 
 var FeaturedContainer = React.createClass({
-    // scrollLeft: function() {
-    //     $('.featured-tiles').scrollTo(, 200, {axis: 'x'});
-    // },
-    // scrollRight: function() {
-    //     $('.featured-tiles').scrollTo(, 200, {axis: 'x'});
-    // },
-    // scroll: function(direction) {
-    //     var landingLength = this.props.activeLanding;
-    //     $('.featured-tiles').scrollTo(, 200, {axis: 'x'});
-    // },
-    loadMoreEvents: function () {
-        var ii = 0;
+    
+    getInitialState: function() {
+        return {
+            loaded: false
+        };
+    },
+    componentWillMount: function() {
+        this.getLandingEvents();
+    },
+    getLandingEvents: function() {
         var push = this.props.push;
-        var data = this.props.data;
-        var activeLanding = this.props.activeLanding;
-        console.log(activeLanding);
+        var landingUrl = constants.API_ROOT + 'landing';
+        var _this = this;
 
-        //TODO push next value of splitLanding to activeLanding
+        $.ajax({
+            url: landingUrl,
+            type: 'GET'
+        })
+        .done(function(response) {
+            var landingEvents = response.payload.landing;
+            utilities.spliceBigArray(landingEvents, 25);
+            console.log(landingEvents);
+
+            push({
+                type: 'SHALLOW_MERGE',
+                data: {
+                    landingEvents: landingEvents
+                }
+            });
+
+            _this.setState({
+                loaded: true
+            });
+        });
     },
     render: function() {
-        var activeLanding = this.props.activeLanding;
+        var landingEvents = this.props.appState.get('landingEvents');
+        var push = this.props.push;
         
-        var featuredTiles = activeLanding.map(function(event, index) {
-            return(<FeaturedTile data={event} key={index} dataId={event.id}/>);
+        var featuredTiles = landingEvents.map(function(event, index) {
+            return(
+                <FeaturedTile
+                    data={event}
+                    key={index}
+                    dataId={event.id}
+                    push={push} />
+            );
         });
 
         return (
-        <div id='FeaturedContainer' className='overlay-container flex-row'>
-            <div className="featured-tiles overlay-container">
-                {featuredTiles}
-            </div>
-            <div className="overlay flex-column left-arrow click">
-                <i className="fa fa-2x fa-chevron-left center"/>
-            </div>
-            <div className="overlay flex-column right-arrow click">
-                <i className="fa fa-2x fa-chevron-right center"/>
-            </div>
-        </div>
+            <Loader loaded={this.state.loaded}>
+                <div id='FeaturedContainer'>
+                    <div className='container'>
+                        {featuredTiles}
+                    </div>
+                </div>
+            </Loader>
         );
     }
 });
+
+// <div className="featured-tiles overlay-container">
+//                     {featuredTiles}
+//                 </div>
+// <div className="overlay flex-column left-arrow click">
+//                 <i className="fa fa-2x fa-chevron-left center"/>
+//             </div>
+//             <div className="overlay flex-column right-arrow click">
+//                 <i className="fa fa-2x fa-chevron-right center"/>
+//             </div>
 
 module.exports = FeaturedContainer;

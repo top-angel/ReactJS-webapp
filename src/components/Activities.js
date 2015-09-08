@@ -1,4 +1,5 @@
 import React from 'react';
+import Loader from 'react-loader';
 import constants from '../constants/constants';
 import ActivityTile from './ActivityTile';
 
@@ -6,10 +7,16 @@ var TITLE = 'Activities';
 var TYPE = 'activity';
 var Activities = React.createClass({
 
+	getInitialState: function() {
+		return {
+			loaded: false
+		};
+	},
 	componentWillMount: function() {
 		this.getActivities();
 	},
 	getActivities: function() {
+		var _this = this;
 		var push = this.props.push;
 		var results,
 			activityUrl = constants.API_ROOT + 'activity';
@@ -26,12 +33,16 @@ var Activities = React.createClass({
 					activityBrowseData: results
 				}
 			});
+
+			_this.setState({
+				loaded: true
+			});
 		});
 	},
 	render: function() {
 		var push = this.props.push;
 		var appState = this.props.appState.get('activityBrowseData');
-		var browseClass = 'flex-row flex-fixed-4x scrollable results-container';
+		var containerClass = 'flex-row flex-fixed-4x scrollable results-container';
 
 		var tiles = appState.map(function(tile, index) {
 			return <ActivityTile
@@ -43,9 +54,11 @@ var Activities = React.createClass({
 		});
 
 		return (
-			<div className={browseClass}>
-				{tiles}
-			</div>
+			<Loader loaded={this.state.loaded}>
+				<div className={containerClass}>
+					{tiles}
+				</div>
+			</Loader>
 		);
 	}
 

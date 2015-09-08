@@ -1,14 +1,20 @@
 import React from 'react';
 import DetailView from './DetailView';
 import constants from '../constants/constants';
-
+import Loader from 'react-loader';
 var FestivalDetail = React.createClass({
 
 	displayName: 'FestivalDetail',
+	getInitialState: function() {
+		return {
+			loaded: false
+		};
+	},
 	componentWillMount: function() {
 		this.getFestivalData();
 	},
 	getFestivalData: function() {
+		var _this = this;
 		var push = this.props.push;
 		var festivalId = this.props.appState.get('detailId');
 
@@ -30,6 +36,10 @@ var FestivalDetail = React.createClass({
 					detailData: festivalData
 				}
 			});
+
+			_this.setState({
+				loaded: true
+			});
 		});
 	},
 	render: function() {
@@ -49,13 +59,15 @@ var FestivalDetail = React.createClass({
 		var buttonText = 'Shuffle';
 
 		return (
-			<DetailView
-				navTitles={navTitles}
-				push={push}
-				data={data}
-				info={info}
-				title={title}
-				buttonText={buttonText}/>
+			<Loader loaded={this.state.loaded}>
+				<DetailView
+					navTitles={navTitles}
+					push={push}
+					data={data}
+					info={info}
+					title={title}
+					buttonText={buttonText}/>
+			</Loader>
 		);
 	}
 });

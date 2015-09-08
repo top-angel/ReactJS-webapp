@@ -1,14 +1,21 @@
 import React from 'react';
+import Loader from 'react-loader';
 import constants from '../constants/constants';
 import DetailView from './DetailView';
 
 var EventDetail = React.createClass({
 
 	displayName: 'EventDetail',
+	getInitialState: function() {
+		return {
+			loaded: false
+		};
+	},
 	componentWillMount: function() {
 		this.getEventData();
 	},
 	getEventData: function() {
+		var _this = this;
 		var push = this.props.push;
 		var eventId = this.props.appState.get('detailId');
 
@@ -30,6 +37,10 @@ var EventDetail = React.createClass({
 					detailData: eventData
 				}
 			});
+
+			_this.setState({
+				loaded: true
+			});
 		});
 	},
 	render: function() {
@@ -48,13 +59,15 @@ var EventDetail = React.createClass({
 		var title = data.event;
 
 		return (
-			<DetailView
-				navTitles={TITLES}
-				data={data}
-				buttonText={buttonText}
-				info={info}
-				title={title}
-				push={push}/>
+			<Loader loaded={this.state.loaded}>
+				<DetailView
+					navTitles={TITLES}
+					data={data}
+					buttonText={buttonText}
+					info={info}
+					title={title}
+					push={push} />
+			</Loader>
 		);
 	}
 

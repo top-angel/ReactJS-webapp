@@ -10,9 +10,22 @@ import ArtistTileContainer from './BrowseContainer';
 import DetailNavContainer from './DetailNavContainer';
 import DetailImageContainer from './DetailImageContainer';
 import LinkButtonContainer from './LinkButtonContainer';
-// import DetailContentContainer from './DetailContentContainer';
 
 var DetailView = React.createClass({
+
+	getDefaultProps: function() {
+		return {
+			data: {
+				upcomingEvents: [],
+				sets: [],
+				lineup: []
+			},
+			navTitles: [],
+			info: null,
+			title: null,
+			buttonText: null
+		};
+	},
 	render: function() {
 		var linkUrls = this.props.data.links || {};
 		var links = [
@@ -36,11 +49,11 @@ var DetailView = React.createClass({
 				type: 'youtube',
 				url: linkUrls.youtube
 			}
-		] || [];
+		];
 		var push = this.props.push;
-		var upcomingEvents = this.props.data.upcomingEvents || [];
-		var sets = this.props.data.sets || [];
-		var artists = this.props.data.lineup || [];
+		var upcomingEvents = this.props.data.upcomingEvents;
+		var sets = this.props.data.sets;
+		var artists = this.props.data.lineup;
 		var push = this.props.push;
 		var containerClass='flex-row flex';
 
@@ -65,7 +78,5 @@ var DetailView = React.createClass({
 		);
 	}
 });
-
-// <DetailContentContainer data={this.props.data} navTitles={this.props.navTitles} push={push}/>
 
 module.exports = DetailView;

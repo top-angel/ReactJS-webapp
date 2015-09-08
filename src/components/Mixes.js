@@ -1,4 +1,5 @@
 import React from 'react';
+import Loader from 'react-loader';
 import constants from '../constants/constants';
 import BrowseView from './BrowseView';
 import MixTile from './MixTile';
@@ -8,10 +9,16 @@ var TYPE = 'mix';
 
 var Mixes = React.createClass({
 
+	getInitialState: function() {
+		return {
+			loaded: false
+		};
+	},
 	componentWillMount: function() {
 		 this.getMixes();
 	},
 	getMixes: function() {
+		var _this = this;
 		var push = this.props.push;
 		var results,
 			mixUrl = constants.API_ROOT + 'mix';
@@ -22,11 +29,16 @@ var Mixes = React.createClass({
 		})
 		.done(function(response) {
 			results = response.payload.mix;
+
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					mixBrowseData: results
 				}
+			});
+
+			_this.setState({
+				loaded: true
 			});
 		});
 	},
@@ -44,9 +56,11 @@ var Mixes = React.createClass({
 					/>
 		})
 		return (
-			<div className={browseClass}>
-				{tiles}
-			</div>
+			<Loader loaded={this.state.loaded}>
+				<div className={browseClass}>
+					{tiles}
+				</div>
+			</Loader>
 		);
 	}
 

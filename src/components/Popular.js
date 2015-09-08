@@ -1,4 +1,5 @@
 import React from 'react';
+import Loader from 'react-loader';
 import constants from '../constants/constants';
 import SetContainer from './SetContainer';
 
@@ -6,12 +7,17 @@ var TITLE = 'Popular';
 var TYPE = 'set';
 var Popular = React.createClass({
 
+	getInitialState: function() {
+		return {
+			loaded: false
+		};
+	},
 	componentWillMount: function() {
 		 this.getPopularSets();
 	},
 	getPopularSets: function() {
+		var _this = this;
 		var push = this.props.push;
-		console.log(push);
 		var results,
 			popularUrl = constants.API_ROOT + 'popular';
 
@@ -27,6 +33,10 @@ var Popular = React.createClass({
 					popularBrowseData: results
 				}
 			});
+
+			_this.setState({
+				loaded: true
+			});
 		});
 	},
 	render: function() {
@@ -35,10 +45,12 @@ var Popular = React.createClass({
 		var containerClass = 'flex-row flex-fixed-4x scrollable';
 		
 		return (
-			<SetContainer
-				push={push}
-				sets={data}
-				containerClass={containerClass}/>
+			<Loader loaded={this.state.loaded}>
+				<SetContainer
+					push={push}
+					sets={data}
+					containerClass={containerClass}/>
+			</Loader>
 		);
 	}
 

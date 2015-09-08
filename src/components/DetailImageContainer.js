@@ -4,6 +4,12 @@ var constants = require('../constants/constants');
 var DetailImageContainer = React.createClass({
 
 	displayName: 'DetailImageContainer',
+	getDefaultProps: function() {
+		return {
+			info: null,
+			buttonText: null
+		};
+	},
 	shuffleSets: function() {
 
 	},
@@ -19,7 +25,7 @@ var DetailImageContainer = React.createClass({
 				<div className="header-small center">{this.props.info}</div>
 				<div className="buffer"/>
 				<div className="header-small center click" id="detail-button">
-					{this.props.buttonText || null}
+					{this.props.buttonText}
 				</div>
 				<div className="buffer"/>
 			</div>

@@ -1,14 +1,21 @@
 import React from 'react';
+import Loader from 'react-loader';
 import DetailView from './DetailView';
 import constants from '../constants/constants';
 
 var ActivityDetail = React.createClass({
 
 	displayName: 'activityDetail',
+	getInitialState: function() {
+		return {
+			loaded: false
+		};
+	},
 	componentWillMount: function() {
 		this.getactivityData();
 	},
 	getactivityData: function() {
+		var _this = this;
 		var push = this.props.push;
 		var activityId = this.props.appState.get('detailId');
 		var activityData,
@@ -30,24 +37,35 @@ var ActivityDetail = React.createClass({
 					detailData: activityData
 				}
 			});
+
+			_this.setState({
+				loaded: true
+			});
 		});
 	},
 	render: function() {
 		var data = this.props.appState.get('detailData');
 		var push = this.props.push;
-		var navTitles = ['sets'];
+		var navTitles = [
+			{
+				title: 'sets',
+				to: 'activity-sets'
+			}
+		];
 		var info = data.sets.length + ' sets';
 		var title = data.activity;
 		var buttonText = 'Shuffle';
 
 		return (
-			<DetailView
-				data={data}
-				push={push}
-				navTitles={navTitles}
-				info={info}
-				buttonText={buttonText}
-				title={title}/>
+			<Loader loaded={this.state.loaded}>
+				<DetailView
+					navTitles={navTitles}
+					push={push}
+					data={data}
+					info={info}
+					title={title}
+					buttonText={buttonText} />
+			</Loader>
 		);
 	}
 

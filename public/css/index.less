@@ -1,14 +1,14 @@
 
 /* Variables */
 
-
 @import "colors.less";
 @import "mixins.less";
 @import "overlays.css";
 @import "variables.less";
 @import "fonts.less";
+@import "geocode.less";
 
-//css
+//normalize
 
 body {
     margin:0;
@@ -35,12 +35,14 @@ a {
     }
 }
 
+// css
+
 .activity-tile {
-    margin: 1vw;
+    margin: 2% 1.5%;
     .card(1);
     .background(@set-blue, white);
     background-size: 100% 100%;
-    width: 25%;
+    width: 22%;
     height:25vh;
     .activity {
         position: absolute;
@@ -60,6 +62,14 @@ a {
         bottom: 0;
         width:100%;
     }
+}
+
+#address {
+    outline: 0;
+    font-size: @defaultFontSize;
+    font-family: inherit;
+    border: none;
+    background-color: inherit;
 }
 
 #AlphabetScroller {
@@ -136,10 +146,21 @@ a {
         padding:0;
     }
 }
+
+#EventsView {
+    color: @set-dark-gray;
+    .results-container {
+        min-height: 40vh;
+        background-color: white;
+    }
+}
+
 .error {
+    background: inherit;
     color: @set-dark-gray;
     text-align: center;
 }
+
 .event-date-container {
     padding:1vw;
     font-size: @defaultFontSize*2;
@@ -160,10 +181,11 @@ a {
     font-size: 0.75rem;
 }
 .event-tile {
-    .card(1);
+    .card(2);
+    .border-radius(3px);
     width:30%;
     height: @tileHeight;
-    margin: 1vw;
+    margin: 2% 1.5%;
     color:white;
     .overlay {
         .createOverlay(30%);
@@ -186,9 +208,15 @@ a {
 .fa-globe:hover{color:@set-purple;}
 
 #FeaturedContainer {
-    min-height: 30vh;
+    height: @featuredHeight;
     background-color: @set-light-gray;
     .background(@set-light-gray, @set-gray);
+    // white-space: nowrap;
+    overflow-x: scroll;
+    .container {
+        width: @featuredTileWidth*25;
+        height: 100%;
+    }
     >.overlay {
         .createOverlay(30%);
         width:3%;
@@ -204,15 +232,13 @@ a {
         background: linear-gradieunt(to left, fade(@set-dark-gray, 50%), fade(@set-dark-gray, 0%));
     }
 }
-.featured-tiles {
-    white-space: nowrap;
-    overflow-x: scroll;
-    .flexContainer(row,horizontal,nowrap);
-}
+
 .featured-tile {
     background-size: 100% 100%;
-    min-width: 25vw;
+    width: 25vw;
+    height: 100%;
     color:white;
+    float: left;
     .transition(0.2s);
     .overlay {
         .createOverlay(20%);
@@ -240,8 +266,9 @@ a {
 }
 
 .festival-tile {
-    margin: 1vw;
+    margin: 2% 1.5%;
     .card(1);
+    .border-radius(3px);
     width: 30%;
     height: 30vh;
     background-size: 100% 100%;
@@ -294,7 +321,7 @@ header {
         text-align: center;
         .hover(@set-light-gray, 2);
     }
-    .active:not(.icon-setmine) {
+    .active:not(.icon-setmine, .search-bar) {
         color: white;
         background-color: @set-dark-gray*1.2;
     }
@@ -413,10 +440,11 @@ input#search {
 
 #LocationModule {
     .background(@set-nearly-white, @set-gray);
-    height: @headerHeight*1.25;
-    padding: 0 6vw;
-    * {
-        margin-top: 3%;
+    height: @headerHeight*1.3;
+    padding: 0 3vw;
+    text-align: center;
+    > * {
+        margin-top: 6vh;
         &:last-child {
             color: @set-blue;
         }
@@ -427,11 +455,31 @@ input#search {
     i {
         color: @set-blue;
     }
+    .active {
+        color: @set-dark-gray;
+        // box-shadow: inset 0px -3px 0px @set-blue;
+        box-shadow: inset 0px -5px 3px -2px @set-blue;
+    }
+}
+
+.loader {
+    .spinner {
+        .hidden;
+    }
+    &::before {
+        content: url(../images/setmine-loader.gif);
+        position: absolute;
+        margin: 20% 42.5%;
+    }
+    .size(@windowWidth, @windowHeight);
+    position: relative;
+    background-color: white;
+    z-index: 99;
 }
 
 .mix-tile {
     .background(white, @set-dark-gray);
-    margin: 1vw;
+    margin: 2% 2.5%;
     padding: 25px;
     text-align: center;
     .card(1);
@@ -440,9 +488,6 @@ input#search {
     background-size: 100% 100%;
     img {
         .size(150px, 150px);
-    }
-    &:hover {
-
     }
 }
 
@@ -475,7 +520,7 @@ input#search {
     height: @playerHeight;
     width: 100%;
     position:fixed;
-    bottom:0!important;
+    bottom: 0!important;
     .background(fade(@set-black, 90%), white);
     z-index: 100;
     .flex-row.flex {
@@ -513,7 +558,7 @@ input#search {
 .player-seek-position {
     background-color: @set-blue;
     height:100%;
-    width:50%;
+    // width:50%;
 }
 .player-set-info {
     border-right: solid 1px @set-gray;
@@ -539,6 +584,7 @@ input#search {
     .results-container {
         position: relative;
         top: 6vh;
+        padding-bottom: 6vh;
     }
 }
 
@@ -548,7 +594,7 @@ input#search {
     background-size: 100% 100%;
     width:30%;
     height: @tileHeight;
-    margin: 1vw 0.5vw;
+    margin: 2% 1.5%;
     img {
         .size(@setImg, @setImg);
         background-color: white;
@@ -583,9 +629,16 @@ input#search {
 }
 
 #SetsView {
+    .flexContainer(row, horizontal, nowrap);
     height: @pageHeight;
     .results-container {
         background-color: @set-nearly-white;
+    }
+    .loadedContent {
+        .flex-row;
+        .flex-fixed-4x;
+        .scrollable;
+        #SetsView .results-container;
     }
 }
 .slide-controls {
@@ -630,14 +683,15 @@ input#search {
         .transition(0.3s);
     }
 }
+
 .track-tile {
     @trackImg: 64px;
     .card(1);
     .border-radius(3px);
     background-size: 100% 100%;
-    width: 25%;
+    width: 23%;
     height: @tileHeight;
-    margin: 2vw 1vw;
+    margin: 2% 1%;
     font-size: 16px;
     .track {
         .background(white, @set-dark-gray);
@@ -684,14 +738,6 @@ input#search {
     min-height: @pageHeight - @headerHeight;
     // overflow-y: scroll;
     background-color: @set-nearly-white;
-}
-
-#EventsView {
-    color: @set-dark-gray;
-    .results-container {
-        min-height: 40vh;
-        background-color: white;
-    }
 }
 
 .view-title-container {

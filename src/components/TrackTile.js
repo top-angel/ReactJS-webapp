@@ -9,7 +9,8 @@ var TrackTile = React.createClass({
 	openArtistPage: function() {
 		var push = this.props.push;
 		var artist_id = this.props.data.artist_id;
-		console.log(artist_id);
+		var routeString = this.props.data.artist.toLowerCase().split(' ').join('-');
+		console.log(routeString);
 
 		push({
 			type: 'SHALLOW_MERGE',
@@ -17,20 +18,26 @@ var TrackTile = React.createClass({
 				detailId: artist_id
 			}
 		});
-		this.transitionTo('artist');
+
+		// this.transitionTo('artist', {artist: routeString});
 	},
 	openFestivalPage: function() {
 		var push = this.props.push;
-		var festival_id = this.props.data.event_id;
-		console.log(festival_id);
+		var event_id = this.props.data.event_id;
+		console.log(event_id);
 
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
-				detailId: festival_id
+				detailId: event_id
 			}
 		});
-		this.transitionTo('festival');
+
+		if(this.props.data.is_radiomix == 0) {
+			this.transitionTo('festival');
+		} else {
+			this.transitionTo('mix');
+		}
 	},
 	render: function() {
 		var image = {

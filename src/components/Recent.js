@@ -1,17 +1,24 @@
 import React from 'react';
+import Loader from 'react-loader';
 import constants from '../constants/constants';
 import SetContainer from './SetContainer';
 
 var TITLE = 'Recent';
 var TYPE = 'set';
+
 var Recent = React.createClass({
 
+	getInitialState: function() {
+		return {
+			loaded: false
+		};
+	},
 	componentWillMount: function() {
 		 this.getRecentSets();
 	},
 	getRecentSets: function() {
+		var _this = this;
 		var push = this.props.push;
-		console.log(push);
 		var results,
 			recentUrl = constants.API_ROOT + 'recent';
 
@@ -27,6 +34,10 @@ var Recent = React.createClass({
 					recentBrowseData: results
 				}
 			});
+
+			_this.setState({
+				loaded: true
+			});
 		});
 	},
 	render: function() {
@@ -35,10 +46,12 @@ var Recent = React.createClass({
 		var containerClass = 'flex-row flex-fixed-4x scrollable results-container';
 		
 		return (
-			<SetContainer
-				push={push}
-				sets={data}
-				containerClass={containerClass}/>
+			<Loader loaded={this.state.loaded}>
+				<SetContainer
+					push={push}
+					sets={data}
+					containerClass={containerClass}/>
+			</Loader>
 		);
 	}
 

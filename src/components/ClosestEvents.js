@@ -1,10 +1,27 @@
 import React from 'react';
+import constants from '../constants/constants';
+import EventContainer from './EventContainer';
 
 var ClosestEvents = React.createClass({
 
+	displayName: 'ClosestEvents',
+	getDefaultProps: function() {
+		return {
+			appState: {
+				closestEvents: []
+			}
+		};
+	},
 	render: function() {
+		var closestEvents = this.props.appState.get('closestEvents');
+		var containerClass = 'flex flex-row results-container';
+		var push = this.props.push;
+
 		return (
-			<div />
+			<EventContainer
+				events={closestEvents}
+				containerClass={containerClass}
+				push={push} />
 		);
 	}
 

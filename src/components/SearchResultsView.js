@@ -1,10 +1,12 @@
 import React from 'react';
+import Loader from 'react-loader';
 
 import SetContainer from './SetContainer';
 import EventContainer from './EventContainer';
 import TrackContainer from './TrackContainer';
 
 var SearchResultsView = React.createClass({
+
 	componentDidMount: function() {
 		$('.results-filter').click(function(e){
 			e.stopPropagation();
@@ -14,19 +16,19 @@ var SearchResultsView = React.createClass({
 
 			//search results scroll handlers
 			if($(this).is('.sets')) {
-				$('.divider', '#search-results .view-title-container').animate({
+				$('.view-title-container .divider').animate({
 					left: '0'
 				}, 200);
 				$(window).scrollTo(0, 200);
 			} else if($(this).is('.events')) {
-				$('.divider', '#search-results .view-title-container').animate({
+				$('.view-title-container .divider').animate({
 					left: '33%'
 				}, 200);
 				$(window).scrollTo($('.header-small.events'), 200, {
 					offset: scrollOffset
 				});
 			} else if($(this).is('.tracks')) {
-				$('.divider', '#search-results .view-title-container').animate({
+				$('.view-title-container .divider').animate({
 					left: '66%'
 				}, 200);
 				$(window).scrollTo($('.header-small.tracks'), 200, {
@@ -38,8 +40,11 @@ var SearchResultsView = React.createClass({
 		//TODO clear search results view on search click/empty input bar
 		//line 2173 in master-original
 	},
+	componentWillUnmount: function() {
+		$('#search').val('');
+	},
 	render: function() {
-		var data = this.props.appState.get('searchResults');
+		var searchResults = this.props.appState.get('searchResults');
 		var setClass = 'flex-row results sets';
 		var eventClass = 'flex-row results events';
 		var trackClass = 'flex-row results tracks';
@@ -58,25 +63,27 @@ var SearchResultsView = React.createClass({
 					</div>
 					<div className="divider"/>
 				</div>
-				<div className="results-container flex-column">
-					<SetContainer
-						sets={data.sets}
-						push={this.props.push}
-						containerClass={setClass}
-					/>
-					<div className='header-small events'>EVENTS</div>
-					<EventContainer
-						events={data.upcomingEvents}
-						push={this.props.push}
-						containerClass={eventClass}
-					/>
-					<div className='header-small tracks'>TRACKS</div>
-					<TrackContainer
-						tracks={data.tracks}
-						push={this.props.push}
-						containerClass={trackClass}
-					/>
-				</div>
+				<Loader loaded={this.props.appState.get('loaded')}>
+					<div className="results-container flex-column">
+						<SetContainer
+							sets={searchResults.sets}
+							push={this.props.push}
+							containerClass={setClass}
+						/>
+						<div className='header-small events'>EVENTS</div>
+						<EventContainer
+							events={searchResults.upcomingEvents}
+							push={this.props.push}
+							containerClass={eventClass}
+						/>
+						<div className='header-small tracks'>TRACKS</div>
+						<TrackContainer
+							tracks={searchResults.tracks}
+							push={this.props.push}
+							containerClass={trackClass}
+						/>
+					</div>
+				</Loader>
 			</div>
 		);
 	}

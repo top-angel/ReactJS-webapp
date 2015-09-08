@@ -1,11 +1,21 @@
-var React = require('react')
+import React from 'react';
 
 var PlayerControl = React.createClass({
+
+	displayName: 'PlayerControls',
+	togglePlay: function() {
+		//How am I gonna do this?
+	},
 	render: function() {
+
+		var selectedSet = this.props.selectedSet;
+		var playingClass = 'fa center fa-pause';
+		var pausedClass = 'fa center fa-play';
+
 		return (
 			<div className="player-image-container overlay-container click" onClick={this.togglePlay}>
 		        <div className="overlay set-flex">
-		            <i className={this.props.playing ? "fa fa-pause center" : "fa fa-play center"} id="play-button"></i>
+		            <i className={playingClass}/>
 		        </div>
 		        <img />
 		    </div>
@@ -13,4 +23,4 @@ var PlayerControl = React.createClass({
 	}
 });
 
-module.exports = PlayerControl
+module.exports = PlayerControl;

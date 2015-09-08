@@ -19,6 +19,8 @@ var Player = React.createClass({
 	},
 
 	render: function() {
+
+		var push = this.props.push;
 		var appState = this.props.appState;
 		var currentSet = appState.get('currentSet'); // <- NOT IMMUTABLE MAP
 		var selectedSet = currentSet.selectedSet;
@@ -27,9 +29,9 @@ var Player = React.createClass({
 		//UNHIDE 
 		return (
 			<div className='player flex-row hidden'>
-					<PlayerControl />
+					<PlayerControl selectedSet={selectedSet} push={push}/>
 					<div className='flex-column flex'>
-							<PlayerSeek />
+							<PlayerSeek selectedSet={selectedSet} push={push}/>
 							<div className='flex-row flex'>
 									<PlayerSetInfo set={selectedSet}
 										time={currentSet.timePosition}/>
@@ -53,7 +55,7 @@ var PlayerWrapper = React.createClass({
 		return (
 			<div>
 				<Rh appState={appState} push={push} />
-				<Player appState={appState} pushFn={push} />
+				<Player appState={appState} push={push} />
 			</div>
 		);
 	}

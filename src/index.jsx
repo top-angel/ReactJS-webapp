@@ -85,10 +85,7 @@ var initialAppState = Immutable.Map({
 	recentBrowseData: [],
 	popularBrowseData: [],
 
-	allLanding: [],
-	landingData: [],
-	activeLanding: [],
-	upcomingEventData: [],
+	landingEvents: [],
 
 	isUserLoggedIn: false,
 	userId: 108,
@@ -97,7 +94,7 @@ var initialAppState = Immutable.Map({
 	newSets: [],
 	newEvents: [],
 
-	detailId: 1,// change to 1685 for testing upcoming event
+	detailId: 2,// change to 1685 for testing upcoming event
 	detailData: {//minimum properties needed for rendering
 		"sets": [],
 		"upcomingEvents": [],
@@ -110,21 +107,28 @@ var initialAppState = Immutable.Map({
 		}
 	},
 
-	address: null,
-	currentLocation: {
-		default: true,
-		city: 'Gainesville',
-		state: 'FL',
-		latitude: 29.652175,
-		longitude: -82.325856
+	location: {
+		label: 'DEFAULT LOCATION',
+		location: {
+			lat: 29.652175,
+			lng: -82.325856
+		}
 	},
 
+	loaded: false,
 	searchResults: {
 		artists: [],
 		sets: [],
 		upcomingEvents: [],
 		tracks: []
-	}
+	},
+
+	// artistRoute: null,
+	// eventRoute: null,
+	// festivalRoute: null,
+	// mixRoute: null,
+	// activityRoute: null,
+	// playRoute: null
 });
 
 var evtHandler = GlobalEventHandler(initialAppState);
@@ -232,18 +236,20 @@ var routes = (
 		<Route name='festival' path='festival' handler={FestivalDetail}>
 			<DefaultRoute name='festival-sets' handler={SetContainer}/>
 		</Route>
-
 		<Route name='event' path='event' handler={EventDetail}>
 			<DefaultRoute name='event-lineup' handler={ArtistTileContainer}/>
 		</Route>
-
 		<Route name='mix' path='mix' handler={MixDetail}>
 			<DefaultRoute name='mix-sets' handler={SetContainer}/>
 		</Route>
-
-		<Route name='activity' path='activity' handler={ActivityDetail}/>
+		<Route name='activity' path='activity' handler={ActivityDetail}>
+			<DefaultRoute name='activity-sets' handler={SetContainer}/>
+		</Route>
 	</Route>
 );
+
+// <Route name='dmca' path='dmca-notice' handler={DMCA}/>
+// 		<Route name='contact' path='contact' handler={Contact}/>
 
 module.exports = routes;
 

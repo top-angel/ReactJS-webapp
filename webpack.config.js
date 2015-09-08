@@ -13,7 +13,8 @@ module.exports = {
     pathinfo: true
   },
   resolve: {
-    extensions: ['', '.jsx', '.es6', '.js', '.scss']
+    extensions: ['', '.jsx', '.es6', '.js', '.scss'],
+    moduleDirectories: ['node_modules']
   },
   plugins: [new HtmlWebpackPlugin({
     template: 'src/index.html',

@@ -3,6 +3,13 @@ import SetTile from './SetTile';
 
 var SetContainer = React.createClass({
 
+	getDefaultProps: function() {
+		return {
+			containerId: 'SetContainer',
+			containerClass: 'flex-row tile-container',
+			sets: []
+		};
+	},
 	render: function() {
 		var data = this.props.sets;
 		var push = this.props.push;
@@ -13,7 +20,7 @@ var SetContainer = React.createClass({
 
 
 		return (
-			<div className={this.props.containerClass} id={this.props.containerId}>
+			<div className={this.props.containerClass}>
 				{tiles}
 			</div>
 		);

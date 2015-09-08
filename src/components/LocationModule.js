@@ -1,71 +1,94 @@
 import React from 'react';
-import {Link} from 'react-router';
+import constants from '../constants/constants';
+import Geosuggest from 'react-geosuggest';
+import {Navigation, Link} from 'react-router';
 
 var LocationModule = React.createClass({
 
 	displayName: 'LandingModule',
+	mixins: [Navigation],
+	getDefaultProps: function() {
+		return {
+			appState: {
+				location: {
+					label: 'TEST SHIT FUCK THIS',
+					location: {
+						lat: 29.652175,
+						lng: -82.325856
+					}
+				}
+			}
+		};
+	},
 	componentDidMount: function() {
-		this.updateLocation();
+		navigator.geolocation.getCurrentPosition(this.getDefaultCoordinates);
+		this.getEventsByLocation();
 	},
-	getLocation: function() {
-		//
-	},
-	updateLocation: function() {
+	getDefaultCoordinates: function(location) {
 		var push = this.props.push;
-		var currentLocation = this.props.appState.get('currentLocation');
-		var geocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLocation.latitude + ',' + currentLocation.longitude;
-		console.log(geocodeUrl);
+		var coordinates = {
+			latitude: location.coords.latitude,
+			longitude: location.coords.longitude,
+			time: location.coords.timestamp
+		};
+	},
+	getEventsByLocation: function() {
+		var push = this.props.push;
+		var location = this.props.appState.get('location');
+		console.log(location);
+		var coordinates = location.location;
+		console.log(coordinates);
+
+		var eventUrl = constants.API_ROOT + 'upcoming?latitude=' + coordinates.lat + '&longitude=' + coordinates.lng;
 
 		$.ajax({
 			type: 'get',
-			url: geocodeUrl,
+			url: eventUrl,
 			success: function(response) {
-				if(response.status == "OK") {
-					var address = response.results[0].formatted_address;
-					console.log(response);
-
+				if(response.status == 'success') {
 					push({
 						type: 'SHALLOW_MERGE',
 						data: {
-							address: address
+							closestEvents: response.payload.upcoming.soonestEventsAroundMe,
+							soonestEvents: response.payload.upcoming.soonestEvents
 						}
 					});
-
-				}
-			}
-		});
-	},
-	getEvents: function(location) {
-		var currentLocation = this.props.appState.get('currentLocation');
-
-		$.ajax({
-			type: 'GET',
-			url: constants.API_ROOT + 'upcoming?date=' + getDateAsString(date) + '&latitude=' + location.latitude + '&longitude=' + location.longitude + '&id=' + upcomingEventSearchId,
-			success: function(response) {
-				if(response.status == "success") {
-					var currentEvents = data.payload.upcoming;
-					//push events
 				} else {
-					console.log("Could not get events");
+					console.log('Could not get events');
 				}
 			}
 		});
 	},
-	changeEventType: function() {
+	onSuggestSelect: function(suggest) {
 		var push = this.props.push;
-		//switch between soonestEvents, closestEvents, soonestEventsAroundMe
+
+		push({
+			type: 'SHALLOW_MERGE',
+			data: {
+				location: suggest
+			}
+		});
+
+		// var location = this.props.appState.get('location');
+		// console.log(location);
+
+		this.getEventsByLocation();
+
+		this.transitionTo('closest');
 	},
 	render: function() {
-		var data = this.props.appState.get('currentLocation');
+		var defaultLocation = this.props.appState.get('location');
 
 		return (
-			<div id='LocationModule' className='flex-row'>
-				<div className='flex click'>Upcoming</div>
-				<div className='flex click'>Around</div>
+			<div id='LocationModule' className='flex-row flex-zero'>
+				<Link className='flex click' to='upcoming'>Upcoming</Link>
+				<Link className='flex click' to='closest'>Around</Link>
 				<div className='buffer-lg'/>
 				<i className='flex fa fa-map-marker'/>
-				<div className='flex'>{data.city}</div>
-				<div className='flex click'>CHANGE</div>
+				<Geosuggest
+					className='flex'
+					location={new google.maps.LatLng(location.latitude, location.longitude)}
+					onSuggestSelect={this.onSuggestSelect} />
 			</div>
 		);
 	}

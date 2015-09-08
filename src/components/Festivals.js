@@ -1,4 +1,5 @@
 import React from 'react';
+import Loader from 'react-loader';
 import constants from '../constants/constants';
 import BrowseView from './BrowseView';
 
@@ -8,10 +9,16 @@ var TITLE = 'Festivals';
 var TYPE = 'event';
 var Festivals = React.createClass({
 
+	getInitialState: function() {
+		return {
+			loaded: false
+		};
+	},
 	componentWillMount: function() {
 		 this.getFestivals();
 	},
 	getFestivals: function() {
+		var _this = this;
 		var push = this.props.push;
 		console.log(push);
 		var results,
@@ -31,6 +38,10 @@ var Festivals = React.createClass({
 					festivalBrowseData: results
 				}
 			});
+
+			_this.setState({
+				loaded: true
+			});
 		});
 	},
 	render: function() {
@@ -47,13 +58,15 @@ var Festivals = React.createClass({
 		});
 
 		return (
-			<div className={containerClass}>
-				<div className='flex-column view-title-container flex'>
-					<div className='center view-title'>{TITLE}</div>
-					<div className='divider'/>
+			<Loader loaded={this.state.loaded}>
+				<div className={containerClass}>
+					<div className='flex-column view-title-container flex'>
+						<div className='center view-title'>{TITLE}</div>
+						<div className='divider'/>
+					</div>
+					{tiles}
 				</div>
-				{tiles}
-			</div>
+			</Loader>
 		);
 	}
 

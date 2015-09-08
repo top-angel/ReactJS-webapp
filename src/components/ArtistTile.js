@@ -15,8 +15,6 @@ var ArtistTile = React.createClass({
 	},
 	openArtistPage: function() {
 		var dataId = this.props.dataId;
-		console.log(dataId);
-
 		var push = this.props.push;
 		console.log(dataId);
 		console.log(this.props.firstLetter);
@@ -40,6 +38,7 @@ var ArtistTile = React.createClass({
 				style={image}
 				onClick={this.openArtistPage}
 				dataId={this.props.dataId}
+				firstLetter={this.props.firstLetter}
 			>
 				<div className='center'>{this.props.children}</div>
 			</div>

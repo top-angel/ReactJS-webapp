@@ -1,24 +1,29 @@
 import React from 'react';
-import {Navigation} from 'react-router';
+import {State} from 'react-router';
+import Loader from 'react-loader';
 
 import constants from '../constants/constants';
 import DetailView from './DetailView';
 
 
 var ArtistDetail = React.createClass({
+
 	displayName: 'ArtistDetail',
+	mixins: [State],
+	getInitialState: function() {
+		return {
+			loaded: false
+		};
+	},
 	componentWillMount: function() {
 		this.getArtistData();
 	},
 	getArtistData: function() {
+		var _this = this;
 		var push = this.props.push;
 		var artistId = this.props.appState.get('detailId');
-		console.log(artistId);
-
 		var artistData,
 			artistUrl = constants.API_ROOT + 'artist/' + artistId;
-
-			console.log(artistUrl);
 
 		$.ajax({
 			url: artistUrl,
@@ -34,6 +39,10 @@ var ArtistDetail = React.createClass({
 					detailId: artistData.id,
 					detailData: artistData
 				}
+			});
+
+			_this.setState({
+				loaded: true
 			});
 		});
 	},
@@ -55,19 +64,20 @@ var ArtistDetail = React.createClass({
 		var buttonText = 'Shuffle';//TODO delete if we don't have functionality
 		var info = data.set_count + ' sets | ' + data.event_count + ' events';
 		var title = data.artist;
-		//TODO add imageURL if API imageURL's are different 
 
-		//detail view must have these props to render
 		return (
-			<DetailView
-				navTitles={navTitles}
-				push={push}
-				data={data}
-				info={info}
-				title={title}
-				buttonText={buttonText}/>
+			<Loader loaded={this.state.loaded}>
+				<DetailView
+					navTitles={navTitles}
+					push={push}
+					data={data}
+					info={info}
+					title={title}
+					buttonText={buttonText} />
+			</Loader>
 		);
 	}
+
 });
 
 module.exports = ArtistDetail;
