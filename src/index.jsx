@@ -41,38 +41,52 @@ import ArtistTileContainer from './components/ArtistTileContainer';
 
 var initialAppState = Immutable.Map({
 	setSMObject: null,
+	// currentSet: {
+	// 	selectedSet: {
+	// 		id: 1903,
+	// 		artist_id: [
+	// 			574
+	// 		],
+	// 		artist: 'Kygo',
+	// 		event: 'Tomorrowland 2014 W2',
+	// 		event_id: 116,
+	// 		episode: '',
+	// 		genre: 'Progressive House',
+	// 		episode_imageURL: null,
+	// 		eventimageURL: 'dbd5bd7900531575c9bbfaba0ae434c4.jpg',
+	// 		main_eventimageURL: '12141ddad8636c5804c86dc685550ee1.jpg',
+	// 		artistimageURL: 'a7f7aaec8ecd0cdec444b8abb06dbc66.jpg',
+	// 		songURL: '8bf16c6bb2609bcbb7a00940d65038a9e992c98b.mp3',
+	// 		datetime: '2014-07-28T19:53:38.000Z',
+	// 		popularity: 1017,
+	// 		is_radiomix: 0,
+	// 		set_length: '10:32',
+	// 		tracklistURL: null,
+	// 		imageURL: 'dbd5bd7900531575c9bbfaba0ae434c4.jpg',
+	// 		artist_preview: [
+	// 			{
+	// 				id: 574,
+	// 				artist: 'Kygo',
+	// 				imageURL: 'a7f7aaec8ecd0cdec444b8abb06dbc66.jpg',
+	// 				set_count: 6,
+	// 				event_count: 0
+	// 			}
+	// 		],
+	// 		model_type: 'set'
+	// 	},
+	// 	isPlaying: false,
+	// 	timePosition: 0
+	// },
+
+//for reference only push to currentSet
 	currentSet: {
 		selectedSet: {
-			id: 1903,
-			artist_id: [
-				574
-			],
-			artist: 'Kygo',
-			event: 'Tomorrowland 2014 W2',
-			event_id: 116,
-			episode: '',
-			genre: 'Progressive House',
-			episode_imageURL: null,
-			eventimageURL: 'dbd5bd7900531575c9bbfaba0ae434c4.jpg',
-			main_eventimageURL: '12141ddad8636c5804c86dc685550ee1.jpg',
-			artistimageURL: 'a7f7aaec8ecd0cdec444b8abb06dbc66.jpg',
-			songURL: '8bf16c6bb2609bcbb7a00940d65038a9e992c98b.mp3',
-			datetime: '2014-07-28T19:53:38.000Z',
-			popularity: 1017,
-			is_radiomix: 0,
-			set_length: '10:32',
-			tracklistURL: null,
-			imageURL: 'dbd5bd7900531575c9bbfaba0ae434c4.jpg',
-			artist_preview: [
-				{
-					id: 574,
-					artist: 'Kygo',
-					imageURL: 'a7f7aaec8ecd0cdec444b8abb06dbc66.jpg',
-					set_count: 6,
-					event_count: 0
-				}
-			],
-			model_type: 'set'
+			artist: 'FlicFlac',
+			event: 'Best of FlicFlac 2014',
+			artistimageURL: '367430a23a7d0da81b8222191fcb2034.jpg',
+			songURL: '6fdbe5fe2c23c40fbae8d03f40921ddd7d9b5af3.mp3',
+			set_length: '38:10',
+			id: 3684
 		},
 		isPlaying: false,
 		timePosition: 0
@@ -115,7 +129,6 @@ var initialAppState = Immutable.Map({
 		}
 	},
 
-	loaded: false,
 	searchResults: {
 		artists: [],
 		sets: [],

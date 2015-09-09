@@ -1,13 +1,20 @@
 import React from 'react';
+import Loader from 'react-loader';
 import constants from '../constants/constants';
 import EventContainer from './EventContainer';
 
 var NewEvents = React.createClass({
 
+	getInitialState: function() {
+		return {
+			loaded: false
+		};
+	},
 	componentWillMount: function() {
 		this.getNewEvents();
 	},
 	getNewEvents: function() {
+		var _this = this;
 		var userId = this.props.appState.get('userId');
 		var push = this.props.push;
 		var results,
@@ -19,11 +26,16 @@ var NewEvents = React.createClass({
 		})
 		.done(function(response) {
 			results = response.payload.user.stream;
+
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					newEvents: results
 				}
+			});
+
+			_this.setState({
+				loaded: true
 			});
 		});
 	},
@@ -32,12 +44,14 @@ var NewEvents = React.createClass({
 		var containerId = 'NewEvents';
 
 		return (
-			<EventContainer
-				containerClass={this.props.containerClass}
-				containerId={containerId}
-				events={newEvents}
-				push={this.props.push}
-			/>
+			<Loader loaded={this.state.loaded}>
+				<EventContainer
+					containerClass={this.props.containerClass}
+					containerId={containerId}
+					events={newEvents}
+					push={this.props.push}
+				/>
+			</Loader>
 		);
 	}
 

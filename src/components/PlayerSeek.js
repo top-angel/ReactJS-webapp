@@ -13,4 +13,4 @@ var PlayerSeek = React.createClass({
 	}
 })
 
-module.exports = PlayerSeek
+module.exports = PlayerSeek;

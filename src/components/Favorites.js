@@ -1,13 +1,20 @@
 import React from 'react';
+import Loader from 'react-loader';
 import constants from '../constants/constants';
 import SetContainer from './SetContainer';
 
 var Favorites = React.createClass({
 
+	getInitialState: function() {
+		return {
+			loaded: false
+		};
+	},
 	componentWillMount: function() {
 		this.getFavorites();
 	},
 	getFavorites: function() {
+		var _this = this;
 		var userId = this.props.appState.get('userId');
 		var push = this.props.push;
 		var results,
@@ -19,11 +26,16 @@ var Favorites = React.createClass({
 		})
 		.done(function(response) {
 			results = response.payload.user.favorites;
+
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					favorites: results
 				}
+			});
+
+			_this.setState({
+				loaded: true
 			});
 		});
 	},
@@ -32,12 +44,13 @@ var Favorites = React.createClass({
 		var containerId = 'Favorites';
 
 		return (
-			<SetContainer
-				containerClass={this.props.containerClass}
-				containerId={containerId}
-				sets={favorites}
-				push={this.props.push}
-			/>
+			<Loader loaded={this.state.loaded}>
+				<SetContainer
+					containerId={containerId}
+					sets={favorites}
+					push={this.props.push}
+				/>
+			</Loader>
 		);
 	}
 

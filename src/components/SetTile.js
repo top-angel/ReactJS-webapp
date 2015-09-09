@@ -35,11 +35,29 @@ var SetTile = React.createClass({
 		//TODO
 	},
 	playSet: function() {
-		//TODO - load set into currentSet object
 		var push = this.props.push;
-		var setId = this.props.id;
-		var songURL = this.props.songURL;
-		var start
+		var set = {
+			artist: this.props.artist,
+			event: this.props.event,
+			id: this.props.id,
+			set_length: this.props.set_length,
+			songURL: this.props.songURL,
+			artistimageURL: this.props.artistimageURL
+		};
+
+		push({
+			type: 'SHALLOW_MERGE',
+			data: {
+				currentSet: {
+					selectedSet: set,
+					isPlaying: false,
+					timePosition: 0
+				}
+			}
+		});
+
+		console.log(set);
+
 	},
 	openArtistPage: function() {
 		var push = this.props.push;
@@ -104,7 +122,8 @@ var SetTile = React.createClass({
 					</div>
 					<div className='divider center'/>
 					<div className='flex-row flex-fixed'>
-						<div className='flex-fixed set-flex play'>
+						<div className='flex-fixed set-flex play'
+						onClick={this.playSet}>
 							<i className='fa fa-play center'>{'  '+this.props.popularity}</i>
 						</div>
 						<div className='divider'/>

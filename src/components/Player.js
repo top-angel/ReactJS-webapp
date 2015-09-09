@@ -11,32 +11,40 @@ var Player = React.createClass({
 	displayName: 'Player',
 
 	componentDidMount: function() {
-		// var push = this.props.push;
+		var push = this.props.push;
 		// playerService.generateSound(0, this.props.appState, push)
 		//   .then(function(smObj) {
 		//     console.log('AYYLMAO', smObj);
 		//   });
 	},
 
-	componentWillReceiveProps: function(nextProps) {
-		//check if set id from set obj has changed
-			//destroy current sound
-			//push new set object to appState
-			//update tracklist
-		var push = this.props.push;
-		if(nextProps.appState.get('currentSet').selectedSet.id 
-			!= this.props.appState.get('currentSet').selectedSet.id) {
+	// componentWillReceiveProps: function(nextProps) {
+	// 	//check if set id from set obj has changed
+	// 		//destroy current sound
+	// 		//push new set object to appState
+	// 		//update tracklist
+	// 	var push = this.props.push;
+	// 	if(nextProps.appState.get('currentSet').selectedSet.id 
+	// 		!= this.props.appState.get('currentSet').selectedSet.id) {
 
-			console.log(nextProps.appState.get('currentSet').selectedSet.id );
+	// 		console.log(nextProps.appState.get('currentSet').selectedSet.id );
 
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					currentSet: nextProps.appState.get('currentSet').selectedSet.id 
-				}
-			});
-		}
-	},
+	// 		push({
+	// 			type: 'SHALLOW_MERGE',
+	// 			data: {
+	// 				currentSet: nextProps.appState.get('currentSet').selectedSet.id 
+	// 			}
+	// 		});
+	// 	}
+	// },
+
+	// componentWillReceiveProps: function(nextProps) {
+	// 	var push = this.props.push;
+	// 	playerService.generateSound(0, this.props.appState, push)
+	// 	  .then(function(smObj) {
+	// 	    console.log('AYYLMAO', smObj);
+	// 	  });
+	// },
 
 	dankify: function() {
 		var push = this.props.push;

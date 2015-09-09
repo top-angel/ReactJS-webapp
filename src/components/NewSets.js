@@ -1,13 +1,20 @@
 import React from 'react';
+import Loader from 'react-loader';
 import constants from '../constants/constants';
 import SetContainer from './SetContainer';
 
 var NewSets = React.createClass({
 
+	getInitialState: function() {
+		return {
+			loaded: false
+		};
+	},
 	componentWillMount: function() {
 		this.getNewSets();
 	},
 	getNewSets: function() {
+		var _this = this;
 		var userId = this.props.appState.get('userId');
 		var push = this.props.push;
 		var results,
@@ -19,11 +26,16 @@ var NewSets = React.createClass({
 		})
 		.done(function(response) {
 			results = response.payload.user.stream;
+
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					newSets: results
 				}
+			});
+
+			_this.setState({
+				loaded: true
 			});
 		});
 	},
@@ -32,12 +44,13 @@ var NewSets = React.createClass({
 		var containerId = 'NewSets';
 
 		return (
-			<SetContainer
-				containerClass={this.props.containerClass}
-				containerId={containerId}
-				sets={newSets}
-				push={this.props.push}
-			/>
+			<Loader loaded={this.state.loaded}>
+				<SetContainer
+					containerId={containerId}
+					sets={newSets}
+					push={this.props.push}
+				/>
+			</Loader>
 		);
 	}
 
