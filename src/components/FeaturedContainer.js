@@ -1,6 +1,6 @@
 import React from 'react';
 import constants from '../constants/constants';
-import utilities from '../services/utilities';
+import splice from '../services/splice';
 import Loader from 'react-loader';
 
 import FeaturedTile from './FeaturedTile';
@@ -26,7 +26,7 @@ var FeaturedContainer = React.createClass({
         })
         .done(function(response) {
             var landingEvents = response.payload.landing;
-            utilities.spliceBigArray(landingEvents, 25);
+            splice.bigArray(landingEvents, 25);
             console.log(landingEvents);
 
             push({

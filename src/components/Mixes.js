@@ -1,7 +1,6 @@
 import React from 'react';
 import Loader from 'react-loader';
 import constants from '../constants/constants';
-import BrowseView from './BrowseView';
 import MixTile from './MixTile';
 
 var TITLE = 'Mixes';
@@ -47,14 +46,19 @@ var Mixes = React.createClass({
 		var appState = this.props.appState.get('mixBrowseData');
 		var browseClass='flex-row flex-fixed-4x scrollable results-container';
 
-		var tiles = appState.map(function(tile, index) {
-			return <MixTile
-						data={tile}
-						key={index}
-						dataId={tile.id}
-						push={push}
-					/>
-		})
+		var tiles = appState.map(function(mix, index) {
+
+			var props = {
+				key: index,
+				id: mix.id,
+				push: push,
+				event: mix.event,
+				imageURL: mix.imageURL
+			};
+
+			return <MixTile {...props} />
+		});
+
 		return (
 			<Loader loaded={this.state.loaded}>
 				<div className={browseClass}>

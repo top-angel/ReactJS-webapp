@@ -8,16 +8,13 @@ var FestivalTile = React.createClass({
 	displayName: 'FestivalTile',
 	mixins: [Navigation],
 	openFestivalPage: function() {
-		console.log(this.props.data);
-
-		var detailId = this.props.data.id;
+		var festivalId = this.props.id;
 		var push = this.props.push;
-		console.log(detailId);
 
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
-				detailId: detailId
+				detailId: festivalId
 			}
 		});
 
@@ -25,12 +22,12 @@ var FestivalTile = React.createClass({
 	},
 	render: function() {
 		var image = {
-			backgroundImage: "url('" + constants.S3_ROOT_FOR_IMAGES + 'small_' + this.props.data.main_imageURL + "')"
+			backgroundImage: "url('" + constants.S3_ROOT_FOR_IMAGES + 'small_' + this.props.main_imageURL + "')"
 		};
-		var date = moment(this.props.data.start_date).format('MMM DD YYYY');
-		var setCount = this.props.data.set_count + ' sets';
+		var date = moment(this.props.start_date).format('MMM DD YYYY');
+		var setCount = this.props.set_count + ' sets';
 		var info = setCount + ' | ' + date;
-		var event = this.props.data.event;
+		var event = this.props.event;
 
 		return (
 			<div className='festival-tile flex-column overlay-container click'

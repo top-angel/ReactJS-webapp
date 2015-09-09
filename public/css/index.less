@@ -565,15 +565,13 @@ input#search {
     .current-track {
         text-align: center;
     }
-    .fa:not(#PlayButton) {
+    .fa:not(.play-button) {
         margin: auto 1vw;
-    }
-    #play-button {
-        visibility: hidden;
     }
 }
 .player-image-container {
     background-color: white;
+    position: relative;
     .size(@playerHeight, 100%);
     img {
         .size(100%,100%);
@@ -621,6 +619,9 @@ input#search {
         position: relative;
         top: 6vh;
         padding-bottom: 6vh;
+    }
+    .results {
+        min-height: 36vh;
     }
 }
 

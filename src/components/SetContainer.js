@@ -15,7 +15,25 @@ var SetContainer = React.createClass({
 		var push = this.props.push;
 
 		var tiles = data.map(function(set, index) {
-			return(<SetTile data={set} key={index} push={push}/>);
+
+			var props = {
+				key: index,
+				id: set.id,
+				artist_id: set.artist_id,
+				event_id: set.event_id,
+				is_radiomix: set.is_radiomix,
+				set_length: set.set_length,
+				push: push,
+				artist: set.artist,
+				event: set.event,
+				artistimageURL: set.artistimageURL,
+				popularity: set.popularity,
+				songURL: set.songURL,
+				main_eventimageURL: set.main_eventimageURL,
+				timePosition: set.timePosition
+			};
+
+			return(<SetTile {...props} />);
 		});
 
 

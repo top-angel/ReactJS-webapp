@@ -49,11 +49,16 @@ var Artists = React.createClass({
 		var containerClass = 'flex-row flex view overlay-container scrollable';
 
 		var tiles = appState.map(function(artist, index) {
-			return (
-				<ArtistTile key={index} dataId={artist.id} push={push} imageURL={artist.imageURL} firstLetter={artist.artist[0]}>
-					{artist.artist}
-				</ArtistTile>
-			);
+			var props = {
+				artist: artist.artist,
+				key: index,
+				id: artist.id,
+				push: push,
+				imageURL: artist.imageURL,
+				firstLetter: artist.artist[0]
+			};
+
+			return <ArtistTile {...props} />
 		});
 
 		return (

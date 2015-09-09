@@ -15,14 +15,23 @@ var TrackContainer = React.createClass({
 		var data = this.props.tracks;
 		var push = this.props.push;
 
-		var tiles = data.map(function(set, index) {
-			return(
-				<TrackTile
-					data={set}
-					key={index}
-					dataId={set.id}
-					push={push} />
-			);
+		var tiles = data.map(function(track, index) {
+			var props = {
+				songname: track.songname,
+				artistname: track.artistname,
+				id: track.id,
+				starttime: track.starttime,
+				event: track.event,
+				artist: track.artist,
+				is_radiomix: track.is_radiomix,
+				event_id: track.event_id,
+				main_eventimageURL: track.main_eventimageURL,
+				artistimageURL: track.artistimageURL,
+				push: push,
+				key: index
+			};
+
+			return <TrackTile {...props} />
 		});
 
 		return (

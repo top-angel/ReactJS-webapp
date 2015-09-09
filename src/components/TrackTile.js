@@ -8,8 +8,8 @@ var TrackTile = React.createClass({
 	mixins: [Navigation],
 	openArtistPage: function() {
 		var push = this.props.push;
-		var artist_id = this.props.data.artist_id;
-		var routeString = this.props.data.artist.toLowerCase().split(' ').join('-');
+		var artist_id = this.props.artist_id;
+		var routeString = this.props.artist.toLowerCase().split(' ').join('-');
 		console.log(routeString);
 
 		push({
@@ -19,11 +19,11 @@ var TrackTile = React.createClass({
 			}
 		});
 
-		// this.transitionTo('artist', {artist: routeString});
+		this.transitionTo('artist');
 	},
 	openFestivalPage: function() {
 		var push = this.props.push;
-		var event_id = this.props.data.event_id;
+		var event_id = this.props.event_id;
 		console.log(event_id);
 
 		push({
@@ -33,7 +33,7 @@ var TrackTile = React.createClass({
 			}
 		});
 
-		if(this.props.data.is_radiomix == 0) {
+		if(this.props.is_radiomix == 0) {
 			this.transitionTo('festival');
 		} else {
 			this.transitionTo('mix');
@@ -41,15 +41,15 @@ var TrackTile = React.createClass({
 	},
 	render: function() {
 		var image = {
-			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + 'small_' + this.props.data.main_eventimageURL + "')"
+			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + 'small_' + this.props.main_eventimageURL + "')"
 		};
-		var artistImage = this.props.data.artistimageURL;
-		var songname = this.props.data.songname;
-		var artistname = this.props.data.artistname;
+		var artistImage = this.props.artistimageURL;
+		var songname = this.props.songname;
+		var artistname = this.props.artistname;
 		var track = songname + ' - ' + artistname;
-		var time = (this.props.data.starttime + ' | ' + this.props.data.set_length);
-		var event = this.props.data.event;
-		var artist = this.props.data.artist;
+		var time = (this.props.starttime + ' | ' + this.props.set_length);
+		var event = this.props.event;
+		var artist = this.props.artist;
 
 		return (
 			<div className="track-tile flex-column overlay-container click" style={image} >

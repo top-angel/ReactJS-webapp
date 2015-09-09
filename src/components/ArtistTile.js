@@ -14,15 +14,14 @@ var ArtistTile = React.createClass({
 		};
 	},
 	openArtistPage: function() {
-		var dataId = this.props.dataId;
+		var artistId = this.props.id;
 		var push = this.props.push;
-		console.log(dataId);
 		console.log(this.props.firstLetter);
 
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
-				detailId: dataId
+				detailId: artistId
 			}
 		});
 
@@ -37,10 +36,10 @@ var ArtistTile = React.createClass({
 			<div className='artist-tile flex-column click'
 				style={image}
 				onClick={this.openArtistPage}
-				dataId={this.props.dataId}
+				dataId={this.props.id}
 				firstLetter={this.props.firstLetter}
 			>
-				<div className='center'>{this.props.children}</div>
+				<div className='center'>{this.props.artist}</div>
 			</div>
 		);
 	}

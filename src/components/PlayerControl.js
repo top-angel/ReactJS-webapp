@@ -21,7 +21,7 @@ var PlayerControl = React.createClass({
 		return (
 			<div className="player-image-container overlay-container click" onClick={this.togglePlay}>
 		        <div className="overlay set-flex">
-		            <i className={playingClass}/>
+			        <i className={playingClass}/>
 		        </div>
 		        <img />
 		    </div>

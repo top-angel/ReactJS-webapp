@@ -6,31 +6,47 @@ var SetTile = React.createClass({
 
 	displayName: 'SetTile',
 	mixins: [Navigation],
+	getDefaultProps: function() {
+		return {
+			starttime: 0
+		};
+	},
 	favoriteSet: function() {
 		var push = this.props.push;
 		var favoriteUrl = API_ROOT + 'user/updateFavoriteSets';
 		//TODO
 
-		// $.ajax({
-		// 	type: 'POST',
-		// 	url: favoriteUrl,
-		// 	data: {
-		// 		'userData': {
-		// 			'userID': '',
-		// 			'setId': ''
-		// 		}
-		// 	}
-		// });
+		$.ajax({
+			type: 'POST',
+			url: favoriteUrl,
+			data: {
+				'userData': {
+					'userID': 108,
+					'setId': this.props.id
+				}
+			},
+			success: function(response) {
+				var registeredUser = response.payload.user;
+				//TODO change class of favorite set
+			}
+		});
 	},
 	shareSet: function() {
 		//TODO
 	},
+	playSet: function() {
+		//TODO - load set into currentSet object
+		var push = this.props.push;
+		var setId = this.props.id;
+		var songURL = this.props.songURL;
+		var start
+	},
 	openArtistPage: function() {
 		var push = this.props.push;
-		var artist_id = this.props.data.artist_id;
+		var artist_id = this.props.artist_id;
 
 		//TODO MAKE THIS WORK
-		var routeString = this.props.data.artist.toLowerCase().split(' ').join('-');
+		var routeString = this.props.artist.toLowerCase().split(' ').join('-');
 		console.log(routeString); //'Big Gigantic' => big-gigantic
 
 		push({
@@ -44,8 +60,8 @@ var SetTile = React.createClass({
 	},
 	openFestivalPage: function() {
 		var push = this.props.push;
-		var event_id = this.props.data.event_id;
-		console.log(this.props.data.is_radiomix);
+		var event_id = this.props.event_id;
+		console.log(this.props.is_radiomix);
 
 		push({
 			type: 'SHALLOW_MERGE',
@@ -54,27 +70,20 @@ var SetTile = React.createClass({
 			}
 		});
 
-		if(this.props.data.is_radiomix == 0) {
+		if(this.props.is_radiomix == 0) {
 			this.transitionTo('festival');
 		} else {
 			this.transitionTo('mix');
 		}
 	},
 	render: function() {
+
 		var eventImage = {
-			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + this.props.data.main_eventimageURL + "')"
+			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + this.props.main_eventimageURL + "')"
 		};
-		var event = this.props.data.event;
-		var artist = this.props.data.artist;
-		var artistImage = constants.S3_ROOT_FOR_IMAGES+'small_'+this.props.data.artistimageURL;
-		var playCount = this.props.data.popularity;
-		var time = this.props.data.set_length;
+		var artistImage = constants.S3_ROOT_FOR_IMAGES+'small_'+this.props.artistimageURL;
+		var routeString = this.props.artist.toLowerCase().split(' ').join('-');
 
-		var routeString = this.props.data.artist.toLowerCase().split(' ').join('-');
-
-		var set = {
-			artist: routeString
-		};
 
 		return (
 			<div className='flex-column click set-tile' style={eventImage}>
@@ -83,9 +92,9 @@ var SetTile = React.createClass({
 					<div className='flex-row flex-fixed-2x'>
 						<img src={artistImage} />
 						<div className='flex-column flex'>
-							<div className='flex link' onClick={this.openFestivalPage}>{event}</div>
+							<div className='flex link' onClick={this.openFestivalPage}>{this.props.event}</div>
 
-							<div className='flex link' to='artist' onClick={this.openArtistPage}>{artist}</div>
+							<div className='flex link' to='artist' onClick={this.openArtistPage}>{this.props.artist}</div>
 
 	                    <div className='flex flex-row'>
 								<i className='fa fa-fw fa-star-o center click link'/>
@@ -96,11 +105,11 @@ var SetTile = React.createClass({
 					<div className='divider center'/>
 					<div className='flex-row flex-fixed'>
 						<div className='flex-fixed set-flex play'>
-							<i className='fa fa-play center'>{'  '+playCount}</i>
+							<i className='fa fa-play center'>{'  '+this.props.popularity}</i>
 						</div>
 						<div className='divider'/>
 						<div className='flex-fixed set-flex'>
-							<i className='fa fa-clock-o center'>{'  '+time}</i>
+							<i className='fa fa-clock-o center'>{'  '+this.props.set_length}</i>
 						</div>
 					</div>
 				</div>

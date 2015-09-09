@@ -1,4 +1,5 @@
 import React from 'react';
+import splice from '../services/splice';
 import {Navigation} from 'react-router';
 import constants from '../constants/constants';
 
@@ -14,13 +15,6 @@ var SearchBar = React.createClass({
 				_this.search(query);
 			}
 		});
-	},
-	spliceBigArray: function(array) {
-		if(array.length > 50) {
-			return array.splice(50, array.length-50);
-		} else {
-			return array;
-		}
 	},
 	search: function(query) {
 		var _this = this;
@@ -48,9 +42,9 @@ var SearchBar = React.createClass({
 		})
 		.done(function(response) {
 			results = response.payload.search;
-			var sets = _this.spliceBigArray(results.sets);
-			var events = _this.spliceBigArray(results.upcomingEvents);
-			var tracks = _this.spliceBigArray(results.tracks);
+			var sets = splice.bigArray(results.sets, 50);
+			var events = splice.bigArray(results.upcomingEvents, 50);
+			var tracks = splice.bigArray(results.tracks, 50);
 
 			push({
 				type: 'SHALLOW_MERGE',

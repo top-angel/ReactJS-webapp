@@ -2,20 +2,55 @@ import React from 'react';
 
 import playerService from '../services/playerService.js';
 
-// import PlayerControl from './PlayerControl';
+import PlayerControl from './PlayerControl';
 import PlayerSeek from './PlayerSeek';
 import PlayerSetInfo from './PlayerSetInfo';
-import PlayerTrackInfo from './PlayerTrackInfo';
+import PlayerTracklist from './PlayerTracklist';
 
 var Player = React.createClass({
 	displayName: 'Player',
 
 	componentDidMount: function() {
-		// var push = this.props.pushFn;
+		// var push = this.props.push;
 		// playerService.generateSound(0, this.props.appState, push)
 		//   .then(function(smObj) {
 		//     console.log('AYYLMAO', smObj);
 		//   });
+	},
+
+	componentWillReceiveProps: function(nextProps) {
+		//check if set id from set obj has changed
+			//destroy current sound
+			//push new set object to appState
+			//update tracklist
+		var push = this.props.push;
+		if(nextProps.appState.get('currentSet').selectedSet.id 
+			!= this.props.appState.get('currentSet').selectedSet.id) {
+
+			console.log(nextProps.appState.get('currentSet').selectedSet.id );
+
+			push({
+				type: 'SHALLOW_MERGE',
+				data: {
+					currentSet: nextProps.appState.get('currentSet').selectedSet.id 
+				}
+			});
+		}
+	},
+
+	dankify: function() {
+		var push = this.props.push;
+
+		push({
+			type: 'SHALLOW_MERGE',
+			data:{
+				currentSet: {
+					selectedSet: {
+						id: 420
+					}
+				}
+			}
+		});
 	},
 
 	render: function() {
@@ -26,21 +61,29 @@ var Player = React.createClass({
 		var selectedSet = currentSet.selectedSet;
 		var setSMObject = currentSet.setSMObject;
 
-		var playingClass = 'fa center fa-pause';
-		var pausedClass = 'fa center fa-play';
+		var playingClass = 'fa center fa-pause play-button';
+		var pausedClass = 'fa center fa-play play-button';
 
 		//UNHIDE 
 		return (
 			<div className='flex-row' id='Player'>
-					<PlayerControl />
-					<div className='flex-column flex'>
-							<PlayerSeek selectedSet={selectedSet} push={push}/>
-							<div className='flex-row flex'>
-									<PlayerSetInfo set={selectedSet}
-										time={currentSet.timePosition}/>
-									<PlayerTrackInfo track={setSMObject}/>
-							</div>
+				<div className="player-image-container click" onClick={this.togglePlay}>
+					<div className="overlay set-flex">
+						<i className={playingClass}/>
 					</div>
+					<img />
+				</div>
+				<div className='flex-column flex' onClick={this.dankify}>
+					<PlayerSeek selectedSet={selectedSet} push={push}/>
+					<div className='flex-row flex'>
+						<PlayerSetInfo set={selectedSet}
+							time={currentSet.timePosition}/>
+						<PlayerTracklist track={setSMObject}/>
+						<i className="fa fa-fw center fa-star-o click"/>
+						<i className="fa fa-fw center fa-bars click"/>
+						<i className="fa fa-fw center fa-share click"/>
+					</div>
+				</div>
 			</div>
 		);
 	}
