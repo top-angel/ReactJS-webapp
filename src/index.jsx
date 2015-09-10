@@ -78,19 +78,68 @@ var initialAppState = Immutable.Map({
 	// 	timePosition: 0
 	// },
 
-//for reference only push to currentSet
+//THIS IS WHERE SOUND COMES FROM 
 	currentSet: {
-		selectedSet: {
-			artist: 'FlicFlac',
-			event: 'Best of FlicFlac 2014',
-			artistimageURL: '367430a23a7d0da81b8222191fcb2034.jpg',
-			songURL: '6fdbe5fe2c23c40fbae8d03f40921ddd7d9b5af3.mp3',
-			set_length: '38:10',
-			id: 3684
-		},
-		isPlaying: false,
-		timePosition: 0
+		artist: 'FlicFlac',
+		event: 'Best of FlicFlac 2014',
+		artistimageURL: '367430a23a7d0da81b8222191fcb2034.jpg',
+		songURL: '6fdbe5fe2c23c40fbae8d03f40921ddd7d9b5af3.mp3',
+		set_length: '38:10',
+		starttime: 0,
+		currentTrack: 'kushdank420 - Smoke Weed In Moderate Amounts',
+		id: 3684
 	},
+	tracklist: [
+		{
+			"trackname": "Vance Joy - Riptide (FlicFlac Edit)",
+			"artistname": "Vance Joy",
+			"songname": "Riptide (FlicFlac Edit)",
+			"starttime": "00:00",
+			"set_length": "38:10"
+		},
+		{
+			"trackname": "Milky Chance - Down by the River (FlicFlac Edit)",
+			"artistname": "Milky Chance",
+			"songname": "Down by the River (FlicFlac Edit)",
+			"starttime": "05:52",
+			"set_length": "38:10"
+		},
+		{
+			"trackname": "The Lumineers - Stubborn Love (FlicFlac Bootleg) ",
+			"artistname": "The Lumineers",
+			"songname": "Stubborn Love (FlicFlac Bootleg) ",
+			"starttime": "10:47",
+			"set_length": "38:10"
+		},
+		{
+			"trackname": "Empire of the Suns - We are the People (FlicFlac Remix)",
+			"artistname": "Empire of the Suns",
+			"songname": "We are the People (FlicFlac Remix)",
+			"starttime": "16:44",
+			"set_length": "38:10"
+		},
+		{
+			"trackname": "Milky Chance - Stolen Dance (FlicFlac Edit)",
+			"artistname": "Milky Chance",
+			"songname": "Stolen Dance (FlicFlac Edit)",
+			"starttime": "24:14",
+			"set_length": "38:10"
+		},
+		{
+			"trackname": "Edward Sharpe & The Magnetic Zeros - Home (FlicFlac Remix)",
+			"artistname": "Edward Sharpe & The Magnetic Zeros",
+			"songname": "Home (FlicFlac Remix)",
+			"starttime": "29:23",
+			"set_length": "38:10"
+		},
+		{
+			"trackname": "Lykke Li - I follow Rivers (FlicFlac Remix)",
+			"artistname": "Lykke Li",
+			"songname": "I follow Rivers (FlicFlac Remix)",
+			"starttime": "33:53",
+			"set_length": "38:10"
+		}
+	],
 
 	artistBrowseData: [],
 	festivalBrowseData: [],

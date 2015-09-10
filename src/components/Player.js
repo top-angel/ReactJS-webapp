@@ -1,95 +1,105 @@
 import React from 'react';
+import Sound from 'react-sound';
+import Q from 'q';
+// import playerService from '../services/playerService.js';
+import SM2 from 'soundmanager2';
+import constants from '../constants/constants';
 
-import playerService from '../services/playerService.js';
-
-import PlayerControl from './PlayerControl';
 import PlayerSeek from './PlayerSeek';
 import PlayerSetInfo from './PlayerSetInfo';
 import PlayerTracklist from './PlayerTracklist';
 
+var soundManager = SM2.soundManager;
+var smDeferred = Q.defer();
+var smPromise = smDeferred.promise;
+
 var Player = React.createClass({
+	
 	displayName: 'Player',
+	getInitialState: function() {
+		return {
+			playing: Sound.status.STOPPED
+		};
+	},
+	// componentDidMount: function() {
+	// 	var push = this.props.push;
+	// 	// playerService.generateSound(0, this.props.appState, push)
+	// 	// .then(function(smObj) {
+	// 	// 	console.log('AYYLMAO', smObj);
+	// 	// });
+	// },
 
 	componentDidMount: function() {
-		var push = this.props.push;
-		// playerService.generateSound(0, this.props.appState, push)
-		//   .then(function(smObj) {
-		//     console.log('AYYLMAO', smObj);
-		//   });
-	},
+		var _this = this;
 
-	// componentWillReceiveProps: function(nextProps) {
-	// 	//check if set id from set obj has changed
-	// 		//destroy current sound
-	// 		//push new set object to appState
-	// 		//update tracklist
-	// 	var push = this.props.push;
-	// 	if(nextProps.appState.get('currentSet').selectedSet.id 
-	// 		!= this.props.appState.get('currentSet').selectedSet.id) {
-
-	// 		console.log(nextProps.appState.get('currentSet').selectedSet.id );
-
-	// 		push({
-	// 			type: 'SHALLOW_MERGE',
-	// 			data: {
-	// 				currentSet: nextProps.appState.get('currentSet').selectedSet.id 
-	// 			}
-	// 		});
-	// 	}
-	// },
-
-	// componentWillReceiveProps: function(nextProps) {
-	// 	var push = this.props.push;
-	// 	playerService.generateSound(0, this.props.appState, push)
-	// 	  .then(function(smObj) {
-	// 	    console.log('AYYLMAO', smObj);
-	// 	  });
-	// },
-
-	dankify: function() {
-		var push = this.props.push;
-
-		push({
-			type: 'SHALLOW_MERGE',
-			data:{
-				currentSet: {
-					selectedSet: {
-						id: 420
-					}
-				}
+		soundManager.setup({
+			url: '/swf/soundmanager2.swf',
+			onready: function() {
+				console.log('SM2 loaded');
+				smDeferred.resolve();
+			},
+			ontimeout: function() {
+				console.log('Error loading SoundManager2');
 			}
 		});
 	},
 
-	render: function() {
+	componentWillReceiveProps: function(nextProps) {
+	},
 
+	render: function() {
 		var push = this.props.push;
 		var appState = this.props.appState;
-		var currentSet = appState.get('currentSet'); // <- NOT IMMUTABLE MAP
-		var selectedSet = currentSet.selectedSet;
-		var setSMObject = currentSet.setSMObject;
+		// var currentSet = appState.get('currentSet'); // <- NOT IMMUTABLE MAP
+		// var set = currentSet.set;
+		// var setSMObject = currentSet.setSMObject;
+
+		var currentSet = appState.get('currentSet');
+		var tracklist = appState.get('tracklist');
+		var songURL = constants.S3_ROOT + currentSet.songURL;
+		console.log(currentSet);
+		console.log(tracklist);
 
 		var playingClass = 'fa center fa-pause play-button';
 		var pausedClass = 'fa center fa-play play-button';
 
-		//UNHIDE 
+		var sound = {
+			url: songURL,
+			// playFromPosition: currentSet.starttime,//push this in tracktile
+			playFromPosition: 300,
+			playStatus: Sound.status.PLAYING
+		};
+
+		var currentTrack = currentSet.currentTrack;
+
+		var trackProps = {
+			currentTrack: currentTrack,
+			tracklist: tracklist,
+			push: push
+		};
+
+		console.log(this.state.playing);
+
 		return (
 			<div className='flex-row' id='Player'>
+
+				<Sound {...sound} />
+
 				<div className="player-image-container click" onClick={this.togglePlay}>
 					<div className="overlay set-flex">
 						<i className={playingClass}/>
 					</div>
-					<img />
+					<img src={constants.S3_ROOT_FOR_IMAGES+'small_'+currentSet.artistimageURL} />
 				</div>
-				<div className='flex-column flex' onClick={this.dankify}>
-					<PlayerSeek selectedSet={selectedSet} push={push}/>
+
+				<div className='flex-column flex'>
+					<PlayerSeek currentSet={currentSet} push={push}/>
 					<div className='flex-row flex'>
-						<PlayerSetInfo set={selectedSet}
-							time={currentSet.timePosition}/>
-						<PlayerTracklist track={setSMObject}/>
-						<i className="fa fa-fw center fa-star-o click"/>
-						<i className="fa fa-fw center fa-bars click"/>
-						<i className="fa fa-fw center fa-share click"/>
+						<PlayerSetInfo currentSet={currentSet}
+							time={currentSet.starttime}/>
+
+						<PlayerTracklist {...trackProps} />
+
 					</div>
 				</div>
 			</div>

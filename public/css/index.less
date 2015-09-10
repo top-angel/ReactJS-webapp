@@ -300,9 +300,9 @@ a {
 footer {
     position: relative;
     top:@headerHeight;
-    .background(@set-black, white);
+    .background(@set-dark-gray, white);
     padding: 1vh 0;
-    font-size: 1rem;
+    margin-bottom: @playerHeight;
     z-index: 3;
 }
 
@@ -563,15 +563,35 @@ input#search {
     position:fixed;
     bottom: 0!important;
     .background(fade(@set-black, 90%), white);
+    .background(@set-dark-gray, white);
     z-index: 100;
-    .flex-row.flex {
-        width: 100%;
+    .set-info {
+        padding: 8px 0 0 8px;
+        font-size: 0.8rem;
     }
-    .current-track {
-        text-align: center;
+    .play-button {
+        visibility: hidden;
     }
-    .fa:not(.play-button) {
-        margin: auto 1vw;
+}
+#PlayerTracklist {
+    text-align: center;
+    .background(fade(@set-black, 90%), white);
+    .background(@set-dark-gray, white);
+    .tracklist {
+        z-index: 99;
+        position: fixed;
+        height: @playerTracklistHeight;
+        bottom: -@playerTracklistHeight;
+        right: 12%;
+        background: @set-dark-gray;
+        width: 30vw;
+        overflow-y: scroll;
+        * {
+            padding: 1rem 0;
+            &:hover {
+                background-color: @set-dark-gray*1.2;
+            }
+        }
     }
 }
 .player-image-container {
@@ -584,14 +604,11 @@ input#search {
     &:hover {
         .overlay {
             .createOverlay(50%);
-            #play-button {
-                visibility: visible;
-            }
         }
     }
 }
 .player-seek-container {
-    height:10px;
+    height: @playerSeekHeight;
     background-color: @set-gray;
 }
 .player-seek-position {

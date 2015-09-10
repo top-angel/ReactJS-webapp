@@ -6,11 +6,13 @@ var SetTile = React.createClass({
 
 	displayName: 'SetTile',
 	mixins: [Navigation],
+
 	getDefaultProps: function() {
 		return {
 			starttime: 0
 		};
 	},
+
 	favoriteSet: function() {
 		var push = this.props.push;
 		var favoriteUrl = API_ROOT + 'user/updateFavoriteSets';
@@ -31,34 +33,47 @@ var SetTile = React.createClass({
 			}
 		});
 	},
+
 	shareSet: function() {
 		//TODO
 	},
+
+	getTracklist: function() {
+		var trackListUrl = constants.API_ROOT + 'tracklist/' + this.props.id;
+
+		return $.ajax({
+			url: trackListUrl,
+			type: 'get'
+		});
+	},
+
 	playSet: function() {
 		var push = this.props.push;
-		var set = {
-			artist: this.props.artist,
-			event: this.props.event,
-			id: this.props.id,
-			set_length: this.props.set_length,
-			songURL: this.props.songURL,
-			artistimageURL: this.props.artistimageURL
-		};
+		var _this = this;
 
-		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				currentSet: {
-					selectedSet: set,
-					isPlaying: false,
-					timePosition: 0
+		this.getTracklist().done(function(res) {
+			var tracklist = res.payload.tracks;
+			var set = {
+				artist: _this.props.artist,
+				event: _this.props.event,
+				id: _this.props.id,
+				set_length: _this.props.set_length,
+				songURL: _this.props.songURL,
+				artistimageURL: _this.props.artistimageURL,
+				currentTrack: res.payload.tracklist[0],
+				starttime: 0
+			};
+
+			push({
+				type: 'SHALLOW_MERGE',
+				data: {
+					currentSet: set,
+					tracklist: tracklist
 				}
-			}
+			});
 		});
-
-		console.log(set);
-
 	},
+
 	openArtistPage: function() {
 		var push = this.props.push;
 		var artist_id = this.props.artist_id;
@@ -76,6 +91,7 @@ var SetTile = React.createClass({
 
 		this.transitionTo('artist');
 	},
+
 	openFestivalPage: function() {
 		var push = this.props.push;
 		var event_id = this.props.event_id;
@@ -94,6 +110,7 @@ var SetTile = React.createClass({
 			this.transitionTo('mix');
 		}
 	},
+
 	render: function() {
 
 		var eventImage = {

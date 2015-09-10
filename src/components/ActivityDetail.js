@@ -54,7 +54,7 @@ var ActivityDetail = React.createClass({
 		];
 		var info = data.sets.length + ' sets';
 		var title = data.activity;
-		var buttonText = 'Shuffle';
+		var buttonText = 'Recommend';
 
 		return (
 			<Loader loaded={this.state.loaded}>
