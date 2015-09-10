@@ -4,6 +4,9 @@ import Router from 'react-router';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 import GlobalEventHandler from './services/globalEventHandler';
 
+import SM2 from 'soundmanager2';
+var soundManager = SM2.soundManager;
+
 import Footer from './components/Footer';
 import Header from './components/Header';
 import PlayerWrapper from './components/Player';
@@ -40,7 +43,7 @@ import EventContainer from './components/EventContainer';
 import ArtistTileContainer from './components/ArtistTileContainer';
 
 var initialAppState = Immutable.Map({
-	setSMObject: null,
+	sound: null,
 	// currentSet: {
 	// 	selectedSet: {
 	// 		id: 1903,
@@ -85,7 +88,7 @@ var initialAppState = Immutable.Map({
 		artistimageURL: '367430a23a7d0da81b8222191fcb2034.jpg',
 		songURL: '6fdbe5fe2c23c40fbae8d03f40921ddd7d9b5af3.mp3',
 		set_length: '38:10',
-		starttime: 0,
+		starttime: '25:20',// <- MUST BE IN THIS FORMAT
 		currentTrack: 'kushdank420 - Smoke Weed In Moderate Amounts',
 		id: 3684
 	},
@@ -241,7 +244,18 @@ var App = React.createClass({
 	},
 
 	componentWillMount: function() {
-		this._attachStreams();
+		// this._attachStreams();
+		var _this = this;
+		soundManager.setup({
+				url: '/swf/soundmanager2.swf',
+				onready: function() {
+					_this._attachStreams();
+					console.log('SM2 LOADED BRUH');
+				},
+				ontimeout: function() {
+					console.log('Error loading SoundManager2');
+				}
+			});
 	},
 
 	_attachStreams: function() {

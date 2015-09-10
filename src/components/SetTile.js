@@ -61,7 +61,7 @@ var SetTile = React.createClass({
 				songURL: _this.props.songURL,
 				artistimageURL: _this.props.artistimageURL,
 				currentTrack: res.payload.tracklist[0],
-				starttime: 0
+				starttime: '00:00'
 			};
 
 			push({
@@ -71,6 +71,20 @@ var SetTile = React.createClass({
 					tracklist: tracklist
 				}
 			});
+
+			_this.updatePlayCount(_this.props.id);
+		});
+	},
+
+	updatePlayCount: function(id) {
+		//todo get url
+		$.ajax({
+			type: 'POST',
+			url: '/playCount',
+			data: id,
+			success: function(data) {
+				console.log('play count updated');
+			}
 		});
 	},
 

@@ -19,6 +19,7 @@ var TrackContainer = React.createClass({
 			var props = {
 				songname: track.songname,
 				artistname: track.artistname,
+				trackname: track.trackname,
 				id: track.id,
 				starttime: track.starttime,
 				event: track.event,

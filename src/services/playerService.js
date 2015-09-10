@@ -30,22 +30,23 @@ function errorPromise(jqXHR, textStatus, errorThrown) {
 	return  Q.reject(errorThrown);
 }
 
+//HIDE FOR NOW
+// function fetchTrackList(selectedSet) {
+// 	var trackListUrl = constants.API_ROOT + 'tracklist/' + selectedSet.id;
 
-function fetchTrackList(selectedSet) {
-	var trackListUrl = constants.API_ROOT + 'tracklist/' + selectedSet.id;
-
-	return $.ajax({
-		url: trackListUrl,
-		type: 'get'
-	});
-}
+// 	return $.ajax({
+// 		url: trackListUrl,
+// 		type: 'get'
+// 	});
+// }
 
 
 function generateSound(loadStart, appState, push) {
 
-	var setSMObject = appState.get('setSMObject');
+	var sound = appState.get('sound');
 	var currentSet = appState.get('currentSet');
-	var selectedSet = currentSet.selectedSet;
+	// var selectedSet = currentSet.selectedSet;
+	var selectedSet = currentSet;
 
 	var currentSetCopy = R.clone(currentSet);
 
@@ -53,18 +54,19 @@ function generateSound(loadStart, appState, push) {
 		loadStart = convert.MMSSToMilliseconds(loadStart);
 	} else {
 		loadStart = 0;
+		console.log('started from the bottom');
 	}
 
 	//// XXX TODO MOVE THIS
-	if(setSMObject != null) {
+	if(sound != null) {
 		soundManager.destroySound('currentSound');
 	}
 
-
-	fetchTrackList(selectedSet).then(function(response) {
-		console.log(response.payload);
-		return response.payload;
-	}, errorPromise);
+	//HIDE FOR NOW
+	// fetchTrackList(selectedSet).then(function(response) {
+	// 	console.log(response.payload);
+	// 	return response.payload;
+	// }, errorPromise);
 
 
 	var songURL = constants.S3_ROOT + selectedSet.songURL;
@@ -75,30 +77,57 @@ function generateSound(loadStart, appState, push) {
 		url: songURL,
 		load: loadStart,
 		onload: function() {
-			var totalTime = setSMObject.durationEstimate;
+			var totalTime = sound.durationEstimate;
 			console.log(totalTime);
 		},
 
 		whileplaying: function() {
-			var currentTime = setSMObject.position;
+			var currentTime = sound.position;
 			currentSetCopy.timePosition = currentTime;
-			push({
-				type: 'SHALLOW_MERGE',
-				data: { currentSet: currentSetCopy }
-			});
+			//might delete
+			// push({
+			// 	type: 'SHALLOW_MERGE',
+			// 	data: { currentSet: currentSetCopy }
+			// });
 		}
 	};
 
 	return smPromise.then(function() {
-		setSMObject = soundManager.createSound(soundConf);
+		sound = soundManager.createSound(soundConf);
 		//TODO confirm this starts it at correct pos
-		setSMObject.setPosition(loadStart);
+		sound.setPosition(loadStart);
 		soundManager.play('currentSound');
-		return setSMObject;
+		return sound;
 	});
+
+	//UNHIDE if sets don't load
+	// push({
+	// 	type: 'SHALLOW_MERGE',
+	// 	data: {
+	// 		sound: sound
+	// 	}
+	// });
+}
+
+function togglePlay(sound) {
+
+	if(sound.paused) {
+		sound.play();
+		console.log('play');
+	} else {
+		sound.pause();
+		console.log('pause');
+	}
+}
+
+function scrub(position) {
+	//scrub dat ish
+	//get current position of playing set
+	//create new position as
 }
 
 module.exports = {
 	generateSound: generateSound,
+	togglePlay: togglePlay,
 	convert: convert // TODO MOVE CONVERT INTO SEPARATE SERVICE
 };

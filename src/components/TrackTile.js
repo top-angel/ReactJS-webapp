@@ -6,6 +6,16 @@ var TrackTile = React.createClass({
 
 	displayName: 'TrackTile',
 	mixins: [Navigation],
+
+	getTracklist: function() {
+		var trackListUrl = constants.API_ROOT + 'tracklist/' + this.props.id;
+
+		return $.ajax({
+			url: trackListUrl,
+			type: 'get'
+		});
+	},
+
 	openArtistPage: function() {
 		var push = this.props.push;
 		var artist_id = this.props.artist_id;
@@ -21,6 +31,7 @@ var TrackTile = React.createClass({
 
 		this.transitionTo('artist');
 	},
+
 	openFestivalPage: function() {
 		var push = this.props.push;
 		var event_id = this.props.event_id;
@@ -39,6 +50,49 @@ var TrackTile = React.createClass({
 			this.transitionTo('mix');
 		}
 	},
+
+	playSet: function() {
+		var push = this.props.push;
+		var _this = this;
+		console.log(this.props.starttime);
+
+		this.getTracklist().done(function(res) {
+			var tracklist = res.payload.tracks;
+			var set = {
+				artist: _this.props.artist,
+				event: _this.props.event,
+				id: _this.props.id,
+				set_length: _this.props.set_length,
+				songURL: _this.props.songURL,
+				artistimageURL: _this.props.artistimageURL,
+				currentTrack: _this.props.trackname,
+				starttime: _this.props.starttime
+			};
+
+			push({
+				type: 'SHALLOW_MERGE',
+				data: {
+					currentSet: set,
+					tracklist: tracklist
+				}
+			});
+
+			_this.updatePlayCount(_this.props.id);
+		});
+	},
+
+	updatePlayCount: function(id) {
+		//todo get url
+		$.ajax({
+			type: 'POST',
+			url: '/playCount',
+			data: id,
+			success: function(data) {
+				console.log('play count updated');
+			}
+		});
+	},
+
 	render: function() {
 		var image = {
 			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + 'small_' + this.props.main_eventimageURL + "')"
@@ -52,7 +106,7 @@ var TrackTile = React.createClass({
 		var artist = this.props.artist;
 
 		return (
-			<div className="track-tile flex-column overlay-container click" style={image} >
+			<div className="track-tile flex-column overlay-container click" style={image} onClick={this.playSet} >
 
 			    <div className='flex-row track'>
 			    	<img src={constants.S3_ROOT_FOR_IMAGES + 'small_' +artistImage}/>

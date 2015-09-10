@@ -3,10 +3,11 @@ import React from 'react';
 import convert from '../services/convert';
 
 var PlayerSetInfo = React.createClass({
-	displayName: 'PlayerSetInfo',
 
+	displayName: 'PlayerSetInfo',
 	render: function() {
-		var strTime = convert.millisecondsToMMSS(this.props.time);
+		// var strTime = convert.millisecondsToMMSS(this.props.time);
+		var strTime = this.props.time;
 
 		return (
 			<div className='set-info flex-column flex-fixed'>

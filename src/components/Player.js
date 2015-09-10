@@ -1,76 +1,93 @@
 import React from 'react';
 import Sound from 'react-sound';
 import Q from 'q';
-// import playerService from '../services/playerService.js';
-import SM2 from 'soundmanager2';
+import playerService from '../services/playerService.js';
+
 import constants from '../constants/constants';
 
 import PlayerSeek from './PlayerSeek';
 import PlayerSetInfo from './PlayerSetInfo';
 import PlayerTracklist from './PlayerTracklist';
 
-var soundManager = SM2.soundManager;
-var smDeferred = Q.defer();
-var smPromise = smDeferred.promise;
-
 var Player = React.createClass({
 	
 	displayName: 'Player',
 	getInitialState: function() {
 		return {
-			playing: Sound.status.STOPPED
+			smObj: null
 		};
 	},
-	// componentDidMount: function() {
-	// 	var push = this.props.push;
-	// 	// playerService.generateSound(0, this.props.appState, push)
-	// 	// .then(function(smObj) {
-	// 	// 	console.log('AYYLMAO', smObj);
-	// 	// });
-	// },
-
 	componentDidMount: function() {
+		var push = this.props.push;
+		var starttime = this.props.appState.get('currentSet').starttime;
 		var _this = this;
 
-		soundManager.setup({
-			url: '/swf/soundmanager2.swf',
-			onready: function() {
-				console.log('SM2 loaded');
-				smDeferred.resolve();
-			},
-			ontimeout: function() {
-				console.log('Error loading SoundManager2');
-			}
+		playerService.generateSound(starttime, this.props.appState, push)
+		.then(function(smObj) {
+			console.log('AYYLMAO', smObj);
+
+			//DAS IT MAAAAAYNE
+			push({
+				type: 'SHALLOW_MERGE',
+				data: {
+					sound: smObj
+				}
+			});
 		});
 	},
 
 	componentWillReceiveProps: function(nextProps) {
+		var push = this.props.push;
+		var starttime = this.props.appState.get('currentSet').starttime;
+
+		if(nextProps.appState.get('currentSet') != this.props.appState.get('currentSet')) {
+			console.log('BITCH I GOT EXTENDOZ');
+
+			playerService.generateSound(starttime, nextProps.appState, push)
+			.then(function(smObj) {
+				console.log('YOU GOT A NEW SONG', smObj);
+
+				push({
+					type: 'SHALLOW_MERGE',
+					data: {
+						sound: smObj
+					}
+				})
+			});
+		} else {
+			console.log('NO RELOADS');
+		}
+	},
+
+	togglePlay: function() {
+		var sound = this.props.appState.get('sound');
+		console.log(sound);
+
+		playerService.togglePlay(sound);
 	},
 
 	render: function() {
 		var push = this.props.push;
 		var appState = this.props.appState;
-		// var currentSet = appState.get('currentSet'); // <- NOT IMMUTABLE MAP
 		// var set = currentSet.set;
 		// var setSMObject = currentSet.setSMObject;
 
 		var currentSet = appState.get('currentSet');
 		var tracklist = appState.get('tracklist');
+		var currentTrack = currentSet.currentTrack;
 		var songURL = constants.S3_ROOT + currentSet.songURL;
-		console.log(currentSet);
-		console.log(tracklist);
+
+		// console.log(currentSet);
+		// console.log(tracklist);
 
 		var playingClass = 'fa center fa-pause play-button';
 		var pausedClass = 'fa center fa-play play-button';
 
-		var sound = {
-			url: songURL,
-			// playFromPosition: currentSet.starttime,//push this in tracktile
-			playFromPosition: 300,
-			playStatus: Sound.status.PLAYING
-		};
-
-		var currentTrack = currentSet.currentTrack;
+		// var sound = {
+		// 	url: songURL,
+		// 	playFromPosition: currentSet.starttime,//push this in tracktile
+		// 	playStatus: this.state.playing
+		// };
 
 		var trackProps = {
 			currentTrack: currentTrack,
@@ -78,12 +95,8 @@ var Player = React.createClass({
 			push: push
 		};
 
-		console.log(this.state.playing);
-
 		return (
 			<div className='flex-row' id='Player'>
-
-				<Sound {...sound} />
 
 				<div className="player-image-container click" onClick={this.togglePlay}>
 					<div className="overlay set-flex">
