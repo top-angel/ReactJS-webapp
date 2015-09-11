@@ -89,6 +89,9 @@ function generateSound(loadStart, appState, push) {
 			// 	type: 'SHALLOW_MERGE',
 			// 	data: { currentSet: currentSetCopy }
 			// });
+
+			//you may need to update the tracklist here
+
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
@@ -100,7 +103,6 @@ function generateSound(loadStart, appState, push) {
 
 	return smPromise.then(function() {
 		sound = soundManager.createSound(soundConf);
-		//TODO confirm this starts it at correct pos
 		sound.setPosition(loadStart);
 		soundManager.play('currentSound');
 		return sound;
@@ -145,13 +147,23 @@ function scrub(position, appState, push) {
 	});
 }
 
-function updateCurrentTrack() {
-	//TODO
+function changeTrack(appState, push, starttime, currentTrack) {
+	var sound = appState.get('sound');
+	sound.setPosition(starttime);
+
+	push({
+		type: 'SHALLOW_MERGE',
+		data: {
+			currentTrack: currentTrack,
+			timeElapsed: starttime
+		}
+	});
 }
 
 module.exports = {
 	generateSound: generateSound,
 	togglePlay: togglePlay,
+	changeTrack: changeTrack,
 	scrub: scrub,
 	convert: convert // TODO MOVE CONVERT INTO SEPARATE SERVICE
 };

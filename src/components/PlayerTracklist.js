@@ -1,6 +1,5 @@
 import React from 'react';
 import convert from '../services/convert';
-import playerService from '../services/playerService.js';
 import constants from '../constants/constants';
 
 import Track from './Track';
@@ -21,13 +20,6 @@ var PlayerTracklist = React.createClass({
 			});
 		},
 
-		updateTracklist: function() {
-			// var newPosition = convert.MMSSToMilliseconds(this.props.starttime);
-			// console.log(newPosition);
-			console.log('ayy we lit');
-			var push = this.props.push;
-		},
-
 		render: function() {
 			var appState = this.props.appState;
 			var push = this.props.push;
@@ -40,13 +32,13 @@ var PlayerTracklist = React.createClass({
 				var props = {
 					key: index,
 					trackname: track.trackname,
-					starttime: track.starttime
+					starttime: track.starttime,
+					appState: appState,
+					push: push
 				};
 
 				return <Track {...props} onClick={_this.updateTracklist} />
 			});
-
-			console.log(tracks);
 
 			return (
 				<div className='flex-row flex-fixed' id='PlayerTracklist'>

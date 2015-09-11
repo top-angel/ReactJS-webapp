@@ -104,7 +104,7 @@ var initialAppState = Immutable.Map({
 			"set_length": "38:10"
 		}
 	],
-	currentTrack: 'Rick Astley - Never gonna give you up',
+	currentTrack: 'Vance Joy - Riptide (FlicFlac Edit)',
 	sound: null, // <- soungmanager object
 	playing: false, //change to true once set starts playing
 	timeElapsed: 0, //update while playing

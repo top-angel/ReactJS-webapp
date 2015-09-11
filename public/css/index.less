@@ -573,24 +573,27 @@ input#search {
     .tracklist {
         z-index: 99;
         position: fixed;
-        position: absolute;
         height: @playerTracklistHeight;
         bottom: -@playerTracklistHeight;
         right: 12%;
-        background: @set-dark-gray;
-        width: 30vw;
+        .background(fade(@set-dark-gray, 90%), @set-nearly-white);
+        width: 35vw;
         overflow-y: scroll;
-        >*:hover{background-color: @set-dark-gray*1.2;}
+        >*:hover{
+            .background(fade(@set-dark-gray, 120%), @set-blue);
+        }
     }
     .track {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        display: flex;
+        padding: 1rem 0;
         .starttime {
             margin: auto 0.5vw auto 1vw
         }
         .trackname {
             margin: auto auto auto 2vw;
+            overflow-x: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
     }
 }
