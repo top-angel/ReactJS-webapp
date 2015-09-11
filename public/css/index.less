@@ -305,8 +305,6 @@ footer {
 
 header {
     background-color: @set-dark-gray;
-    background-color: #a74cab;
-    background-color: @set-purple;
     height: @headerHeight;
     font-family:  @defaultFontStyle;
     position:fixed;
@@ -341,6 +339,7 @@ header {
 }
 
 #HomeSidebar {
+    border-bottom: solid 1px @set-light-gray;
     .nav-button {
         color: @set-nearly-white;
         &:hover {
@@ -574,17 +573,24 @@ input#search {
     .tracklist {
         z-index: 99;
         position: fixed;
+        position: absolute;
         height: @playerTracklistHeight;
         bottom: -@playerTracklistHeight;
         right: 12%;
         background: @set-dark-gray;
         width: 30vw;
         overflow-y: scroll;
-        * {
-            padding: 1rem;
-            &:hover {
-                background-color: @set-dark-gray*1.2;
-            }
+        >*:hover{background-color: @set-dark-gray*1.2;}
+    }
+    .track {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        .starttime {
+            margin: auto 0.5vw auto 1vw
+        }
+        .trackname {
+            margin: auto auto auto 2vw;
         }
     }
 }
@@ -611,11 +617,19 @@ input#search {
 .player-seek-container {
     height: @playerSeekHeight;
     background-color: @set-gray;
+    position: relative;
 }
-.player-seek-position {
+.player-progress {
     background-color: @set-blue;
     height:100%;
     width: 0;
+    .transition(0.1s);
+}
+.player-scrubber {
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    color: @set-blue*1.2;
 }
 .player-set-info {
     border-right: solid 1px @set-gray;

@@ -5,38 +5,46 @@ import convert from '../services/convert';
 var PlayerSeek = React.createClass({
 
 	displayName: 'PlayerSeek',
+
 	scrub: function(e) {
 		var push = this.props.push;
 		var appState = this.props.appState;
+		var offset = $('.player-image-container').width();
 
-		var offset = 70.5;//width of image container
-		var percentWidth = ((e.pageX - offset)/ $(window).width()) * 100;
+		var containerWidth = $('.player-progress').width();
+		console.log(containerWidth);//pixels
 
-		playerService.scrub(percentWidth, appState, push);
+		var errorFactor = 1.0575; //compensates for soundmanger innacuracy
+		var containerPosition = (((e.pageX - offset)*errorFactor)/ $(window).width()) * 100;
+
+		playerService.scrub(containerPosition, appState, push);
 	},
 
 	render: function() {
 		var appState = this.props.appState;
-
 		var currentSet = appState.get('currentSet');
 		var timeElapsed = appState.get('timeElapsed');
-		var set_length = convert.MMSSToMilliseconds(currentSet.set_length);
 
+		var set_length = convert.MMSSToMilliseconds(currentSet.set_length);
 		var percent = (timeElapsed / set_length) * 100;
-		console.log(percent);
 
 		var progressStyle = {
 			width: percent + '%'
 		};
 
-		var scrubber = React.createElement('div', {
-			className: 'player-seek-position',
+		var playerProgress = React.createElement('div', {
+			className: 'player-progress',
 			style: progressStyle
+		});
+
+		var cursor = React.createElement('div', {
+			className: 'player-scrubber'
 		});
 		
 		return (
 			<div className='player-seek-container' onClick={this.scrub} >
-				{scrubber}
+				{playerProgress}
+				{cursor}
 	       </div>
 		);
 	}

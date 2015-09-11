@@ -60,7 +60,6 @@ var SetTile = React.createClass({
 				set_length: _this.props.set_length,
 				songURL: _this.props.songURL,
 				artistimageURL: _this.props.artistimageURL,
-				currentTrack: res.payload.tracklist[0],
 				starttime: '00:00'
 			};
 
@@ -69,7 +68,8 @@ var SetTile = React.createClass({
 				data: {
 					currentSet: set,
 					tracklist: tracklist,
-					playing: true
+					currentTrack: res.payload.tracklist[0],
+					playing: true,
 				}
 			});
 

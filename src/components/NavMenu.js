@@ -3,6 +3,11 @@ import {Link} from 'react-router';
 
 var NavMenu = React.createClass({
 
+	getDefaultProps: function() {
+		return {
+			items: []
+		};
+	},
 	render: function() {
 		var links = this.props.items.map(function(nav){
 			return(

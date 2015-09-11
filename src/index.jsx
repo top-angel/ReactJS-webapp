@@ -50,8 +50,7 @@ var initialAppState = Immutable.Map({
 		artistimageURL: '367430a23a7d0da81b8222191fcb2034.jpg',
 		songURL: '6fdbe5fe2c23c40fbae8d03f40921ddd7d9b5af3.mp3',
 		set_length: '38:10',
-		starttime: '17:05',// <- MUST BE IN THIS FORMAT
-		currentTrack: 'Rick Astley - Never gonna give you up',
+		starttime: '00:05',// <- MUST BE IN THIS FORMAT
 		id: 3684
 	},
 	tracklist: [
@@ -105,6 +104,7 @@ var initialAppState = Immutable.Map({
 			"set_length": "38:10"
 		}
 	],
+	currentTrack: 'Rick Astley - Never gonna give you up',
 	sound: null, // <- soungmanager object
 	playing: false, //change to true once set starts playing
 	timeElapsed: 0, //update while playing
@@ -251,11 +251,13 @@ var routes = (
 	<Route path='/' handler={App}>
 		<Route name='test' path='sandbox' handler={Sandbox}/>
 		<DefaultRoute name='landing' handler={LandingView}/>
+
 		<Route name='user' path='user' handler={HomeView}>
 			<DefaultRoute name='user-favorites' handler={Favorites}/>
 			<Route name='user-sets' path='sets' handler={NewSets}/>
 			<Route name='user-events' path='events' handler={NewEvents}/>
 		</Route>
+
 		<Route name='sets' path='sets' handler={SetsView}>
 			<DefaultRoute name='recent' handler={Recent}/>
 			<Route name='mixes' path='mixes' handler={Mixes}/>
@@ -263,10 +265,12 @@ var routes = (
 			<Route name='festivals' path='festivals' handler={Festivals}/>
 			<Route name='activities' path='activities' handler={Activities}/>
 		</Route>
+
 		<Route name='events' path='events' handler={EventsView}>
 			<DefaultRoute name='upcoming' handler={UpcomingEvents}/>
 			<Route name='closest' handler={ClosestEvents}/>
 		</Route>
+
 		<Route name='artists' path='artists' handler={Artists}/>
 		<Route name='search' path='search' handler={SearchResultsView}/>
 
@@ -278,12 +282,15 @@ var routes = (
 		<Route name='festival' path='festival' handler={FestivalDetail}>
 			<DefaultRoute name='festival-sets' handler={SetContainer}/>
 		</Route>
+
 		<Route name='event' path='event' handler={EventDetail}>
 			<DefaultRoute name='event-lineup' handler={ArtistTileContainer}/>
 		</Route>
+
 		<Route name='mix' path='mix' handler={MixDetail}>
 			<DefaultRoute name='mix-sets' handler={SetContainer}/>
 		</Route>
+
 		<Route name='activity' path='activity' handler={ActivityDetail}>
 			<DefaultRoute name='activity-sets' handler={SetContainer}/>
 		</Route>

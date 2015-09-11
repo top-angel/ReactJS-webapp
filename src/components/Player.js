@@ -46,14 +46,14 @@ var Player = React.createClass({
 			playerService.generateSound(starttime, nextProps.appState, push)
 			.then(function(smObj) {
 				console.log('YOU GOT A NEW SONG', smObj);
-
 				//plays a new set
 				push({
 					type: 'SHALLOW_MERGE',
 					data: {
-						sound: smObj
+						sound: smObj,
+						playing: true
 					}
-				})
+				});
 			});
 		} else {
 			console.log('NO RELOADS');
@@ -72,12 +72,9 @@ var Player = React.createClass({
 		var appState = this.props.appState;
 
 		var currentSet = appState.get('currentSet');
-		var tracklist = appState.get('tracklist');
-		var currentTrack = currentSet.currentTrack;
 
 		var trackProps = {
-			currentTrack: currentTrack,
-			tracklist: tracklist,
+			appState: appState,
 			push: push
 		};
 

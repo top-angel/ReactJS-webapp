@@ -127,11 +127,26 @@ function togglePlay(sound) {
 }
 
 function scrub(position, appState, push) {
+	var sound = appState.get('sound');
+	var currentSet = appState.get('currentSet');
+	var timeElapsed = appState.get('timeElapsed');
 
-	//scrub dat ish
-	//get current position of playing set
-	//create new position as
-	console.log(position, appState, push);
+	var set_length = convert.MMSSToMilliseconds(currentSet.set_length);
+	var multiplier = position / 100;// 70 -> 0.7
+	var newPosition = multiplier * set_length;
+
+	sound.setPosition(newPosition);
+
+	push({
+		type: 'SHALLOW_MERGE',
+		data: {
+			timeElapsed: newPosition
+		}
+	});
+}
+
+function updateCurrentTrack() {
+	//TODO
 }
 
 module.exports = {
