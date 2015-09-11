@@ -2,21 +2,20 @@ import React from 'react';
 import Sound from 'react-sound';
 import Q from 'q';
 import playerService from '../services/playerService.js';
-
 import constants from '../constants/constants';
 
+import PlayerControl from './PlayerControl';
 import PlayerSeek from './PlayerSeek';
 import PlayerSetInfo from './PlayerSetInfo';
 import PlayerTracklist from './PlayerTracklist';
 
+var playingClass = 'fa center fa-pause play-button';
+var pausedClass = 'fa center fa-play play-button';
+
 var Player = React.createClass({
 	
 	displayName: 'Player',
-	getInitialState: function() {
-		return {
-			smObj: null
-		};
-	},
+
 	componentDidMount: function() {
 		var push = this.props.push;
 		var starttime = this.props.appState.get('currentSet').starttime;
@@ -26,11 +25,12 @@ var Player = React.createClass({
 		.then(function(smObj) {
 			console.log('AYYLMAO', smObj);
 
-			//DAS IT MAAAAAYNE
+			//DAS IT MAAAAAYNE <- actually plays set!
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					sound: smObj
+					sound: smObj,
+					playing: true
 				}
 			});
 		});
@@ -41,12 +41,13 @@ var Player = React.createClass({
 		var starttime = this.props.appState.get('currentSet').starttime;
 
 		if(nextProps.appState.get('currentSet') != this.props.appState.get('currentSet')) {
-			console.log('BITCH I GOT EXTENDOZ');
+			console.log('BIH I GOT EXTENDOZ');
 
 			playerService.generateSound(starttime, nextProps.appState, push)
 			.then(function(smObj) {
 				console.log('YOU GOT A NEW SONG', smObj);
 
+				//plays a new set
 				push({
 					type: 'SHALLOW_MERGE',
 					data: {
@@ -69,25 +70,10 @@ var Player = React.createClass({
 	render: function() {
 		var push = this.props.push;
 		var appState = this.props.appState;
-		// var set = currentSet.set;
-		// var setSMObject = currentSet.setSMObject;
 
 		var currentSet = appState.get('currentSet');
 		var tracklist = appState.get('tracklist');
 		var currentTrack = currentSet.currentTrack;
-		var songURL = constants.S3_ROOT + currentSet.songURL;
-
-		// console.log(currentSet);
-		// console.log(tracklist);
-
-		var playingClass = 'fa center fa-pause play-button';
-		var pausedClass = 'fa center fa-play play-button';
-
-		// var sound = {
-		// 	url: songURL,
-		// 	playFromPosition: currentSet.starttime,//push this in tracktile
-		// 	playStatus: this.state.playing
-		// };
 
 		var trackProps = {
 			currentTrack: currentTrack,
@@ -98,18 +84,12 @@ var Player = React.createClass({
 		return (
 			<div className='flex-row' id='Player'>
 
-				<div className="player-image-container click" onClick={this.togglePlay}>
-					<div className="overlay set-flex">
-						<i className={playingClass}/>
-					</div>
-					<img src={constants.S3_ROOT_FOR_IMAGES+'small_'+currentSet.artistimageURL} />
-				</div>
+				<PlayerControl appState={appState} push={push} />
 
 				<div className='flex-column flex'>
-					<PlayerSeek currentSet={currentSet} push={push}/>
+					<PlayerSeek appState={appState} push={push} />
 					<div className='flex-row flex'>
-						<PlayerSetInfo currentSet={currentSet}
-							time={currentSet.starttime}/>
+						<PlayerSetInfo appState={appState} push={push} />
 
 						<PlayerTracklist {...trackProps} />
 

@@ -1,6 +1,4 @@
 import React from 'react';
-import Sound from 'react-sound';
-
 import constants from '../constants/constants';
 
 import TrackContainer from './TrackContainer';
@@ -36,7 +34,6 @@ var Sandbox = React.createClass({
 
 		return (
 			<div className='view'>
-				<Sound {...sound} />
 			</div>
 		);
 	}

@@ -43,44 +43,6 @@ import EventContainer from './components/EventContainer';
 import ArtistTileContainer from './components/ArtistTileContainer';
 
 var initialAppState = Immutable.Map({
-	sound: null,
-	// currentSet: {
-	// 	selectedSet: {
-	// 		id: 1903,
-	// 		artist_id: [
-	// 			574
-	// 		],
-	// 		artist: 'Kygo',
-	// 		event: 'Tomorrowland 2014 W2',
-	// 		event_id: 116,
-	// 		episode: '',
-	// 		genre: 'Progressive House',
-	// 		episode_imageURL: null,
-	// 		eventimageURL: 'dbd5bd7900531575c9bbfaba0ae434c4.jpg',
-	// 		main_eventimageURL: '12141ddad8636c5804c86dc685550ee1.jpg',
-	// 		artistimageURL: 'a7f7aaec8ecd0cdec444b8abb06dbc66.jpg',
-	// 		songURL: '8bf16c6bb2609bcbb7a00940d65038a9e992c98b.mp3',
-	// 		datetime: '2014-07-28T19:53:38.000Z',
-	// 		popularity: 1017,
-	// 		is_radiomix: 0,
-	// 		set_length: '10:32',
-	// 		tracklistURL: null,
-	// 		imageURL: 'dbd5bd7900531575c9bbfaba0ae434c4.jpg',
-	// 		artist_preview: [
-	// 			{
-	// 				id: 574,
-	// 				artist: 'Kygo',
-	// 				imageURL: 'a7f7aaec8ecd0cdec444b8abb06dbc66.jpg',
-	// 				set_count: 6,
-	// 				event_count: 0
-	// 			}
-	// 		],
-	// 		model_type: 'set'
-	// 	},
-	// 	isPlaying: false,
-	// 	timePosition: 0
-	// },
-
 //THIS IS WHERE SOUND COMES FROM 
 	currentSet: {
 		artist: 'FlicFlac',
@@ -88,8 +50,8 @@ var initialAppState = Immutable.Map({
 		artistimageURL: '367430a23a7d0da81b8222191fcb2034.jpg',
 		songURL: '6fdbe5fe2c23c40fbae8d03f40921ddd7d9b5af3.mp3',
 		set_length: '38:10',
-		starttime: '25:20',// <- MUST BE IN THIS FORMAT
-		currentTrack: 'kushdank420 - Smoke Weed In Moderate Amounts',
+		starttime: '17:05',// <- MUST BE IN THIS FORMAT
+		currentTrack: 'Rick Astley - Never gonna give you up',
 		id: 3684
 	},
 	tracklist: [
@@ -143,6 +105,10 @@ var initialAppState = Immutable.Map({
 			"set_length": "38:10"
 		}
 	],
+	sound: null, // <- soungmanager object
+	playing: false, //change to true once set starts playing
+	timeElapsed: 0, //update while playing
+
 
 	artistBrowseData: [],
 	festivalBrowseData: [],

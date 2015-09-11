@@ -305,6 +305,8 @@ footer {
 
 header {
     background-color: @set-dark-gray;
+    background-color: #a74cab;
+    background-color: @set-purple;
     height: @headerHeight;
     font-family:  @defaultFontStyle;
     position:fixed;
@@ -545,7 +547,7 @@ input#search {
             margin: auto 30px;
         }
         &:hover {
-            .background(@set-gray*0.9, @set-dark-gray*1.5);
+            .background(@set-gray*0.9, @set-dark-gray*1.2);
         }
         &.active {
             border-left: solid 5px @set-blue;
@@ -559,20 +561,15 @@ input#search {
     width: 100%;
     position:fixed;
     bottom: 0!important;
-    .background(fade(@set-black, 90%), white);
     .background(@set-dark-gray, white);
     z-index: 100;
     .set-info {
         padding: 8px 0 0 8px;
         font-size: 0.8rem;
     }
-    .play-button {
-        visibility: hidden;
-    }
 }
 #PlayerTracklist {
     text-align: center;
-    .background(fade(@set-black, 90%), white);
     .background(@set-dark-gray, white);
     .tracklist {
         z-index: 99;
@@ -584,7 +581,7 @@ input#search {
         width: 30vw;
         overflow-y: scroll;
         * {
-            padding: 1rem 0;
+            padding: 1rem;
             &:hover {
                 background-color: @set-dark-gray*1.2;
             }
@@ -595,12 +592,19 @@ input#search {
     background-color: white;
     position: relative;
     .size(@playerHeight, 100%);
+    .transition(0.2s);
     img {
         .size(100%,100%);
+    }
+    .play-button {
+        visibility: hidden;
     }
     &:hover {
         .overlay {
             .createOverlay(50%);
+        }
+        .play-button {
+            visibility: visible;
         }
     }
 }
@@ -611,7 +615,7 @@ input#search {
 .player-seek-position {
     background-color: @set-blue;
     height:100%;
-    // width:50%;
+    width: 0;
 }
 .player-set-info {
     border-right: solid 1px @set-gray;

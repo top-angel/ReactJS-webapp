@@ -68,7 +68,8 @@ var SetTile = React.createClass({
 				type: 'SHALLOW_MERGE',
 				data: {
 					currentSet: set,
-					tracklist: tracklist
+					tracklist: tracklist,
+					playing: true
 				}
 			});
 

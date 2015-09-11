@@ -83,12 +83,18 @@ function generateSound(loadStart, appState, push) {
 
 		whileplaying: function() {
 			var currentTime = sound.position;
-			currentSetCopy.timePosition = currentTime;
+			// currentSetCopy.timePosition = currentTime;
 			//might delete
 			// push({
 			// 	type: 'SHALLOW_MERGE',
 			// 	data: { currentSet: currentSetCopy }
 			// });
+			push({
+				type: 'SHALLOW_MERGE',
+				data: {
+					timeElapsed: currentTime
+				}
+			});
 		}
 	};
 
@@ -120,14 +126,17 @@ function togglePlay(sound) {
 	}
 }
 
-function scrub(position) {
+function scrub(position, appState, push) {
+
 	//scrub dat ish
 	//get current position of playing set
 	//create new position as
+	console.log(position, appState, push);
 }
 
 module.exports = {
 	generateSound: generateSound,
 	togglePlay: togglePlay,
+	scrub: scrub,
 	convert: convert // TODO MOVE CONVERT INTO SEPARATE SERVICE
 };

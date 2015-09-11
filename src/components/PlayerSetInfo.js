@@ -1,21 +1,23 @@
 import React from 'react';
-
 import convert from '../services/convert';
 
 var PlayerSetInfo = React.createClass({
 
 	displayName: 'PlayerSetInfo',
 	render: function() {
-		// var strTime = convert.millisecondsToMMSS(this.props.time);
-		var strTime = this.props.time;
+		var appState = this.props.appState;
+		var currentSet = appState.get('currentSet');
+		var timeElapsed = appState.get('timeElapsed');
+
+		var time = convert.millisecondsToMMSS(timeElapsed);
 
 		return (
 			<div className='set-info flex-column flex-fixed'>
 				<div className='set-name flex'>
-					{this.props.currentSet.artist + ' - ' + this.props.currentSet.event}
+					{currentSet.artist + ' - ' + currentSet.event}
 				</div> 
 				<div className='set-time flex'>
-					{strTime + ' / ' + this.props.currentSet.set_length}
+					{time + ' / ' + currentSet.set_length}
 				</div>
 			</div>
 		);
