@@ -55,9 +55,7 @@ var Player = React.createClass({
 					}
 				});
 			});
-		} else {
-			console.log('NO RELOADS');
-		}
+		} 
 	},
 
 	togglePlay: function() {

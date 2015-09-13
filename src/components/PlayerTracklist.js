@@ -36,7 +36,15 @@ var PlayerTracklist = React.createClass({
 			var currentTrack = appState.get('currentTrack');
 
 			var tracks = tracklist.map(function(track, index) {
+				//update tracklist to show current track
+				if(track.trackname == currentTrack) {
+					var trackStyle = 'flex track active'
+				} else {
+					var trackStyle = 'flex track'
+				}
+				
 				var props = {
+					className: trackStyle,
 					key: index,
 					trackname: track.trackname,
 					starttime: track.starttime,

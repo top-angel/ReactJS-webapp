@@ -573,11 +573,11 @@ input#search {
         position: fixed;
         height: @playerTracklistHeight;
         bottom: -@playerTracklistHeight;
-        right: 12%;
+        right: 8%;
         .background(fade(@set-dark-gray, 90%), @set-nearly-white);
-        width: 35vw;
+        width: 40vw;
         overflow-y: scroll;
-        >*:hover{
+        > *:hover, .active {
             .background(fade(@set-dark-gray, 120%), @set-blue);
         }
     }

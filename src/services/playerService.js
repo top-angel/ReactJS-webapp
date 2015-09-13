@@ -181,7 +181,7 @@ function updateCurrentTrack(sound, tracklist, push) {
 	push({
 		type: 'SHALLOW_MERGE',
 		data: {
-			currentTrack: currentTrack[currentTrack.length -1].trackname
+			currentTrack: currentTrack[currentTrack.length - 1].trackname
 		}
 	})
 }

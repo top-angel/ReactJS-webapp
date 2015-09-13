@@ -209,7 +209,7 @@ var App = React.createClass({
 	_attachStreams: function() {
 		var _this = this;
 		evtHandler.floodGate.subscribe(newState => {
-			console.log('UPDATE', newState);
+			// console.log('UPDATE', newState); //hiding to clear consoles
 			_this.setState({ appState: newState });
 		});
 	},
