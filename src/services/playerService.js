@@ -90,7 +90,9 @@ function generateSound(loadStart, appState, push) {
 			// 	data: { currentSet: currentSetCopy }
 			// });
 
-			//you may need to update the tracklist here
+			//UPDATE CURRENT TRACK HERE
+			var tracklist = appState.get('tracklist');
+			var currentTrack = updateCurrentTrack(sound, tracklist, push);
 
 			push({
 				type: 'SHALLOW_MERGE',
@@ -128,6 +130,7 @@ function togglePlay(sound) {
 	}
 }
 
+//scrub to a new position after clicking progress bar
 function scrub(position, appState, push) {
 	var sound = appState.get('sound');
 	var currentSet = appState.get('currentSet');
@@ -147,6 +150,7 @@ function scrub(position, appState, push) {
 	});
 }
 
+//change track by selecting from tracklist
 function changeTrack(appState, push, starttime, currentTrack) {
 	var sound = appState.get('sound');
 	sound.setPosition(starttime);
@@ -160,10 +164,33 @@ function changeTrack(appState, push, starttime, currentTrack) {
 	});
 }
 
+// automatically update tracklist while playing
+function updateCurrentTrack(sound, tracklist, push) {
+	var testTrack = convert.MMSSToMilliseconds(tracklist[1].starttime);
+	var currentPosition = sound.position;
+
+	var currentTrack = tracklist.filter(function(track, index) {
+		var starttime = convert.MMSSToMilliseconds(track.starttime);
+
+		if(starttime <= currentPosition) {
+			var playing = track.trackname;
+		}
+		return playing;
+	});
+
+	push({
+		type: 'SHALLOW_MERGE',
+		data: {
+			currentTrack: currentTrack[currentTrack.length -1].trackname
+		}
+	})
+}
+
 module.exports = {
 	generateSound: generateSound,
 	togglePlay: togglePlay,
 	changeTrack: changeTrack,
+	updateCurrentTrack: updateCurrentTrack,
 	scrub: scrub,
 	convert: convert // TODO MOVE CONVERT INTO SEPARATE SERVICE
 };

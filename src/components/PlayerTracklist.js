@@ -1,6 +1,7 @@
 import React from 'react';
 import convert from '../services/convert';
 import constants from '../constants/constants';
+import playerService from '../services/playerService.js';
 
 import Track from './Track';
 
@@ -20,6 +21,12 @@ var PlayerTracklist = React.createClass({
 			});
 		},
 
+		updateCurrentTrack: function() {
+			var appState = this.props.appState;
+			var push = this.props.push;
+			playerService.updateCurrentTrack(appState, push)
+		},
+
 		render: function() {
 			var appState = this.props.appState;
 			var push = this.props.push;
@@ -37,7 +44,7 @@ var PlayerTracklist = React.createClass({
 					push: push
 				};
 
-				return <Track {...props} onClick={_this.updateTracklist} />
+				return <Track {...props} />
 			});
 
 			return (
@@ -50,7 +57,8 @@ var PlayerTracklist = React.createClass({
 						<div className='set-flex flex click' id='open-tracklist'>
 							<i className='fa fa-fw center fa-bars'/>
 						</div>
-						<div className='set-flex flex click'>					
+						<div className='set-flex flex click' 
+						onClick={this.updateCurrentTrack}>					
 							<i className='fa fa-fw center fa-star-o'/>
 						</div>
 						<div className='set-flex flex click'>

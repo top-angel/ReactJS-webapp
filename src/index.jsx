@@ -152,14 +152,7 @@ var initialAppState = Immutable.Map({
 		sets: [],
 		upcomingEvents: [],
 		tracks: []
-	},
-
-	// artistRoute: null,
-	// eventRoute: null,
-	// festivalRoute: null,
-	// mixRoute: null,
-	// activityRoute: null,
-	// playRoute: null
+	}
 });
 
 var evtHandler = GlobalEventHandler(initialAppState);
@@ -210,18 +203,7 @@ var App = React.createClass({
 	},
 
 	componentWillMount: function() {
-		// this._attachStreams();
-		var _this = this;
-		soundManager.setup({
-				url: '/swf/soundmanager2.swf',
-				onready: function() {
-					_this._attachStreams();
-					console.log('SM2 LOADED BRUH');
-				},
-				ontimeout: function() {
-					console.log('Error loading SoundManager2');
-				}
-			});
+		this._attachStreams();
 	},
 
 	_attachStreams: function() {

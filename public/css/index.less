@@ -382,12 +382,11 @@ input#search {
 
 #LandingView {
     color:white;
-}
-.landing-view {
-    height:@pageHeight;
+    >div {
+        height: @pageHeight;
+    }
 }
 #LandingHome {
-    height: @pageHeight;
     background: url(../images/landing-1.jpg);
     background-size: 100% 100%;
     .overlay {
@@ -405,7 +404,7 @@ input#search {
         height:100%;
         width:100%;
         img {
-            .size(100%, 90vh);
+            .size(100%, @pageHeight);
         }
     }
     .slide-1 {
@@ -433,7 +432,6 @@ input#search {
 #LandingBeacon {
     background: url(../images/landing-3.jpg);
     background-size: 100% 100%;
-    color:white;
     .text-container {
         .background(@set-purple, white);
     }
@@ -598,7 +596,6 @@ input#search {
     }
 }
 .player-image-container {
-    background-color: white;
     position: relative;
     .size(@playerHeight, 100%);
     .transition(0.2s);
@@ -781,7 +778,6 @@ input#search {
     top: @headerHeight;
     position: relative;
     min-height: @pageHeight - @headerHeight;
-    // overflow-y: scroll;
     background-color: @set-nearly-white;
 }
 
