@@ -5,7 +5,6 @@ var ArtistTileContainer = React.createClass({
 
 	render: function() {
 		var artists = this.props.artists;
-		console.log(artists);
 		var push = this.props.push;
 
 		var tiles = artists.map(function(artist) {

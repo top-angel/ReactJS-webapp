@@ -20,6 +20,16 @@ body {
 html {
     font-family: @defaultFontStyle;
     font-size: @defaultFontSize;
+    &::-webkit-scrollbar-track {
+        background-color: @set-gray;
+    }
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 12px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: @set-blue;
+    }
 }
 
 * {
@@ -147,6 +157,15 @@ a {
     }
 }
 
+.dmca-container {
+    color: @set-dark-gray;
+    padding: 5vh;
+    line-height: 1.5rem;
+    ol ol {
+        list-style-type: lower-alpha;
+    }
+}
+
 #EventsView {
     color: @set-dark-gray;
     .results-container {
@@ -211,7 +230,6 @@ a {
     height: @featuredHeight;
     background-color: @set-light-gray;
     .background(@set-light-gray, @set-gray);
-    // white-space: nowrap;
     overflow-x: scroll;
     .container {
         width: @featuredTileWidth*25;
@@ -404,28 +422,42 @@ input#search {
         height:100%;
         width:100%;
         img {
-            .size(100%, @pageHeight);
+            width: 75%;
+            height: @pageHeight;
         }
     }
     .slide-1 {
         .text-container {
             .background(@set-green, white);
         }
+        .image-container {
+            background: white;
+        }
     }
     .slide-2 {
         .text-container {
             .background(@set-blue, white);
         }
+        .image-container {
+            background: @set-blue;
+        }
     }
     .slide-3 {
         .text-container {
-        .background(@set-salmon, white);
+            .background(@set-salmon, white);
         }
         .image-container {
-        background-color:#ebebeb;
+            background: #ebebeb;
         }
         .divider {
-        .createDivider(60%, 2px, @set-nearly-white);
+            .createDivider(60%, 2px, @set-nearly-white);
+        }
+    }
+    @media (max-width: 640px) {
+        line-height: 1.5rem;
+        font-size: 0.75rem;
+        .header-medium {
+            font-size: 1andinrem;
         }
     }
 }
@@ -563,6 +595,9 @@ input#search {
     .set-info {
         padding: 8px 0 0 8px;
         font-size: 0.8rem;
+    }
+    @media (max-width: 640px) {
+        font-size: 0.75rem;
     }
 }
 #PlayerTracklist {
@@ -777,7 +812,7 @@ input#search {
 .view {
     top: @headerHeight;
     position: relative;
-    min-height: @pageHeight - @headerHeight;
+    min-height: @pageHeight;
     background-color: @set-nearly-white;
 }
 

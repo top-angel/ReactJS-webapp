@@ -42,7 +42,7 @@ var PlayerTracklist = React.createClass({
 				} else {
 					var trackStyle = 'flex track'
 				}
-				
+
 				var props = {
 					className: trackStyle,
 					key: index,

@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 
 var LandingHome = React.createClass({
 	scroll: function() {
+		//TODO Fix this
 		setTimeout(function(){
 			$(window).scrollTo($('#landing-2'), 400, {
 				offset: - $('header').height()

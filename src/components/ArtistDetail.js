@@ -1,6 +1,7 @@
 import React from 'react';
 import {State} from 'react-router';
 import Loader from 'react-loader';
+import R from 'ramda';
 
 import constants from '../constants/constants';
 import DetailView from './DetailView';
@@ -10,14 +11,17 @@ var ArtistDetail = React.createClass({
 
 	displayName: 'ArtistDetail',
 	mixins: [State],
+
 	getInitialState: function() {
 		return {
 			loaded: false
 		};
 	},
+
 	componentWillMount: function() {
 		this.getArtistData();
 	},
+
 	getArtistData: function() {
 		var _this = this;
 		var push = this.props.push;
@@ -46,11 +50,43 @@ var ArtistDetail = React.createClass({
 			});
 		});
 	},
+
+	componentDidMount: function() {
+		// this.getArtistFromURL();
+	},
+
+	// getArtistFromURL: function() {
+	// 	var _this = this;
+	// 	var push = this.props.push;
+
+	// 	var artist = this.props.params.artist;
+	// 	var searchUrl = constants.API_ROOT + 'search/' + artist;
+
+	// 	var detailId = $.ajax({
+	// 		url: searchUrl,
+	// 		type: 'get',
+	// 	})
+	// 	.done(function(response) {
+	// 		var artistData = R.head(response.payload.search.artists);
+
+	// 		push({
+	// 			type: 'SHALLOW_MERGE',
+	// 			data: {
+	// 				detailId: artistData.id,
+	// 				detailData: artistData
+	// 			}
+	// 		});
+
+	// 		_this.setState({
+	// 			loaded: true
+	// 		});
+	// 	});
+	// },
+
 	render: function() {
 		var appState = this.props.appState
-		var data = appState.get('detailData');
+		var detailData = appState.get('detailData');
 
-		var push = this.props.push;
 		var navTitles = [
 			{
 				title: 'sets',
@@ -61,19 +97,20 @@ var ArtistDetail = React.createClass({
 				to: 'artist-events'
 			}
 		];
-		var buttonText = 'Shuffle';//TODO delete if we don't have functionality
-		var info = data.set_count + ' sets | ' + data.event_count + ' events';
-		var title = data.artist;
+		var info = detailData.set_count + ' sets | ' + detailData.event_count + ' events';
+
+		var props = {
+			navTitles: navTitles,
+			push: this.props.push,
+			info: info,
+			data: detailData,
+			title: detailData.artist,
+			buttonText: 'Shuffle'
+		};
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<DetailView
-					navTitles={navTitles}
-					push={push}
-					data={data}
-					info={info}
-					title={title}
-					buttonText={buttonText} />
+				<DetailView {...props} />
 			</Loader>
 		);
 	}

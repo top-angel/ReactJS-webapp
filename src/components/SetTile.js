@@ -34,8 +34,22 @@ var SetTile = React.createClass({
 		});
 	},
 
-	shareSet: function() {
-		//TODO
+	shareToFacebook: function() {
+		//TODO change URL to new routes
+		var url = 'http://setmine.com/?play/' + this.props.id;
+		FB.ui({
+			method: 'feed',
+			link: url,
+			caption: 'Share this Set',
+			picture: S3_ROOT_FOR_IMAGES + this.props.artistimageURL
+		}, function(response) {
+			console.debug(response);
+		});
+	},
+
+	shareToTwitter: function() {
+		var parameters = 'url=' + encodeURIComponent('http://setmine.com/?play/' + this.props.id + '&via=SetMineApp');
+			window.open('https://twitter.com/intent/tweet?' + parameters, '_blank', 'height=420, width=550');
 	},
 
 	getTracklist: function() {
@@ -147,8 +161,9 @@ var SetTile = React.createClass({
 							<div className='flex link' to='artist' onClick={this.openArtistPage}>{this.props.artist}</div>
 
 	                    <div className='flex flex-row'>
-								<i className='fa fa-fw fa-star-o center click link'/>
-								<i className='fa fa-fw fa-share center click link'/>
+								<i className='link fa fa-fw fa-star-o center click'/>
+								<i className='link fa fa-fw fa-facebook center click' onClick={this.shareToFacebook} />
+								<i className='link fa fa-fw fa-twitter center click' onClick={this.shareToTwitter}/>
 	                    </div>
 						</div>
 					</div>

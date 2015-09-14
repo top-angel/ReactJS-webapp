@@ -76,6 +76,7 @@ function generateSound(loadStart, appState, push) {
 		id: 'currentSound',
 		url: songURL,
 		load: loadStart,
+		volume: 0,//muting for sanity
 		onload: function() {
 			var totalTime = sound.durationEstimate;
 			console.log(totalTime);
@@ -166,7 +167,6 @@ function changeTrack(appState, push, starttime, currentTrack) {
 
 // automatically update tracklist while playing
 function updateCurrentTrack(sound, tracklist, push) {
-	var testTrack = convert.MMSSToMilliseconds(tracklist[1].starttime);
 	var currentPosition = sound.position;
 
 	var currentTrack = tracklist.filter(function(track, index) {
@@ -181,7 +181,7 @@ function updateCurrentTrack(sound, tracklist, push) {
 	push({
 		type: 'SHALLOW_MERGE',
 		data: {
-			currentTrack: currentTrack[currentTrack.length - 1].trackname
+			currentTrack: R.last(currentTrack).trackname
 		}
 	})
 }

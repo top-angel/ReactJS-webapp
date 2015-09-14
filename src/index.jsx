@@ -42,6 +42,8 @@ import SetContainer from './components/SetContainer';
 import EventContainer from './components/EventContainer';
 import ArtistTileContainer from './components/ArtistTileContainer';
 
+import DMCA from './components/DMCA';
+
 var initialAppState = Immutable.Map({
 //THIS IS WHERE SOUND COMES FROM 
 	currentSet: {
@@ -126,7 +128,7 @@ var initialAppState = Immutable.Map({
 	newSets: [],
 	newEvents: [],
 
-	detailId: 2,// change to 1685 for testing upcoming event
+	detailId: 1685,// change to 1685 for testing upcoming event
 	detailData: {//minimum properties needed for rendering
 		"sets": [],
 		"upcomingEvents": [],
@@ -256,7 +258,7 @@ var routes = (
 		<Route name='artists' path='artists' handler={Artists}/>
 		<Route name='search' path='search' handler={SearchResultsView}/>
 
-		<Route name='artist' path='artist' handler={ArtistDetail}>
+		<Route name='artist' path='artist/:artist' handler={ArtistDetail}>
 			<DefaultRoute name='artist-sets' handler={SetContainer}/>
 			<Route name='artist-events' path='events' handler={EventContainer}/>
 		</Route>
@@ -276,6 +278,8 @@ var routes = (
 		<Route name='activity' path='activity' handler={ActivityDetail}>
 			<DefaultRoute name='activity-sets' handler={SetContainer}/>
 		</Route>
+
+		<Route name='dmca' path='legal' handler={DMCA}/>
 	</Route>
 );
 

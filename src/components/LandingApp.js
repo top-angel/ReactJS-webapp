@@ -48,7 +48,7 @@ var LandingApp = React.createClass({
 						</div>
 						<div className='buffer'/>
 						<div className='center wow bounceInLeft'>
-							{'Setmine lets you listen any live set or recorded mix completely free, allowing you to relive your favorite events, or catch up on the ones you missed.'}
+							{'Listen to any live set or recorded mix completely free. You can relive your favorite events, or catch up on the ones you missed.'}
 						</div>
 						<div className='buffer'/>
 						<div className='center wow bounceInLeft'>
@@ -72,8 +72,8 @@ var LandingApp = React.createClass({
 					   </div>
 					   <div className='buffer-5x'/>
 					</div>
-					<div className='flex-column flex-fixed image-container'>
-					   <img className='center animated fadeIn' src='public/images/slide-2.jpg' />
+					<div className='flex-column flex-fixed image-container animated fadeIn'>
+					   <img className='center' src='public/images/slide-2.jpg' />
 					</div>
 				</div>
 	          <div className='flex-row overlay-container slide slide-3 animated fadeIn hidden'>
@@ -94,8 +94,8 @@ var LandingApp = React.createClass({
 						</div>
 						<div className='buffer'/>
 					</div>
-					<div className='flex-column flex-fixed image-container'>
-						<img className='center animated zoomIn' src='public/images/slide-3.jpg' />
+					<div className='flex-column flex-fixed animated fadeIn image-container'>
+						<img className='center' src='public/images/slide-3.jpg' />
 					</div>
           	</div>
 				<div className='flex-row slide-controls'>

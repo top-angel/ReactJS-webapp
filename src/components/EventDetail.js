@@ -1,6 +1,8 @@
 import React from 'react';
-import Loader from 'react-loader';
+import R from 'ramda';
 import constants from '../constants/constants';
+
+import Loader from 'react-loader';
 import DetailView from './DetailView';
 
 var EventDetail = React.createClass({
@@ -44,29 +46,27 @@ var EventDetail = React.createClass({
 		});
 	},
 	render: function() {
-		var data = this.props.appState.get('detailData');
-		var push = this.props.push;
+		var detailData = this.props.appState.get('detailData');
 
-		var TITLES = [
+		var navTitles = [
 			{
 				title: 'lineup',
 				to: 'event-lineup'
 			}
 		];
 
-		var buttonText = 'Tickets';
-		var info = data.formattedDate;
-		var title = data.event;
+		var props = {
+			navTitles: navTitles,
+			push: this.props.push,
+			info: detailData.formattedDate,
+			data: detailData,
+			title: detailData.event,
+			buttonText: 'Tickets'
+		};
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<DetailView
-					navTitles={TITLES}
-					data={data}
-					buttonText={buttonText}
-					info={info}
-					title={title}
-					push={push} />
+				<DetailView {...props} />
 			</Loader>
 		);
 	}
