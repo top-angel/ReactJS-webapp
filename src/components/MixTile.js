@@ -1,25 +1,13 @@
 import React from 'react';
 import constants from '../constants/constants';
-import {Navigation} from 'react-router';
+import {History} from 'react-router';
 
 var MixTile = React.createClass({
 
-	mixins: [Navigation],
+	mixins: [History],
 	openMixPage: function() {
-		var mixId = this.props.id;
-		console.log(mixId);
-
-		var push = this.props.push;
-		console.log(mixId);
-
-		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				detailId: mixId
-			}
-		});
-
-		this.transitionTo('mix');
+		var routeId = this.props.id;//quick fix for now
+		this.history.pushState(null, '/mix/' + routeId);
 	},
 	render: function() {
 		var image = constants.S3_ROOT_FOR_IMAGES + 'small_' + this.props.imageURL;

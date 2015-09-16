@@ -7,8 +7,7 @@ var DetailImageContainer = React.createClass({
 	getDefaultProps() {
 		return {
 			info: null,
-			buttonText: null,
-			pageType: undefined
+			buttonText: null
 		};
 	},
 
@@ -53,7 +52,7 @@ var DetailImageContainer = React.createClass({
 				});
 			});
 		} else {
-			window.open(this.props.ticket_link);
+			window.open(this.props.ticketLink);
 		}
 	},
 

@@ -1,24 +1,15 @@
 import React from 'react';
 import constants from '../constants/constants';
 import moment from 'moment';
-import {Navigation} from 'react-router';
+import {History} from 'react-router';
 
 var FestivalTile = React.createClass({
 	
 	displayName: 'FestivalTile',
-	mixins: [Navigation],
+	mixins: [History],
 	openFestivalPage: function() {
-		var festivalId = this.props.id;
-		var push = this.props.push;
-
-		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				detailId: festivalId
-			}
-		});
-
-		this.transitionTo('festival');
+		var routePath = this.props.event.split(' ').join('-');
+		this.history.pushState(null, '/festival/' + routePath);
 	},
 	render: function() {
 		var image = {
