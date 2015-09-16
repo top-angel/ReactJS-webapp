@@ -10,9 +10,7 @@ var PlayerSeek = React.createClass({
 		var push = this.props.push;
 		var appState = this.props.appState;
 		var offset = $('.player-image-container').width();
-
 		var containerWidth = $('.player-progress').width();
-		console.log(containerWidth);//pixels
 
 		var errorFactor = 1.0575; //compensates for soundmanger innacuracy
 		var containerPosition = (((e.pageX - offset)*errorFactor)/ $(window).width()) * 100;

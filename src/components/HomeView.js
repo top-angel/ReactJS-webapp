@@ -1,8 +1,6 @@
 import React from 'react';
 import constants from '../constants/constants';
-import {RouteHandler} from 'react-router';
 import HomeSidebar from './HomeSidebar';
-import Routes from '../index';
 
 var HomeView = React.createClass({
 
@@ -12,11 +10,13 @@ var HomeView = React.createClass({
 		return (
 			<div id="HomeView" className="view flex-row overlay-container">
 				<HomeSidebar appState={this.props.appState}/>
-				<RouteHandler
-					appState={this.props.appState}
-					push={this.props.push}
-					containerClass={containerClass}
-					/>
+				{
+					React.cloneElement(this.props.children, {
+						appState: this.props.appState,
+						push: this.props.push,
+						containerClass: containerClass
+					})
+				}
 			</div>
 		);
 	}

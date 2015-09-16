@@ -1,15 +1,13 @@
 import React from 'react';
 import Immutable from 'immutable';
 import Router from 'react-router';
-import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
+import { IndexRoute, Link, Route, History } from 'react-router';
 import GlobalEventHandler from './services/globalEventHandler';
-
-import SM2 from 'soundmanager2';
-var soundManager = SM2.soundManager;
+// import history from './history';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
-import PlayerWrapper from './components/Player';
+import Player from './components/Player';
 import DetailView from './components/DetailView';
 import LandingView from './components/LandingView';
 import EventsView from './components/EventsView';
@@ -52,7 +50,7 @@ var initialAppState = Immutable.Map({
 		artistimageURL: '367430a23a7d0da81b8222191fcb2034.jpg',
 		songURL: '6fdbe5fe2c23c40fbae8d03f40921ddd7d9b5af3.mp3',
 		set_length: '38:10',
-		starttime: '00:05',// <- MUST BE IN THIS FORMAT
+		starttime: '00:00',// <- MUST BE IN THIS FORMAT
 		id: 3684
 	},
 	tracklist: [
@@ -128,7 +126,7 @@ var initialAppState = Immutable.Map({
 	newSets: [],
 	newEvents: [],
 
-	detailId: 1685,// change to 1685 for testing upcoming event
+	detailId: 2,// change to 1685 for testing upcoming event
 	detailData: {//minimum properties needed for rendering
 		"sets": [],
 		"upcomingEvents": [],
@@ -184,6 +182,8 @@ var PrintObject = React.createClass({
 
 var App = React.createClass({
 	displayName: 'App container',
+	mixins: [History],
+
 	getInitialState: function() {
 		return {
 			// Let's assume that other ephemeral state
@@ -192,16 +192,13 @@ var App = React.createClass({
 		};
 	},
 
-//TODO change this back to cdm if anything fucks up in the future
-//WHY? this removes one render per page load
 	componentDidMount: function() {
-		//from path /play/:id
-		// var id = this.props.params.id;
-		// fetchMessage(id, function(err, message) {
-		// 	this.setState({
-		// 		message: message 
-		// 	});
-		// })
+		//find a better way to do this
+		// var _this = this;
+		// $(window).keypress(function(e) {
+		// 	console.log(e.char);
+		// 	_this.history.pushState(null, '/search');
+		// });
 	},
 
 	componentWillMount: function() {
@@ -222,9 +219,13 @@ var App = React.createClass({
 		return (
 			<div id='App' className='flex-column'>
 				<Header appState={appState} push={push}/>
-				<PlayerWrapper appState={appState}
-					push={push}
-					routeHandler={RouteHandler}/>
+				{
+					React.cloneElement(this.props.children, {
+						appState: appState,
+						push: push
+					})
+				}
+				<Player appState={appState} push={push} />
 				<Footer />
 			</div>
 		);
@@ -232,65 +233,52 @@ var App = React.createClass({
 });
 
 var routes = (
-	<Route path='/' handler={App}>
-		<Route name='test' path='sandbox' handler={Sandbox}/>
-		<DefaultRoute name='landing' handler={LandingView}/>
+	<Route path='/' component={App}>
+		<Route path='sandbox/:id' component={Sandbox}/>
+		<IndexRoute component={LandingView}/>
 
-		<Route name='user' path='user' handler={HomeView}>
-			<DefaultRoute name='user-favorites' handler={Favorites}/>
-			<Route name='user-sets' path='sets' handler={NewSets}/>
-			<Route name='user-events' path='events' handler={NewEvents}/>
+		<Route path='user' component={HomeView}>
+			<IndexRoute component={Favorites}/>
+			<Route path='sets' component={NewSets}/>
+			<Route path='events' component={NewEvents}/>
 		</Route>
 
-		<Route name='sets' path='sets' handler={SetsView}>
-			<DefaultRoute name='recent' handler={Recent}/>
-			<Route name='mixes' path='mixes' handler={Mixes}/>
-			<Route name='popular' path='popular' handler={Popular}/>
-			<Route name='festivals' path='festivals' handler={Festivals}/>
-			<Route name='activities' path='activities' handler={Activities}/>
+		<Route path='sets' component={SetsView}>
+			<IndexRoute component={Recent}/>
+			<Route path='mixes' component={Mixes}/>
+			<Route path='popular' component={Popular}/>
+			<Route path='festivals' component={Festivals}/>
+			<Route path='activities' component={Activities}/>
 		</Route>
 
-		<Route name='events' path='events' handler={EventsView}>
-			<DefaultRoute name='upcoming' handler={UpcomingEvents}/>
-			<Route name='closest' handler={ClosestEvents}/>
+		<Route path='events' component={EventsView}>
+			<IndexRoute component={UpcomingEvents}/>
+			<Route path='closest' component={ClosestEvents}/>
 		</Route>
 
-		<Route name='artists' path='artists' handler={Artists}/>
-		<Route name='search' path='search' handler={SearchResultsView}/>
+		<Route path='artists' component={Artists}/>
+		<Route path='search' component={SearchResultsView}/>
 
-		<Route name='artist' path='artist/:artist' handler={ArtistDetail}>
-			<DefaultRoute name='artist-sets' handler={SetContainer}/>
-			<Route name='artist-events' path='events' handler={EventContainer}/>
+		<Route path='artist/:artist' component={ArtistDetail}>
+			<IndexRoute component={SetContainer}/>
+			<Route path='events' component={EventContainer}/>
 		</Route>
-
-		<Route name='festival' path='festival' handler={FestivalDetail}>
-			<DefaultRoute name='festival-sets' handler={SetContainer}/>
-		</Route>
-
-		<Route name='event' path='event' handler={EventDetail}>
-			<DefaultRoute name='event-lineup' handler={ArtistTileContainer}/>
-		</Route>
-
-		<Route name='mix' path='mix' handler={MixDetail}>
-			<DefaultRoute name='mix-sets' handler={SetContainer}/>
-		</Route>
-
-		<Route name='activity' path='activity' handler={ActivityDetail}>
-			<DefaultRoute name='activity-sets' handler={SetContainer}/>
-		</Route>
-
-		<Route name='dmca' path='legal' handler={DMCA}/>
+		<Route path='event/:event' component={EventDetail}/>
+		<Route path='festival/:festival' component={FestivalDetail}/>
+		<Route path='mix/:mix' component={MixDetail}/>
+		<Route path='activity/:activity' component={ActivityDetail}/>
+		<Route path='legal' component={DMCA} />
 	</Route>
 );
-
-// <Route name='dmca' path='dmca-notice' handler={DMCA}/>
-// 		<Route name='contact' path='contact' handler={Contact}/>
-
-module.exports = routes;
 
 var headMount = document.getElementById('head-mount-point');
 var bodyMount = document.getElementById('body-mount-point');
 
-Router.run(routes, Router.HashLocation, function(Root) {
-	React.render(<Root/>, bodyMount);
-});
+import createBrowserHistory from 'history/lib/createBrowserHistory';
+var history = createBrowserHistory();
+
+React.render(
+	<Router>
+		{routes}
+	</Router>
+, bodyMount);

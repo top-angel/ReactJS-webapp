@@ -1,11 +1,11 @@
 import React from 'react';
 import constants from '../constants/constants';
-import {Navigation} from 'react-router';
+import {History} from 'react-router';
 
 var ArtistTile = React.createClass({
 
 	displayName: 'ArtistTile',
-	mixins: [Navigation],
+	mixins: [History],
 	getDefaultProps: function() {
 		return {
 			artists: {
@@ -13,31 +13,21 @@ var ArtistTile = React.createClass({
 			}
 		};
 	},
+
 	openArtistPage: function() {
-		var artistId = this.props.id;
-		var push = this.props.push;
-		console.log(this.props.firstLetter);
-
-		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				detailId: artistId
-			}
-		});
-
-		this.transitionTo('artist');
+		var routePath = this.props.artist.split(' ').join('-');
+		this.history.pushState(null, '/artist/' + routePath);
 	},
+
 	render: function() {
 		var image = {
-			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + 'small_'+this.props.imageURL+"')"
-		}
+			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES +this.props.imageURL+"')"
+		};
 
 		return (
 			<div className='artist-tile flex-column click'
 				style={image}
 				onClick={this.openArtistPage}
-				dataId={this.props.id}
-				firstLetter={this.props.firstLetter}
 			>
 				<div className='center'>{this.props.artist}</div>
 			</div>
@@ -45,17 +35,5 @@ var ArtistTile = React.createClass({
 	}
 	
 });
-
-// <div className='browse-tile flex-column overlay-container click' 
-// 				onClick={this.openArtistPage}
-// 				dataId={this.props.id}
-// 				firstLetter={this.props.firstLetter}
-// 				style={image}
-// 			>
-// 				<div className="overlay set-flex">
-// 					<div className="browse-name center">{this.props.text}</div>
-// 				</div>
-// 				<img className="browse-tile-image hidden" src={constants.S3_ROOT_FOR_IMAGES + 'small_'+this.props.image} />
-// 			</div>
 
 module.exports = ArtistTile;

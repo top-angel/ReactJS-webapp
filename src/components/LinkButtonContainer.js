@@ -8,6 +8,7 @@ var LinkButtonContainer = React.createClass({
 			links: []
 		};
 	},
+
 	render: function() {
 		var links = this.props.links;
 
@@ -30,10 +31,10 @@ var LinkButtonContainer = React.createClass({
 			}
 		});
 
-		var classString = 'flex-row links-container ' + hidden;
+		var hideContainer = 'flex-row links-container ' + hidden;
 
 		return (
-			<div className={classString}>{icons}</div>
+			<div className={hideContainer}>{icons}</div>
 		);
 	}
 

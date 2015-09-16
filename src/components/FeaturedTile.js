@@ -1,10 +1,10 @@
 import React from 'react';
 import constants from '../constants/constants';
-import {Navigation} from 'react-router';
+import {History} from 'react-router';
 
 var FeaturedTile = React.createClass({
 
-	mixins: [Navigation],
+	mixins: [History],
 	componentDidMount: function() {
 		$('.featured-tile').hover(function() {
 			$('.featured-info', $(this)).addClass('slideInUp')
@@ -12,24 +12,20 @@ var FeaturedTile = React.createClass({
 			$('.featured-info').removeClass('slideInUp');
 		});
 	},
-	openDetailPage: function() {
-		var push = this.props.push;
-		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				detailId: this.props.dataId
-			}
-		});
 
-		if(this.props.data.type == 'upcoming') {
-			this.transitionTo('event');
+	openDetailPage: function() {
+		var routePath = this.props.event.split(' ').join('-');
+
+		if(this.props.type == 'upcoming') {
+			this.history.pushState(null, '/event/' + this.props.id);
 		} else {
-			this.transitionTo('festival');
+			this.history.pushState(null, '/festival/' + routePath);
 		}
 	},
+
 	render: function() {
 		var image = {
-			backgroundImage: "url(" + constants.S3_ROOT_FOR_IMAGES + this.props.data.main_imageURL+")"
+			backgroundImage: "url(" + constants.S3_ROOT_FOR_IMAGES + this.props.main_imageURL+")"
 		};
 
 		return (
@@ -39,9 +35,9 @@ var FeaturedTile = React.createClass({
 			onClick={this.openDetailPage} >
 			    <div className="overlay"/>
 			    <div className="flex-column featured-info animated">
-			        <div className="event-name">{this.props.data.event}</div>
-			        <div className="event-date">{this.props.data.formattedDate}</div>
-			        <div className="featured-type">{this.props.data.type}</div>
+			        <div className="event-name">{this.props.event}</div>
+			        <div className="event-date">{this.props.formattedDate}</div>
+			        <div className="featured-type">{this.props.type}</div>
 			    </div>
 			</div>
 		);

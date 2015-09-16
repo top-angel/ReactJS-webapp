@@ -1,16 +1,20 @@
 import React from 'react';
-import {State} from 'react-router';
 import Loader from 'react-loader';
 import R from 'ramda';
-
 import constants from '../constants/constants';
-import DetailView from './DetailView';
+
+import SetContainer from './SetContainer';
+import EventContainer from './EventContainer';
+import ArtistTileContainer from './BrowseContainer';
+
+import DetailNavContainer from './DetailNavContainer';
+import DetailImageContainer from './DetailImageContainer';
+import LinkButtonContainer from './LinkButtonContainer';
 
 
 var ArtistDetail = React.createClass({
 
 	displayName: 'ArtistDetail',
-	mixins: [State],
 
 	getInitialState: function() {
 		return {
@@ -25,9 +29,13 @@ var ArtistDetail = React.createClass({
 	getArtistData: function() {
 		var _this = this;
 		var push = this.props.push;
-		var artistId = this.props.appState.get('detailId');
+
+		var artist = this.props.params.artist;
+		var query = artist.split('-').join(' ');
+		console.log(query);
+
 		var artistData,
-			artistUrl = constants.API_ROOT + 'artist/' + artistId;
+			artistUrl = constants.API_ROOT + 'artist/search/' + query;
 
 		$.ajax({
 			url: artistUrl,
@@ -51,66 +59,69 @@ var ArtistDetail = React.createClass({
 		});
 	},
 
-	componentDidMount: function() {
-		// this.getArtistFromURL();
-	},
-
-	// getArtistFromURL: function() {
-	// 	var _this = this;
-	// 	var push = this.props.push;
-
-	// 	var artist = this.props.params.artist;
-	// 	var searchUrl = constants.API_ROOT + 'search/' + artist;
-
-	// 	var detailId = $.ajax({
-	// 		url: searchUrl,
-	// 		type: 'get',
-	// 	})
-	// 	.done(function(response) {
-	// 		var artistData = R.head(response.payload.search.artists);
-
-	// 		push({
-	// 			type: 'SHALLOW_MERGE',
-	// 			data: {
-	// 				detailId: artistData.id,
-	// 				detailData: artistData
-	// 			}
-	// 		});
-
-	// 		_this.setState({
-	// 			loaded: true
-	// 		});
-	// 	});
-	// },
-
 	render: function() {
-		var appState = this.props.appState
-		var detailData = appState.get('detailData');
+		var appState = this.props.appState;
+		var push = this.props.push;
+		var artistData = appState.get('detailData');
+
+		var detailInfo = {
+			appState: appState,
+			push: push,
+			title: artistData.artist,
+			buttonText: 'Shuffle',
+			imageURL: artistData.imageURL,
+			info: artistData.set_count + ' sets | ' + artistData.event_count + ' events'
+		};
+
+		var links = [
+			{
+				type: 'facebook',
+				url: artistData.fb_link
+			},
+			{
+				type: 'twitter',
+				url: artistData.twitter_link
+			},
+			{
+				type: 'instagram',
+				url: artistData.instagram_link
+			},
+			{
+				type: 'soundcloud',
+				url: artistData.soundcloud_link
+			},
+			{
+				type: 'youtube',
+				url: artistData.youtube_link
+			}
+		];
 
 		var navTitles = [
 			{
 				title: 'sets',
-				to: 'artist-sets'
+				to: 'artist/'+this.props.params.artist
 			},
 			{
 				title: 'events',
-				to: 'artist-events'
+				to: 'artist/'+this.props.params.artist+'/events',
 			}
 		];
-		var info = detailData.set_count + ' sets | ' + detailData.event_count + ' events';
-
-		var props = {
-			navTitles: navTitles,
-			push: this.props.push,
-			info: info,
-			data: detailData,
-			title: detailData.artist,
-			buttonText: 'Shuffle'
-		};
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<DetailView {...props} />
+				<div id='detail' className='view detail-page'>
+					<DetailImageContainer {...detailInfo} />
+					<LinkButtonContainer links={links}/>
+					<div className='divider'/>
+					<DetailNavContainer navTitles={navTitles} />
+					{
+						React.cloneElement(this.props.children, {
+							sets: artistData.sets,
+							events: artistData.upcomingEvents,
+							push: push
+						})
+					}
+				</div>
 			</Loader>
 		);
 	}

@@ -19,10 +19,10 @@ var Footer = React.createClass({
 	          	<a className='click' href='http://setmine.com/about'>
 	              	About
               	</a>
-              	<Link to='dmca'>
-					<a className='click' id='dmca'>
-						DMCA Notice
-					</a>
+              	<Link to='legal'>
+						<a className='click' id='dmca'>
+							DMCA Notice
+						</a>
 					</Link>
 					<br />
 					<a className='click' onClick={this.scrollToTop}>

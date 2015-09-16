@@ -1,11 +1,11 @@
 import React from 'react';
 import constants from '../constants/constants';
-import {Navigation, Link} from 'react-router';
+import {History, Link} from 'react-router';
 
 var SetTile = React.createClass({
 
 	displayName: 'SetTile',
-	mixins: [Navigation],
+	mixins: [History],
 
 	getDefaultProps: function() {
 		return {
@@ -34,24 +34,6 @@ var SetTile = React.createClass({
 		});
 	},
 
-	shareToFacebook: function() {
-		//TODO change URL to new routes
-		var url = 'http://setmine.com/?play/' + this.props.id;
-		FB.ui({
-			method: 'feed',
-			link: url,
-			caption: 'Share this Set',
-			picture: S3_ROOT_FOR_IMAGES + this.props.artistimageURL
-		}, function(response) {
-			console.debug(response);
-		});
-	},
-
-	shareToTwitter: function() {
-		var parameters = 'url=' + encodeURIComponent('http://setmine.com/?play/' + this.props.id + '&via=SetMineApp');
-			window.open('https://twitter.com/intent/tweet?' + parameters, '_blank', 'height=420, width=550');
-	},
-
 	getTracklist: function() {
 		var trackListUrl = constants.API_ROOT + 'tracklist/' + this.props.id;
 
@@ -59,6 +41,24 @@ var SetTile = React.createClass({
 			url: trackListUrl,
 			type: 'get'
 		});
+	},
+
+	openArtistPage: function() {
+		var routePath = this.props.artist.split(' ').join('-');
+		this.history.pushState(null, '/artist/' + routePath);
+	},
+
+	openFestivalPage: function() {
+		var routePath = this.props.event.split(' ').join('-');
+
+		if(this.props.is_radiomix == 0) {
+			//go to festival page
+			this.history.pushState(null, '/festival/' + routePath);
+		} else {
+			//TODO GET API ROUTES FOR MIX
+			var routeId = this.props.event_id;//quick fix for now
+			this.history.pushState(null, '/mix/' + routeId);
+		}
 	},
 
 	playSet: function() {
@@ -84,11 +84,30 @@ var SetTile = React.createClass({
 					tracklist: tracklist,
 					currentTrack: res.payload.tracklist[0],
 					playing: true,
+					timeElapsed: 0
 				}
 			});
 
 			_this.updatePlayCount(_this.props.id);
 		});
+	},
+
+	shareToFacebook: function() {
+		//TODO change URL to new routes
+		var url = 'http://setmine.com/?play/' + this.props.id;
+		FB.ui({
+			method: 'feed',
+			link: url,
+			caption: 'Share this Set',
+			picture: S3_ROOT_FOR_IMAGES + this.props.artistimageURL
+		}, function(response) {
+			console.debug(response);
+		});
+	},
+
+	shareToTwitter: function() {
+		var parameters = 'url=' + encodeURIComponent('http://setmine.com/?play/' + this.props.id + '&via=SetMineApp');
+			window.open('https://twitter.com/intent/tweet?' + parameters, '_blank', 'height=420, width=550');
 	},
 
 	updatePlayCount: function(id) {
@@ -103,63 +122,20 @@ var SetTile = React.createClass({
 		});
 	},
 
-	openArtistPage: function() {
-		var push = this.props.push;
-		var artist_id = this.props.artist_id;
-
-		//TODO MAKE THIS WORK
-		var routeString = this.props.artist.toLowerCase().split(' ').join('-');
-		console.log(routeString); //'Big Gigantic' => big-gigantic
-
-		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				detailId: artist_id
-			}
-		});
-
-		this.transitionTo('artist');
-	},
-
-	openFestivalPage: function() {
-		var push = this.props.push;
-		var event_id = this.props.event_id;
-		console.log(this.props.is_radiomix);
-
-		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				detailId: event_id
-			}
-		});
-
-		if(this.props.is_radiomix == 0) {
-			this.transitionTo('festival');
-		} else {
-			this.transitionTo('mix');
-		}
-	},
-
 	render: function() {
-
 		var eventImage = {
 			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + this.props.main_eventimageURL + "')"
 		};
 		var artistImage = constants.S3_ROOT_FOR_IMAGES+'small_'+this.props.artistimageURL;
-		var routeString = this.props.artist.toLowerCase().split(' ').join('-');
-
 
 		return (
-			<div className='flex-column click set-tile' style={eventImage}>
-
+			<div className='flex-column set-tile' style={eventImage}>
 				<div className='detail flex-column'>
 					<div className='flex-row flex-fixed-2x'>
-						<img src={artistImage} />
+						<img src={artistImage} className='click' onClick={this.openArtistPage} />
 						<div className='flex-column flex'>
-							<div className='flex link' onClick={this.openFestivalPage}>{this.props.event}</div>
-
-							<div className='flex link' to='artist' onClick={this.openArtistPage}>{this.props.artist}</div>
-
+							<div className='flex click link' onClick={this.openFestivalPage}>{this.props.event}</div>
+							<div className='flex click link' to='artist' onClick={this.openArtistPage}>{this.props.artist}</div>
 	                    <div className='flex flex-row'>
 								<i className='link fa fa-fw fa-star-o center click'/>
 								<i className='link fa fa-fw fa-facebook center click' onClick={this.shareToFacebook} />
@@ -169,7 +145,7 @@ var SetTile = React.createClass({
 					</div>
 					<div className='divider center'/>
 					<div className='flex-row flex-fixed'>
-						<div className='flex-fixed set-flex play'
+						<div className='flex-fixed click set-flex play'
 						onClick={this.playSet}>
 							<i className='fa fa-play center'>{'  '+this.props.popularity}</i>
 						</div>

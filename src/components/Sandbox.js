@@ -14,26 +14,24 @@ var Sandbox = React.createClass({
 			appState: {}
 		};
 	},
-	getInitialState: function() {
-		return {
-			playing: true
-		};
+
+	componentDidMount: function() {
+		console.log(this.props.params.id);
 	},
+	
 	render: function() {
 		var push = this.props.push;
 		var appState = this.props.appState;
-		var currentSet = appState.get('currentSet');
-		var songURL = constants.S3_ROOT + currentSet.songURL;
-
-
-		var sound = {
-			url: songURL,
-			playFromPosition: currentSet.starttime,//push this in tracktile
-			playStatus: this.state.playing,
-		};
 
 		return (
-			<div className='view'>
+			<div className='view sandbox'>
+			<div className='center'>
+				{'>2015'}
+				<br/>
+				{'>still building websites in react'}
+				<br/>
+				{'>mfw'}
+			</div>
 			</div>
 		);
 	}

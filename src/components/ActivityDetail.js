@@ -1,7 +1,9 @@
 import React from 'react';
 import Loader from 'react-loader';
-import DetailView from './DetailView';
 import constants from '../constants/constants';
+
+import SetContainer from './SetContainer';
+import DetailImageContainer from './DetailImageContainer';
 
 var ActivityDetail = React.createClass({
 
@@ -11,24 +13,25 @@ var ActivityDetail = React.createClass({
 			loaded: false
 		};
 	},
+
 	componentWillMount: function() {
 		this.getactivityData();
 	},
+
 	getactivityData: function() {
 		var _this = this;
 		var push = this.props.push;
-		var activityId = this.props.appState.get('detailId');
-		var activityData,
-			activityUrl = constants.API_ROOT + 'activity/?activityId=' + activityId;
+		var activity = this.props.params.activity;
 
-		//TODO find out the link to get a single activity
+		var activityData,
+			activityUrl = constants.API_ROOT + 'activity/?activityId=' + activity;
+
 		$.ajax({
 			url: activityUrl,
 			type: 'get',
 		})
 		.done(function(response) {
 			activityData = response.payload.activity;
-			console.log(activityData);
 
 			push({
 				type: 'SHALLOW_MERGE',
@@ -43,28 +46,39 @@ var ActivityDetail = React.createClass({
 			});
 		});
 	},
+
 	render: function() {
-		var data = this.props.appState.get('detailData');
+		var appState = this.props.appState;
 		var push = this.props.push;
-		var navTitles = [
-			{
-				title: 'sets',
-				to: 'activity-sets'
-			}
-		];
-		var info = data.sets.length + ' sets';
-		var title = data.activity;
-		var buttonText = 'Recommend';
+		var data = appState.get('detailData');
+
+		var detailInfo = {
+			appState: appState,
+			push: push,
+			title: data.activity,
+			buttonText: 'Recommend',
+			imageURL: data.imageURL,
+			info: data.sets.length+' sets'
+		};
+
+		var setProps = {
+			containerClass: 'flex-row flex',
+			sets: data.sets,
+			push: push
+		};
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<DetailView
-					navTitles={navTitles}
-					push={push}
-					data={data}
-					info={info}
-					title={title}
-					buttonText={buttonText} />
+				<div id='detail' className='view detail-page'>
+					<DetailImageContainer {...detailInfo}/>
+					<div className='divider'/>
+					<div className="flex-row links-container">
+						<div className='center flex-fixed'>
+							sets
+						</div>
+					</div>
+					<SetContainer {...setProps} />
+				</div>
 			</Loader>
 		);
 	}

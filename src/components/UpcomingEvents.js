@@ -1,5 +1,4 @@
 import React from 'react';
-import Loader from 'react-loader';
 import constants from '../constants/constants';
 import EventContainer from './EventContainer';
 
@@ -10,6 +9,7 @@ var UpcomingEvents = React.createClass({
 			loaded: false
 		};
 	},
+
 	getDefaultProps: function() {
 		return {
 			appState: {
@@ -17,9 +17,11 @@ var UpcomingEvents = React.createClass({
 			}
 		};
 	},
-	// componentDidMount: function() {
+
+	// componentWillMount: function() {
 	// 	this.getUpcomingEvents();
 	// },
+
 	// getUpcomingEvents: function() {
 	// 	var push = this.props.push;
 	// 	var upcomingUrl = constants.API_ROOT + 'upcoming';
@@ -42,17 +44,15 @@ var UpcomingEvents = React.createClass({
 	// 		});
 	// 	});
 	// },
-	render: function() {
-		var push = this.props.push;
-		var soonestEvents = this.props.appState.get('soonestEvents');
-		var containerClass = 'flex flex-row results-container';
 
-		return (
-				<EventContainer
-					events={soonestEvents}
-					containerClass={containerClass}
-					push={push} />
-		);
+	render: function() {
+		var props = {
+			push: this.props.push,
+			events: this.props.appState.get('soonestEvents'),
+			containerClass: 'flex-row tile-container'
+		};
+
+		return <EventContainer {...props} />
 	}
 
 });

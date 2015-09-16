@@ -1,12 +1,12 @@
 import React from 'react';
 import constants from '../constants/constants';
 import Geosuggest from 'react-geosuggest';
-import {Navigation, Link} from 'react-router';
+import {History, Link, IndexLink} from 'react-router';
 
 var LocationModule = React.createClass({
 
 	displayName: 'LandingModule',
-	mixins: [Navigation],
+	mixins: [History],
 	getDefaultProps: function() {
 		return {
 			appState: {
@@ -20,10 +20,12 @@ var LocationModule = React.createClass({
 			}
 		};
 	},
+
 	componentDidMount: function() {
 		navigator.geolocation.getCurrentPosition(this.getDefaultCoordinates);
 		this.getEventsByLocation();
 	},
+
 	getDefaultCoordinates: function(location) {
 		var push = this.props.push;
 		var coordinates = {
@@ -32,6 +34,7 @@ var LocationModule = React.createClass({
 			time: location.coords.timestamp
 		};
 	},
+
 	getEventsByLocation: function() {
 		var push = this.props.push;
 		var location = this.props.appState.get('location');
@@ -59,6 +62,7 @@ var LocationModule = React.createClass({
 			}
 		});
 	},
+
 	onSuggestSelect: function(suggest) {
 		var push = this.props.push;
 
@@ -69,20 +73,18 @@ var LocationModule = React.createClass({
 			}
 		});
 
-		// var location = this.props.appState.get('location');
-		// console.log(location);
-
 		this.getEventsByLocation();
 
-		this.transitionTo('closest');
+		this.history.pushState(null, '/events/closest');
 	},
+
 	render: function() {
 		var defaultLocation = this.props.appState.get('location');
 
 		return (
 			<div id='LocationModule' className='flex-row flex-zero'>
-				<Link className='flex click' to='upcoming'>Upcoming</Link>
-				<Link className='flex click' to='closest'>Around</Link>
+				<Link className='flex click' to='events' activeClassName='active'>Upcoming</Link>
+				<Link className='flex click' to='/events/closest' activeClassName='active'>Around</Link>
 				<div className='buffer-lg'/>
 				<i className='flex fa fa-map-marker'/>
 				<Geosuggest

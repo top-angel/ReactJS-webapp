@@ -38,14 +38,14 @@ var Player = React.createClass({
 
 	componentWillReceiveProps: function(nextProps) {
 		var push = this.props.push;
-		var starttime = this.props.appState.get('currentSet').starttime;
 
 		if(nextProps.appState.get('currentSet') != this.props.appState.get('currentSet')) {
-			console.log('BIH I GOT EXTENDOZ');
+			var starttime = nextProps.appState.get('currentSet').starttime;
+			console.log(starttime);
 
 			playerService.generateSound(starttime, nextProps.appState, push)
 			.then(function(smObj) {
-				console.log('YOU GOT A NEW SONG', smObj);
+				console.log('Now playing: ', smObj);
 				//plays a new set
 				push({
 					type: 'SHALLOW_MERGE',
@@ -71,7 +71,7 @@ var Player = React.createClass({
 
 		var currentSet = appState.get('currentSet');
 
-		var trackProps = {
+		var props = {
 			appState: appState,
 			push: push
 		};
@@ -86,7 +86,7 @@ var Player = React.createClass({
 					<div className='flex-row flex'>
 						<PlayerSetInfo appState={appState} push={push} />
 
-						<PlayerTracklist {...trackProps} />
+						<PlayerTracklist {...props} />
 
 					</div>
 				</div>
@@ -95,22 +95,27 @@ var Player = React.createClass({
 	}
 });
 
-var PlayerWrapper = React.createClass({
-	displayName: 'PlayerWrapper',
+// var PlayerWrapper = React.createClass({
+// 	displayName: 'PlayerWrapper',
 
-	render: function() {
+// 	render: function() {
 
-		var push = this.props.push;
-		var appState = this.props.appState; // <- IMMUTABLE MAP
-		var Rh = this.props.routeHandler;
+// 		var push = this.props.push;
+// 		var appState = this.props.appState; // <- IMMUTABLE MAP
+// 		var Rh = this.props.routeHandler;
 
-		return (
-			<div>
-				<Rh appState={appState} push={push} />
-				<Player appState={appState} push={push} />
-			</div>
-		);
-	}
-});
+// 		return (
+// 			<div>
+// 				{
+// 					React.cloneElement(this.props.children, {
+// 						appState: appsState,
+// 						push: push
+// 					})
+// 				}
+// 				<Player appState={appState} push={push} />
+// 			</div>
+// 		);
+// 	}
+// });
 
-module.exports = PlayerWrapper;
+module.exports = Player;

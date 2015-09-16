@@ -1,7 +1,11 @@
 import React from 'react';
-import DetailView from './DetailView';
+import R from 'ramda';
 import constants from '../constants/constants';
 import Loader from 'react-loader';
+
+import SetContainer from './SetContainer';
+import DetailImageContainer from './DetailImageContainer';
+
 var FestivalDetail = React.createClass({
 
 	displayName: 'FestivalDetail',
@@ -10,16 +14,19 @@ var FestivalDetail = React.createClass({
 			loaded: false
 		};
 	},
+
 	componentWillMount: function() {
 		this.getFestivalData();
 	},
+
 	getFestivalData: function() {
 		var _this = this;
 		var push = this.props.push;
-		var festivalId = this.props.appState.get('detailId');
+		var festival = this.props.params.festival;
+		var query = festival.split('-').join('%20');
 
 		var festivalData,
-			festivalUrl = constants.API_ROOT + 'festival/id/' + festivalId;
+			festivalUrl = constants.API_ROOT + 'festival/search/' + query;
 
 		$.ajax({
 			url: festivalUrl,
@@ -27,7 +34,6 @@ var FestivalDetail = React.createClass({
 		})
 		.done(function(response) {
 			festivalData = response.payload.festival;
-			console.log(festivalData);
 
 			push({
 				type: 'SHALLOW_MERGE',
@@ -42,31 +48,39 @@ var FestivalDetail = React.createClass({
 			});
 		});
 	},
+
 	render: function() {
 		var appState = this.props.appState;
-		var data = appState.get('detailData');
-		console.log(data);
-
 		var push = this.props.push;
-		var navTitles = [
-			{
-				title: 'sets',
-				to: 'festival-sets'
-			}
-		];
-		var info = data.set_count + ' sets';
-		var title = data.event;
-		var buttonText = 'Shuffle';
+		var data = appState.get('detailData');
+
+		var detailInfo = {
+			appState: appState,
+			push: push,
+			title: data.event,
+			buttonText: 'Shuffle',
+			imageURL: data.imageURL,
+			info: data.set_count+' sets'
+		};
+
+		var setProps = {
+			containerClass: 'flex-row flex',
+			sets: data.sets,
+			push: push
+		};
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<DetailView
-					navTitles={navTitles}
-					push={push}
-					data={data}
-					info={info}
-					title={title}
-					buttonText={buttonText}/>
+				<div id='detail' className='view detail-page'>
+					<DetailImageContainer {...detailInfo}/>
+					<div className='divider'/>
+					<div className="flex-row links-container">
+						<div className='center flex-fixed'>
+							sets
+						</div>
+					</div>
+					<SetContainer {...setProps} />
+				</div>
 			</Loader>
 		);
 	}

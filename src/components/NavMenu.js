@@ -5,15 +5,20 @@ var NavMenu = React.createClass({
 
 	getDefaultProps: function() {
 		return {
-			items: []
+			navItems: []
 		};
 	},
 	render: function() {
-		var links = this.props.items.map(function(nav){
+		var links = this.props.navItems.map(function(nav){
+
 			return(
-				<Link className='nav-button click flex flex-row' to={nav.link}>
-					<i className={nav.icon}/>
-					<div className='center'>{nav.text}</div>
+				<Link 
+					className='nav-button click flex flex-row' 
+					to={nav.link} 
+					onlyActiveOnIndex={nav.onlyActiveOnIndex} 
+					activeClassName='active'>
+						<i className={nav.icon}/>
+						<div className='center'>{nav.text}</div>
 				</Link>
 			); 
 		});

@@ -15,6 +15,7 @@ var smPromise = smDeferred.promise;
 
 soundManager.setup({
 	url: '/swf/soundmanager2.swf',
+	debugMode: false,
 	onready: function() {
 		console.log('SM2 loaded');
 		smDeferred.resolve();
@@ -30,46 +31,24 @@ function errorPromise(jqXHR, textStatus, errorThrown) {
 	return  Q.reject(errorThrown);
 }
 
-//HIDE FOR NOW
-// function fetchTrackList(selectedSet) {
-// 	var trackListUrl = constants.API_ROOT + 'tracklist/' + selectedSet.id;
-
-// 	return $.ajax({
-// 		url: trackListUrl,
-// 		type: 'get'
-// 	});
-// }
-
-
 function generateSound(loadStart, appState, push) {
 
 	var sound = appState.get('sound');
 	var currentSet = appState.get('currentSet');
-	// var selectedSet = currentSet.selectedSet;
-	var selectedSet = currentSet;
 
-	var currentSetCopy = R.clone(currentSet);
-
-	if(loadStart) {
+	console.log(loadStart);
+	// if(!!loadStart) {
 		loadStart = convert.MMSSToMilliseconds(loadStart);
-	} else {
-		loadStart = 0;
-		console.log('started from the bottom');
-	}
+	// } else {
+	// 	loadStart = 0;
+	// }
 
 	//// XXX TODO MOVE THIS
 	if(sound != null) {
 		soundManager.destroySound('currentSound');
 	}
 
-	//HIDE FOR NOW
-	// fetchTrackList(selectedSet).then(function(response) {
-	// 	console.log(response.payload);
-	// 	return response.payload;
-	// }, errorPromise);
-
-
-	var songURL = constants.S3_ROOT + selectedSet.songURL;
+	var songURL = constants.S3_ROOT + currentSet.songURL;
 	console.log(songURL);
 
 	var soundConf = {
@@ -84,13 +63,6 @@ function generateSound(loadStart, appState, push) {
 
 		whileplaying: function() {
 			var currentTime = sound.position;
-			// currentSetCopy.timePosition = currentTime;
-			//might delete
-			// push({
-			// 	type: 'SHALLOW_MERGE',
-			// 	data: { currentSet: currentSetCopy }
-			// });
-
 			//UPDATE CURRENT TRACK HERE
 			var tracklist = appState.get('tracklist');
 			var currentTrack = updateCurrentTrack(sound, tracklist, push);

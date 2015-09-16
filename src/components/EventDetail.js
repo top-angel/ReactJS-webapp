@@ -3,7 +3,8 @@ import R from 'ramda';
 import constants from '../constants/constants';
 
 import Loader from 'react-loader';
-import DetailView from './DetailView';
+import DetailImageContainer from './DetailImageContainer';
+import ArtistTileContainer from './ArtistTileContainer';
 
 var EventDetail = React.createClass({
 
@@ -13,16 +14,18 @@ var EventDetail = React.createClass({
 			loaded: false
 		};
 	},
+
 	componentWillMount: function() {
 		this.getEventData();
 	},
+
 	getEventData: function() {
 		var _this = this;
 		var push = this.props.push;
-		var eventId = this.props.appState.get('detailId');
+		var event = this.props.params.event;
 
 		var eventData,
-			eventUrl = constants.API_ROOT + 'upcoming/id/' + eventId;
+			eventUrl = constants.API_ROOT + 'upcoming/id/' + event;
 
 		$.ajax({
 			url: eventUrl,
@@ -30,7 +33,6 @@ var EventDetail = React.createClass({
 		})
 		.done(function(response) {
 			eventData = response.payload.upcoming;
-			console.log(eventData);
 
 			push({
 				type: 'SHALLOW_MERGE',
@@ -46,27 +48,36 @@ var EventDetail = React.createClass({
 		});
 	},
 	render: function() {
-		var detailData = this.props.appState.get('detailData');
+		var appState = this.props.appState;
+		var detailData = appState.get('detailData');
 
-		var navTitles = [
-			{
-				title: 'lineup',
-				to: 'event-lineup'
-			}
-		];
-
-		var props = {
-			navTitles: navTitles,
+		var detailInfo = {
 			push: this.props.push,
 			info: detailData.formattedDate,
 			data: detailData,
 			title: detailData.event,
-			buttonText: 'Tickets'
+			ticketLink: detailData.ticket_link,
+			buttonText: 'Tickets',
+			pageType: 'upcoming'
+		};
+
+		var lineup = {
+			artists: detailData.lineup,
+			push: this.props.push
 		};
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<DetailView {...props} />
+				<div id='detail' className='view detail-page'>
+					<DetailImageContainer {...detailInfo}/>
+					<div className='divider'/>
+					<div className="flex-row links-container">
+						<div className='center flex-fixed'>
+							lineup
+						</div>
+					</div>
+					<ArtistTileContainer {...lineup} />
+				</div>
 			</Loader>
 		);
 	}

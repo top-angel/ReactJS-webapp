@@ -10,7 +10,8 @@ module.exports = {
   output: {
     path: 'public/js',
     filename: '[name]-bundle.js',
-    pathinfo: true
+    pathinfo: true,
+    historyApiFallback: true
   },
   resolve: {
     extensions: ['', '.jsx', '.es6', '.js', '.scss'],

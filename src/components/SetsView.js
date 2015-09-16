@@ -1,6 +1,4 @@
 import React from 'react';
-import {RouteHandler} from 'react-router';
-import Routes from '../index';
 import NavMenu from './NavMenu';
 
 var SetsView = React.createClass({
@@ -9,35 +7,45 @@ var SetsView = React.createClass({
 		var navItems = [
 			{
 				text: 'Recent',
-				link: 'recent',
-				icon: 'fa fa-fw fa-clock-o'
+				link: '/sets',
+				icon: 'fa fa-fw fa-clock-o',
+				onlyActiveOnIndex: true
 			},
 			{
 				text: 'Popular',
-				link: 'popular',
-				icon: 'fa fa-fw fa-heart'
+				link: '/sets/popular',
+				icon: 'fa fa-fw fa-heart',
+				onlyActiveOnIndex: false
 			},
 			{
 				text: 'Festivals',
-				link: 'festivals',
-				icon: 'fa fa-fw fa-flag'
+				link: '/sets/festivals',
+				icon: 'fa fa-fw fa-flag',
+				onlyActiveOnIndex: false
 			},
 			{
 				text: 'Mixes',
-				link: 'mixes',
-				icon: 'fa fa-fw fa-headphones'
+				link: '/sets/mixes',
+				icon: 'fa fa-fw fa-headphones',
+				onlyActiveOnIndex: false
 			},
 			{
 				text: 'Activities',
-				link: 'activities',
-				icon: 'fa fa-fw fa-bicycle'
+				link: '/sets/activities',
+				icon: 'fa fa-fw fa-bicycle',
+				onlyActiveOnIndex: false
 			}
 		];
 		
 		return (
 			<div id='SetsView' className='flex-row view'>
-				<NavMenu items={navItems}/>
-				<RouteHandler appState={this.props.appState} push={this.props.push}/>
+				<NavMenu navItems={navItems}/>
+				{
+					React.cloneElement(this.props.children, {
+						appState: this.props.appState,
+						push: this.props.push
+					})
+				}
 			</div>
 		);
 	}

@@ -1,5 +1,4 @@
 import React from 'react';
-import {RouteHandler} from 'react-router';
 import Loader from 'react-loader';
 
 import FeaturedContainer from './FeaturedContainer';
@@ -12,7 +11,7 @@ var EventsView = React.createClass({
 	render: function() {
 		var push = this.props.push;
 		var appState = this.props.appState;
-		var containerClass='flex-row flex results-container';
+		var containerClass='flex-row flex results-container tile-container';
 
 		return (
 			<div id="EventsView" className="view flex-column">
@@ -22,7 +21,13 @@ var EventsView = React.createClass({
 				<LocationModule
 					push={push}
                 	appState={appState} />
-            	<RouteHandler appState={appState} push={push} containerClass={containerClass} />
+            	{
+					React.cloneElement(this.props.children, {
+						appState: appState,
+						push: push,
+						containerClass: containerClass
+					})
+				}
           </div>
 		);
 	}

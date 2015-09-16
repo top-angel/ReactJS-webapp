@@ -1,14 +1,13 @@
 import React from 'react';
 import splice from '../services/splice';
-import {Navigation} from 'react-router';
+import {History} from 'react-router';
 import constants from '../constants/constants';
 
 var SearchBar = React.createClass({
 
-	mixins: [Navigation],
+	mixins: [History],
 	componentDidMount: function() {
 		var _this = this;
-
 		$('#search').keyup(function() {
 			var query = $(this).val();
 			if(query.length >= 3) {
@@ -16,13 +15,13 @@ var SearchBar = React.createClass({
 			}
 		});
 	},
+
 	search: function(query) {
 		var _this = this;
 		var push = this.props.push;
 		var activeSearchAjax = null;
 		var results, 
 			searchUrl = constants.API_ROOT + 'search/' + query;
-
 
 		push({
 			type: 'SHALLOW_MERGE',
@@ -60,6 +59,7 @@ var SearchBar = React.createClass({
 			});
 		});
 	},
+	
 	render: function() {
 		return (
 			<div className='center flex flex-row'>
@@ -67,7 +67,7 @@ var SearchBar = React.createClass({
 				<input id="search" 
 					className="flex"
 					placeholder='search'
-					onKeyPress={() => this.transitionTo('search')}/>
+					onKeyPress={() => this.history.pushState(null, '/search')}/>
           </div>
 		);
 	}

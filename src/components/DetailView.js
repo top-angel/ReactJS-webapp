@@ -1,7 +1,5 @@
 import React from 'react';
 import constants from '../constants/constants';
-import {RouteHandler} from 'react-router';
-import Routes from '../index';
 
 import SetContainer from './SetContainer';
 import EventContainer from './EventContainer';
@@ -67,13 +65,15 @@ var DetailView = React.createClass({
 				<LinkButtonContainer links={links}/>
 				<div className='divider'/>
 				<DetailNavContainer navTitles={this.props.navTitles} />
-				<RouteHandler
-					containerClass={containerClass}
-					sets={sets}
-					artists={artists}
-					events={upcomingEvents}
-					push={push}
-				/>
+				{
+					React.cloneElement(this.props.children, {
+						containerClass: containerClass,
+						sets: sets,
+						artists: artists,
+						events: upcomingEvents,
+						push: push
+					})
+				}
 			</div>
 		);
 	}

@@ -14,7 +14,7 @@ var ClosestEvents = React.createClass({
 	},
 	render: function() {
 		var closestEvents = this.props.appState.get('closestEvents');
-		var containerClass = 'flex flex-row results-container';
+		var containerClass = 'flex-row tile-container';
 		var push = this.props.push;
 
 		return (

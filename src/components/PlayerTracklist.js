@@ -10,7 +10,7 @@ var PlayerTracklist = React.createClass({
 	displayName: 'PlayerTrackInfo',
 
 		componentDidMount: function() {
-			$('#open-tracklist').click(function() {
+			$('#open-tracklist, .active-track').click(function() {
 				if($('.tracklist').hasClass('tracklist-open')) {
 					$('.tracklist').removeClass('tracklist-open')
 						.animate({ bottom: '-50vh'}, 200);

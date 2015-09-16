@@ -8,6 +8,8 @@ import TrackContainer from './TrackContainer';
 var SearchResultsView = React.createClass({
 
 	componentDidMount: function() {
+		$('#seach').click();
+		
 		$('.results-filter').click(function(e){
 			e.stopPropagation();
 			var scrollOffset = -$('header').height()*2;
@@ -19,7 +21,9 @@ var SearchResultsView = React.createClass({
 				$('.view-title-container .divider').animate({
 					left: '0'
 				}, 200);
-				$(window).scrollTo(0, 200);
+				$(window).scrollTo($('.header-small.sets'), 200, {
+					offset: scrollOffset
+				});
 			} else if($(this).is('.events')) {
 				$('.view-title-container .divider').animate({
 					left: '33%'
@@ -65,6 +69,7 @@ var SearchResultsView = React.createClass({
 				</div>
 				<Loader loaded={this.props.appState.get('loaded')}>
 					<div className="results-container flex-column">
+						<div className='header-small sets'>SETS</div>
 						<SetContainer
 							sets={searchResults.sets}
 							push={this.props.push}

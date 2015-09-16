@@ -1,5 +1,5 @@
 import React from 'react';
-import ArtistTile from './BrowseTile';
+import ArtistTile from './ArtistTile';
 
 var ArtistTileContainer = React.createClass({
 
@@ -8,12 +8,14 @@ var ArtistTileContainer = React.createClass({
 		var push = this.props.push;
 
 		var tiles = artists.map(function(artist) {
-			return(<ArtistTile data={artist} key={artist.id} push={push}/>);
-			return(
-				<ArtistTile key={artist.id} push={push}>
-					{artist}
-				</ArtistTile>
-			);
+			var props = {
+				artist: artist.artist,
+				key: artist.id,
+				push: push,
+				imageURL: artist.imageURL
+			};
+
+			return <ArtistTile {...props} />;
 		});
 
 		return (
