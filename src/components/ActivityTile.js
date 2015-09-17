@@ -1,24 +1,17 @@
 import React from 'react';
 import constants from '../constants/constants';
-import {Navigation} from 'react-router';
+import {History} from 'react-router';
 
 var ActivityTile = React.createClass({
 
 	displayName: 'ActivityTile',
-	mixins: [Navigation],
+	mixins: [History],
+
 	openDetail: function() {
 		var activityId = this.props.id;
-		var push = this.props.push;
-
-		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				detailId: activityId
-			}
-		});
-
-		this.transitionTo('activity');
+		this.history.pushState(null, '/activity/' + activityId);
 	},
+
 	render: function() {
 		var image = {
 			backgroundImage: "url('" + constants.S3_ROOT_FOR_IMAGES + 'small_' + this.props.imageURL + "')"

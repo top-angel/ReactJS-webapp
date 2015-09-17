@@ -4,7 +4,7 @@ import {History, Link} from 'react-router';
 
 var SetTile = React.createClass({
 
-	displayName: 'SetTile',
+	displayName: 'Set Tile',
 	mixins: [History],
 
 	getDefaultProps: function() {
@@ -55,7 +55,7 @@ var SetTile = React.createClass({
 			//go to festival page
 			this.history.pushState(null, '/festival/' + routePath);
 		} else {
-			//TODO GET API ROUTES FOR MIX
+//TODO FIX API ROUTES FOR MIX TO LOAD NAME
 			var routeId = this.props.event_id;//quick fix for now
 			this.history.pushState(null, '/mix/' + routeId);
 		}
@@ -88,13 +88,15 @@ var SetTile = React.createClass({
 				}
 			});
 
+			window.history.replaceState(null, null, '/play/' + _this.props.id);
 			_this.updatePlayCount(_this.props.id);
 		});
 	},
 
+//TODO change URL to new routes
 	shareToFacebook: function() {
-		//TODO change URL to new routes
-		var url = 'http://setmine.com/?play/' + this.props.id;
+		var url = 'https://setmine.com/?play/' + this.props.id;
+
 		FB.ui({
 			method: 'feed',
 			link: url,
@@ -106,7 +108,7 @@ var SetTile = React.createClass({
 	},
 
 	shareToTwitter: function() {
-		var parameters = 'url=' + encodeURIComponent('http://setmine.com/?play/' + this.props.id + '&via=SetMineApp');
+		var parameters = 'url=' + encodeURIComponent('https://setmine.com/?play/' + this.props.id + '&via=SetMineApp');
 			window.open('https://twitter.com/intent/tweet?' + parameters, '_blank', 'height=420, width=550');
 	},
 

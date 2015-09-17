@@ -2,9 +2,7 @@ import React from 'react';
 import constants from '../constants/constants';
 import Loader from 'react-loader';
 
-import BrowseView from './BrowseView';//delete possibly
 import AlphabetScroller from './AlphabetScroller';
-
 import ArtistTile from './ArtistTile';
 
 var TITLE = 'Artists';

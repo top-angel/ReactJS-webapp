@@ -4,25 +4,15 @@ var LandingBeacon = React.createClass({
 
 	render: function() {
 		return (
-			<div className='flex-column' id='LandingBeacon'>
-				<div className='flex-column flex-3x image-container overlay-container'>
-					<div className='overlay'/>
-					<div className='header-medium wow bounceInLeft'>
-							{'Introducing a new way to unlock music'}
-					</div>
-				</div>
-				<div className='flex-column flex text-container'>
-					<div className='buffer'/>
-					<div className='wow fadeInUp'>
-							{''}
-					</div>
-					<div className='buffer'/>
-					<div className='divider center wow zoomIn'/>
-					<div className='buffer'/>
-					<div className='wow fadeInUp'>
-							{''}
-					</div>
-					<div className='buffer'/>
+			<div className='flex-row' id='LandingBeacon'>
+				<div className='text-container flex-column'>
+					<h1>Introducing a new way to get music first</h1>
+					<p>
+						Artists release exclusive content on Setmine, which you can unlock at specific venues using beacon techology. 
+						<br/>
+						<br/>
+						All you have to do is go to a venue. Once you're there, Setmine unlocks the content on your account for free listening anytime.
+					</p>
 				</div>
 			</div>
 		);

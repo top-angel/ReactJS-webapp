@@ -63,6 +63,7 @@ var TrackTile = React.createClass({
 				}
 			});
 
+			window.history.replaceState(null, null, 'play/' + _this.props.id);
 			_this.updatePlayCount(_this.props.id);
 		});
 	},

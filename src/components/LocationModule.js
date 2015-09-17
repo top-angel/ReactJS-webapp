@@ -83,7 +83,7 @@ var LocationModule = React.createClass({
 
 		return (
 			<div id='LocationModule' className='flex-row flex-zero'>
-				<Link className='flex click' to='events' activeClassName='active'>Upcoming</Link>
+				<Link className='flex click' to='/events' onlyActiveOnIndex={true} activeClassName='active'>Upcoming</Link>
 				<Link className='flex click' to='/events/closest' activeClassName='active'>Around</Link>
 				<div className='buffer-lg'/>
 				<i className='flex fa fa-map-marker'/>

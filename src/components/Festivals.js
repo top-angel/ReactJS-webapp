@@ -1,7 +1,6 @@
 import React from 'react';
 import Loader from 'react-loader';
 import constants from '../constants/constants';
-import BrowseView from './BrowseView';
 
 import FestivalTile from './FestivalTile';
 

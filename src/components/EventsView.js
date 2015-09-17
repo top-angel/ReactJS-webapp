@@ -11,10 +11,14 @@ var EventsView = React.createClass({
 	render: function() {
 		var push = this.props.push;
 		var appState = this.props.appState;
-		var containerClass='flex-row flex results-container tile-container';
+		var containerClass='flex-row results-container tile-container';
 
 		return (
 			<div id="EventsView" className="view flex-column">
+				<div className='view-title-container flex-column'>
+					<div className='center'>Featured</div>
+					<div className='divider'/>
+				</div>
 				<FeaturedContainer 
 					appState={appState}
 					push={push} />

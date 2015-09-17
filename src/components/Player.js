@@ -1,6 +1,5 @@
 import React from 'react';
 import Sound from 'react-sound';
-import Q from 'q';
 import playerService from '../services/playerService.js';
 import constants from '../constants/constants';
 
@@ -21,19 +20,19 @@ var Player = React.createClass({
 		var starttime = this.props.appState.get('currentSet').starttime;
 		var _this = this;
 
-		playerService.generateSound(starttime, this.props.appState, push)
-		.then(function(smObj) {
-			console.log('AYYLMAO', smObj);
+	//HIDING so generateSound doesnt fire until a new set is pushed
+		// playerService.generateSound(starttime, this.props.appState, push)
+		// .then(function(smObj) {
+		// 	console.log('AYYLMAO', smObj);
 
-			//DAS IT MAAAAAYNE <- actually plays set!
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					sound: smObj,
-					playing: true
-				}
-			});
-		});
+		// 	push({
+		// 		type: 'SHALLOW_MERGE',
+		// 		data: {
+		// 			sound: smObj,
+		// 			playing: true
+		// 		}
+		// 	});
+		// });
 	},
 
 	componentWillReceiveProps: function(nextProps) {

@@ -30,6 +30,8 @@ var Sandbox = React.createClass({
 				<br/>
 				{'>still building websites in react'}
 				<br/>
+				{'>THIS week guys... TRUSH ME'}
+				<br/>
 				{'>mfw'}
 			</div>
 			</div>

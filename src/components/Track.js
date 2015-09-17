@@ -7,7 +7,8 @@ var Track = React.createClass({
 	displayName: 'Track',
 	getDefaultProps: function() {
 		return {
-			className: 'track flex'
+			className: 'track flex',
+			starttime: 0,
 		};
 	},
 

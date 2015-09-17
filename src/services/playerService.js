@@ -25,6 +25,19 @@ soundManager.setup({
 	}
 });
 
+//change track by selecting from tracklist
+function changeTrack(appState, push, starttime, currentTrack) {
+	var sound = appState.get('sound');
+	sound.setPosition(starttime);
+
+	push({
+		type: 'SHALLOW_MERGE',
+		data: {
+			currentTrack: currentTrack,
+			timeElapsed: starttime
+		}
+	});
+}
 
 function errorPromise(jqXHR, textStatus, errorThrown) {
 	console.log('ERROR MAKING AJAX CALL', jqXHR, textStatus, errorThrown);
@@ -55,7 +68,7 @@ function generateSound(loadStart, appState, push) {
 		id: 'currentSound',
 		url: songURL,
 		load: loadStart,
-		volume: 0,//muting for sanity
+		// volume: 0,//muting for sanity
 		onload: function() {
 			var totalTime = sound.durationEstimate;
 			console.log(totalTime);
@@ -82,25 +95,25 @@ function generateSound(loadStart, appState, push) {
 		soundManager.play('currentSound');
 		return sound;
 	});
-
-	//UNHIDE if sets don't load
-	// push({
-	// 	type: 'SHALLOW_MERGE',
-	// 	data: {
-	// 		sound: sound
-	// 	}
-	// });
 }
 
-function togglePlay(sound) {
+function hidePlayer(appState, push) {
+	//check if play route is active
+	//resize .view to 100vh - @headerHeight
+	//add hidden class to player
+}
 
-	if(sound.paused) {
-		sound.play();
-		console.log('play');
-	} else {
-		sound.pause();
-		console.log('pause');
-	}
+function showPlayer(appState, push) {
+	//check if play route is active
+		//check if sound object exists
+		//or check appstate for currentset
+	//resize .view to 100vh - @playerHeight - @headerHeight
+	//remove hidden class from player
+	//use on set and track tiles and detail image container
+}
+
+function togglePlayer(appState, push) {
+	
 }
 
 //scrub to a new position after clicking progress bar
@@ -123,18 +136,15 @@ function scrub(position, appState, push) {
 	});
 }
 
-//change track by selecting from tracklist
-function changeTrack(appState, push, starttime, currentTrack) {
-	var sound = appState.get('sound');
-	sound.setPosition(starttime);
+function togglePlay(sound) {
 
-	push({
-		type: 'SHALLOW_MERGE',
-		data: {
-			currentTrack: currentTrack,
-			timeElapsed: starttime
-		}
-	});
+	if(sound.paused) {
+		sound.play();
+		console.log('play');
+	} else {
+		sound.pause();
+		console.log('pause');
+	}
 }
 
 // automatically update tracklist while playing
@@ -163,6 +173,6 @@ module.exports = {
 	togglePlay: togglePlay,
 	changeTrack: changeTrack,
 	updateCurrentTrack: updateCurrentTrack,
-	scrub: scrub,
-	convert: convert // TODO MOVE CONVERT INTO SEPARATE SERVICE
+	hidePlayer: hidePlayer,
+	scrub: scrub
 };

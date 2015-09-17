@@ -10,7 +10,7 @@ var Footer = React.createClass({
 
 	render: function() {
 		return (
-			<footer className='flex-row flex-zero'>
+			<footer className='flex-row'>
 	          <div className='buffer'/>
 	          <div className='flex-column flex-zero'>
 	          	<a className='click hidden' id='contact'>

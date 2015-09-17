@@ -6,11 +6,11 @@ var MixTile = React.createClass({
 
 	mixins: [History],
 	openMixPage: function() {
-		var routeId = this.props.id;//quick fix for now
+		var routeId = this.props.id;
 		this.history.pushState(null, '/mix/' + routeId);
 	},
 	render: function() {
-		var image = constants.S3_ROOT_FOR_IMAGES + 'small_' + this.props.imageURL;
+		var image = constants.S3_ROOT_FOR_IMAGES + this.props.imageURL;
 
 		return (
 			<div className='mix-tile flex-column overlay-container click'onClick={this.openMixPage}>

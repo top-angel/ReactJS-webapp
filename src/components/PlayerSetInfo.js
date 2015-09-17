@@ -4,6 +4,7 @@ import convert from '../services/convert';
 var PlayerSetInfo = React.createClass({
 
 	displayName: 'PlayerSetInfo',
+
 	render: function() {
 		var appState = this.props.appState;
 		var currentSet = appState.get('currentSet');

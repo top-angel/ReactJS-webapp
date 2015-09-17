@@ -13,7 +13,11 @@ var DetailImageContainer = React.createClass({
 
 //THIS WORKS COPY TO ANY SHUFFLE FEATURES
 	shuffle() {
-		if(this.props.pageType != 'upcoming') {
+		if(this.props.pageType == 'upcoming') {
+			window.open(this.props.ticketLink);
+		} else if(this.props.pageType == 'activity') {
+			console.log(this.props.title);
+		} else {
 			var push = this.props.push;
 			var data, random, randomSet;
 			var _this = this;
@@ -51,8 +55,6 @@ var DetailImageContainer = React.createClass({
 					});
 				});
 			});
-		} else {
-			window.open(this.props.ticketLink);
 		}
 	},
 

@@ -57,12 +57,12 @@ var ActivityDetail = React.createClass({
 			push: push,
 			title: data.activity,
 			buttonText: 'Recommend',
+			pageType: 'activity',
 			imageURL: data.imageURL,
 			info: data.sets.length+' sets'
 		};
 
 		var setProps = {
-			containerClass: 'flex-row flex',
 			sets: data.sets,
 			push: push
 		};

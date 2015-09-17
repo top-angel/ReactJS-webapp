@@ -20,16 +20,16 @@ body {
 html {
     font-family: @defaultFontStyle;
     font-size: @defaultFontSize;
-    &::-webkit-scrollbar-track {
-        background-color: @set-gray;
-    }
-    &::-webkit-scrollbar {
-        width: 5px;
-        height: 12px;
-    }
-    &::-webkit-scrollbar-thumb {
-        background: @set-blue;
-    }
+    // &::-webkit-scrollbar-track {
+    //     background-color: @set-gray;
+    // }
+    // &::-webkit-scrollbar {
+    //     width: 5px;
+    //     height: 12px;
+    // }
+    // &::-webkit-scrollbar-thumb {
+    //     background: @set-blue;
+    // }
 }
 
 * {
@@ -93,15 +93,11 @@ a {
     text-align: center;
 }
 
-#BrowseView {
-    height:90vh;
-    color: @set-dark-gray;
-}
 .artist-tile {
     background-size: 100% 100%;
     color:white;
-    .size(200px, 200px);
-    margin: 1vh auto;
+    .size(15.5vw, 15.5vw);
+    margin: 1vh;
     text-align: center;
     position: relative;
     z-index: 1;
@@ -213,7 +209,7 @@ a {
     .background(@set-light-gray, @set-gray);
     overflow-x: scroll;
     .container {
-        width: @featuredTileWidth*25;
+        width: 625%;
         height: 100%;
     }
 }
@@ -281,7 +277,6 @@ a {
 
 footer {
     position: relative;
-    top: @headerHeight;
     .background(@set-dark-gray, white);
     padding: 1vh 0;
     margin-bottom: @playerHeight;
@@ -366,83 +361,84 @@ input#search {
 }
 
 #LandingView {
-    color:white;
-    >div {
-        height: @pageHeight;
-    }
+	color: white;
 }
 #LandingHome {
-    background: url(../images/landing-1.jpg);
-    background-size: 100% 100%;
-    .overlay {
-       .createOverlay(40%); 
-    }
+	background: url(../images/landing-1.jpg);
+	background-size: 100% 100%;
+	height: @pageHeight;
+	.overlay {
+		.createOverlay(40%); 
+	}
 }
 #LandingApp {
-    font-size: 1.2rem;
-    .slide-controls {
-        position: absolute;
-        bottom: 4vh;
-        left: 25%;
-    }
-    .slide {
+	background-size: 100% 100%;
+	font-size: 1.2rem;
+	.slide-controls {
+		position: absolute;
+		bottom: 4vh;
+		left: 25%;
+	}
+	.slide {
         height:100%;
         width:100%;
         img {
             width: 75%;
             height: @pageHeight;
         }
-    }
-    .slide-1 {
-        .text-container {
-            .background(@set-green, white);
-        }
-        .image-container {
-            background: white;
-        }
-    }
-    .slide-2 {
-        .text-container {
-            .background(@set-blue, white);
-        }
-        .image-container {
-            background: @set-blue;
-        }
-    }
-    .slide-3 {
-        .text-container {
-            .background(@set-salmon, white);
-        }
-        .image-container {
-            background: #ebebeb;
-        }
-        .divider {
-            .createDivider(60%, 2px, @set-nearly-white);
-        }
-    }
-    @media (max-width: 640px) {
-        line-height: 1.5rem;
-        font-size: 0.75rem;
-        .header-medium {
-            font-size: 1andinrem;
-        }
-    }
+	}
+	.text-container {
+	    padding: 4vw;
+	}
+	.slide-1 {
+		.text-container {
+			.background(@set-green, white);
+		}
+		.image-container {
+			background: white;
+		}
+	}
+	.slide-2 {
+		.text-container {
+			.background(@set-blue, white);
+		}
+		.image-container {
+			background: @set-blue;
+		}
+	}
+	.slide-3 {
+		.text-container {
+			.background(@set-red, white);
+		}
+		.image-container {
+			background: #ebebeb;
+		}
+	}
+	@media (max-width: 640px) {
+		line-height: 1.5rem;
+		font-size: 0.75rem;
+		.header-medium {
+			font-size: 1rem;
+		}
+	}
 }
 #LandingBeacon {
-    background: url(../images/landing-3.jpg);
-    background-size: 100% 100%;
-    .text-container {
-        .background(@set-purple, white);
-    }
-    .divider {
-        .createDivider(80%, 1px, white);
-    }
-    .overlay {
-        .createOverlay(30%);
-    }
-    .header-medium {
-        padding:2vw;
-    }
+	position: relative;
+	height: @pageHeight;
+	background-image: url(../images/beacon-offer.jpg);
+	background-size: 33% 100%;
+	background-repeat: no-repeat;
+	flex-direction: row-reverse;
+	font-size: 1.1rem;
+	.text-container {
+		color: @set-dark-gray;
+		width: 67%;
+		padding-right: 20%;
+	}
+	h1 {
+		-webkit-margin-before: 25%;
+		margin-right: 25%;
+	}
 }
 .links-container {
     .background(@set-dark-gray, white);
@@ -557,49 +553,52 @@ input#search {
 }
 
 #Player {
-    height: @playerHeight;
-    width: 100%;
-    position:fixed;
-    bottom: 0!important;
-    .background(@set-dark-gray, white);
-    z-index: 100;
-    .set-info {
-        padding: 8px 0 0 8px;
-        font-size: 0.8rem;
-    }
-    @media (max-width: 640px) {
-        font-size: 0.75rem;
-    }
+	height: @playerHeight;
+	width: 100%;
+	position:fixed;
+	bottom: 0!important;
+	.background(@set-dark-gray, white);
+	z-index: 100;
+	.set-info {
+		padding: 8px 0 0 8px;
+		font-size: 0.8rem;
+	}
+	@media (max-width: 640px) {
+		font-size: 0.75rem;
+	}
 }
 #PlayerTracklist {
-    text-align: center;
-    .background(@set-dark-gray, white);
-    .tracklist {
-        z-index: 99;
-        position: fixed;
-        height: @playerTracklistHeight;
-        bottom: -@playerTracklistHeight;
-        right: 8%;
-        .background(fade(@set-dark-gray, 90%), @set-nearly-white);
-        width: 40vw;
-        overflow-y: scroll;
-        > *:hover, .active {
-            .background(fade(@set-dark-gray, 120%), @set-blue);
-        }
-    }
-    .track {
-        display: flex;
-        padding: 1rem 0;
-        .starttime {
-            margin: auto 0.5vw auto 1vw
-        }
-        .trackname {
-            margin: auto auto auto 2vw;
-            overflow-x: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-    }
+	text-align: center;
+	.background(@set-dark-gray, white);
+	.tracklist {
+		z-index: 99;
+		position: fixed;
+		height: @playerTracklistHeight;
+		bottom: -@playerTracklistHeight;
+		right: 12%;
+		.background(fade(@set-dark-gray, 90%), @set-nearly-white);
+		width: 40vw;
+		overflow-y: scroll;
+		> *:hover {
+		    .background(fade(@set-dark-gray, 90%), @set-blue);
+		} 
+		.active {
+			.background(fade(@set-dark-gray, 120%), @set-blue);
+		}
+	}
+	.track {
+		display: flex;
+		padding: 1rem 0;
+		.starttime {
+			margin: auto 0.5vw auto 1vw
+		}
+		.trackname {
+			margin: auto auto auto 2vw;
+			overflow-x: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+	}
 }
 .player-image-container {
     position: relative;
@@ -722,9 +721,6 @@ input#search {
     }
 }
 
-.text-container {
-    padding: 0 4vw;
-}
 .tile-button {
     &:hover {
     background-color: rgba(255,255,255,0.2);

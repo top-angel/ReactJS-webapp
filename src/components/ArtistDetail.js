@@ -5,12 +5,10 @@ import constants from '../constants/constants';
 
 import SetContainer from './SetContainer';
 import EventContainer from './EventContainer';
-import ArtistTileContainer from './BrowseContainer';
 
 import DetailNavContainer from './DetailNavContainer';
 import DetailImageContainer from './DetailImageContainer';
 import LinkButtonContainer from './LinkButtonContainer';
-
 
 var ArtistDetail = React.createClass({
 

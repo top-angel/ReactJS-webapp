@@ -8,7 +8,6 @@ import GlobalEventHandler from './services/globalEventHandler';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Player from './components/Player';
-import DetailView from './components/DetailView';
 import LandingView from './components/LandingView';
 import EventsView from './components/EventsView';
 import HomeView from './components/HomeView';
@@ -43,72 +42,78 @@ import ArtistTileContainer from './components/ArtistTileContainer';
 import DMCA from './components/DMCA';
 
 var initialAppState = Immutable.Map({
-//THIS IS WHERE SOUND COMES FROM 
+//TEST SET
+	// currentSet: {
+	// 	artist: 'FlicFlac',
+	// 	event: 'Best of FlicFlac 2014',
+	// 	artistimageURL: '367430a23a7d0da81b8222191fcb2034.jpg',
+	// 	songURL: '6fdbe5fe2c23c40fbae8d03f40921ddd7d9b5af3.mp3',
+	// 	set_length: '38:10',
+	// 	starttime: '00:00',// <- MUST BE IN THIS FORMAT
+	// 	id: 3684
+	// },
+	// tracklist: [
+	// 	{
+	// 		"trackname": "Vance Joy - Riptide (FlicFlac Edit)",
+	// 		"artistname": "Vance Joy",
+	// 		"songname": "Riptide (FlicFlac Edit)",
+	// 		"starttime": "00:00",
+	// 		"set_length": "38:10"
+	// 	},
+	// 	{
+	// 		"trackname": "Milky Chance - Down by the River (FlicFlac Edit)",
+	// 		"artistname": "Milky Chance",
+	// 		"songname": "Down by the River (FlicFlac Edit)",
+	// 		"starttime": "05:52",
+	// 		"set_length": "38:10"
+	// 	},
+	// 	{
+	// 		"trackname": "The Lumineers - Stubborn Love (FlicFlac Bootleg) ",
+	// 		"artistname": "The Lumineers",
+	// 		"songname": "Stubborn Love (FlicFlac Bootleg) ",
+	// 		"starttime": "10:47",
+	// 		"set_length": "38:10"
+	// 	},
+	// 	{
+	// 		"trackname": "Empire of the Suns - We are the People (FlicFlac Remix)",
+	// 		"artistname": "Empire of the Suns",
+	// 		"songname": "We are the People (FlicFlac Remix)",
+	// 		"starttime": "16:44",
+	// 		"set_length": "38:10"
+	// 	},
+	// 	{
+	// 		"trackname": "Milky Chance - Stolen Dance (FlicFlac Edit)",
+	// 		"artistname": "Milky Chance",
+	// 		"songname": "Stolen Dance (FlicFlac Edit)",
+	// 		"starttime": "24:14",
+	// 		"set_length": "38:10"
+	// 	},
+	// 	{
+	// 		"trackname": "Edward Sharpe & The Magnetic Zeros - Home (FlicFlac Remix)",
+	// 		"artistname": "Edward Sharpe & The Magnetic Zeros",
+	// 		"songname": "Home (FlicFlac Remix)",
+	// 		"starttime": "29:23",
+	// 		"set_length": "38:10"
+	// 	},
+	// 	{
+	// 		"trackname": "Lykke Li - I follow Rivers (FlicFlac Remix)",
+	// 		"artistname": "Lykke Li",
+	// 		"songname": "I follow Rivers (FlicFlac Remix)",
+	// 		"starttime": "33:53",
+	// 		"set_length": "38:10"
+	// 	}
+	// ],
+
 	currentSet: {
-		artist: 'FlicFlac',
-		event: 'Best of FlicFlac 2014',
-		artistimageURL: '367430a23a7d0da81b8222191fcb2034.jpg',
-		songURL: '6fdbe5fe2c23c40fbae8d03f40921ddd7d9b5af3.mp3',
-		set_length: '38:10',
-		starttime: '00:00',// <- MUST BE IN THIS FORMAT
-		id: 3684
+		set_length: '00:00',
+		starttime: '00:00'
 	},
-	tracklist: [
-		{
-			"trackname": "Vance Joy - Riptide (FlicFlac Edit)",
-			"artistname": "Vance Joy",
-			"songname": "Riptide (FlicFlac Edit)",
-			"starttime": "00:00",
-			"set_length": "38:10"
-		},
-		{
-			"trackname": "Milky Chance - Down by the River (FlicFlac Edit)",
-			"artistname": "Milky Chance",
-			"songname": "Down by the River (FlicFlac Edit)",
-			"starttime": "05:52",
-			"set_length": "38:10"
-		},
-		{
-			"trackname": "The Lumineers - Stubborn Love (FlicFlac Bootleg) ",
-			"artistname": "The Lumineers",
-			"songname": "Stubborn Love (FlicFlac Bootleg) ",
-			"starttime": "10:47",
-			"set_length": "38:10"
-		},
-		{
-			"trackname": "Empire of the Suns - We are the People (FlicFlac Remix)",
-			"artistname": "Empire of the Suns",
-			"songname": "We are the People (FlicFlac Remix)",
-			"starttime": "16:44",
-			"set_length": "38:10"
-		},
-		{
-			"trackname": "Milky Chance - Stolen Dance (FlicFlac Edit)",
-			"artistname": "Milky Chance",
-			"songname": "Stolen Dance (FlicFlac Edit)",
-			"starttime": "24:14",
-			"set_length": "38:10"
-		},
-		{
-			"trackname": "Edward Sharpe & The Magnetic Zeros - Home (FlicFlac Remix)",
-			"artistname": "Edward Sharpe & The Magnetic Zeros",
-			"songname": "Home (FlicFlac Remix)",
-			"starttime": "29:23",
-			"set_length": "38:10"
-		},
-		{
-			"trackname": "Lykke Li - I follow Rivers (FlicFlac Remix)",
-			"artistname": "Lykke Li",
-			"songname": "I follow Rivers (FlicFlac Remix)",
-			"starttime": "33:53",
-			"set_length": "38:10"
-		}
-	],
-	currentTrack: 'Vance Joy - Riptide (FlicFlac Edit)',
+	tracklist: [],
+	currentTrack: null,
 	sound: null, // <- soungmanager object
+	playerHidden: true,
 	playing: false, //change to true once set starts playing
 	timeElapsed: 0, //update while playing
-
 
 	artistBrowseData: [],
 	festivalBrowseData: [],
@@ -116,7 +121,6 @@ var initialAppState = Immutable.Map({
 	activityBrowseData: [],
 	recentBrowseData: [],
 	popularBrowseData: [],
-
 	landingEvents: [],
 
 	isUserLoggedIn: false,
@@ -126,8 +130,8 @@ var initialAppState = Immutable.Map({
 	newSets: [],
 	newEvents: [],
 
-	detailId: 2,// change to 1685 for testing upcoming event
-	detailData: {//minimum properties needed for rendering
+	detailId: null,
+	detailData: {
 		"sets": [],
 		"upcomingEvents": [],
 		"links": {
@@ -226,7 +230,6 @@ var App = React.createClass({
 					})
 				}
 				<Player appState={appState} push={push} />
-				<Footer />
 			</div>
 		);
 	}
@@ -236,6 +239,8 @@ var routes = (
 	<Route path='/' component={App}>
 		<Route path='sandbox/:id' component={Sandbox}/>
 		<IndexRoute component={LandingView}/>
+
+		<Route path='play/:set' component={LandingView} />
 
 		<Route path='user' component={HomeView}>
 			<IndexRoute component={Favorites}/>

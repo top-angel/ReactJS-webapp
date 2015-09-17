@@ -64,7 +64,6 @@ var MixDetail = React.createClass({
 		})
 		.done(function(response) {
 			mixData = response.payload.mix;
-			console.log(mixData);
 
 			push({
 				type: 'SHALLOW_MERGE',

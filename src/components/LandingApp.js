@@ -42,35 +42,32 @@ var LandingApp = React.createClass({
 			<div className='flex-column overlay-container' id='LandingApp'>
 				<div className='flex-row overlay-container slide slide-1 animated fadeIn'>
 					<div className='flex-column flex-fixed text-container'>
-						<div className='buffer'/>
-						<div className='header-medium center wow bounceInLeft'>
-						  {'Say goodbye to missing a live performance'}
-						</div>
-						<div className='buffer'/>
-						<div className='center wow bounceInLeft'>
-							{'Listen to any live set or recorded mix completely free. You can relive your favorite events, or catch up on the ones you missed.'}
-						</div>
-						<div className='buffer'/>
-						<div className='center wow bounceInLeft'>
-							{'Search for your favorite tracks and hear the results in live set form. We\'ll fast-forward you right where the artist drops the track'}
-						</div>
-						<div className='buffer-5x'/>
+						<h1 className='wow bounceInLeft'>
+						  Say goodbye to missing a live performance
+						</h1>
+						<p className='wow bounceInLeft'>
+							Listen to any live set or recorded mix completely free. You can relive your favorite events, or catch up on the ones you missed.
+						</p>
+						<p className='wow bounceInLeft'>
+							Search for your favorite tracks and hear the results in live set form. We'll fast-forward you right where the artist drops the track.
+						</p>
 					</div>
 					<div className='flex-column flex-fixed image-container'>
 					   <img className='center wow slideInUp' src='public/images/slide-1.jpg' />
 					</div>
 				</div>
+
 				<div className='flex-row overlay-container slide slide-2 hidden'>
 					<div className='flex-column flex-fixed text-container animated fadeIn'>
-					   <div className='buffer'/>
-					   <div className='header-medium center animated bounceInLeft'>
-					   		{'Discover upcoming events near you'}
-					   </div>
-					   <div className='buffer'/>
-					   <div className='center animated bounceInLeft'>
-							{'We streamlined event discovery so you can find local events, view lineups, and purchase tickets within the app.'}
-					   </div>
-					   <div className='buffer-5x'/>
+					   <h1 className='animated bounceInLeft'>
+					   		Discover upcoming events near you
+					   </h1>
+					   <p className='animated bounceInLeft'>
+							We streamlined event discovery so you can find local and national events, view lineups, and purchase tickets within the app.
+					   </p>
+					   <p className='animated bounceInLeft'>
+							Planning a trip? See who's performing at venues near your destination by searching any city for events.
+					   </p>
 					</div>
 					<div className='flex-column flex-fixed image-container animated fadeIn'>
 					   <img className='center' src='public/images/slide-2.jpg' />
@@ -78,21 +75,15 @@ var LandingApp = React.createClass({
 				</div>
 	          <div className='flex-row overlay-container slide slide-3 animated fadeIn hidden'>
 					<div className='flex-column flex-fixed text-container'>
-						<div className='buffer'/>
-						<div className='animated bounceInLeft'>
-							{'Your stream lists new sets, upcoming events, and exclusive content from your favorite artists.'}
-						</div>
-						<div className='buffer'/>
-						<div className='animated bounceInLeft'>
-							{'Save your favorite sets for quick and easy listening.'}
-						</div>
-						<div className='buffer'/>
-						<div className='divider center'/>
-						<div className='buffer'/>
-						<div className='animated bounceInLeft'>
-							{'You can enjoy these features with a quick one-time facebook login.'}
-						</div>
-						<div className='buffer'/>
+						<h1 className='animated bounceInLeft'>
+							Your favorite music on demand
+						</h1>
+						<p className='animated bounceInLeft'>
+							Create an account to save your favorite sets.
+							<br/>
+							<br/>
+							Your stream includes new sets, upcoming events, and unlockable content from your favorite artists.
+						</p>
 					</div>
 					<div className='flex-column flex-fixed animated fadeIn image-container'>
 						<img className='center' src='public/images/slide-3.jpg' />
