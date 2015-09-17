@@ -114,7 +114,7 @@
 .mobile(@rules, @max-value: 980px) {
     @media screen and (max-width: @max-value) {@rules();}
 }
-.fadeBackground(@color:@setmine-royal-blue, @alpha:100%) {
+.fadeBackground(@color:@set-dark-gray, @alpha:100%) {
     background-color: fade(@color, @alpha);
 }
 .set-flex {
@@ -150,6 +150,13 @@
     -webkit-flex: @flexGrow @flexShrink @flexBasis;
     -ms-flex: @flexGrow @flexShrink @flexBasis;
     flex: @flexGrow @flexShrink @flexBasis;
+}
+.flex-container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
 }
 .flex-column {
   .flexContainer(column, vertical, wrap);

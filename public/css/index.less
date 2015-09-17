@@ -8,7 +8,7 @@
 @import "fonts.less";
 @import "geocode.less";
 
-//normalize
+//base settings
 
 body {
     margin:0;
@@ -18,31 +18,35 @@ body {
     overflow-x:hidden;
 }
 html {
-    font-family: @defaultFontStyle;
-    font-size: @defaultFontSize;
-    // &::-webkit-scrollbar-track {
-    //     background-color: @set-gray;
-    // }
-    // &::-webkit-scrollbar {
-    //     width: 5px;
-    //     height: 12px;
-    // }
-    // &::-webkit-scrollbar-thumb {
-    //     background: @set-blue;
-    // }
+	font-family: @defaultFontStyle;
+	font-family: @lightFontStyle;
+	font-size: @defaultFontSize;
+	// &::-webkit-scrollbar-track {
+	//     background-color: @set-gray;
+	// }
+	// &::-webkit-scrollbar {
+	//     width: 5px;
+	//     height: 12px;
+	// }
+	// &::-webkit-scrollbar-thumb {
+	//     background: @set-blue;
+	// }
+	.mobile({
+		font-size: @defaultFontSize*1.5; 
+	});
 }
 
 * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 a {
-    color:inherit;
-    text-decoration:none;
-    &:hover {
-        color:inherit;
-    }
+	color:inherit;
+	text-decoration:none;
+	&:hover {
+		color:inherit;
+	}
 }
 
 // css
@@ -286,7 +290,6 @@ footer {
 header {
     background-color: @set-dark-gray;
     height: @headerHeight;
-    font-family:  @defaultFontStyle;
     position:fixed;
     width:100%;
     z-index: 100;
@@ -302,62 +305,59 @@ header {
         color: white;
         background-color: @set-dark-gray*1.2;
     }
+    .mobile({
+    	font-size: 1.25rem;
+  	})
 }
 
 #HomeView {
-    color: @set-dark-gray;
-    height:90vh;
-    .results-container {
-        height: 90vh;
-        overflow-y: scroll;
-    }
-    .loadedContent {
-        .flex-row;
-        .flex-fixed-4x;
-        .scrollable;
-    }
+	color: @set-dark-gray;
+	height:90vh;
+	.results-container {
+		height: 90vh;
+		overflow-y: scroll;
+	}
+	.loadedContent {
+		.flex-row;
+		.flex-fixed-4x;
+		.scrollable;
+	}
 }
 
 #HomeSidebar {
-    border-bottom: solid 1px @set-light-gray;
-    .nav-button {
-        color: @set-nearly-white;
-        &:hover {
+	border-bottom: solid 1px @set-light-gray;
+	.nav-button {
+		color: @set-nearly-white;
+		&:hover {
             background-color: @set-dark-gray*0.9;
-        } 
+		} 
         &.active {
             border-left: solid @set-blue 5px;
             background-color: @set-dark-gray*0.8;
             color: white;
-        }
-        div {
-            margin: auto 3vw;
-        }
-    }
-    .user-background {
-        background-color: @set-light-gray;
-        .background(@set-light-gray, white);
-    }
-    .user-nav {
-        background-color: @set-dark-gray;
-    }
-    img {
-        .size(100px, 100px);
-        border-radius: 50%;
-        border: solid white;
-    }
-}
-
-input#search {
-    font-size: 1rem;
-    font-family: inherit;
-    .border-radius(25px);
-    padding: 1vh 1vw;
-    color: @set-dark-gray;
-    outline:0;
-    margin: auto 0;
-    border:none;
-    width:0;
+		}
+		div {
+       	margin: auto 3vw;
+		}
+	}
+	.user-background {
+		background-color: @set-light-gray;
+		.background(@set-light-gray, white);
+	}
+	.user-nav {
+		background-color: @set-dark-gray;
+	}
+	img {
+		.size(100px, 100px);
+		border-radius: 50%;
+		border: solid white;
+	}
+	.mobile({
+		font-size: 1.5rem;	
+		.user-nav {
+			.flex-5x;
+		}
+	})
 }
 
 #LandingView {
@@ -367,25 +367,36 @@ input#search {
 	background: url(../images/landing-1.jpg);
 	background-size: 100% 100%;
 	height: @pageHeight;
+	font-weight: 100;
 	.overlay {
 		.createOverlay(40%); 
 	}
+	h1 {
+		font-size: 8rem;
+		font-weight: inherit;
+		margin-top: 15vh;
+	}
+	h2 {
+		margin: 0 auto;
+	}
+	.mobile({
+
+	});
 }
 #LandingApp {
 	background-size: 100% 100%;
 	font-size: 1.2rem;
+	height: @pageHeight;
 	.slide-controls {
 		position: absolute;
 		bottom: 4vh;
 		left: 25%;
 	}
 	.slide {
-        height:100%;
-        width:100%;
-        img {
-            width: 75%;
-            height: @pageHeight;
-        }
+		.size(100%, 100%);
+		img {
+			width: 75%;
+		}
 	}
 	.text-container {
 	    padding: 4vw;
@@ -414,13 +425,16 @@ input#search {
 			background: #ebebeb;
 		}
 	}
-	@media (max-width: 640px) {
-		line-height: 1.5rem;
-		font-size: 0.75rem;
-		.header-medium {
-			font-size: 1rem;
+	.mobile({
+		font-size: 1.65rem;
+		height: @pageHeight*0.75;
+		.slide-controls {
+			left: 45%;
 		}
-	}
+		.image-container {
+			.hidden;
+		}
+	});
 }
 #LandingBeacon {
 	position: relative;
@@ -439,6 +453,19 @@ input#search {
 		-webkit-margin-before: 25%;
 		margin-right: 25%;
 	}
+	.mobile({
+		background-size: 70% 100%;
+		.text-container {
+			width: 35%;
+			padding-right: 5%;
+		}
+		h1 {
+			margin: 10vh 0 5vh 0;
+		}
+		p {
+			font-size: 1.5rem;
+		}
+	})
 }
 .links-container {
     .background(@set-dark-gray, white);
@@ -647,6 +674,18 @@ input#search {
     }
 }
 
+#search {
+    font-size: 1rem;
+    font-family: inherit;
+    .border-radius(25px);
+    padding: 1vh 1vw;
+    color: @set-dark-gray;
+    outline:0;
+    margin: auto 0;
+    border:none;
+    width:0;
+}
+
 #SearchResultsView {
     color: @set-dark-gray;
     .header-small {
@@ -705,6 +744,11 @@ input#search {
     .play:hover {
         background-color: fade(@set-dark-gray, 100%);
     }
+    .mobile({
+    	font-size: 2rem!important;
+    	width: 100%;
+    	margin: 2% 1.5%;
+  	});
 }
 
 #SetsView {

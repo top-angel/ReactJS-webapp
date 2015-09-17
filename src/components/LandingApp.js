@@ -25,7 +25,7 @@ var LandingApp = React.createClass({
 			clearTimeout(changeTimeout);
 			changeTimeout = setTimeout(function() {
 				moveTo('next');
-			}, 7000);
+			}, 7000000);
 		}
 
 		//change slides by clicking on dots
@@ -73,6 +73,7 @@ var LandingApp = React.createClass({
 					   <img className='center' src='public/images/slide-2.jpg' />
 					</div>
 				</div>
+				
 	          <div className='flex-row overlay-container slide slide-3 animated fadeIn hidden'>
 					<div className='flex-column flex-fixed text-container'>
 						<h1 className='animated bounceInLeft'>

@@ -11,7 +11,7 @@ var HomeSidebar = React.createClass({
 			<div id='HomeSidebar'className='flex-column flex-fixed'>
 				<div className='flex flex-column overlay-container user-background'>
 					<img className='center' src='' />
-					<div className='center'>{name}</div>
+					<div className='center hidden'>{name}</div>
 				</div>
 				<div className='flex-3x flex-column user-nav'>
 					<Link className='nav-button click flex flex-row' to='/user' activeClassName='active' onlyActiveOnIndex={true}>

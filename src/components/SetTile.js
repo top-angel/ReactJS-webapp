@@ -55,7 +55,6 @@ var SetTile = React.createClass({
 			//go to festival page
 			this.history.pushState(null, '/festival/' + routePath);
 		} else {
-//TODO FIX API ROUTES FOR MIX TO LOAD NAME
 			var routeId = this.props.event_id;//quick fix for now
 			this.history.pushState(null, '/mix/' + routeId);
 		}
@@ -88,7 +87,8 @@ var SetTile = React.createClass({
 				}
 			});
 
-			window.history.replaceState(null, null, '/play/' + _this.props.id);
+			//TODO make sure this works
+			this.history.replaceState(null, '/play/' + _this.props.id);
 			_this.updatePlayCount(_this.props.id);
 		});
 	},

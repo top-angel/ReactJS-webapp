@@ -11,7 +11,7 @@ var LandingBeacon = React.createClass({
 						Artists release exclusive content on Setmine, which you can unlock at specific venues using beacon techology. 
 						<br/>
 						<br/>
-						All you have to do is go to a venue. Once you're there, Setmine unlocks the content on your account for free listening anytime.
+						All you have to do is go to the venue. Once you're there, Setmine unlocks the content on your account for free listening anytime.
 					</p>
 				</div>
 			</div>

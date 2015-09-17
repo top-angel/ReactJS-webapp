@@ -5,8 +5,8 @@ var LandingHome = React.createClass({
 	scroll: function() {
 		//TODO Fix this
 		setTimeout(function(){
-			$(window).scrollTo($('#landing-2'), 400, {
-				offset: - $('header').height()
+			$(window).scrollTo('100vh', 400, {
+				offset: -'8vh'
 			});
 		}, 200);
 	},
@@ -14,19 +14,14 @@ var LandingHome = React.createClass({
 		return (
 			<div className='flex-column overlay-container' id='LandingHome'>
 				<div className='overlay'/>
-				<div className='buffer'/>
-				<div className='header center wow zoomIn'>Setmine</div>
-				<div className='center wow zoomIn'>Relive your favorite events</div>
-				<div className='buffer'/>
+				<h1 className='center wow zoomIn'>Setmine</h1>
+				<h2 className='center wow zoomIn'>Relive your favorite events</h2>
 				<div className='flex-row center'>
-				    <a href='http://bit.ly/SetmineiOS' title='view on App Store' className='fa fa-apple fa-fw fa-4x wow fadeInLeft click'></a>
-				    <a href='http://bit.ly/SetmineAndroid' title='view on Google Play'className='fa fa-android fa-fw fa-4x wow fadeInRight click'></a>
+				    <a href='http://bit.ly/SetmineiOS' title='view on App Store' className='fa fa-apple fa-fw fa-4x wow fadeInLeft click'/>
+				    <a href='http://bit.ly/SetmineAndroid' title='view on Google Play'className='fa fa-android fa-fw fa-4x wow fadeInRight click'/>
 				</div>
-				<div className='buffer-5x'/>
 				<Link to='sets' className='header-small center click wow fadeInUp' id='listen-now'>Listen Now</Link>
-				<div className='buffer'/>
 				<i className='fa fa-chevron-down center click wow slideInUp' onClick={this.scroll}/>
-				<div className='buffer'/>
           </div>
 		);
 	}
