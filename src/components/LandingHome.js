@@ -2,18 +2,19 @@ import React from 'react';
 import {Link} from 'react-router';
 
 var LandingHome = React.createClass({
+
 	scroll: function() {
 		//TODO Fix this
 		setTimeout(function(){
-			$(window).scrollTo('100vh', 400, {
+			$(window).scrollTo($('#LandingHome').height(), 400, {
 				offset: -'8vh'
 			});
 		}, 200);
 	},
+	
 	render: function() {
 		return (
-			<div className='flex-column overlay-container' id='LandingHome'>
-				<div className='overlay'/>
+			<div className='flex-column' id='LandingHome'>
 				<h1 className='center wow zoomIn'>Setmine</h1>
 				<h2 className='center wow zoomIn'>Relive your favorite events</h2>
 				<div className='flex-row center'>

@@ -74,15 +74,11 @@ var DetailImageContainer = React.createClass({
 
 		return (
 			<div className='flex-column flex image-container overlay-container' style={imageStyle}>
-				<div className='overlay'/>
-				<div className='buffer'/>
-				<div className='header center artist-name'>{this.props.title}</div>
+				<h1 className='header center artist-name'>{this.props.title}</h1>
 				<div className='header-small center'>{this.props.info}</div>
-				<div className='buffer'/>
 				<a className='header-small center click' id='detail-button' onClick={this.shuffle}>
 					{this.props.buttonText}
 				</a>
-				<div className='buffer'/>
 			</div>
 		);
 	}

@@ -73,11 +73,18 @@ var LandingView = React.createClass({
 	},
 
 	render() {
+		var playerHidden = this.props.appState.get('playerHidden');
+		if(playerHidden) {
+			var hidePlayer = true;
+		} else {
+			var hidePlayer = false;
+		}
+
 		return (
-			<div id='LandingView' className='flex-column view flex'>
-				<LandingHome />
-				<LandingApp />
-				<LandingBeacon />
+			<div id='LandingView' className='flex-column view'>
+				<LandingHome hidePlayer={hidePlayer} />
+				<LandingApp hidePlayer={hidePlayer} />
+				<LandingBeacon hidePlayer={hidePlayer} />
 				<Footer />
 			</div>
 		);

@@ -1,5 +1,4 @@
 import React from 'react';
-import Sound from 'react-sound';
 import playerService from '../services/playerService.js';
 import constants from '../constants/constants';
 
@@ -17,8 +16,17 @@ var Player = React.createClass({
 
 	componentDidMount: function() {
 		var push = this.props.push;
-		var starttime = this.props.appState.get('currentSet').starttime;
+		var sound = this.props.appState.get('sound');
 		var _this = this;
+
+		if(sound != null) {
+			push({
+				type: 'SHALLOW_MERGE',
+				data: {
+					playerHidden: false
+				}
+			});
+		}
 
 	//HIDING so generateSound doesnt fire until a new set is pushed
 		// playerService.generateSound(starttime, this.props.appState, push)
@@ -40,7 +48,6 @@ var Player = React.createClass({
 
 		if(nextProps.appState.get('currentSet') != this.props.appState.get('currentSet')) {
 			var starttime = nextProps.appState.get('currentSet').starttime;
-			console.log(starttime);
 
 			playerService.generateSound(starttime, nextProps.appState, push)
 			.then(function(smObj) {
@@ -50,7 +57,8 @@ var Player = React.createClass({
 					type: 'SHALLOW_MERGE',
 					data: {
 						sound: smObj,
-						playing: true
+						playing: true,
+						playerHidden: false
 					}
 				});
 			});
@@ -67,16 +75,22 @@ var Player = React.createClass({
 	render: function() {
 		var push = this.props.push;
 		var appState = this.props.appState;
-
 		var currentSet = appState.get('currentSet');
+		var playerHidden = appState.get('playerHidden');
 
 		var props = {
 			appState: appState,
 			push: push
 		};
 
+		if(playerHidden) {
+			var playerClass = 'flex-row hidden';
+		} else {
+			var playerClass = 'flex-row';
+		}
+
 		return (
-			<div className='flex-row' id='Player'>
+			<div className={playerClass} id='Player'>
 
 				<PlayerControl appState={appState} push={push} />
 

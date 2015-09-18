@@ -16,7 +16,7 @@ var EventsView = React.createClass({
 		return (
 			<div id="EventsView" className="view flex-column">
 				<div className='view-title-container flex-column'>
-					<div className='center'>Featured</div>
+					<h3 className='center'>Featured</h3>
 					<div className='divider'/>
 				</div>
 				<FeaturedContainer 

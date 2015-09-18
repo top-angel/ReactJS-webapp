@@ -33,7 +33,6 @@ var FeaturedTile = React.createClass({
 			className="featured-tile flex-column overlay-container click" 
 			style={image} 
 			onClick={this.openDetailPage} >
-			    <div className="overlay"/>
 			    <div className="flex-column featured-info animated">
 			        <div className="event-name">{this.props.event}</div>
 			        <div className="event-date">{this.props.formattedDate}</div>

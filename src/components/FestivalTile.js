@@ -24,7 +24,6 @@ var FestivalTile = React.createClass({
 			<div className='festival-tile flex-column overlay-container click'
 				onClick={this.openFestivalPage} 
 				style={image}>
-				<div className='overlay'/>
 				<div className='detail flex-column'>
 					<span className='info'>{info}</span>
 					<span className='festival'>{event}</span>

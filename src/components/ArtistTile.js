@@ -15,7 +15,7 @@ var ArtistTile = React.createClass({
 	},
 
 	openArtistPage: function() {
-		var routePath = this.props.artist.split(' ').join('-');
+		var routePath = this.props.artist.split(' ').join('_');
 		this.history.pushState(null, '/artist/' + routePath);
 	},
 

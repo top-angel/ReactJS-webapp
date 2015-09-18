@@ -104,9 +104,16 @@
     width: @width;
     background-color: @color;
 }
-.createOverlay(@percentage, @color: #2b2b2b) {
-    color: white;
-    background-color: fade(@color, @percentage);
+.createOverlay(@opacity, @color) {
+    z-index: 1;
+    &::before {
+        content: '';
+        opacity: @opacity;
+        background-color: @color;
+        .size(100%, 100%);
+        position: absolute;
+        z-index: -1;
+    }
 }
 .desktop(@rules, @min-value: 980px) {
     @media screen and (min-width: @min-value) {@rules();}

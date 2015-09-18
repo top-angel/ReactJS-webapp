@@ -44,12 +44,12 @@ var SetTile = React.createClass({
 	},
 
 	openArtistPage: function() {
-		var routePath = this.props.artist.split(' ').join('-');
+		var routePath = this.props.artist.split(' ').join('_');
 		this.history.pushState(null, '/artist/' + routePath);
 	},
 
 	openFestivalPage: function() {
-		var routePath = this.props.event.split(' ').join('-');
+		var routePath = this.props.event.split(' ').join('_');
 
 		if(this.props.is_radiomix == 0) {
 			//go to festival page

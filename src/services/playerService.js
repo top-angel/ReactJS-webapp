@@ -97,25 +97,6 @@ function generateSound(loadStart, appState, push) {
 	});
 }
 
-function hidePlayer(appState, push) {
-	//check if play route is active
-	//resize .view to 100vh - @headerHeight
-	//add hidden class to player
-}
-
-function showPlayer(appState, push) {
-	//check if play route is active
-		//check if sound object exists
-		//or check appstate for currentset
-	//resize .view to 100vh - @playerHeight - @headerHeight
-	//remove hidden class from player
-	//use on set and track tiles and detail image container
-}
-
-function togglePlayer(appState, push) {
-	
-}
-
 //scrub to a new position after clicking progress bar
 function scrub(position, appState, push) {
 	var sound = appState.get('sound');
@@ -173,6 +154,5 @@ module.exports = {
 	togglePlay: togglePlay,
 	changeTrack: changeTrack,
 	updateCurrentTrack: updateCurrentTrack,
-	hidePlayer: hidePlayer,
 	scrub: scrub
 };

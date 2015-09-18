@@ -38,8 +38,8 @@ var PlayerControl = React.createClass({
 		}
 
 		return (
-			<div className="player-image-container click" onClick={this.togglePlay}>
-				<div className="overlay set-flex">
+			<div className='player-image-container click' onClick={this.togglePlay}>
+				<div className='overlay set-flex'>
 					<i className={playingClass}/>
 				</div>
 				<img src={constants.S3_ROOT_FOR_IMAGES+'small_'+currentSet.artistimageURL} />
