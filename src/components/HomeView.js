@@ -1,6 +1,7 @@
 import React from 'react';
 import constants from '../constants/constants';
 import HomeSidebar from './HomeSidebar';
+import LoginOverlay from './LoginOverlay';
 
 var HomeView = React.createClass({
 
@@ -9,6 +10,7 @@ var HomeView = React.createClass({
 
 		return (
 			<div id="HomeView" className="view flex-row overlay-container">
+				<LoginOverlay appState={this.props.appState} push={this.props.push} />
 				<HomeSidebar appState={this.props.appState}/>
 				{
 					React.cloneElement(this.props.children, {

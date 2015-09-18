@@ -1,11 +1,7 @@
 import React from 'react';
 import constants from '../constants/constants';
 
-import TrackContainer from './TrackContainer';
-import SetContainer from './SetContainer';
-import EventContainer from'./EventContainer';
-
-import ArtistTile from './ArtistTile';
+import LoginOverlay from './LoginOverlay';
 
 var Sandbox = React.createClass({
 
@@ -24,16 +20,14 @@ var Sandbox = React.createClass({
 		var appState = this.props.appState;
 
 		return (
-			<div className='view sandbox'>
-			<div className='center'>
-				{'>2015'}
-				<br/>
-				{'>still building websites in react'}
-				<br/>
-				{'>THIS week guys... TRUSH ME'}
-				<br/>
-				{'>mfw'}
-			</div>
+			<div className='sandbox view'>
+				<p className='center'>
+					>tfw new website
+					<br/>
+					>tfw react.js master race
+					<br/>
+					>tfw jediscript can't melt steal beams
+				</p>
 			</div>
 		);
 	}

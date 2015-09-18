@@ -144,7 +144,7 @@ a {
 		height: 45vh;
 		background-size: 100%;
 		background-position-y: 40%;
-		.createOverlay(0.8, @set-blue);
+		.createOverlay(0.75, @set-blue);
 	}
 	>.divider {
 		.createDivider(100%, 2px, @set-gray);
@@ -168,8 +168,8 @@ a {
 
 .error {
 	background: inherit;
-	color: @set-dark-gray;
-	text-align: center;
+	color: @set-dark-gray!important;
+	margin: 0 auto;
 }
 
 .event-tile {
@@ -404,16 +404,20 @@ header {
 	h1 {
 		font-size: 8rem;
 		font-weight: inherit;
-		margin-top: 15vh;
+		margin-top: 10vh;
 	}
 	h2 {
 		margin: 0 auto;
+	}
+	.createOverlay(0.5, @set-dark-gray);
+	&::before{
+		height: @pageHeightWithoutPlayer!important;
 	}
 }
 #LandingApp {
 	background-size: 100% 100%;
 	font-size: 1.2rem;
-	height: @pageHeight;
+	height: @pageHeightWithoutPlayer;
 	.slide-controls {
 		position: absolute;
 		bottom: 4vh;
@@ -465,7 +469,7 @@ header {
 }
 #LandingBeacon {
 	position: relative;
-	height: @pageHeight;
+	height: @pageHeightWithoutPlayer;
 	background-image: url(../images/beacon-offer.jpg);
 	background-size: 33% 100%;
 	background-repeat: no-repeat;
@@ -566,6 +570,43 @@ header {
     position: relative;
 }
 
+#LoginOverlay {
+	background-color: fade(@set-dark-gray, 50%);
+	display: flex;
+	position: absolute;
+	z-index: 1000;
+	width: 100%!important;
+	height: 100%;
+	.fa-facebook:hover{color:white;}
+	.content {
+		.card(3);
+		.background(@set-nearly-white, @set-dark-gray);
+		width: 50%;
+		.divider {
+			.createDivider(95%, 2px, @set-dark-gray);
+			margin: 0 auto;
+		}
+		.facebook {
+			.background(@facebook-blue, white);
+			.border-radius(5px);
+			border: solid 1px;
+			height: 50px;
+			margin: 2rem auto;
+			width: 32%;
+			&:hover {
+				.background(@facebook-blue*1.1, white);
+			}
+		}
+		h1 {
+			text-align: center;
+		}
+		.icon {
+			display: flex;
+			border-right: solid 1px;
+		}
+	}
+}
+
 .mix-tile {
 	.background(white, @set-dark-gray);
 	margin: 2% 2.5%;
@@ -641,14 +682,6 @@ header {
 	@media (max-width: 640px) {
 		font-size: 0.75rem;
 	}
-	// &::before {
-	// 	content:'';
-	// 	height:@playerHeight;
-	// 	position: relative;
-	// 	bottom:0;
-	// 	opacity: 0;
-	// 	width:100vw;
-	// }
 }
 #PlayerTracklist {
 	text-align: center;
@@ -743,6 +776,10 @@ header {
 	width:0;
 }
 
+.search-bar	{
+	margin-right: 1vw;
+}
+
 #SearchResultsView {
     color: @set-dark-gray;
     .header-small {
@@ -814,9 +851,6 @@ header {
 #SetsView {
 	.flexContainer(row, horizontal, nowrap);
 	height: @pageHeightWithoutPlayer;
-	.tile-container {
-		background-color: @set-nearly-white;
-	}
 	.loadedContent {
 		.flex-row;
 		.flex-fixed-4x;
@@ -839,6 +873,8 @@ header {
 
 .tile-container {
     min-height: 50vh;
+    width: 100%;
+    background-color: @set-nearly-white;
 }
 
 .track-tile {
@@ -872,14 +908,14 @@ header {
 		bottom: -@trackImg/2;
 	}
 	.set {
-	    position: absolute;
-	    bottom: 10px;
-	    left: 10px;
-	    span {
+		position: absolute;
+		bottom: 10px;
+		left: 10px;
+		span {
 			margin-right:auto;
 			padding: 5px 8px;
 			color:white;
-        }
+		}
 	}
 	.artist {
 		.hover-bg(@set-blue, 0.8);
@@ -919,6 +955,6 @@ header {
 }
 
 .sandbox {
-    .background(@dank-blue, @dank-green);
-    display: flex;
+	.background(@dank-blue, @dank-green);
+	display: flex;
 }

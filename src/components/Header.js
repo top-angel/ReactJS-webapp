@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link, History } from 'react-router';
 import SearchBar from './SearchBar';
-import LoginButton from './LoginButton';
 
 var Header = React.createClass({
 
@@ -34,7 +33,6 @@ var Header = React.createClass({
 	          <Link className='search-bar flex-row flex-3x' to='/search'>
 		          <SearchBar push={this.props.push} appState={this.props.appState}/>
 		       </Link>   
-	          <LoginButton push={this.props.push} appState={this.props.appState}/>
 	      </header>
 		);
 	}

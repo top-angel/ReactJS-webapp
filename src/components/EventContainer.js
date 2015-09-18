@@ -16,10 +16,13 @@ var EventContainer = React.createClass({
 		var push = this.props.push;
 
 		if(events.length == 0) {
-			var tiles = <p className={this.props.errorClass}>
-								No Upcoming Events Found. <br/>
-								Check back soon. We're Adding more every day!
-							</p>
+			var tiles = (
+				<div className={this.props.errorClass}>
+					<h2>No Upcoming Events Found.</h2>
+					<br/>
+					<h2>Check back soon. We're Adding more every day!</h2>
+				</div>
+			);
 		} else {
 			var tiles = events.map(function(event, index) {
 				var props = {
