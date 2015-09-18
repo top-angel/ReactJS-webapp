@@ -13,9 +13,10 @@ var SetContainer = React.createClass({
 	render: function() {
 		var data = this.props.sets;
 		var push = this.props.push;
+		var _this = this;
 
+		//TODO check if user.favorite_set_ids == set.id
 		var tiles = data.map(function(set, index) {
-
 			var props = {
 				key: index,
 				id: set.id,
@@ -24,6 +25,7 @@ var SetContainer = React.createClass({
 				is_radiomix: set.is_radiomix,
 				set_length: set.set_length,
 				push: push,
+				appState: _this.props.appState,
 				artist: set.artist,
 				event: set.event,
 				artistimageURL: set.artistimageURL,

@@ -7,6 +7,12 @@ var SetTile = React.createClass({
 	displayName: 'Set Tile',
 	mixins: [History],
 
+	getInitialState: function() {
+		return {
+			favorited: false
+		};
+	},
+
 	getDefaultProps: function() {
 		return {
 			starttime: 0
@@ -15,23 +21,34 @@ var SetTile = React.createClass({
 
 	favoriteSet: function() {
 		var push = this.props.push;
-		var favoriteUrl = API_ROOT + 'user/updateFavoriteSets';
-		//TODO
+		var user = this.props.appState.get('user');
+		var isUserLoggedIn = this.props.appState.get('isUserLoggedIn');
 
-		$.ajax({
-			type: 'POST',
-			url: favoriteUrl,
-			data: {
-				'userData': {
-					'userID': 108,
-					'setId': this.props.id
+		var favoriteUrl = constants.API_ROOT + 'user/updateFavoriteSets';
+		var _this = this;
+	//TODO check if user is logged in
+		if(isUserLoggedIn) {
+			//TODO change to userID: user.id
+			$.ajax({
+				type: 'POST',
+				url: favoriteUrl,
+				data: {
+					'userData': {
+						'userID': 108,
+						'setId': this.props.id
+					}
 				}
-			},
-			success: function(response) {
-				var registeredUser = response.payload.user;
-				//TODO change class of favorite set
-			}
-		});
+			})
+			.done(function(res) {
+
+				_this.setState({
+					favorited: true
+				});
+			});
+		} else {
+			this.history.pushState(null, '/user');
+		}
+
 	},
 
 	getTracklist: function() {
@@ -130,6 +147,8 @@ var SetTile = React.createClass({
 		};
 		var artistImage = constants.S3_ROOT_FOR_IMAGES+'small_'+this.props.artistimageURL;
 
+		var favorite = this.state.favorited ? 'link fa fa-fw fa-star center click' : 'link fa fa-fw fa-star-o center click'
+
 		return (
 			<div className='flex-column set-tile' style={eventImage}>
 				<div className='detail flex-column'>
@@ -139,7 +158,7 @@ var SetTile = React.createClass({
 							<div className='flex click link' onClick={this.openFestivalPage}>{this.props.event}</div>
 							<div className='flex click link' to='artist' onClick={this.openArtistPage}>{this.props.artist}</div>
 	                    <div className='flex flex-row'>
-								<i className='link fa fa-fw fa-star-o center click'/>
+								<i className={favorite} onClick={this.favoriteSet} />
 								<i className='link fa fa-fw fa-facebook center click' onClick={this.shareToFacebook} />
 								<i className='link fa fa-fw fa-twitter center click' onClick={this.shareToTwitter}/>
 	                    </div>

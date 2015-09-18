@@ -42,13 +42,13 @@ var Recent = React.createClass({
 	},
 	render: function() {
 		var data = this.props.appState.get('recentBrowseData');
-		var push = this.props.push;
 		var containerClass = 'flex-row scrollable tile-container';
 		
 		return (
 			<Loader loaded={this.state.loaded}>
 				<SetContainer
-					push={push}
+					appState={this.props.appState}
+					push={this.props.push}
 					sets={data}
 					containerClass={containerClass}/>
 			</Loader>
