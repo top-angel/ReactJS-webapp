@@ -36,7 +36,7 @@ var FeaturedTile = React.createClass({
 			    <div className="flex-column featured-info animated">
 			        <div className="event-name">{this.props.event}</div>
 			        <div className="event-date">{this.props.formattedDate}</div>
-			        <div className="featured-type">{this.props.type}</div>
+			        <div className="event-type">{this.props.type}</div>
 			    </div>
 			</div>
 		);

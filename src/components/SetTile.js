@@ -49,7 +49,7 @@ var SetTile = React.createClass({
 	},
 
 	openFestivalPage: function() {
-		var routePath = this.props.event.split(' ').join('_');
+		var routePath = this.props.event.split(' ').join('-');
 
 		if(this.props.is_radiomix == 0) {
 			//go to festival page

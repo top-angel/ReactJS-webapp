@@ -44,7 +44,7 @@ var Festivals = React.createClass({
 	render: function() {
 		var appState = this.props.appState.get('festivalBrowseData');
 		var push = this.props.push;
-		var containerClass = 'flex-row flex-fixed-4x scrollable';
+		var containerClass = 'flex-row scrollable';
 
 		var tiles = appState.map(function(festival, index) {
 			var props = {

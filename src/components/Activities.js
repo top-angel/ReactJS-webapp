@@ -42,7 +42,7 @@ var Activities = React.createClass({
 	render: function() {
 		var push = this.props.push;
 		var appState = this.props.appState.get('activityBrowseData');
-		var containerClass = 'flex-row flex-fixed-4x scrollable results-container';
+		var containerClass = 'flex-row scrollable results-container';
 
 		var tiles = appState.map(function(activity, index) {
 			var props = {

@@ -42,7 +42,7 @@ var Popular = React.createClass({
 	render: function() {
 		var data = this.props.appState.get('popularBrowseData');
 		var push = this.props.push;
-		var containerClass = 'flex-row flex-fixed-4x scrollable';
+		var containerClass = 'flex-row scrollable';
 		
 		return (
 			<Loader loaded={this.state.loaded}>

@@ -44,7 +44,7 @@ var Mixes = React.createClass({
 	render: function() {
 		var push = this.props.push;
 		var appState = this.props.appState.get('mixBrowseData');
-		var browseClass='flex-row flex-fixed-4x scrollable results-container';
+		var browseClass='flex-row scrollable results-container';
 
 		var tiles = appState.map(function(mix, index) {
 
