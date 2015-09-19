@@ -52,7 +52,10 @@ var FestivalDetail = React.createClass({
 	render: function() {
 		var appState = this.props.appState;
 		var push = this.props.push;
-		var data = appState.get('detailData');
+
+		var loginStatus = this.props.appState.get('isUserLoggedIn');
+		var user = this.props.appState.get('user');
+		var data = this.props.appState.get('detailData');
 
 		var detailInfo = {
 			appState: appState,
@@ -66,7 +69,9 @@ var FestivalDetail = React.createClass({
 		var setProps = {
 			containerClass: 'flex-row flex',
 			sets: data.sets,
-			push: push
+			push: push,
+			loginStatus: loginStatus,
+			user: user
 		};
 
 		return (

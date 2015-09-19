@@ -13,13 +13,15 @@ var Recent = React.createClass({
 			loaded: false
 		};
 	},
+
 	componentWillMount: function() {
 		 this.getRecentSets();
 	},
+
 	getRecentSets: function() {
 		var _this = this;
 		var push = this.props.push;
-		var results,
+		var recentSets,
 			recentUrl = constants.API_ROOT + 'recent';
 
 		$.ajax({
@@ -27,11 +29,11 @@ var Recent = React.createClass({
 			type: 'get'
 		})
 		.done(function(response) {
-			results = response.payload.recent;
+			recentSets = response.payload.recent;
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					recentBrowseData: results
+					recentBrowseData: recentSets
 				}
 			});
 
@@ -41,16 +43,20 @@ var Recent = React.createClass({
 		});
 	},
 	render: function() {
-		var data = this.props.appState.get('recentBrowseData');
+		var sets = this.props.appState.get('recentBrowseData');
+		var loginStatus = this.props.appState.get('isUserLoggedIn');
+		var user = this.props.appState.get('user');
 		var containerClass = 'flex-row scrollable tile-container';
 		
 		return (
 			<Loader loaded={this.state.loaded}>
 				<SetContainer
-					appState={this.props.appState}
 					push={this.props.push}
-					sets={data}
-					containerClass={containerClass}/>
+					sets={sets}
+					containerClass={containerClass}
+					loginStatus={loginStatus}
+					user={user}
+				/>
 			</Loader>
 		);
 	}

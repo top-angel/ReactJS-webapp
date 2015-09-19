@@ -82,7 +82,7 @@ var TrackTile = React.createClass({
 
 	render: function() {
 		var image = {
-			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + 'small_' + this.props.main_eventimageURL + "')"
+			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + this.props.main_eventimageURL + "')"
 		};
 		var artistImage = this.props.artistimageURL;
 		var songname = this.props.songname;

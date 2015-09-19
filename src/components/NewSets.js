@@ -10,14 +10,16 @@ var NewSets = React.createClass({
 			loaded: false
 		};
 	},
+
 	componentWillMount: function() {
 		this.getNewSets();
 	},
+
 	getNewSets: function() {
 		var _this = this;
-		var userId = this.props.appState.get('userId');
+		var userId = this.props.appState.get('user').id;
 		var push = this.props.push;
-		var results,
+		var newSets,
 			newSetsUrl = constants.API_ROOT + 'user/stream/' + userId + '?filter=sets';
 
 		$.ajax({
@@ -25,12 +27,12 @@ var NewSets = React.createClass({
 			type: 'get'
 		})
 		.done(function(response) {
-			results = response.payload.user.stream;
+			newSets = response.payload.user.stream;
 
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					newSets: results
+					newSets: newSets
 				}
 			});
 
@@ -39,16 +41,19 @@ var NewSets = React.createClass({
 			});
 		});
 	},
+
 	render: function() {
 		var newSets = this.props.appState.get('newSets');
-		var containerId = 'NewSets';
+		var loginStatus = this.props.appState.get('isUserLoggedIn');
+		var user = this.props.appState.get('user');
 
 		return (
 			<Loader loaded={this.state.loaded}>
 				<SetContainer
-					containerId={containerId}
 					sets={newSets}
 					push={this.props.push}
+					loginStatus={loginStatus}
+					user={user}
 				/>
 			</Loader>
 		);

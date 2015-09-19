@@ -60,7 +60,10 @@ var ArtistDetail = React.createClass({
 	render: function() {
 		var appState = this.props.appState;
 		var push = this.props.push;
+
 		var artistData = appState.get('detailData');
+		var loginStatus = this.props.appState.get('isUserLoggedIn');
+		var user = this.props.appState.get('user');
 
 		var detailInfo = {
 			appState: appState,
@@ -116,7 +119,9 @@ var ArtistDetail = React.createClass({
 						React.cloneElement(this.props.children, {
 							sets: artistData.sets,
 							events: artistData.upcomingEvents,
-							push: push
+							push: push,
+							loginStatus: loginStatus,
+							user: user
 						})
 					}
 				</div>

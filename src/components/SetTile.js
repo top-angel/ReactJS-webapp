@@ -1,4 +1,5 @@
 import React from 'react';
+import favoriteSet from '../services/favoriteSet';
 import constants from '../constants/constants';
 import {History, Link} from 'react-router';
 
@@ -7,44 +8,25 @@ var SetTile = React.createClass({
 	displayName: 'Set Tile',
 	mixins: [History],
 
-	getInitialState: function() {
-		return {
-			favorited: false
-		};
-	},
-
 	getDefaultProps: function() {
 		return {
-			starttime: 0
+			starttime: 0,
+			loginStatus: false,
+			user: {},
+			favorited: false
 		};
 	},
 
 	favoriteSet: function() {
 		var push = this.props.push;
-		var user = this.props.appState.get('user');
-		var isUserLoggedIn = this.props.appState.get('isUserLoggedIn');
+		var user = this.props.user;
+		var loginStatus = this.props.loginStatus;
 
 		var favoriteUrl = constants.API_ROOT + 'user/updateFavoriteSets';
 		var _this = this;
-	//TODO check if user is logged in
-		if(isUserLoggedIn) {
-			//TODO change to userID: user.id
-			$.ajax({
-				type: 'POST',
-				url: favoriteUrl,
-				data: {
-					'userData': {
-						'userID': 108,
-						'setId': this.props.id
-					}
-				}
-			})
-			.done(function(res) {
 
-				_this.setState({
-					favorited: true
-				});
-			});
+		if(loginStatus) {
+			favoriteSet.favoriteSet(push, user, this.props.id);
 		} else {
 			this.history.pushState(null, '/user');
 		}
@@ -105,14 +87,13 @@ var SetTile = React.createClass({
 			});
 
 			//TODO make sure this works
-			this.history.replaceState(null, '/play/' + _this.props.id);
+			// this.history.replaceState(null, '/play/' + _this.props.id);
 			_this.updatePlayCount(_this.props.id);
 		});
 	},
 
-//TODO change URL to new routes
 	shareToFacebook: function() {
-		var url = 'https://setmine.com/?play/' + this.props.id;
+		var url = 'https://setmine.com/play/' + this.props.id;
 
 		FB.ui({
 			method: 'feed',
@@ -125,7 +106,7 @@ var SetTile = React.createClass({
 	},
 
 	shareToTwitter: function() {
-		var parameters = 'url=' + encodeURIComponent('https://setmine.com/?play/' + this.props.id + '&via=SetMineApp');
+		var parameters = 'url=' + encodeURIComponent('https://setmine.com/play/' + this.props.id + '&via=SetMineApp');
 			window.open('https://twitter.com/intent/tweet?' + parameters, '_blank', 'height=420, width=550');
 	},
 
@@ -146,8 +127,7 @@ var SetTile = React.createClass({
 			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + this.props.main_eventimageURL + "')"
 		};
 		var artistImage = constants.S3_ROOT_FOR_IMAGES+'small_'+this.props.artistimageURL;
-
-		var favorite = this.state.favorited ? 'link fa fa-fw fa-star center click' : 'link fa fa-fw fa-star-o center click'
+		var favorite = this.props.favorited ? 'link fa fa-fw fa-star center click' : 'link fa fa-fw fa-star-o center click';
 
 		return (
 			<div className='flex-column set-tile' style={eventImage}>

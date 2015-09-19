@@ -41,15 +41,20 @@ var Popular = React.createClass({
 	},
 	render: function() {
 		var data = this.props.appState.get('popularBrowseData');
-		var push = this.props.push;
+		var loginStatus = this.props.appState.get('isUserLoggedIn');
+		var user = this.props.appState.get('user');
 		var containerClass = 'flex-row scrollable';
+		var push = this.props.push;
 		
 		return (
 			<Loader loaded={this.state.loaded}>
 				<SetContainer
 					push={push}
 					sets={data}
-					containerClass={containerClass}/>
+					containerClass={containerClass}
+					loginStatus={loginStatus}
+					user={user}
+				/>
 			</Loader>
 		);
 	}

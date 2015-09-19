@@ -3,15 +3,24 @@ import { Link } from 'react-router';
 
 var HomeSidebar = React.createClass({
 
+	getDefaultProps: function() {
+		return {
+			user: {}
+		};
+	},
+
+	getProfilePic () {
+		
+	},
+
 	render: function() {
-		var user = this.props.appState.get('user');
-		var name = user.first_name + ' ' + user.last_name;
+		var name = this.props.user.first_name + ' ' + this.props.user.last_name;
 
 		return (
 			<div id='HomeSidebar'className='flex-column flex-fixed'>
 				<div className='flex flex-column overlay-container user-background'>
 					<img className='center' src='' />
-					<div className='center hidden'>{name}</div>
+					<div className='center'>{name}</div>
 				</div>
 				<div className='flex-3x flex-column user-nav'>
 					<Link className='nav-button click flex flex-row' to='/user' activeClassName='active' onlyActiveOnIndex={true}>

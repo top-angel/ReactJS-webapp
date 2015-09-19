@@ -50,7 +50,10 @@ var ActivityDetail = React.createClass({
 	render: function() {
 		var appState = this.props.appState;
 		var push = this.props.push;
+
 		var data = appState.get('detailData');
+		var loginStatus = this.props.appState.get('isUserLoggedIn');
+		var user = this.props.appState.get('user');
 
 		var detailInfo = {
 			appState: appState,
@@ -64,7 +67,9 @@ var ActivityDetail = React.createClass({
 
 		var setProps = {
 			sets: data.sets,
-			push: push
+			push: push,
+			loginStatus: loginStatus,
+			user: user
 		};
 
 		return (

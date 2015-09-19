@@ -115,6 +115,7 @@ a {
 	.createOverlay(0.5, @set-dark-gray);
 	&:hover {
 		.createOverlay(0.25, @set-dark-gray);
+		.transition(0.2s);
 	}
 	.center {
 		z-index: 3;
@@ -144,7 +145,7 @@ a {
 		height: 45vh;
 		background-size: 100%;
 		background-position-y: 40%;
-		.createOverlay(0.75, @set-blue);
+		.createOverlay(0.75, @set-dark-gray);
 	}
 	>.divider {
 		.createDivider(100%, 2px, @set-gray);
@@ -374,8 +375,7 @@ header {
 		}
 	}
 	.user-background {
-		background-color: @set-light-gray;
-		.background(@set-light-gray, white);
+		.background(@set-light-gray, @set-dark-gray);
 	}
 	.user-nav {
 		background-color: @set-dark-gray;
@@ -571,7 +571,7 @@ header {
 }
 
 #LoginOverlay {
-	background-color: fade(@set-dark-gray, 50%);
+	background-color: fade(@set-dark-gray, 75%);
 	display: flex;
 	position: absolute;
 	z-index: 1000;

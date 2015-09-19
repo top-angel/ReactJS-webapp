@@ -18,38 +18,6 @@ var MixDetail = React.createClass({
 		this.getMixData();
 	},
 
-//UNHIDE when mix API route is fixed
-	// getMixData: function() {
-	// 	var _this = this;
-	// 	var push = this.props.push;
-	// 	var mix = this.props.params.mix;
-	// 	var query = mix.split('-').join('%20');
-
-	// 	var mixData,
-	// 		mixUrl = constants.API_ROOT + 'mix/search/' + query;
-
-	// 	$.ajax({
-	// 		url: mixUrl,
-	// 		type: 'get',
-	// 	})
-	// 	.done(function(response) {
-	// 		mixData = response.payload.mix;
-	// 		console.log(mixData);
-
-	// 		push({
-	// 			type: 'SHALLOW_MERGE',
-	// 			data: {
-	// 				detailId: mixData.id,
-	// 				detailData: mixData
-	// 			}
-	// 		});
-
-	// 		_this.setState({
-	// 			loaded: true
-	// 		});
-	// 	});
-	// 
-
 	getMixData: function() {
 		var _this = this;
 		var push = this.props.push;
@@ -80,9 +48,12 @@ var MixDetail = React.createClass({
 	},
 
 	render: function() {
-		var appState = this.props.appState;
-		var data = appState.get('detailData');
 		var push = this.props.push;
+		var appState = this.props.appState;
+
+		var data = appState.get('detailData');
+		var loginStatus = this.props.appState.get('isUserLoggedIn');
+		var user = this.props.appState.get('user');
 
 		var detailInfo = {
 			appState: appState,
@@ -95,7 +66,9 @@ var MixDetail = React.createClass({
 		
 		var setProps = {
 			sets: data.sets,
-			push: push
+			push: push,
+			loginStatus: loginStatus,
+			user: user
 		};
 
 		return (

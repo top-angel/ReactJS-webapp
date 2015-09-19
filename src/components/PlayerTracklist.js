@@ -1,6 +1,7 @@
 import React from 'react';
 import constants from '../constants/constants';
 import playerService from '../services/playerService.js';
+import favoriteSet from '../services/favoriteSet';
 
 import Track from './Track';
 
@@ -20,11 +21,18 @@ var PlayerTracklist = React.createClass({
 		});
 	},
 
-//TODO change URL to new routes
-	shareToFacebook: function() {
+	favoriteSet: function(e) {
+		e.stopPropagation();
+		var user = this.props.appState.get('user');
+		var id = this.props.appState.get('currentSet').id;
+		favoriteSet.favoriteSet(this.props.push, user, id);
+	},
+
+	shareToFacebook: function(e) {
+		e.stopPropagation();
 		var currentSet = this.props.appState.get('currentSet');
 
-		var url = 'https://setmine.com/?play/' + currentSet.id;
+		var url = 'https://setmine.com/play/' + currentSet.id;
 		FB.ui({
 			method: 'feed',
 			link: url,
@@ -35,9 +43,10 @@ var PlayerTracklist = React.createClass({
 		});
 	},
 
-	shareToTwitter: function() {
+	shareToTwitter: function(e) {
+		e.stopPropagation();
 		var currentSet = this.props.appState.get('currentSet');
-		var parameters = 'url=' + encodeURIComponent('https://setmine.com/?play/' + currentSet.id + '&via=SetMineApp');
+		var parameters = 'url=' + encodeURIComponent('https://setmine.com/play/' + currentSet.id + '&via=SetMineApp');
 		window.open('https://twitter.com/intent/tweet?' + parameters, '_blank', 'height=420, width=550');
 	},
 
@@ -87,11 +96,11 @@ var PlayerTracklist = React.createClass({
 					</div>
 					<div className='set-flex flex click' 
 					onClick={this.updateCurrentTrack}>					
-						<i className='fa fa-fw center fa-star-o'/>
+						<i className='fa fa-fw center fa-star-o' onClick={this.favoriteSet} />
 					</div>
 					<div className='flex-row flex'>
 						<i className='link fa fa-fw fa-facebook center click' onClick={this.shareToFacebook} />
-						<i className='link fa fa-fw fa-twitter center click' onClick={this.shareToTwitter}/>
+						<i className='link fa fa-fw fa-twitter center click' onClick={this.shareToTwitter} />
 					</div>
 				</div>
 			</div>

@@ -3,7 +3,6 @@ import Immutable from 'immutable';
 import Router from 'react-router';
 import { IndexRoute, Link, Route, History } from 'react-router';
 import GlobalEventHandler from './services/globalEventHandler';
-// import history from './history';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -106,7 +105,8 @@ var initialAppState = Immutable.Map({
 
 	currentSet: {
 		set_length: '00:00',
-		starttime: '00:00'
+		starttime: '00:00',
+		id: null
 	},
 	tracklist: [],
 	currentTrack: null,
@@ -124,9 +124,9 @@ var initialAppState = Immutable.Map({
 	landingEvents: [],
 
 	isUserLoggedIn: false,
-	userId: 108,
-	user: {},
-	favorites: [],
+	user: {
+		id: 108
+	},
 	newSets: [],
 	newEvents: [],
 

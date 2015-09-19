@@ -9,12 +9,13 @@ var NavMenu = React.createClass({
 		};
 	},
 	render: function() {
-		var links = this.props.navItems.map(function(nav){
+		var links = this.props.navItems.map(function(nav, index){
 
 			return(
 				<Link 
 					className='nav-button click flex flex-row' 
 					to={nav.link} 
+					key={index}
 					onlyActiveOnIndex={nav.onlyActiveOnIndex} 
 					activeClassName='active'>
 						<i className={nav.icon}/>

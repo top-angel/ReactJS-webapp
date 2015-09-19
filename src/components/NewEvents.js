@@ -15,7 +15,7 @@ var NewEvents = React.createClass({
 	},
 	getNewEvents: function() {
 		var _this = this;
-		var userId = this.props.appState.get('userId');
+		var userId = this.props.appState.get('user').id;
 		var push = this.props.push;
 		var results,
 			newEventsUrl = constants.API_ROOT + 'user/stream/' + userId + '?filter=upcoming';
@@ -41,13 +41,12 @@ var NewEvents = React.createClass({
 	},
 	render: function() {
 		var newEvents = this.props.appState.get('newEvents');
-		var containerId = 'NewEvents';
-
+		var containerClass = 'flex-row scrollable tile-container';
+		
 		return (
 			<Loader loaded={this.state.loaded}>
 				<EventContainer
-					containerClass={this.props.containerClass}
-					containerId={containerId}
+					containerClass={containerClass}
 					events={newEvents}
 					push={this.props.push}
 				/>

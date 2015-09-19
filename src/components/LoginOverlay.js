@@ -1,4 +1,5 @@
 import React from 'react';
+import constants from '../constants/constants';
 import mixpanelService from '../services/mixpanelService.js';
 import {History} from 'react-router';
 
@@ -6,6 +7,7 @@ var LoginOverlay = React.createClass({
 
 	mixins: [History],
 	componentWillMount: function() {
+		var _this = this;
 		window.fbAsyncInit = function() {
 			FB.init({
 				appId      : '674390762682640',
@@ -27,7 +29,7 @@ var LoginOverlay = React.createClass({
 				//
 				// These three cases are handled in the callback function.
 			FB.getLoginStatus(function(response) {
-				this.statusChangeCallback(response);
+				_this.statusChangeCallback(response);
 			}.bind(this));
 		}.bind(this);
 
@@ -41,7 +43,7 @@ var LoginOverlay = React.createClass({
 		}(document, 'script', 'facebook-jssdk'));
 	},
 	
-	statusChangeCallback: function() {
+	statusChangeCallback: function(response) {
 		console.log('statusChangeCallback');
 		console.log(response);
 		if (response.status === 'connected') {
@@ -58,8 +60,9 @@ var LoginOverlay = React.createClass({
 	},
 
 	checkLoginState: function() {
+		var _this = this;
 		FB.getLoginStatus(function(response) {
-			this.statusChangeCallback(response);
+			_this.statusChangeCallback(response);
 		}.bind(this));
 	},
 
@@ -68,44 +71,49 @@ var LoginOverlay = React.createClass({
 	},
 
 	registerFacebookUser(auth) {
+		var _this = this;
+
 		$.ajax({
-			type: "POST",
-			url: constants.API_ROOT + "user/facebookRegister",
+			type: 'POST',
+			url: constants.API_ROOT + 'user/facebookRegister',
 			data: {
-					userData: {
-							FB_TOKEN: auth
-					}
+				userData: {
+					FB_TOKEN: auth
+				}
 			}
 		}).done(function(response) {
-			if(response.status == "success") {
-				var push = this.props.push;
+			var push = _this.props.push;
 
-				push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						isUserLoggedIn: true,
-						user: response.payload.user
-					}
-				});
+			push({
+				type: 'SHALLOW_MERGE',
+				data: {
+					isUserLoggedIn: true,
+					user: response.payload.user
+				}
+			});
 
-				mixpanel.people.set_once({
-					"First Name": registeredUser.first_name,
-					"Last Name": registeredUser.last_name,
-					"$email": registeredUser.username,
-					"fb_id": registeredUser.facebook_id,
-				});
-			}
+			console.log(_this.props.appState.get('user'));
+
+			//UNHIDE ONCE MIXPANEL WORKS
+
+			// mixpanel.people.set_once({
+			// 	"First Name": registeredUser.first_name,
+			// 	"Last Name": registeredUser.last_name,
+			// 	"$email": registeredUser.username,
+			// 	"fb_id": registeredUser.facebook_id,
+			// });
 		});
 	},
 
 	render: function() {
 		var loginStatus = this.props.appState.get('isUserLoggedIn');
+		var hideLoginScreen = loginStatus ? 'flex-column hidden' : 'flex-column';
 
 		return (
-			<div id='LoginOverlay' className='flex-column'>
+			<div id='LoginOverlay' className={hideLoginScreen} >
 				<div className='content flex-column center'>
-					<div className='flex-row click facebook' 
-					onClick={this.login}>
+					<div className='flex-row click facebook'
+					onClick={this.login} >
 						<div className='flex icon'>
 							<i className='fa fa-facebook center'/>
 						</div>

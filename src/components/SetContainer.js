@@ -1,22 +1,32 @@
 import React from 'react';
 import SetTile from './SetTile';
+import favoriteSet from '../services/favoriteSet';
 
 var SetContainer = React.createClass({
 
 	getDefaultProps: function() {
 		return {
-			containerId: 'SetContainer',
 			containerClass: 'flex-row tile-container',
-			sets: []
+			sets: [],
+			user: {
+				favorite_set_ids: []
+			}
 		};
 	},
+
 	render: function() {
 		var data = this.props.sets;
 		var push = this.props.push;
 		var _this = this;
 
-		//TODO check if user.favorite_set_ids == set.id
 		var tiles = data.map(function(set, index) {
+			if(_this.props.loginStatus) {
+				var favorited = favoriteSet.favoriteSet(set.id, _this.props.user.favorite_set_ids);
+			} else {
+				var favorited = false;
+			}
+			console.log(favorited);
+
 			var props = {
 				key: index,
 				id: set.id,
@@ -25,14 +35,16 @@ var SetContainer = React.createClass({
 				is_radiomix: set.is_radiomix,
 				set_length: set.set_length,
 				push: push,
-				appState: _this.props.appState,
 				artist: set.artist,
 				event: set.event,
 				artistimageURL: set.artistimageURL,
 				popularity: set.popularity,
 				songURL: set.songURL,
 				main_eventimageURL: set.main_eventimageURL,
-				timePosition: set.timePosition
+				timePosition: set.timePosition,
+				user: _this.props.user,
+				loginStatus: _this.props.loginStatus,
+				favorited: favorited
 			};
 
 			return(<SetTile {...props} />);
