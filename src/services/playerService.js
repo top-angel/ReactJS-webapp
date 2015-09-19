@@ -62,16 +62,13 @@ function generateSound(loadStart, appState, push) {
 	}
 
 	var songURL = constants.S3_ROOT + currentSet.songURL;
-	console.log(songURL);
 
 	var soundConf = {
 		id: 'currentSound',
 		url: songURL,
 		load: loadStart,
-		// volume: 0,//muting for sanity
 		onload: function() {
 			var totalTime = sound.durationEstimate;
-			console.log(totalTime);
 		},
 
 		whileplaying: function() {

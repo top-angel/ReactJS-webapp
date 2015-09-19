@@ -360,6 +360,12 @@ header {
 
 #HomeSidebar {
 	border-bottom: solid 1px @set-light-gray;
+	.nav-header {
+		.background(@set-gray, @set-dark-gray);
+		* {
+			margin: auto 2vw;
+		}
+	}
 	.nav-button {
 		color: @set-nearly-white;
 		&:hover {
@@ -701,6 +707,7 @@ header {
 		.active {
 			.background(fade(@set-dark-gray, 120%), @set-blue);
 		}
+		i:hover {color: @set-blue;}
 	}
 	.track {
 		display: flex;

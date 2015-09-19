@@ -6,13 +6,6 @@ var Header = React.createClass({
 
 	mixins: [History],
 
-	//TODO DELETE FOR SHIPMENT
-	dank () {
-		var id = 420;
-		console.log('dank/10');
-		this.history.pushState(null, 'sandbox/' + id);
-	},
-
 	render () {
 		return (
 			<header className="flex-row flex-zero">
@@ -29,7 +22,7 @@ var Header = React.createClass({
 	          <Link className='nav-button click flex set-flex' to='/artists' activeClassName='active'>
 	          	<div className='center'>Artists</div>
 	          </Link>
-	          <div className='buffer-4x' onClick={this.dank} />
+	          <div className='buffer-4x'/>
 	          <Link className='search-bar flex-row flex-3x' to='/search'>
 		          <SearchBar push={this.props.push} appState={this.props.appState}/>
 		       </Link>   

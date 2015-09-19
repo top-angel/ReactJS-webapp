@@ -18,11 +18,15 @@ var HomeSidebar = React.createClass({
 
 		return (
 			<div id='HomeSidebar'className='flex-column flex-fixed'>
-				<div className='flex flex-column overlay-container user-background'>
+				<div className='flex flex-column overlay-container user-background hidden'>
 					<img className='center' src='' />
 					<div className='center'>{name}</div>
 				</div>
 				<div className='flex-3x flex-column user-nav'>
+					<div className='click flex flex-row nav-header'>
+						<i className='fa fa-2x fa-user center'/>
+						<div className='center'>{name}</div>
+					</div>
 					<Link className='nav-button click flex flex-row' to='/user' activeClassName='active' onlyActiveOnIndex={true}>
 					   <div>Favorites</div>
 					</Link>

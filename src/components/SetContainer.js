@@ -21,11 +21,10 @@ var SetContainer = React.createClass({
 
 		var tiles = data.map(function(set, index) {
 			if(_this.props.loginStatus) {
-				var favorited = favoriteSet.favoriteSet(set.id, _this.props.user.favorite_set_ids);
+				var favorited = favoriteSet.checkFavorite(set.id, _this.props.user.favorite_set_ids);
 			} else {
 				var favorited = false;
 			}
-			console.log(favorited);
 
 			var props = {
 				key: index,

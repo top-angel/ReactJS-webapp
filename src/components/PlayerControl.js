@@ -14,8 +14,6 @@ var PlayerControl = React.createClass({
 	togglePlay: function() {
 		var sound = this.props.appState.get('sound');
 		var playing = this.props.appState.get('playing');
-
-		console.log(sound);
 		var push = this.props.push;
 
 		playerService.togglePlay(sound);

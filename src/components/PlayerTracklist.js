@@ -22,7 +22,6 @@ var PlayerTracklist = React.createClass({
 	},
 
 	favoriteSet: function(e) {
-		e.stopPropagation();
 		var user = this.props.appState.get('user');
 		var id = this.props.appState.get('currentSet').id;
 		favoriteSet.favoriteSet(this.props.push, user, id);
@@ -63,6 +62,7 @@ var PlayerTracklist = React.createClass({
 
 		var tracklist = appState.get('tracklist');
 		var currentTrack = appState.get('currentTrack');
+		var loginStatus = appState.get('isUserLoggedIn');
 
 		var tracks = tracklist.map(function(track, index) {
 			//update tracklist to show current track
@@ -84,6 +84,14 @@ var PlayerTracklist = React.createClass({
 			return <Track {...props} />
 		});
 
+		if(loginStatus) {
+			var favorited = favoriteSet.checkFavorite(appState.get('currentSet').id, appState.get('user').favorite_set_ids);
+		} else {
+			var favorited = false;
+		}
+
+		var favoriteClass = favorited ? 'fa fa-fw center fa-star' : 'fa fa-fw center fa-star-o';
+
 		return (
 			<div className='flex-row flex-fixed-2x' id='PlayerTracklist'>
 				<div className='active-track center flex-fixed-3x'>{currentTrack}</div>
@@ -96,7 +104,7 @@ var PlayerTracklist = React.createClass({
 					</div>
 					<div className='set-flex flex click' 
 					onClick={this.updateCurrentTrack}>					
-						<i className='fa fa-fw center fa-star-o' onClick={this.favoriteSet} />
+						<i className={favoriteClass} onClick={this.favoriteSet} />
 					</div>
 					<div className='flex-row flex'>
 						<i className='link fa fa-fw fa-facebook center click' onClick={this.shareToFacebook} />

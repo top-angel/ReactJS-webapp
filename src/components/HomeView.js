@@ -11,12 +11,18 @@ var HomeView = React.createClass({
 		var loginStatus = this.props.appState.get('isUserLoggedIn');
 		var user = this.props.appState.get('user');
 
-		return (
-			<div id="HomeView" className="view flex-row overlay-container">
-				<LoginOverlay 
+		if(loginStatus) {
+			var overlay = null;
+		} else {
+			var overlay = (<LoginOverlay 
 					appState={this.props.appState} 
 					push={this.props.push}
-				/>
+				/>)
+		}
+
+		return (
+			<div id="HomeView" className="view flex-row overlay-container">
+				{overlay}
 				<HomeSidebar 
 					appState={this.props.appState}
 					user={user}
