@@ -116,12 +116,6 @@
         z-index: -1;
     }
 }
-.desktop(@rules, @min-value: 980px) {
-    @media screen and (min-width: @min-value) {@rules();}
-}
-.mobile(@rules, @max-value: 980px) {
-    @media screen and (max-width: @max-value) {@rules();}
-}
 .fadeBackground(@color:@set-dark-gray, @alpha:100%) {
     background-color: fade(@color, @alpha);
 }
@@ -293,4 +287,18 @@
 }
 .unflexContainer {
     display: initial;
+}
+
+//media queries
+.desktop(@rules, @min-value: 980px) {
+    @media screen and (min-width: @min-value) {@rules();}
+}
+.mobile(@rules, @max-value: 667px) {
+    @media only screen and (max-device-width: @max-value) {@rules();}
+}
+.medium(@rules, @max-value: 840px, @min-value: 540px) {
+    @media screen and (max-width: @max-value) and (min-width: @min-value) {@rules();}
+}
+.small(@rules, @max-value: 540px) {
+    @media screen and (max-width: @max-value) {@rules();}
 }
