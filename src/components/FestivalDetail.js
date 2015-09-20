@@ -57,13 +57,15 @@ var FestivalDetail = React.createClass({
 		var user = this.props.appState.get('user');
 		var data = this.props.appState.get('detailData');
 
+		var setText = data.set_count > 1 ? ' sets' : ' set';
+
 		var detailInfo = {
 			appState: appState,
 			push: push,
 			title: data.event,
 			buttonText: 'Shuffle',
 			imageURL: data.imageURL,
-			info: data.set_count+' sets'
+			info: data.set_count + setText
 		};
 
 		var setProps = {
@@ -78,7 +80,6 @@ var FestivalDetail = React.createClass({
 			<Loader loaded={this.state.loaded}>
 				<div id='detail' className='view detail-page'>
 					<DetailImageContainer {...detailInfo}/>
-					<div className='divider'/>
 					<div className="flex-row links-container">
 						<div className='center flex-fixed'>
 							sets

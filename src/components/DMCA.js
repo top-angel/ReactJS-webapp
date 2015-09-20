@@ -1,11 +1,15 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 var DMCA = React.createClass({
 
 	render: function() {
 		return (	
 		<div className='dmca-container view'>
-			<div>
+			<Link to='/' className='flex-row'>
+				<i className='fa fa-chevron-left center'/>
+				<h3 className='center'>Back</h3>
+			</Link>
 			<h1>DMCA Notice</h1>
 			Setmine makes all efforts to not willfully or knowingly infringe on copyright or intellectual property rights of others. Setmine also respects the intellectual property rights of others and the copyright laws of the United States Pursuant to the Digital Millennium Copyright Act (DMCA), as codified in 17 U.S.C 512, and as such Setmusic LLC has assigned a Designated Agent to receive notification of claimed copyright or intellectual property infringement.<br/>
 			<br/>
@@ -30,7 +34,6 @@ var DMCA = React.createClass({
 				</li>
 			</ol>
 			<h2>Email: contact@setmine.com</h2>
-			</div>
 		</div>
 		);
 	}

@@ -21,10 +21,10 @@ var LinkButtonContainer = React.createClass({
 		}
 
 		var icons = links.map(function(link, index) {
-			var classString = "fa fa-fw fa-2x click fa-" + link.type;
+			var classString = "fa fa-fw fa-2x center click fa-" + link.type;
 			if(!!link.url) {
 				return (
-					<a className='flex' href={link.url} key={index}>
+					<a className='flex set-flex' href={link.url} key={index}>
 						<i className={classString}/>
 					</a>
 				);

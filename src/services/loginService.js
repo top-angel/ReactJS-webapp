@@ -77,8 +77,6 @@ function registerFacebookUser(auth, push) {
 				user: response.payload.user
 			}
 		});
-
-		console.log('kushdank 420');
 		//UNHIDE ONCE MIXPANEL WORKS
 
 		// mixpanel.people.set_once({

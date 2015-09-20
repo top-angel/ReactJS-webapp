@@ -70,7 +70,6 @@ var EventDetail = React.createClass({
 			<Loader loaded={this.state.loaded}>
 				<div id='detail' className='view detail-page'>
 					<DetailImageContainer {...detailInfo}/>
-					<div className='divider'/>
 					<div className="flex-row links-container">
 						<div className='center flex-fixed'>
 							lineup

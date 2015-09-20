@@ -1,4 +1,3 @@
-
 /* Variables */
 
 @import "colors.less";
@@ -181,6 +180,9 @@ a {
 	ol ol {
 		list-style-type: lower-alpha;
 	}
+	.flex-row {
+		width: 6vw;
+	}
 }
 
 .error {
@@ -354,10 +356,17 @@ a {
 }
 
 footer {
-    position: relative;
-    .background(@set-dark-gray, white);
-    padding: 1vh 0;
-    z-index: 3;
+	position: relative;
+	.background(@set-dark-gray, white);
+	height: @footerHeight;
+	padding: 2vh 0;
+	z-index: 3;
+	&::after {
+		content: '';
+		width: @pageWidth;
+		height: @playerHeight;
+		background: @set-dark-gray;
+	}
 }
 
 header {
@@ -400,10 +409,6 @@ header {
 #HomeView {
 	height: @pageHeightWithoutPlayer;
 	color: @set-dark-gray;
-	.results-container {
-		height: 90vh;
-		overflow-y: scroll;
-	}
 	.loadedContent {
 		.flex-row;
 		.flex-fixed-4x;
@@ -504,7 +509,7 @@ header {
 	.slide {
 		.size(100%, 100%);
 		img {
-			width: 75%;
+			.size(75%, @pageHeight);
 		}
 	}
 	.text-container {
@@ -594,75 +599,69 @@ header {
 	});
 }
 .links-container {
-    .background(@set-dark-gray, white);
-    padding: 2vh 0;
-    text-align: center;
-    .flex;
-    >.divider {
-        .createDivider(2px, initial, @set-gray);
-    }
-    .sets:hover {
-        color:@set-blue;
-    }
-    .events:hover {
-        color:@set-purple;
-    }
-    .active {
-        color: @set-blue;
-    }
+	.background(@set-dark-gray, white);
+	height: 8vh;
+	text-align: center;
+	.flex;
+	>.divider {
+		.createDivider(2px, initial, @set-gray);
+	}
+	.active {
+		color: @set-blue;
+	}
 }
 
 #listen-now {
-    border: solid 1px;
-    padding: 1vh 2vw;
-    &:hover {
-        background-color: fade(@set-blue, 10%);
-    }
-    &:active {
-        background-color:@set-blue;
-    }
+	border: solid 1px;
+	padding: 1vh 2vw;
+	&:hover {
+		background-color: fade(@set-blue, 10%);
+	}
+	&:active {
+		background-color:@set-blue;
+	}
 }
 
 #LocationModule {
-    .background(@set-nearly-white, @set-gray);
-    height: @headerHeight*1.3;
-    padding: 0 3vw;
-    text-align: center;
-    > * {
-        margin-top: 6vh;
-        &:last-child {
-            color: @set-blue;
-        }
-    }
-    .click:hover {
-        color: @set-dark-gray;
-    }
-    i {
-        color: @set-blue;
-    }
-    .active {
-        color: @set-dark-gray;
-        box-shadow: inset 0px -3px 0px @set-blue;
-    }
+	.background(@set-nearly-white, @set-gray);
+	height: @headerHeight*1.3;
+	padding: 0 3vw;
+	text-align: center;
+	> * {
+		margin-top: 6vh;
+		&:last-child {
+			color: @set-blue;
+		}
+	}
+	.click:hover {
+		color: @set-dark-gray;
+	}
+	i {
+		color: @set-blue;
+	}
+	.active {
+		color: @set-dark-gray;
+		box-shadow: inset 0px -3px 0px @set-blue;
+	}
 }
 
 .loader {
-    .spinner {
-        .hidden;
-    }
-    &::before {
-        content: url(../images/setmine-loader.gif);
-        position: absolute;
-        margin: 20% 42.5%;
-    }
-    .size(@windowWidth, @windowHeight);
-    position: relative;
-    background-color: white;
-    z-index: 99;
+	.spinner {
+		.hidden;
+	}
+	&::before {
+		content: url(../images/setmine-loader.gif);
+		position: absolute;
+		margin: 20% 42.5%;
+	}
+	.size(@windowWidth, @windowHeight);
+	position: relative;
+	background-color: white;
+	z-index: 99;
 }
 
 .loadedContent {
-    position: relative;
+	position: relative;
 }
 
 #LoginOverlay {
@@ -803,6 +802,9 @@ header {
 	@media (max-width: 640px) {
 		font-size: 0.75rem;
 	}
+	.medium({
+		font-size: 1.2rem;
+	});
 }
 #PlayerTracklist {
 	text-align: center;
@@ -817,10 +819,10 @@ header {
 		width: 40vw;
 		overflow-y: scroll;
 		> *:hover {
-		    .background(fade(@set-dark-gray, 90%), @set-blue);
+		    .background(fade(@set-dark-gray, 60%), @set-blue);
 		} 
 		.active {
-			.background(fade(@set-dark-gray, 120%), @set-blue);
+			.background(@set-dark-gray, @set-blue);
 		}
 		i:hover {color: @set-blue;}
 	}
@@ -859,21 +861,21 @@ header {
 	}
 }
 .player-seek-container {
-    height: @playerSeekHeight;
-    background-color: @set-gray;
-    position: relative;
+	height: @playerSeekHeight;
+	background-color: @set-gray;
+	position: relative;
 }
 .player-progress {
-    background-color: @set-blue;
-    height:100%;
-    width: 0;
-    .transition(0.1s);
+	background-color: @set-blue;
+	height:100%;
+	width: 0;
+	.transition(0.1s);
 }
 .player-scrubber {
-    position: absolute;
-    height: 100%;
-    width: 50%;
-    color: @set-blue*1.2;
+	position: absolute;
+	height: 100%;
+	width: 50%;
+	color: @set-blue*1.2;
 }
 .player-set-info {
 	border-right: solid 1px @set-gray;
@@ -903,33 +905,33 @@ header {
 }
 
 #SearchResultsView {
-    color: @set-dark-gray;
-    .header-small {
-        margin: 1vh 0;
-        padding: 5px 1vw;
-        background-color: @set-gray;
-    }
-    .results-filter {
-        cursor: pointer;
-    }
-    .results-container {
-        position: relative;
-        top: 6vh;
-        padding-bottom: 6vh;
-    }
-    .results {
-        min-height: 36vh;
-    }
+	color: @set-dark-gray;
+	.header-small {
+		margin: 1vh 0;
+		padding: 5px 1vw;
+		background-color: @set-gray;
+	}
+	.results-filter {
+		cursor: pointer;
+	}
+	.results-container {
+		position: relative;
+		top: 6vh;
+		padding-bottom: 6vh;
+	}
+	.results {
+    	min-height: 36vh;
+	}
 }
 
 .set-tile {
-    @setImg: 80px;
-    .card(1);
-    background-size: 100% 100%;
-    width:30%;
-    height: @tileHeight;
-    margin: 2% 1.5%;
-    img {
+	@setImg: 80px;
+	.card(1);
+	background-size: 100% 100%;
+	width:30%;
+	height: @tileHeight;
+	margin: 2% 1.5%;
+	img {
 		.size(@setImg, @setImg);
 		background-color: white;
 		border-radius: 50%;

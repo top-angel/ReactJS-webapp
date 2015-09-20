@@ -1,12 +1,12 @@
 import React from 'react';
 import Loader from 'react-loader';
+import {Link} from 'react-router';
 import R from 'ramda';
 import constants from '../constants/constants';
 
 import SetContainer from './SetContainer';
 import EventContainer from './EventContainer';
 
-import DetailNavContainer from './DetailNavContainer';
 import DetailImageContainer from './DetailImageContainer';
 import LinkButtonContainer from './LinkButtonContainer';
 
@@ -65,13 +65,16 @@ var ArtistDetail = React.createClass({
 		var loginStatus = this.props.appState.get('isUserLoggedIn');
 		var user = this.props.appState.get('user');
 
+		var setText = artistData.set_count > 1 ? ' sets | ' : ' set | ';
+		var eventText = artistData.event_count != 1 ? ' events' : ' event';
+
 		var detailInfo = {
 			appState: appState,
 			push: push,
 			title: artistData.artist,
 			buttonText: 'Shuffle',
 			imageURL: artistData.imageURL,
-			info: artistData.set_count + ' sets | ' + artistData.event_count + ' events'
+			info: artistData.set_count + setText + artistData.event_count + eventText
 		};
 
 		var links = [
@@ -97,24 +100,25 @@ var ArtistDetail = React.createClass({
 			}
 		];
 
-		var navTitles = [
-			{
-				title: 'sets',
-				to: 'artist/'+this.props.params.artist
-			},
-			{
-				title: 'events',
-				to: 'artist/'+this.props.params.artist+'/events',
-			}
-		];
-
 		return (
 			<Loader loaded={this.state.loaded}>
 				<div id='detail' className='view detail-page'>
 					<DetailImageContainer {...detailInfo} />
 					<LinkButtonContainer links={links}/>
 					<div className='divider'/>
-					<DetailNavContainer navTitles={navTitles} />
+					<div className="flex-row links-container">
+						<Link className='click flex-fixed set-flex'
+							to={'/artist/'+this.props.params.artist}
+							onlyActiveOnIndex={true}
+							activeClassName='active'>
+							<div className='center'>sets</div>
+						</Link>
+						<Link className='click flex-fixed set-flex'
+							to={'/artist/'+this.props.params.artist+'/events'}
+							activeClassName='active'>
+							<div className='center'>events</div>
+						</Link>
+					</div>
 					{
 						React.cloneElement(this.props.children, {
 							sets: artistData.sets,

@@ -18,13 +18,19 @@ var PlayerTracklist = React.createClass({
 				$('.tracklist').addClass('tracklist-open')
 					.animate({ bottom: '10vh' }, 200);
 			}
-		});
+		});		
 	},
 
-	favoriteSet: function(e) {
+	favoriteSet: function() {
+		var loginStatus = this.props.appState.get('isUserLoggedIn');
 		var user = this.props.appState.get('user');
 		var id = this.props.appState.get('currentSet').id;
-		favoriteSet.favoriteSet(this.props.push, user, id);
+
+		if(loginStatus) {
+			favoriteSet.favoriteSet(this.props.push, user, id);
+		} else {
+			this.history.pushState(null, '/user');
+		}
 	},
 
 	shareToFacebook: function(e) {

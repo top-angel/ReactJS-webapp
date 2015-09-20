@@ -54,6 +54,7 @@ var MixDetail = React.createClass({
 		var data = appState.get('detailData');
 		var loginStatus = this.props.appState.get('isUserLoggedIn');
 		var user = this.props.appState.get('user');
+		var setText = data.sets.length > 1 ? ' sets' : ' set';
 
 		var detailInfo = {
 			appState: appState,
@@ -61,7 +62,7 @@ var MixDetail = React.createClass({
 			title: data.event,
 			buttonText: 'Shuffle',
 			imageURL: data.imageURL,
-			info: data.sets.length+' sets'
+			info: data.sets.length + setText
 		};
 		
 		var setProps = {
@@ -75,7 +76,6 @@ var MixDetail = React.createClass({
 			<Loader loaded={this.state.loaded}>
 				<div id='detail' className='view detail-page'>
 					<DetailImageContainer {...detailInfo}/>
-					<div className='divider'/>
 					<div className="flex-row links-container">
 						<div className='center flex-fixed'>
 							sets
