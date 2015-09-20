@@ -24,9 +24,11 @@ var Footer = React.createClass({
 							DMCA Notice
 						</a>
 					</Link>
-					<br />
-					<a className='click' onClick={this.scrollToTop}>
-						Back To Top
+					<a href='http://bit.ly/SetmineiOS' title='view on App Store' className='click'>
+						iOS
+					</a>
+					<a href='http://bit.ly/SetmineAndroid' title='view on Google Play'className='click'>
+						Android
 					</a>
 	          </div>
 	          <div className='buffer-lg'/>
