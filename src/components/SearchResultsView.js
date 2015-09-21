@@ -49,6 +49,9 @@ var SearchResultsView = React.createClass({
 	},
 	render: function() {
 		var searchResults = this.props.appState.get('searchResults');
+		var loginStatus = this.props.appState.get('isUserLoggedIn');
+		var user = this.props.appState.get('user');
+
 		var setClass = 'flex-row results sets';
 		var eventClass = 'flex-row results events';
 		var trackClass = 'flex-row results tracks';
@@ -73,6 +76,8 @@ var SearchResultsView = React.createClass({
 						<SetContainer
 							sets={searchResults.sets}
 							push={this.props.push}
+							loginStatus={loginStatus}
+							user={user}
 							containerClass={setClass}
 						/>
 						<div className='header-small events'>EVENTS</div>

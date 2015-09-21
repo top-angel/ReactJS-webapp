@@ -6,16 +6,16 @@ var LandingApp = React.createClass({
 		var activeSlide = 'fa fa-fw fa-circle click';
 		var inactiveSlide = 'fa fa-fw fa-circle-o click';
 		var slides = $('.slide'),
-			 dots = $('.slide-controls i'),
-			 sLength = slides.length,
-			 current,
-			 changeTimeout;
+			dots = $('.slide-controls i'),
+			sLength = slides.length,
+			current,
+			changeTimeout;
 
 		function moveTo(newIndex) {
 			var i = newIndex;
 			if(newIndex == 'prev') {
 				i = (current > 0) ? (current - 1) : (sLength - 1);
-			} 
+			}
 			if(newIndex =='next') {
 				i = (current < sLength - 1) ? (current + 1): 0;
 			}
@@ -43,7 +43,7 @@ var LandingApp = React.createClass({
 				<div className='flex-row overlay-container slide slide-1 animated fadeIn'>
 					<div className='flex-column flex-fixed text-container'>
 						<h1 className='wow bounceInLeft'>
-						  Say goodbye to missing a live performance
+							Say goodbye to missing a live performance
 						</h1>
 						<p className='wow bounceInLeft'>
 							Listen to any live set or recorded mix completely free. You can relive your favorite events, or catch up on the ones you missed.
@@ -53,7 +53,7 @@ var LandingApp = React.createClass({
 						</p>
 					</div>
 					<div className='flex-column flex-fixed image-container'>
-					   <img className='center wow slideInUp' src='public/images/slide-1.jpg' />
+					   <img className='center wow slideInUp' src='/images/slide-1.jpg' />
 					</div>
 				</div>
 
@@ -70,7 +70,7 @@ var LandingApp = React.createClass({
 					   </p>
 					</div>
 					<div className='flex-column flex-fixed image-container animated fadeIn'>
-					   <img className='center' src='public/images/slide-2.jpg' />
+					   <img className='center' src='/images/slide-2.jpg' />
 					</div>
 				</div>
 				
@@ -87,7 +87,7 @@ var LandingApp = React.createClass({
 						</p>
 					</div>
 					<div className='flex-column flex-fixed animated fadeIn image-container'>
-						<img className='center' src='public/images/slide-3.jpg' />
+						<img className='center' src='/images/slide-3.jpg' />
 					</div>
           	</div>
 				<div className='flex-row slide-controls'>

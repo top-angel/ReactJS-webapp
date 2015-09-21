@@ -54,8 +54,8 @@ var SetTile = React.createClass({
 			//go to festival page
 			this.history.pushState(null, '/festival/' + routePath);
 		} else {
-			var routeId = this.props.event_id;//quick fix for now
-			this.history.pushState(null, '/mix/' + routeId);
+			//go to mix page
+			this.history.pushState(null, '/mix/' + routePath);
 		}
 	},
 
@@ -99,7 +99,7 @@ var SetTile = React.createClass({
 			method: 'feed',
 			link: url,
 			caption: 'Share this Set',
-			picture: S3_ROOT_FOR_IMAGES + this.props.artistimageURL
+			picture: constants.S3_ROOT_FOR_IMAGES + this.props.artistimageURL
 		}, function(response) {
 			console.debug(response);
 		});
@@ -107,14 +107,14 @@ var SetTile = React.createClass({
 
 	shareToTwitter: function() {
 		var parameters = 'url=' + encodeURIComponent('https://setmine.com/play/' + this.props.id + '&via=SetMineApp');
-			window.open('https://twitter.com/intent/tweet?' + parameters, '_blank', 'height=420, width=550');
+		window.open('https://twitter.com/intent/tweet?' + parameters, '_blank', 'height=420, width=550');
 	},
 
 	updatePlayCount: function(id) {
 		//todo get url
 		$.ajax({
 			type: 'POST',
-			url: '/playCount',
+			url: constants.API_ROOT + 'playCount',
 			data: id,
 			success: function(data) {
 				console.log('play count updated');

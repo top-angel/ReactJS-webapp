@@ -151,7 +151,6 @@ var routes = (
 		<IndexRoute component={LandingView}/>
 
 		<Route path='play/:set' component={LandingView} />
-		<Redirect from='/?play/:set' to='/play/:set' />
 		<Route path='user' component={HomeView}>
 			<IndexRoute component={Favorites}/>
 			<Route path='sets' component={NewSets}/>
@@ -183,6 +182,13 @@ var routes = (
 		<Route path='mix/:mix' component={MixDetail}/>
 		<Route path='activity/:activity' component={ActivityDetail}/>
 		<Route path='legal' component={DMCA} />
+
+		// Redirects from Setmine v5.0
+		<Redirect from='/browse/:artist/artist' to='/artist/:artist' />
+		<Redirect from='/browse/:festival/festival' to='/festival/:festival' />
+		<Redirect from='/browse/:mix/mix' to='/mix/:mix' />
+		<Redirect from='/event/:eventID' to='/event/:eventID' />
+
 	</Route>
 );
 
@@ -193,7 +199,7 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 var history = createBrowserHistory();
 
 React.render(
-	<Router>
+	<Router history={history}>
 		{routes}
 	</Router>
 , bodyMount);

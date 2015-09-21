@@ -42,7 +42,7 @@ var PlayerTracklist = React.createClass({
 			method: 'feed',
 			link: url,
 			caption: 'Share this Set',
-			picture: S3_ROOT_FOR_IMAGES + currentSet.artistimageURL
+			picture: constants.S3_ROOT_FOR_IMAGES + currentSet.artistimageURL
 		}, function(response) {
 			console.debug(response);
 		});

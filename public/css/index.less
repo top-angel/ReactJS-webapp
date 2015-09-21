@@ -864,6 +864,7 @@ header {
 	height: @playerSeekHeight;
 	background-color: @set-gray;
 	position: relative;
+	cursor: pointer;
 }
 .player-progress {
 	background-color: @set-blue;
@@ -927,7 +928,9 @@ header {
 .set-tile {
 	@setImg: 80px;
 	.card(1);
-	background-size: 100% 100%;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 	width:30%;
 	height: @tileHeight;
 	margin: 2% 1.5%;

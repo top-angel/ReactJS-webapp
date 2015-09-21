@@ -6,8 +6,9 @@ var MixTile = React.createClass({
 
 	mixins: [History],
 	openMixPage: function() {
-		var routeId = this.props.id;
-		this.history.pushState(null, '/mix/' + routeId);
+		var routePath = this.props.event.split(' ').join('-');
+
+		this.history.pushState(null, '/mix/' + routePath);
 	},
 	render: function() {
 		var image = constants.S3_ROOT_FOR_IMAGES + this.props.imageURL;

@@ -1,14 +1,15 @@
-'use strict';
-
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var entryPoints = ['./src/index.jsx'];
+var path = require('path');
+
+var buildPath = path.resolve(__dirname, 'public');
+var mainPath = path.resolve(__dirname, 'src', 'index.jsx');
 
 module.exports = {
   entry: {
-    'click-gator-app': entryPoints
+    'setmine': mainPath
   },
   output: {
-    path: 'public/js',
+    path: buildPath,
     filename: '[name]-bundle.js',
     pathinfo: true,
     historyApiFallback: true
@@ -18,7 +19,7 @@ module.exports = {
     moduleDirectories: ['node_modules']
   },
   plugins: [new HtmlWebpackPlugin({
-    template: 'src/index.html',
+    template: 'src/index-dev.html',
     inject: 'body'
   })],
   devtool: 'source-map',

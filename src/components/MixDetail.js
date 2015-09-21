@@ -22,9 +22,11 @@ var MixDetail = React.createClass({
 		var _this = this;
 		var push = this.props.push;
 		var mix = this.props.params.mix;
+		var query = mix.split('-').join('%20');
+
 
 		var mixData,
-			mixUrl = constants.API_ROOT + 'mix/id/' + mix;
+			mixUrl = constants.API_ROOT + 'mix/search/' + query;
 
 		$.ajax({
 			url: mixUrl,

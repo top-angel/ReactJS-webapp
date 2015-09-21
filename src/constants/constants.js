@@ -4,8 +4,8 @@ var API_VERSION = 8;
 var API_BASE_URL = 'https://setmine.com';
 var API_ROOT = API_BASE_URL + '/api/v/' + API_VERSION + '/';
 
-var S3_ROOT = 'http://stredm.s3-website-us-east-1.amazonaws.com/namecheap/';
-var S3_ROOT_FOR_IMAGES = 'http://d1wbxby8dwa4u.cloudfront.net/namecheap/';
+var S3_ROOT = 'https://s3.amazonaws.com/stredm/namecheap/';
+var S3_ROOT_FOR_IMAGES = 'https://d1wbxby8dwa4u.cloudfront.net/namecheap/';
 var DEFAULT_IMAGE = 'ca6a250fc84f30e571a62286fc8c2c16c7ce64b4.png';
 var IMAGE_ROOT = '/images/';
 var ANDROID_URL = 'https://play.google.com/store/apps/details?id=com.setmine.android';
