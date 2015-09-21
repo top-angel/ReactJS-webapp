@@ -64,7 +64,7 @@ var FestivalDetail = React.createClass({
 			push: push,
 			title: data.event,
 			buttonText: 'Shuffle',
-			imageURL: data.imageURL,
+			imageURL: data.main_imageURL,
 			info: data.set_count + setText
 		};
 

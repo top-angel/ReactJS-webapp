@@ -357,7 +357,7 @@
 }
 .geosuggest-item:hover,
 .geosuggest-item:focus {
-  background: #efefef;
+  background: #eceef4;
 }
 .geosuggest-item--active {
   background: #22a7f0;
@@ -365,7 +365,7 @@
 }
 .geosuggest-item--active:hover,
 .geosuggest-item--active:focus {
-  background-color: #efefef;
+  background-color: #eceef4;
 }
 body {
   margin: 0;
@@ -544,7 +544,7 @@ a:hover {
   background-color: #22a7f0;
 }
 .detail-page {
-  background-color: #efefef;
+  background-color: #eceef4;
   color: white;
   text-align: center;
 }
@@ -942,7 +942,7 @@ header .active {
   margin: auto 2vw;
 }
 #HomeSidebar .nav-button {
-  color: #efefef;
+  color: #eceef4;
 }
 #HomeSidebar .nav-button:hover {
   background-color: #2c303b;
@@ -1176,8 +1176,8 @@ header .active {
   background-color: #22a7f0;
 }
 #LocationModule {
-  background-color: #efefef;
-  color: #bdc3c7;
+  background-color: #dadfe1;
+  color: #aab0b3;
   height: 10.4vh;
   padding: 0 3vw;
   text-align: center;
@@ -1229,7 +1229,7 @@ header .active {
 }
 #LoginOverlay .content {
   box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3), 0 11px 7px 0 rgba(0, 0, 0, 0.19);
-  background-color: #efefef;
+  background-color: #eceef4;
   color: #313542;
   width: 50%;
 }
@@ -1396,7 +1396,7 @@ header .active {
   bottom: -50vh;
   right: 12%;
   background-color: rgba(49, 53, 66, 0.9);
-  color: #efefef;
+  color: #eceef4;
   width: 40vw;
   overflow-y: scroll;
 }
@@ -1657,7 +1657,7 @@ header .active {
   content: '';
   height: 10vh;
   width: 100%;
-  background-color: #efefef;
+  background-color: #eceef4;
 }
 .tile-button:hover {
   background-color: rgba(255, 255, 255, 0.2);
@@ -1667,7 +1667,7 @@ header .active {
 .tile-container {
   min-height: 50vh;
   width: 100%;
-  background-color: #efefef;
+  background-color: #eceef4;
 }
 .track-tile {
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
@@ -1731,7 +1731,7 @@ header .active {
   top: 8vh;
   position: relative;
   min-height: 82vh;
-  background-color: #efefef;
+  background-color: #eceef4;
 }
 .view-title-container {
   height: 6vh;

@@ -23,17 +23,19 @@ var Footer = React.createClass({
 							DMCA Notice
 						</a>
 					</Link>
-				<br />
-				<a className='click' onClick={this.scrollToTop}>
-					Back To Top
-				</a>
-				</div>
-				<div className='buffer-lg'/>
-				<div className='flex-column flex'>
-					<div className='flex-row center'>
-						<a href='https://www.facebook.com/SetmineApp'><i className='fa fa-2x fa-facebook fa-fw'/></a>
-						<a href='https://twitter.com/setmineapp'><i className='fa fa-2x fa-twitter fa-fw'/></a>
-						<a href='https://instagram.com/setmine/'><i className='fa fa-2x fa-instagram fa-fw'/></a>
+					<a href='http://bit.ly/SetmineiOS' title='view on App Store' className='click'>
+						iOS
+					</a>
+					<a href='http://bit.ly/SetmineAndroid' title='view on Google Play'className='click'>
+						Android
+					</a>
+	          </div>
+	          <div className='buffer-lg'/>
+	          <div className='flex-column flex'>
+		          <div className='flex-row center'>
+					<a href='https://www.facebook.com/SetmineApp'><i className='fa fa-2x fa-facebook fa-fw'/></a>
+					<a href='https://twitter.com/setmineapp'><i className='fa fa-2x fa-twitter fa-fw'/></a>
+					<a href='https://instagram.com/setmine/'><i className='fa fa-2x fa-instagram fa-fw'/></a>
 	             	</div>
 	             	<div className='divider'/>
 	             	<div className='center'>
