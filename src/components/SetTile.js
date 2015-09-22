@@ -115,7 +115,9 @@ var SetTile = React.createClass({
 		$.ajax({
 			type: 'POST',
 			url: constants.API_ROOT + 'playCount',
-			data: id,
+			data: {
+				id: id
+			},
 			success: function(data) {
 				console.log('play count updated');
 			}

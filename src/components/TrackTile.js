@@ -69,15 +69,16 @@ var TrackTile = React.createClass({
 	},
 
 	updatePlayCount: function(id) {
-		//todo get url
-		// $.ajax({
-		// 	type: 'POST',
-		// 	url: '/playCount',
-		// 	data: id,
-		// 	success: function(data) {
-		// 		console.log('play count updated');
-		// 	}
-		// });
+		$.ajax({
+			type: 'POST',
+			url: constants.API_ROOT + 'playCount',
+			data: {
+				id: id
+			},
+			success: function(data) {
+				console.log('play count updated');
+			}
+		});
 	},
 
 	render: function() {
