@@ -87,7 +87,7 @@ var SetTile = React.createClass({
 			});
 
 			//TODO make sure this works
-			// this.history.replaceState(null, '/play/' + _this.props.id);
+			_this.history.pushState(null, '/play/' + _this.props.id);
 			_this.updatePlayCount(_this.props.id);
 		});
 	},

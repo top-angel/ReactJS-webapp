@@ -17,12 +17,15 @@ var TrackTile = React.createClass({
 		});
 	},
 
-	openArtistPage: function() {
+	openArtistPage: function(e) {
+		e.stopPropagation();
+
 		var routePath = this.props.artist.split(' ').join('_');
 		this.history.pushState(null, '/artist/' + routePath);
 	},
 
-	openFestivalPage: function() {
+	openFestivalPage: function(e) {
+		e.stopPropagation();
 		var routePath = this.props.event.split(' ').join('-');
 
 		if(this.props.is_radiomix == 0) {
@@ -63,7 +66,7 @@ var TrackTile = React.createClass({
 				}
 			});
 
-			window.history.replaceState(null, null, 'play/' + _this.props.id);
+			_this.history.pushState(null, '/play/' + _this.props.id);
 			_this.updatePlayCount(_this.props.id);
 		});
 	},
@@ -92,10 +95,10 @@ var TrackTile = React.createClass({
 		var time = this.props.starttime + ' | ' + this.props.set_length;
 
 		return (
-			<div className="track-tile flex-column overlay-container click" style={image} >
+			<div className="track-tile flex-column overlay-container click" style={image} onClick={this.playSet} >
 
 			    <div className='flex-row track'>
-			    	<img src={constants.S3_ROOT_FOR_IMAGES + 'small_' +artistImage} onClick={this.playSet} />
+			    	<img src={constants.S3_ROOT_FOR_IMAGES + 'small_' +artistImage} />
 			    	<p className='text'>
 				    	{track}
 				    	<br/>

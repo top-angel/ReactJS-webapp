@@ -42,7 +42,6 @@ var ArtistDetail = React.createClass({
 		})
 		.done(function(response) {
 			artistData = response.payload.artist;
-			console.log(artistData);
 
 			push({
 				type: 'SHALLOW_MERGE',
