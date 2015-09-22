@@ -29,10 +29,10 @@ var Footer = React.createClass({
 							DMCA Notice
 						</a>
 					</Link>
-					<a href='http://bit.ly/SetmineiOS' onClick={trackiOS} title='view on App Store' className='click'>
+					<a href='http://bit.ly/SetmineiOS' onClick={this.trackiOS} title='view on App Store' className='click'>
 						iOS
 					</a>
-					<a href='http://bit.ly/SetmineAndroid' onClick={trackAndroid} title='view on Google Play'className='click'>
+					<a href='http://bit.ly/SetmineAndroid' onClick={this.trackAndroid} title='view on Google Play'className='click'>
 						Android
 					</a>
 	          </div>
