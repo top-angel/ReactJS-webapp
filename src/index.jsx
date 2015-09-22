@@ -203,3 +203,5 @@ React.render(
 		{routes}
 	</Router>
 , bodyMount);
+
+mixpanel.track("Page Load");

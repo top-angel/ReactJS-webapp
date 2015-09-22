@@ -6,6 +6,12 @@ var Footer = React.createClass({
 	scrollToTop: function() {
 		$(window).scrollTo(0,200);
 	},
+	trackiOS: function() {
+		mixpanel.track("iOS App Link Clicked");
+	},
+	trackAndroid: function() {
+		mixpanel.track("Android App Link Clicked");
+	},
 
 	render: function() {
 		return (
@@ -23,10 +29,10 @@ var Footer = React.createClass({
 							DMCA Notice
 						</a>
 					</Link>
-					<a href='http://bit.ly/SetmineiOS' title='view on App Store' className='click'>
+					<a href='http://bit.ly/SetmineiOS' onClick={trackiOS} title='view on App Store' className='click'>
 						iOS
 					</a>
-					<a href='http://bit.ly/SetmineAndroid' title='view on Google Play'className='click'>
+					<a href='http://bit.ly/SetmineAndroid' onClick={trackAndroid} title='view on Google Play'className='click'>
 						Android
 					</a>
 	          </div>

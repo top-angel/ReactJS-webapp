@@ -27,20 +27,6 @@ var Player = React.createClass({
 				}
 			});
 		}
-
-	//HIDING so generateSound doesnt fire until a new set is pushed
-		// playerService.generateSound(starttime, this.props.appState, push)
-		// .then(function(smObj) {
-		// 	console.log('AYYLMAO', smObj);
-
-		// 	push({
-		// 		type: 'SHALLOW_MERGE',
-		// 		data: {
-		// 			sound: smObj,
-		// 			playing: true
-		// 		}
-		// 	});
-		// });
 	},
 
 	componentWillReceiveProps: function(nextProps) {
@@ -52,7 +38,24 @@ var Player = React.createClass({
 			playerService.generateSound(starttime, nextProps.appState, push)
 			.then(function(smObj) {
 				console.log('Now playing: ', smObj);
-				mixpanel.track("Set Play");
+
+				// Log Mixpanel event
+				var selectedSet = nextProps.appState.get('currentSet');
+				var setName;
+				if(selectedSet.episode != null && selectedSet.episode.length > 0) {
+					setName = selectedSet.artist+" - "+selectedSet.event+" - "+selectedSet.episode;
+				} else {
+					setName = selectedSet.artist+" - "+selectedSet.event;
+				}
+				var setProperties = {
+					"set_id": selectedSet.id,
+					"set_name": setName,
+					"set_artist": selectedSet.artist,
+					"set_event": selectedSet.event
+				};
+				mixpanel.track("Set Play", setProperties);
+				console.log(setProperties);
+
 				//plays a new set
 				push({
 					type: 'SHALLOW_MERGE',

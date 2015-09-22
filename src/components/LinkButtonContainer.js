@@ -24,7 +24,7 @@ var LinkButtonContainer = React.createClass({
 			var classString = "fa fa-fw fa-2x center click fa-" + link.type;
 			if(!!link.url) {
 				return (
-					<a className='flex set-flex' href={link.url} key={index}>
+					<a className='flex set-flex' onClick={trackMixpanel} href={link.url} key={index}>
 						<i className={classString}/>
 					</a>
 				);
