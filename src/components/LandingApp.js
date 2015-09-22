@@ -49,7 +49,7 @@ var LandingApp = React.createClass({
 							Listen to any live set or recorded mix completely free. You can relive your favorite events, or catch up on the ones you missed.
 						</p>
 						<p className='wow bounceInLeft'>
-							Search for your favorite tracks and hear the results in live set form. We'll fast-forward you right where the artist drops the track.
+							Search for your favorite tracks and hear the results within a set. We'll fast-forward you right where the artist drops the track.
 						</p>
 					</div>
 					<div className='flex-column flex-fixed image-container'>

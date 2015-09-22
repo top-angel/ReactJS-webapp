@@ -6,7 +6,7 @@ var LandingBeacon = React.createClass({
 		return (
 			<div className='flex-row' id='LandingBeacon'>
 				<div className='text-container flex-column'>
-					<h1>Introducing a new way to get music first</h1>
+					<h1>Introducing a new way to get music</h1>
 					<p>
 						Artists release exclusive content on Setmine, which you can unlock at specific venues using beacons.
 						<br/>
