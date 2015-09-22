@@ -5,7 +5,7 @@ import mixpanelService from './mixpanelService.js';
 function startFacebookSDK(push) {
 	window.fbAsyncInit = function() {
 		FB.init({
-			appId      : '674390762682640',
+			appId      : '648288801959503',
 			cookie     : true,  // enable cookies to allow the server to access
 												// the session
 			xfbml      : true,  // parse social plugins on this page
