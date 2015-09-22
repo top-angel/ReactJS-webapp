@@ -52,6 +52,7 @@ var Player = React.createClass({
 			playerService.generateSound(starttime, nextProps.appState, push)
 			.then(function(smObj) {
 				console.log('Now playing: ', smObj);
+				mixpanel.track("Set Play");
 				//plays a new set
 				push({
 					type: 'SHALLOW_MERGE',

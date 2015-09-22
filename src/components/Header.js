@@ -7,6 +7,7 @@ var Header = React.createClass({
 	mixins: [History],
 
 	render () {
+		mixpanel.track("Page Load");
 		return (
 			<header className="flex-row flex-zero">
           	<Link className='nav-button fa icon-setmine fa-2x click center' to='/' onlyActiveOnIndex={true} />
