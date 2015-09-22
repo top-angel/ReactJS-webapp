@@ -10,7 +10,7 @@ var LinkButtonContainer = React.createClass({
 	},
 	trackMixpanel: function() {
 
-	}
+	},
 
 	render: function() {
 		var links = this.props.links;

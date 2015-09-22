@@ -11,7 +11,7 @@ var publicPath = path.resolve(__dirname, 'public');
 
 app.use(function( req, res, next ) {
     for(var prop in req.query) {
-        res.redirect('https://setmine.com/' + prop);
+        res.redirect('https://www.setmine.com/' + prop);
         return;
     }
     next();
