@@ -21,7 +21,7 @@ var LandingHome = React.createClass({
 				    <a href='http://bit.ly/SetmineiOS' title='view on App Store' className='fa fa-apple fa-fw fa-4x wow fadeInLeft click'/>
 				    <a href='http://bit.ly/SetmineAndroid' title='view on Google Play'className='fa fa-android fa-fw fa-4x wow fadeInRight click'/>
 				</div>
-				<Link to='sets' className='header-small center click wow fadeInUp' id='listen-now'>Listen Now</Link>
+				<Link to='/sets' className='header-small center click wow fadeInUp' id='listen-now'>Listen Now</Link>
 				<i className='fa fa-chevron-down center click wow slideInUp' onClick={this.scroll}/>
           </div>
 		);

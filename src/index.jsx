@@ -131,6 +131,7 @@ var App = React.createClass({
 
 	render: function() {
 		var appState = this.state.appState;
+		mixpanel.track("Page Load");
 		return (
 			<div id='App' className='flex-column'>
 				<Header appState={appState} push={push}/>
