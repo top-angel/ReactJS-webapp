@@ -10,15 +10,9 @@ var port = isProduction ? 3000 : process.env.PORT;
 var publicPath = path.resolve(__dirname, 'public');
 
 app.use(function( req, res, next ) {
-    console.log(req.query)
-
     for(var prop in req.query) {
-        console.log("existing route")
-        console.log(prop)
-        console.log(req.path)
-
-        res.redirect('/' + prop);
-        return
+        res.redirect('http://setmine.com' + prop);
+        return;
     }
     next();
 });
@@ -41,11 +35,6 @@ proxy.on('error', function(e) {
     console.log('Could not connect to proxy, please try again...');
 });
 
-app.get('/livewebsite', function( req, res ) {
-    var path = req.path
-    var query = req.query
-    res.redirect('http://www.setmine.com' + path);
-});
 
 app.get('*', function( req, res, next ) {
 
