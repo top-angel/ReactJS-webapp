@@ -43,8 +43,6 @@ import ArtistTileContainer from './components/ArtistTileContainer';
 
 import DMCA from './components/DMCA';
 
-import FacebookMetadata from './components/FacebookMetadata';
-
 
 var initialAppState = Immutable.Map({
 	currentSet: {

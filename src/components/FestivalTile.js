@@ -13,7 +13,7 @@ var FestivalTile = React.createClass({
 	},
 	render: function() {
 		var image = {
-			backgroundImage: "url('" + constants.S3_ROOT_FOR_IMAGES + 'small_' + this.props.main_imageURL + "')"
+			backgroundImage: "url('" + constants.S3_ROOT_FOR_IMAGES + this.props.main_imageURL + "')"
 		};
 		var date = moment(this.props.start_date).format('MMM DD YYYY');
 		var setCount = this.props.set_count + ' sets';

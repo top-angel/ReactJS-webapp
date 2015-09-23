@@ -18,11 +18,15 @@ var detectMobileService = {
         return (Android() || BlackBerry() || iOS() || Opera() || Windows());
     },
     detectMobileBrowser: function() {
+        console.log(window.location.pathname);
+
         if(this.iOS()) {
-            if(window.location.search.length > 0) {
-                window.location = "setmine://setmine.com/" + window.location.search.substring(1);
+            console.log(window.location.pathname);
+            if(window.location.pathname.length > 0) {
+
+                // window.location = "setmine://setmine.com/" + window.location.pathname.substring(1);
             } else {
-                window.location = "setmine://setmine.com/bugfix";
+                // window.location = "setmine://setmine.com/bugfix";
             }
         }
     }
