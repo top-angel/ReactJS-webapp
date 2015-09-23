@@ -389,7 +389,7 @@ header {
 		background-color: @set-dark-gray*1.2;
 	}
 	.mobile({
-		font-size: 1.25rem;
+		font-size: 1.5rem;
 		.search-bar, #login {
 			.hidden;
 		}
@@ -1101,30 +1101,14 @@ header {
 	display: flex;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //about page
 
 @page: 100vh;
-
+#Setmusic {
+	position: relative;
+	top: @headerHeight;
+	font-size: 1rem;
+}
 #landing-page {
 	background: url(../images/setmusic/landing-background.jpg);
 	background-size: 100% 100%;
@@ -1184,7 +1168,7 @@ header {
 		height: @page/3;
 		font-size: 1rem;
 		.text {
-			font-size: 1.5rem;
+			font-size: 2rem;
 			.size(100vw, 30%);
 			left: 0;
 			top: 30%;
@@ -1221,10 +1205,15 @@ header {
 	.small({
 		.flex-column;
 		height: @page*2/3;
+		font-size: 2rem;
 	});
 	.mobile({
 		.flex-column;
 		height: @page*2/3;
+		font-size: 2rem;
+		img {
+			.center;
+		}
 	});
 }
 

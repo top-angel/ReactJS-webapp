@@ -2,6 +2,9 @@ import React from 'react';
 
 var Setmusic = React.createClass({
 
+	componentDidMount: function() {
+		$(window).scrollTo(0, 0);
+	},
 	render: function() {
 		return (
 		<div id='Setmusic'>
