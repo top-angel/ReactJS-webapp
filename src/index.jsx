@@ -172,7 +172,7 @@ var App = React.createClass({
 
 var routes = (
 	<Route path='/' component={App}>
-		<IndexRoute component={Setmusic}/>
+		<IndexRoute component={LandingView}/>
 
 		<Route path='play/:set' component={LandingView} />
 		<Route path='user' component={HomeView}>
@@ -212,6 +212,9 @@ var routes = (
 		<Redirect from='/browse/:festival/festival' to='/festival/:festival' />
 		<Redirect from='/browse/:mix/mix' to='/mix/:mix' />
 		<Redirect from='/event/:eventID' to='/event/:eventID' />
+
+		// Setmusic About
+		<Route path='about' component={Setmusic}/>
 
 	</Route>
 );

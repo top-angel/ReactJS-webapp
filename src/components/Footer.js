@@ -21,9 +21,11 @@ var Footer = React.createClass({
 					<a className='click hidden' id='contact'>
 						Contact Us
 					</a>
-					<a className='click' href='http://setmine.com/about'>
-						About
-					</a>
+					<Link to='/about'>
+						<a className='click' href='https://www.setmine.com/about'>
+							About
+						</a>
+					</Link>
 					<Link to='/legal'>
 						<a className='click' id='dmca'>
 							DMCA Notice

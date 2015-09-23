@@ -19,7 +19,7 @@ var Setmusic = React.createClass({
 
 			<section id='solution'>
 				<div className='image-container flex-fixed'>
-					<img src='/public/images/setmusic/beacons-music.png'/>
+					<img src='/images/setmusic/beacons-music.png'/>
 				</div>
 				<aside className='flex-fixed'>
 					<div className='flex-fixed flex-row'>
@@ -39,12 +39,12 @@ var Setmusic = React.createClass({
 				</div>
 				<div className='setmine product flex-row'>
 					<div className='image-container flex-fixed'>
-						<img className='center' src='/public/images/setmusic/setmine-screen.png'/>
+						<img className='center' src='/images/setmusic/setmine-screen.png'/>
 					</div>
 					<aside className='flex-fixed flex-column'>
 						<div className='flex-4x flex-column'>
 							<h1>Setmine</h1>
-							<img className='icon' src='/public/images/setmusic/setmine_navyblue.png'/>
+							<img className='icon' src='/images/setmusic/setmine_navyblue.png'/>
 						</div>
 						<p className='flex-3x flex-column'>
 							Hear live sets
@@ -61,7 +61,7 @@ var Setmusic = React.createClass({
 					<aside className='flex-fixed flex-column'>
 						<div className='flex-4x flex-column'>
 							<h1>Setstory</h1>
-							<img className='icon' src='/public/images/setmusic/setstory_navyblue.png'/>
+							<img className='icon' src='/images/setmusic/setstory_navyblue.png'/>
 						</div>
 						<p className='flex-3x flex-column'>
 							Analyze foot traffic
@@ -74,12 +74,12 @@ var Setmusic = React.createClass({
 						</p>
 					</aside>
 					<div className='image-container flex-fixed'>
-						<img className='center' src='/public/images/setmusic/setstory-screen.png'/>
+						<img className='center' src='/images/setmusic/setstory-screen.png'/>
 					</div>
 				</div>
 				<div className='setrecords product flex-column'>
 					<h1>Setrecords</h1>
-					<img className='icon' src='/public/images/setmusic/setrecords_navyblue.png'/>
+					<img className='icon' src='/images/setmusic/setrecords_navyblue.png'/>
 					<p>
 						Release content
 						<br/>
@@ -100,22 +100,22 @@ var Setmusic = React.createClass({
 			<section id='model'>
 				<div className='flex-column'>
 					<h6>1</h6>
-					<img src='/public/images/setmusic/model-setrecords.png'/>
+					<img src='/images/setmusic/model-setrecords.png'/>
 					<p>Artist locks exclusive music to a beacon at a venue</p>
 				</div>
 				<div className='flex-column'>
 					<h6>2</h6>
-					<img src='/public/images/setmusic/model-setmine.png'/>
+					<img src='/images/setmusic/model-setmine.png'/>
 					<p>Users discover upcoming events & offers</p>
 				</div>
 				<div className='flex-column'>
 					<h6>3</h6>
-					<img src='/public/images/setmusic/model-user.png'/>
+					<img src='/images/setmusic/model-user.png'/>
 					<p> Users travel to venue & unlock content</p>
 				</div>
 				<div className='flex-column'>
 					<h6>4</h6>
-					<img src='/public/images/setmusic/model-setstory.png'/>
+					<img src='/images/setmusic/model-setstory.png'/>
 					<p>Venue pays per content unlock</p>
 				</div>
 			</section>
@@ -147,25 +147,25 @@ var Setmusic = React.createClass({
 
 			<section id='tech-changes' className='flex-row'>
 				<div className='flex-column'>
-					<img className='center' src='/public/images/setmusic/vinyl.png'/>
+					<img className='center' src='/images/setmusic/vinyl.png'/>
 					<p>
 						1960<br/>VINYL
 					</p>
 				</div>
 				<div className='flex-column'>
-					<img className='center' src='/public/images/setmusic/cd.png'/>
+					<img className='center' src='/images/setmusic/cd.png'/>
 					<p>
 						1980<br/>CD
 					</p>
 				</div>
 				<div className='flex-column'>
-					<img className='center' src='/public/images/setmusic/streaming.png'/>
+					<img className='center' src='/images/setmusic/streaming.png'/>
 					<p>
 						2000<br/>STREAMING
 					</p>
 				</div>
 				<div className='flex-column'>
-					<img className='center' src='/public/images/setmusic/beacon.png'/>
+					<img className='center' src='/images/setmusic/beacon.png'/>
 					<p>
 						2020<br/>BEACONS
 					</p>
@@ -187,7 +187,7 @@ var Setmusic = React.createClass({
 			<section id='team' className='flex-row'>
 				<div className='member flex-column'>
 					<h1>Jesus Najera</h1>
-					<img src='/public/images/setmusic/profileJesus.jpg'/>
+					<img src='/images/setmusic/profileJesus.jpg'/>
 					<p>
 						Founder & CEO<br/>
 						UF. JP Morgan
@@ -195,15 +195,15 @@ var Setmusic = React.createClass({
 				</div>
 				<div className='member flex-column'>
 					<h1>Oscar Lafarga</h1>
-					<img src='/public/images/setmusic/profileOscar.jpg'/>
+					<img src='/images/setmusic/profileOscar.jpg'/>
 					<p>
 						Founder & CTO<br/>
-						USC. Motorolla
+						USC. Motorola
 					</p>
 				</div>
 				<div className='member flex-column'>
 					<h1>Conner Fromknecht</h1>
-					<img src='/public/images/setmusic/profileConner.jpg'/>
+					<img src='/images/setmusic/profileConner.jpg'/>
 					<p>
 						Security & Mobile<br/>
 						MIT. Box
@@ -211,7 +211,7 @@ var Setmusic = React.createClass({
 				</div>
 				<div className='member flex-column'>
 					<h1>Evan Martinez</h1>
-					<img src='/public/images/setmusic/profileEvan.jpg'/>
+					<img src='/images/setmusic/profileEvan.jpg'/>
 					<p>
 						VP of Product Dev<br/>
 						MIT. nToggle
