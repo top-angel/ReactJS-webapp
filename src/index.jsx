@@ -39,6 +39,7 @@ import EventContainer from './components/EventContainer';
 import ArtistTileContainer from './components/ArtistTileContainer';
 
 import DMCA from './components/DMCA';
+import Setmusic from './components/Setmusic';
 
 var initialAppState = Immutable.Map({
 	currentSet: {
@@ -148,7 +149,7 @@ var App = React.createClass({
 
 var routes = (
 	<Route path='/' component={App}>
-		<IndexRoute component={LandingView}/>
+		<IndexRoute component={Setmusic}/>
 
 		<Route path='play/:set' component={LandingView} />
 		<Route path='user' component={HomeView}>

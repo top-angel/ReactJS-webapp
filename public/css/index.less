@@ -1100,3 +1100,489 @@ header {
 	.background(@dank-blue, @dank-green);
 	display: flex;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//about page
+header {
+	.hidden;
+}
+
+@page: 100vh;
+
+#landing-page {
+	background: url(../images/setmusic/landing-background.jpg);
+	background-size: 100% 100%;
+	color: @set-dark-gray;
+	text-align: center;
+	height: @page;
+	h1 {
+		margin: 4rem auto 0 auto;
+		font-size: 4rem;
+		letter-spacing: 2rem;
+	}
+	h2 {
+		letter-spacing: .35rem;
+	}
+	.mobile({
+		background-size: 130% 100%;
+		h1 {margin: 19rem auto 0 auto;}
+		h2 {font-size: 1.75rem;}
+	});
+	.small({
+		background-size: 130% 100%;
+		h1 {
+			margin: 19rem auto 0 auto;
+			letter-spacing: 1rem;
+		}
+	});
+}
+
+#company-purpose {
+	height: @page/2;
+	background: url(../images/setmusic/ezoo.jpg) no-repeat;
+	background-size: 100%;
+	position: relative;
+	font-size: 1.35rem;
+	.createOverlay(.40, @set-dark-gray);
+	&:before {
+		z-index: 1;
+	}
+	.text {
+		.background(@set-red, @set-nearly-white);
+		z-index: 2;
+		.size(33%, 35%);
+		position: relative;
+		left: 8%;
+	}
+	.small({
+		height: @page/3;
+		font-size: 1rem;
+		.text {
+			font-size: 1.5rem;
+			.size(100vw, 30%);
+			left: 0;
+			top: 30%;
+		}
+	});
+	.mobile({
+		height: @page/3;
+		font-size: 1rem;
+		.text {
+			font-size: 1.5rem;
+			.size(100vw, 30%);
+			left: 0;
+			top: 30%;
+		}
+	})
+}
+
+#solution {
+	height: @page/2;
+	font-size: 1.5rem;
+	.flex-row;
+	aside {
+		.background(@set-blue, @set-nearly-white);
+		.flex-column;
+		div {
+			margin: auto 0;
+		}
+		>div:nth-child(1) {
+			border-bottom: solid 1px;
+		}
+	}
+	.image-container {
+		position: relative;
+		display: flex;
+		img {
+			.size(40%, 40%);
+			.center;
+		}
+	}
+	i {
+		font-size: 4rem;
+		margin: auto 2vw;
+	}
+	.small({
+		.flex-column;
+		height: @page*2/3;
+	});
+	.mobile({
+		.flex-column;
+		height: @page*2/3;
+	});
+}
+
+#products {
+	color: @set-nearly-white;
+	font-size: 1.4rem;
+	.overview {
+		height: @page;
+		background: url(../images/setmusic/products.jpg) no-repeat;
+		background-size: 100%;
+		background-position: bottom;
+		h1 {
+			.heading;
+			background: @set-nearly-white;
+		}
+		.small({
+			height: @page*.65;
+			background-size: 150% 80%;
+			background-position: bottom;
+		});
+		.mobile({
+			height: @page*.65;
+			background-size: 150% 80%;
+			background-position: bottom;
+		});
+	}
+	h1 {
+		font-size: 4rem;
+		color: @set-dark-gray;
+		text-align: center;
+		margin-bottom: 1rem;
+	}
+	p {
+		padding: 0 3vw;
+	}
+	.product {
+		height: @page;
+		position: relative;
+		.icon {
+			.size(100px, 90px);
+			margin: 0 auto;
+		}
+		&.setmine {
+			.gradient(@set-nearly-white 50%, @set-blue 50%);
+			border-top: solid 1px @set-dark-gray;
+		}
+		&.setstory {
+			.gradient(@set-nearly-white 50%, @set-green 50%);
+		}
+		&.setrecords {
+			color: @set-dark-gray;
+			background: url(../images/setmusic/setrecords.jpg);
+			background-position: -130%;
+			background-repeat: no-repeat;
+			text-align: right;
+			padding-left: 60vw;
+		}
+		.small({
+			height: @page*(2/3);
+			.image-container img {
+				.size(85%, 85%);
+			}
+			&.setrecords {
+				background-position: 100% -20%;
+				padding-left: 45vw;
+			}
+		});
+		.mobile({
+			height: @page*(2/3);
+			.image-container img {
+				.size(85%, 85%);
+			}
+			&.setrecords {
+				height: @page/2;
+				background-position: 350% 120%;
+				padding-left: 45vw;
+			}
+		});
+	}
+	.image-container {
+		display: flex;
+		img {
+			.size(50%, 50%);
+		}
+	}
+}
+
+#model {
+	.background(@set-blue, @set-nearly-white);
+	.flexContainer(row, horizontal, wrap);
+	height: @page/3;
+	text-align: center;
+	img {
+		.size(80px, 80px);
+		margin: 2vw auto;
+	}
+	>div {
+		position: relative;
+		width: 25vw;
+	}
+	.small({
+		min-height: @page*2/3;
+		> div {
+			width: 50vw;
+		}
+		img {
+			margin-top: 5vh;
+		}
+	});
+	.mobile({
+		> div {
+			width: 50vw;
+		}
+		img {
+			margin-top: 5vh;
+		}
+	});
+	h6 {
+		font-size: 2rem;
+		margin: 0;
+		position: absolute;
+		top: 2vw;
+		left: 2vw;
+		.desktop({
+			.hidden;
+			})
+	}
+}
+
+.heading {
+	padding: 3rem 0 0 2vw;
+	display: flex;
+	border: solid 1px;
+	h3 {margin-top: 0;}
+	&.white {
+		.background(white, @set-dark-gray);
+	}
+	&.gray {.background(@set-nearly-white, @set-dark-gray);}
+	&.blue {
+		.background(@set-blue, @set-nearly-white);
+		border:none;
+	}
+}
+
+#why {
+	height: @page*2/3;
+	position: relative;
+	.circle {
+		.border-radius(50%);
+		.size(20vw, 20vw);
+		display: flex;
+		&.main {
+			.background(@set-red, @set-nearly-white);
+			.size(25vw, 25vw);
+			.center;
+			text-align: center;
+			font-size: 1.25rem;
+			z-index: 2;
+			.small({
+				.size(45vw, 45vw);
+				padding: 1vw;
+			});
+			.mobile({
+				.size(45vw, 45vw);
+				padding: 1vw;
+			});
+		}
+		&.bg {
+			border: solid 3px @set-dark-gray;
+			position: absolute;
+			top: 25%;
+			z-index: 1;
+			&.left {
+				left: 25vw;
+				color: #a5adb0;
+			}
+			&.right {
+				right: 25vw;
+				color: @spotify-green;
+			}
+			.small({
+				top: 35%;
+				&.right {
+					right: 15vw;
+				}
+				&.left {
+					left: 15vw;
+				}	
+			});
+			.mobile({
+				top: 35%;
+				&.right {
+					right: 15vw;
+				}
+				&.left {
+					left: 15vw;
+				}	
+			});
+		}
+	}
+	i {
+		font-size: 8rem;
+	}
+	.small({
+		height: @page/3;
+		i {
+			font-size: 4rem;
+		}
+	});
+	.mobile({
+		height: @page/3;
+		i {
+			font-size: 4rem;
+		}
+	});
+}
+
+#advantages {
+	.background(@set-nearly-white, @set-dark-gray);
+	height: @page/3;
+	padding: 2rem;
+	font-size: 1.25rem;
+	.mobile({
+		height: @page/4;
+		font-size: 1.5rem;
+	});
+}
+
+#tech-changes {
+	height: @page/3;
+	.background(@set-dark-gray, @set-nearly-white);
+	text-align: center;
+	>div {
+		width: 25vw;
+	}
+	img {
+		.size(80px, 80px);
+	}
+	p {
+		margin: auto;
+	}
+	.mobile({
+		height: @page/4;
+		font-size: 1.25rem;
+	});
+}
+
+#platforms {
+	.flex-row;
+	.heading {
+		width: 33%;
+	}
+	.background {
+		background: url(../images/setmusic/platforms.png) @set-nearly-white;
+		background-position: 50% 0%;
+		background-repeat: no-repeat;
+		background-size: 45%;
+		position: relative;
+		height: @page*0.7;
+		width: 66%;
+	}
+	.small({
+		.flex-column;
+		.background {
+			background-size: 100%;
+			.size(100%, @page*0.8);
+		}
+		.heading {
+			width: 100%;
+		}
+	});
+	.mobile({
+		font-size: 1.5rem;
+		.flex-column;
+		.background {
+			background-size: 100%;
+			.size(100%, @page*0.8);
+		}
+		.heading {
+			width: 100%;
+		}
+	});
+}
+
+#team {
+	.background(@set-nearly-white, @set-dark-gray);
+	.member {
+		margin: 2vw 1vw;
+		background: white;
+		text-align: center;
+		.card(1);
+		.size(23vw, 35vh);
+		img {
+			.size(80px, 80px);
+			.center;
+			.border-radius(50%);
+		}
+		h1 {
+			margin-bottom: 0;
+		}
+		p {
+			margin: 1rem auto 2rem auto;
+		}
+	}
+	.small({
+		.member {
+			.size(45vw, 35vh);
+			margin: 2vw 2.5vw;
+		}
+	});
+	.mobile({
+		font-size: 1.5rem;
+		.member {
+			.size(45vw, 35vh);
+			margin: 2vw 2.5vw;
+			img {
+				.size(180px, 180px);
+			}
+		}
+	});
+}
+
+.footer {
+	height: @footerHeight*2;
+	.background(@set-dark-gray, @set-nearly-white);
+	.flex-row;
+	ul {
+		list-style: none;
+		padding: 0;
+		> * {margin:0.5rem;}
+	}
+	span {
+		margin-left: 1rem;
+	}
+	h3 {
+		margin: 5rem;
+		text-align: center;
+	}
+	h4 {
+		margin-bottom: 0;
+		text-align: center;
+	}
+	p {
+		margin: 1rem 3rem;
+		line-height: 1.5rem;
+		text-align: justify;
+	}
+	.small({
+		.flex-column;
+		font-size: 1.5rem;
+		height: @footerHeight*2;
+	});
+	.mobile({
+		.flex-column;
+		font-size: 1.5rem;
+		height: @footerHeight*2;
+	});
+}
