@@ -1,0 +1,33 @@
+/* Variables */
+
+@import "colors.less";
+@import "mixins.less";
+@import "overlays.css";
+@import "variables.less";
+@import "fonts.less";
+
+//base settings
+
+body {
+    margin:0;
+    padding:0;
+    cursor:default;
+    width:100vw!important;
+    overflow-x:hidden;
+}
+html {
+	font-family: @defaultFontStyle;
+	font-family: @lightFontStyle;
+	font-size: @defaultFontSize;
+	.mobile({
+		font-size: @defaultFontSize*1.5; 
+	});
+	.medium({
+		font-size: @defaultFontSize*0.75;
+	});
+	.small({
+		font-size: @defaultFontSize*0.75;
+	});
+}
+
+//Setmusic about page
