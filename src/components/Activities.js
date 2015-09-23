@@ -50,7 +50,8 @@ var Activities = React.createClass({
 				key: index,
 				id: activity.id,
 				set_ids: activity.set_ids,
-				imageURL: activity.imageURL,
+				imageURL: constants.S3_ROOT_FOR_IMAGES + activity.imageURL,
+				bannerImageUrl: constants.S3_ROOT_FOR_IMAGES + "small_" + activity.banner_imageURL,
 				push: push
 			}
 			

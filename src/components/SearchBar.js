@@ -14,6 +14,11 @@ var SearchBar = React.createClass({
 				_this.search(query);
 			}
 		});
+		$(document.body).on('keydown', this.handleKeyDown);
+	},
+
+	handleKeyDown: function() {
+		$('#search').focus();
 	},
 
 	search: function(query) {

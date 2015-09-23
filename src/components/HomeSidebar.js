@@ -23,7 +23,7 @@ var HomeSidebar = React.createClass({
 					<div className='center'>{name}</div>
 				</div>
 				<div className='flex-3x flex-column user-nav'>
-					<div className='click flex flex-row nav-header'>
+					<div className='flex flex-row nav-header'>
 						<i className='fa fa-2x fa-user center'/>
 						<div className='center'>{name}</div>
 					</div>
