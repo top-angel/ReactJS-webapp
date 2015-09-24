@@ -389,7 +389,7 @@ header {
 		background-color: @set-dark-gray*1.2;
 	}
 	.mobile({
-		font-size: 1.5rem;
+		font-size: 3rem;
 		.search-bar, #login {
 			.hidden;
 		}
@@ -1236,7 +1236,7 @@ header {
 		});
 		.mobile({
 			height: @page*.65;
-			background-size: 150% 80%;
+			background-size: 180% 80%;
 			background-position: bottom;
 		});
 	}
@@ -1288,8 +1288,11 @@ header {
 			}
 			&.setrecords {
 				height: @page/2;
-				background-position: 350% 120%;
+				background-position: 200% 120%;
 				padding-left: 45vw;
+			}
+			p {
+				font-size: 2rem;
 			}
 		});
 	}
@@ -1324,6 +1327,7 @@ header {
 		}
 	});
 	.mobile({
+		font-size: 2rem;
 		> div {
 			width: 50vw;
 		}
@@ -1378,6 +1382,7 @@ header {
 			});
 			.mobile({
 				.size(45vw, 45vw);
+				.center;
 				padding: 1vw;
 			});
 		}
@@ -1410,6 +1415,9 @@ header {
 				}
 				&.left {
 					left: 15vw;
+				}
+				i {
+					.center;
 				}	
 			});
 		}
@@ -1425,6 +1433,7 @@ header {
 	});
 	.mobile({
 		height: @page/3;
+		font-size: 3rem;
 		i {
 			font-size: 4rem;
 		}
@@ -1525,7 +1534,7 @@ header {
 		}
 	});
 	.mobile({
-		font-size: 1.5rem;
+		font-size: 2rem;
 		.member {
 			.size(45vw, 35vh);
 			margin: 2vw 2.5vw;

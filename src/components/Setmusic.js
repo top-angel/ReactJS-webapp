@@ -128,13 +128,13 @@ var Setmusic = React.createClass({
 			</div>
 
 			<section id='why' className='flex-row'>
-				<div className='circle bg left'>
+				<div className='circle bg left set-flex'>
 					<i className='fa fa-fw center fa-apple'/>
 				</div>
-				<div className='circle main'>
+				<div className='circle main set-flex'>
 					<div className='center'>The music war has begun. Everyone needs a competitive advantage.</div>
 				</div>
-				<div className='circle bg right'>
+				<div className='circle bg right set-flex'>
 					<i className='fa fa-fw center fa-spotify'/>
 				</div>
 			</section>
