@@ -215,7 +215,6 @@ var routes = (
 
 		// Setmusic About
 		<Route path='about' component={Setmusic}/>
-
 	</Route>
 );
 
