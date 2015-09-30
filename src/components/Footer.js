@@ -15,7 +15,7 @@ var Footer = React.createClass({
 
 	render: function() {
 		return (
-			<footer className='flex-row'>
+			<footer>
 				<div className='buffer'/>
 				<div className='flex-column'>
 					<a className='click hidden' id='contact'>
@@ -37,7 +37,7 @@ var Footer = React.createClass({
 					<a href='http://bit.ly/SetmineAndroid' onClick={this.trackAndroid} title='view on Google Play'className='click'>
 						Android
 					</a>
-					<div className='center'>
+					<div className='copyright'>
 		             	<i className='fa fa-copyright'/> 
 		             	{' Setmusic LLC. 2015'}
 	             	</div>

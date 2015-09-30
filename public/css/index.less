@@ -358,6 +358,7 @@ a {
 }
 
 footer {
+	.flex-row;
 	position: relative;
 	.background(@set-dark-gray, white);
 	padding-top: 3vh;
@@ -380,6 +381,16 @@ footer {
 		padding: 0;
 		> * {margin:0.5rem;}
 	}
+	.copyright {
+		margin-top: center;
+	}
+	.mobile({
+		.flex-column;
+		font-size: 2rem;
+		.copyright {
+			margin: 1rem 0;
+		}
+	});
 }
 
 header {
@@ -1224,7 +1235,7 @@ header {
 		height: @page*2/3;
 		font-size: 2rem;
 		img {
-			.center;
+			margin: 0 50%;
 		}
 	});
 }
