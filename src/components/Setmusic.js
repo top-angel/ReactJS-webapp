@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from './Footer';
 
 var Setmusic = React.createClass({
 
@@ -221,56 +222,7 @@ var Setmusic = React.createClass({
 					</p>
 				</div>
 			</section>
-			<div className='footer'>
-				<div className='flex-fixed hidden'>
-					<h4 classNam='flex-row'>
-						<i className='fa fa-heart-o'/>
-						<span>WHAT WE DO</span>
-					</h4>
-					<p>
-						We're here to revolutionize the way you listen to music, making the world a better place through scalable location based distributed data driven cloud computing.
-					</p>
-				</div>
-				<div className='flex-fixed hidden'>
-					<h4 classNam='flex-row'>
-						<i className='fa fa-envelope-o'/>
-						<span>CONTACT</span>
-					</h4>
-					<h4>jesus@setmine.com</h4>
-					<h3>
-						<i className='fa fa-copyright'/>
-						<span>Setmusic LLC. 2015</span>
-					</h3>
-				</div>
-				<div className='center'>
-					<h4 className='flex-row'>
-						<i className='fa fa-share-alt'/>
-						<span>CONNECT WITH US</span>
-					</h4>
-					<ul>
-						<li>
-							<a className='fa fa-fw fa-envelope-o'></a>
-							<span>jesus@setmine.com</span>
-						</li>
-						<li>
-							<a href='https://www.facebook.com/SetmineApp' className='fa fa-fw fa-facebook-square'></a>
-							<span>Facebook</span>
-						</li>
-						<li>
-							<a href='https://twitter.com/setmineapp' className='fa fa-fw fa-twitter-square'></a>
-							<span>Twitter</span>
-						</li>
-						<li>
-							<a href='https://instagram.com/setmine/' className='fa fa-fw fa-instagram'></a>
-							<span>Instagram</span>
-						</li>
-						<li>
-							<a href='http://setmine.tumblr.com/' className='fa fa-fw fa-tumblr-square'></a>
-							<span>Tumblr</span>
-						</li>
-					</ul>
-				</div>
-			</div>
+			<Footer/>
 		</div>
 		);
 	}

@@ -37,19 +37,39 @@ var Footer = React.createClass({
 					<a href='http://bit.ly/SetmineAndroid' onClick={this.trackAndroid} title='view on Google Play'className='click'>
 						Android
 					</a>
-	          </div>
-	          <div className='buffer-lg'/>
-	          <div className='flex-column flex'>
-		          <div className='flex-row center'>
-					<a href='https://www.facebook.com/SetmineApp'><i className='fa fa-2x fa-facebook fa-fw'/></a>
-					<a href='https://twitter.com/setmineapp'><i className='fa fa-2x fa-twitter fa-fw'/></a>
-					<a href='https://instagram.com/setmine/'><i className='fa fa-2x fa-instagram fa-fw'/></a>
-	             	</div>
-	             	<div className='divider'/>
-	             	<div className='center'>
+					<div className='center'>
 		             	<i className='fa fa-copyright'/> 
 		             	{' Setmusic LLC. 2015'}
 	             	</div>
+	          </div>
+	          <div className='buffer-lg'/>
+				<div className='flex-column flex'>
+					<h4 className='flex-row'>
+						<i className='fa fa-share-alt'/>
+						<span>CONNECT WITH US</span>
+					</h4>
+					<ul>
+						<li>
+							<a className='fa fa-fw fa-envelope-o'></a>
+							<span>jesus@setmine.com</span>
+						</li>
+						<li>
+							<a href='https://www.facebook.com/SetmineApp' className='fa fa-fw fa-facebook-square'></a>
+							<span>Facebook</span>
+						</li>
+						<li>
+							<a href='https://twitter.com/setmineapp' className='fa fa-fw fa-twitter-square'></a>
+							<span>Twitter</span>
+						</li>
+						<li>
+							<a href='https://instagram.com/setmine/' className='fa fa-fw fa-instagram'></a>
+							<span>Instagram</span>
+						</li>
+						<li>
+							<a href='http://setmine.tumblr.com/' className='fa fa-fw fa-tumblr-square'></a>
+							<span>Tumblr</span>
+						</li>
+					</ul>
 				</div>
 				<div className='buffer-lg'/>
 				<div className='flex-column flex-zero'>
