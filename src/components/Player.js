@@ -112,27 +112,4 @@ var Player = React.createClass({
 	}
 });
 
-// var PlayerWrapper = React.createClass({
-// 	displayName: 'PlayerWrapper',
-
-// 	render: function() {
-
-// 		var push = this.props.push;
-// 		var appState = this.props.appState; // <- IMMUTABLE MAP
-// 		var Rh = this.props.routeHandler;
-
-// 		return (
-// 			<div>
-// 				{
-// 					React.cloneElement(this.props.children, {
-// 						appState: appsState,
-// 						push: push
-// 					})
-// 				}
-// 				<Player appState={appState} push={push} />
-// 			</div>
-// 		);
-// 	}
-// });
-
 module.exports = Player;

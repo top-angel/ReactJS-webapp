@@ -100,7 +100,9 @@ var PlayerTracklist = React.createClass({
 
 		return (
 			<div className='flex-row flex-fixed-2x' id='PlayerTracklist'>
-				<div className='active-track center flex-fixed-3x'>{currentTrack}</div>
+				<div className='active-track center flex-fixed-3x'>
+					{currentTrack}
+				</div>
 				<div className='tracklist'>
 					{tracks}
 				</div>
