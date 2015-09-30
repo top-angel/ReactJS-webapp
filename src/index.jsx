@@ -226,8 +226,7 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 var history = createBrowserHistory();
 
 React.render(
-	// <Router history={history}>
-	<Router>
+	<Router history={history} >
 		{routes}
 	</Router>
 , bodyMount);
