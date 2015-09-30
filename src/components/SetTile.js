@@ -30,7 +30,6 @@ var SetTile = React.createClass({
 		} else {
 			this.history.pushState(null, '/user');
 		}
-
 	},
 
 	getTracklist: function() {

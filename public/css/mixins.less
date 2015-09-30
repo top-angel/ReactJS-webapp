@@ -104,7 +104,7 @@
     width: @width;
     background-color: @color;
 }
-.createOverlay(@opacity, @color) {
+.createOverlay(@opacity, @color: @set-dark-gray) {
     z-index: 1;
     &::before {
         content: '';
@@ -293,8 +293,12 @@
 .desktop(@rules, @min-value: 980px) {
     @media screen and (min-width: @min-value) {@rules();}
 }
-.mobile(@rules, @max-value: 667px) {
-    @media only screen and (max-device-width: @max-value) {@rules();}
+.mobile(@rules) {
+    @media only screen
+    and (min-device-width: 375px)
+    and (max-device-width: 667px)
+    and (-webkit-min-device-pixel-ratio: 2) 
+    {@rules();}
 }
 .medium(@rules, @max-value: 840px, @min-value: 540px) {
     @media screen and (max-width: @max-value) and (min-width: @min-value) {@rules();}
