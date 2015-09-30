@@ -27,18 +27,17 @@ var detectMobileService = {
                 var value = parameters[1];
                 switch(command) {
                     case 'play':
-                        alert('setmine://setmine.com/?' + pathWithoutLeadingSlash);
-                        window.location = 'setmine://setmine.com/?' + pathWithoutLeadingSlash; break;
+                        window.location = 'setmine://setmine.com/' + pathWithoutLeadingSlash; break;
                     case 'artist':
-                        window.location = 'setmine://setmine.com/?browse/' + value.split('_').join('%20') + '/artist'; break;
+                        window.location = 'setmine://setmine.com/browse/' + value.split('_').join(' ') + '/artist'; break;
                     case 'festival':
-                        window.location = 'setmine://setmine.com/?browse/' + value.split('-').join('%20') + '/festival'; break;
+                        window.location = 'setmine://setmine.com/browse/' + value.split('-').join(' ') + '/festival'; break;
                     case 'mix':
-                        window.location = 'setmine://setmine.com/?browse/' + value.split('-').join('%20') + '/mix'; break;
+                        window.location = 'setmine://setmine.com/browse/' + value.split('-').join(' ') + '/mix'; break;
                     case 'event':
-                        window.location = 'setmine://setmine.com/?' + pathWithoutLeadingSlash; break;
+                        window.location = 'setmine://setmine.com/' + pathWithoutLeadingSlash; break;
                     case 'offer':
-                        window.location = 'setmine://setmine.com/?' + pathWithoutLeadingSlash; break;
+                        window.location = 'setmine://setmine.com/' + pathWithoutLeadingSlash; break;
                 }
 
             } else {
