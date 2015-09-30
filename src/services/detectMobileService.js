@@ -29,11 +29,11 @@ var detectMobileService = {
                     case 'play':
                         window.location = 'setmine://setmine.com/' + pathWithoutLeadingSlash; break;
                     case 'artist':
-                        window.location = 'setmine://setmine.com/browse/' + value.split('_').join(' ') + '/artist'; break;
+                        window.location = 'setmine://setmine.com/browse/' + value.split('+').join('%20') + '/artist'; break;
                     case 'festival':
-                        window.location = 'setmine://setmine.com/browse/' + value.split('-').join(' ') + '/festival'; break;
+                        window.location = 'setmine://setmine.com/browse/' + value.split('+').join('%20') + '/festival'; break;
                     case 'mix':
-                        window.location = 'setmine://setmine.com/browse/' + value.split('-').join(' ') + '/mix'; break;
+                        window.location = 'setmine://setmine.com/browse/' + value.split('+').join('%20') + '/mix'; break;
                     case 'event':
                         window.location = 'setmine://setmine.com/' + pathWithoutLeadingSlash; break;
                     case 'offer':
