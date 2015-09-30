@@ -39,13 +39,14 @@ proxy.on('error', function(e) {
 
 
 app.get('*', function( req, res, next ) {
-    fs.readFile(__dirname + '/public/index.html', 'utf8', function(err, text){
-        jsdom.env(text, ['https://code.jquery.com/jquery.js'], function(err, window) {
-            var ogurl = '<meta property=\'og:url\' content=\'https://setmine.com/metadata' + req.path + '\'>';
-            window.$('head').append(ogurl);
-            res.send(window.$('html').html());
-        });
-    });
+    // fs.readFile(__dirname + '/public/index.html', 'utf8', function(err, text){
+    //     jsdom.env(text, ['https://code.jquery.com/jquery.js'], function(err, window) {
+    //         var ogurl = '<meta property=\'og:url\' content=\'https://setmine.com/metadata' + req.path + '\'>';
+    //         window.$('head').append(ogurl);
+    //         res.send(window.$('html').html());
+    //     });
+    // });
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 
