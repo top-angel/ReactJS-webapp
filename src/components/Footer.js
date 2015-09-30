@@ -16,7 +16,6 @@ var Footer = React.createClass({
 	render: function() {
 		return (
 			<footer>
-				<div className='buffer'/>
 				<div className='flex-column'>
 					<a className='click hidden' id='contact'>
 						Contact Us
@@ -42,8 +41,7 @@ var Footer = React.createClass({
 		             	{' Setmusic LLC. 2015'}
 	             	</div>
 	          </div>
-	          <div className='buffer-lg'/>
-				<div className='flex-column flex'>
+				<div className='flex-column'>
 					<h4 className='flex-row'>
 						<i className='fa fa-share-alt'/>
 						<span>CONNECT WITH US</span>
@@ -71,12 +69,10 @@ var Footer = React.createClass({
 						</li>
 					</ul>
 				</div>
-				<div className='buffer-lg'/>
-				<div className='flex-column flex-zero'>
+				<div className='flex-column'>
 					<a className='center' href='https://teamtreehouse.com'><img src='/images/treehouse.png' /></a>
 					<a className='center' href='https://mixpanel.com/f/partner'><img src='//cdn.mxpnl.com/site_media/images/partner/badge_light.png' alt='Mobile Analytics' /></a>
 				</div>
-				<div className='buffer'/>
 	        </footer>
 		);
 	}

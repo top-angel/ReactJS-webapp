@@ -361,7 +361,7 @@ footer {
 	.flex-row;
 	position: relative;
 	.background(@set-dark-gray, white);
-	padding-top: 3vh;
+	padding: 3vh;
 	z-index: 3;
 	&::after {
 		content: '';
@@ -382,7 +382,10 @@ footer {
 		> * {margin:0.5rem;}
 	}
 	.copyright {
-		margin-top: center;
+		margin-top: 1rem;
+	}
+	.flex-column {
+		margin: auto;
 	}
 	.mobile({
 		.flex-column;
@@ -390,6 +393,7 @@ footer {
 		.copyright {
 			margin: 1rem 0;
 		}
+		.sponsors {.hidden;}
 	});
 }
 
@@ -1511,7 +1515,7 @@ header {
 		background-size: 45%;
 		position: relative;
 		height: @page*0.7;
-		width: 66%;
+		width: 67%;
 	}
 	.small({
 		.flex-column;
