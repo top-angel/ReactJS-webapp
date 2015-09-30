@@ -27,7 +27,6 @@ var detectMobileService = {
                 var value = parameters[1];
                 switch(command) {
                     case 'play':
-                        alert('setmine://setmine.com/' + pathWithoutLeadingSlash);
                         window.location = 'setmine://setmine.com/' + pathWithoutLeadingSlash; break;
                     case 'artist':
                         window.location = 'setmine://setmine.com/browse/' + value.split('_').join('%20') + '/artist'; break;
