@@ -31,7 +31,7 @@ html {
 	//     background: @set-blue;
 	// }
 	.mobile({
-		font-size: @defaultFontSize*1.5; 
+		font-size: @defaultFontSize*2; 
 	});
 	.medium({
 		font-size: @defaultFontSize*0.75;
@@ -59,10 +59,11 @@ a {
 .activity-tile {
 	margin: 2% 1.5%;
 	.card(1);
-	.background(@set-blue, white);
 	background-size: 100% 100%;
 	width: 22%;
 	height:25vh;
+	color: white;
+	.createOverlay(0.3);
 	.activity {
 		position: absolute;
 		top: 45%;
@@ -1288,7 +1289,7 @@ header {
 			}
 			&.setrecords {
 				height: @page/2;
-				background-position: 200% 120%;
+				background-position: -20vw 25vw;
 				padding-left: 45vw;
 			}
 			p {
@@ -1327,12 +1328,13 @@ header {
 		}
 	});
 	.mobile({
-		font-size: 2rem;
+		font-size: 2.5rem;
 		> div {
 			width: 50vw;
 		}
 		img {
 			margin-top: 5vh;
+			.size(120px, 120px);
 		}
 	});
 	h6 {
@@ -1384,6 +1386,7 @@ header {
 				.size(45vw, 45vw);
 				.center;
 				padding: 1vw;
+				font-size: 2rem;
 			});
 		}
 		&.bg {
@@ -1443,7 +1446,7 @@ header {
 #advantages {
 	.background(@set-nearly-white, @set-dark-gray);
 	height: @page/3;
-	padding: 2rem;
+	padding: 3rem;
 	font-size: 1.25rem;
 	.mobile({
 		height: @page/4;
@@ -1466,7 +1469,7 @@ header {
 	}
 	.mobile({
 		height: @page/4;
-		font-size: 1.25rem;
+		font-size: 2rem;
 	});
 }
 
@@ -1539,7 +1542,7 @@ header {
 			.size(45vw, 35vh);
 			margin: 2vw 2.5vw;
 			img {
-				.size(180px, 180px);
+				.size(240px, 240px);
 			}
 		}
 	});
@@ -1577,7 +1580,7 @@ header {
 	});
 	.mobile({
 		.flex-column;
-		font-size: 1.5rem;
-		height: @footerHeight*2;
+		font-size: 2rem;
+		height: @footerHeight*1.5;
 	});
 }
