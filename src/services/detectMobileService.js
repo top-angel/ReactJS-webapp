@@ -19,14 +19,30 @@ var detectMobileService = {
     },
     detectMobileBrowser: function() {
         console.log(window.location.pathname);
-
         if(this.iOS()) {
-            console.log(window.location.pathname);
             if(window.location.pathname.length > 0) {
+                var pathWithoutLeadingSlash = window.location.pathname.substring(1);
+                var parameters = pathWithoutLeadingSlash.split('/');
+                var command = parameters[0];
+                var value = parameters[1];
+                switch(command) {
+                    case 'play':
+                        alert('setmine://setmine.com/?' + pathWithoutLeadingSlash);
+                        window.location = 'setmine://setmine.com/?' + pathWithoutLeadingSlash; break;
+                    case 'artist':
+                        window.location = 'setmine://setmine.com/?browse/' + value.split('_').join('%20') + '/artist'; break;
+                    case 'festival':
+                        window.location = 'setmine://setmine.com/?browse/' + value.split('-').join('%20') + '/festival'; break;
+                    case 'mix':
+                        window.location = 'setmine://setmine.com/?browse/' + value.split('-').join('%20') + '/mix'; break;
+                    case 'event':
+                        window.location = 'setmine://setmine.com/?' + pathWithoutLeadingSlash; break;
+                    case 'offer':
+                        window.location = 'setmine://setmine.com/?' + pathWithoutLeadingSlash; break;
+                }
 
-                // window.location = "setmine://setmine.com/" + window.location.pathname.substring(1);
             } else {
-                // window.location = "setmine://setmine.com/bugfix";
+                window.location = 'setmine://setmine.com/bugfix';
             }
         }
     }
