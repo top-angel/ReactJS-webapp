@@ -1,6 +1,8 @@
 var express = require('express');
 var path = require('path');
 var httpProxy = require('http-proxy');
+var jsdom = require('jsdom');
+var fs = require('fs');
 
 var proxy = httpProxy.createProxyServer();
 var app = express();
@@ -37,9 +39,13 @@ proxy.on('error', function(e) {
 
 
 app.get('*', function( req, res, next ) {
-
-    
-    res.sendFile(__dirname + '/public/index.html');
+    fs.readFile(__dirname + '/public/index.html', 'utf8', function(err, text){
+        jsdom.env(text, ['https://code.jquery.com/jquery.js'], function(err, window) {
+            var ogurl = '<meta property=\'og:url\' content=\'https://setmine.com/metadata' + req.path + '\'>';
+            window.$('head').append(ogurl);
+            res.send(window.$('html').html());
+        });
+    });
 });
 
 
