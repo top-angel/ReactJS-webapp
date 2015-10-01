@@ -14,12 +14,15 @@ var SearchBar = React.createClass({
 				_this.search(query);
 			}
 		});
-		$(document.body).on('keydown', this.handleKeyDown);
+		$(document.body).on('keypress', this.handleKeypress);
 	},
 
-	handleKeyDown: function(e) {
-		if(e.charCode != 32) {
+	handleKeypress: function(e) {
+		if(e.charCode == 32) {
+			console.log(e.charCode);
+		} else {
 			$('#search').focus();
+			console.log(e.charCode);
 		}
 	},
 

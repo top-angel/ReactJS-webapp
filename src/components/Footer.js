@@ -16,7 +16,7 @@ var Footer = React.createClass({
 	render: function() {
 		return (
 			<footer>
-				<div className='flex-column'>
+				<div className='flex-column links'>
 					<a className='click hidden' id='contact'>
 						Contact Us
 					</a>
@@ -41,7 +41,7 @@ var Footer = React.createClass({
 		             	{' Setmusic LLC. 2015'}
 	             	</div>
 	          </div>
-				<div className='flex-column'>
+				<div className='flex-column social'>
 					<h4 className='flex-row'>
 						<i className='fa fa-share-alt'/>
 						<span>CONNECT WITH US</span>

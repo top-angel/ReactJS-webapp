@@ -22,7 +22,7 @@ var Setmusic = React.createClass({
 			</section>
 
 			<section id='solution'>
-				<div className='image-container flex-fixed'>
+				<div className='image-container flex-container flex-fixed'>
 					<img src='/images/setmusic/beacons-music.png'/>
 				</div>
 				<aside className='flex-fixed'>
@@ -129,13 +129,13 @@ var Setmusic = React.createClass({
 			</div>
 
 			<section id='why' className='flex-row'>
-				<div className='circle bg left set-flex'>
+				<div className='circle bg left flex-container'>
 					<i className='fa fa-fw center fa-apple'/>
 				</div>
-				<div className='circle main set-flex'>
+				<div className='circle main flex-container'>
 					<div className='center'>The music war has begun. Everyone needs a competitive advantage.</div>
 				</div>
-				<div className='circle bg right set-flex'>
+				<div className='circle bg right flex-container'>
 					<i className='fa fa-fw center fa-spotify'/>
 				</div>
 			</section>
