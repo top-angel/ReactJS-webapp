@@ -24,7 +24,7 @@ var LandingHome = React.createClass({
 			<div className='flex-column flex-container' id='LandingHome'>
 				<h1 className='center wow zoomIn'>Setmine</h1>
 				<h2 className='center wow zoomIn'>Relive your favorite sets</h2>
-				<div className='flex-row center'>
+				<div className='flex-row links'>
 				    <a href='http://bit.ly/SetmineiOS' onClick={this.trackiOS} title='view on App Store' className='fa fa-apple fa-fw fa-4x wow fadeInLeft click'/>
 				    <a href='http://bit.ly/SetmineAndroid' onClick={this.trackAndroid} title='view on Google Play'className='fa fa-android fa-fw fa-4x wow fadeInRight click'/>
 				</div>
