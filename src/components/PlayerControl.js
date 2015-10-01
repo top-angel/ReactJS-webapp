@@ -11,6 +11,15 @@ var PlayerControl = React.createClass({
 		};
 	},
 
+	// componentDidMount: function() {
+	// 	var self = this;
+	// 	$(document).keypress(function(e) {
+	// 		if(e.charCode == 32) {
+	// 			self.togglePlay();
+	// 		}
+	// 	});
+	// },
+
 	togglePlay: function() {
 		var sound = this.props.appState.get('sound');
 		var playing = this.props.appState.get('playing');

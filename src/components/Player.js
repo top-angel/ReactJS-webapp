@@ -95,16 +95,12 @@ var Player = React.createClass({
 
 		return (
 			<div className={playerClass} id='Player'>
-
 				<PlayerControl appState={appState} push={push} />
-
 				<div className='flex-column flex'>
 					<PlayerSeek appState={appState} push={push} />
 					<div className='flex-row flex'>
 						<PlayerSetInfo appState={appState} push={push} />
-
 						<PlayerTracklist {...props} />
-
 					</div>
 				</div>
 			</div>

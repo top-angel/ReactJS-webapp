@@ -48,8 +48,10 @@ function generateSound(loadStart, appState, push) {
 
 	var sound = appState.get('sound');
 	var currentSet = appState.get('currentSet');
+
+	console.log(loadStart);
 	loadStart = convert.MMSSToMilliseconds(loadStart);
-	
+
 	//// XXX TODO MOVE THIS
 	if(sound != null) {
 		soundManager.destroySound('currentSound');

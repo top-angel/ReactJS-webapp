@@ -69,7 +69,7 @@ var Footer = React.createClass({
 						</li>
 					</ul>
 				</div>
-				<div className='flex-column'>
+				<div className='flex-column sponsors'>
 					<a className='center' href='https://teamtreehouse.com'><img src='/images/treehouse.png' /></a>
 					<a className='center' href='https://mixpanel.com/f/partner'><img src='//cdn.mxpnl.com/site_media/images/partner/badge_light.png' alt='Mobile Analytics' /></a>
 				</div>

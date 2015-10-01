@@ -294,10 +294,8 @@
     @media screen and (min-width: @min-value) {@rules();}
 }
 .mobile(@rules) {
-    @media only screen
-    and (min-device-width: 375px)
-    and (max-device-width: 667px)
-    and (-webkit-min-device-pixel-ratio: 2) 
+    @media screen
+    and (max-device-width: 375px)
     {@rules();}
 }
 .medium(@rules, @max-value: 840px, @min-value: 540px) {
