@@ -21,7 +21,7 @@ var LandingHome = React.createClass({
 	
 	render: function() {
 		return (
-			<div className='flex-column' id='LandingHome'>
+			<div className='flex-column flex-container' id='LandingHome'>
 				<h1 className='center wow zoomIn'>Setmine</h1>
 				<h2 className='center wow zoomIn'>Relive your favorite sets</h2>
 				<div className='flex-row center'>
