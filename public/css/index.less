@@ -30,6 +30,9 @@ html {
 	// &::-webkit-scrollbar-thumb {
 	//     background: @set-blue;
 	// }
+	.mobile({
+		font-size: 24px;
+	});
 	.medium({
 		font-size: @defaultFontSize*0.75;
 	});
@@ -1468,11 +1471,9 @@ header {
 
 #advantages {
 	.background(@set-nearly-white, @set-dark-gray);
-	height: @page/3;
 	padding: 3rem;
 	font-size: 1.25rem;
 	.mobile({
-		height: @page/4;
 		font-size: 2rem;
 	});
 }
