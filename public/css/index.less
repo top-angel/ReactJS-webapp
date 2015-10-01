@@ -30,16 +30,6 @@ body {
 html {
 	font-family: @defaultFontStyle;
 	font-family: @lightFontStyle;
-	// font-size: @defaultFontSize;
-	// .mobile({
-	// 	font-size: 32px;
-	// });
-	// .medium({
-	// 	font-size: @defaultFontSize*0.75;
-	// });
-	// .small({
-	// 	font-size: @defaultFontSize*0.75;
-	// });
 }
 
 * {
@@ -580,7 +570,7 @@ header {
 	}
 	.mobile({
 		font-size: 1.65rem;
-		height: @pageHeight*0.75;
+		height: @pageHeight/2;
 		.slide-controls {
 			left: 45%;
 		}
@@ -609,6 +599,7 @@ header {
 	}
 	.mobile({
 		background-size: 60% 100%;
+		height: 45vh;
 		.text-container {
 			width: 35%;
 			padding-right: 5%;
