@@ -533,7 +533,11 @@ header {
 	}
 	.links {
 		margin: 0 auto;
+		text-align: center;
 	}
+	.mobile({
+		.links {left:45%;}
+	});
 }
 #LandingApp {
 	background-size: 100% 100%;
@@ -1268,6 +1272,9 @@ header {
 		text-align: center;
 		padding: 8px;
 		border: solid 1px;
+		.mobile({
+			width: 40%;
+			})
 	}
 	h1 {
 		font-size: 4rem;
@@ -1282,7 +1289,6 @@ header {
 	.product {
 		height: @page;
 		position: relative;
-		.flex-container;
 		.icon {
 			.size(100px, 90px);
 			margin: 0 auto;
