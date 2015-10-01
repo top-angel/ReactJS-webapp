@@ -1134,6 +1134,9 @@ header {
 #Setmusic {
 	position: relative;
 	top: @headerHeight;
+	.mobile({
+		font-size: 5rem;
+		})
 }
 #landing-page {
 	background: url(../images/setmusic/landing-background.jpg);
@@ -1154,13 +1157,6 @@ header {
 		h1 {margin: 19rem auto 0 auto;}
 		h2 {font-size: 1.75rem;}
 	});
-	// .small({
-	// 	background-size: 130% 100%;
-	// 	h1 {
-	// 		margin: 19rem auto 0 auto;
-	// 		letter-spacing: 1rem;
-	// 	}
-	// });
 }
 
 #company-purpose {
@@ -1180,16 +1176,6 @@ header {
 		position: relative;
 		left: 8%;
 	}
-	// .small({
-	// 	height: @page/3;
-	// 	font-size: 1rem;
-	// 	.text {
-	// 		font-size: 1.5rem;
-	// 		.size(100vw, 30%);
-	// 		left: 0;
-	// 		top: 30%;
-	// 	}
-	// });
 	.mobile({
 		height: @page/3;
 		font-size: 1rem;
@@ -1228,11 +1214,6 @@ header {
 		font-size: 4rem;
 		margin: auto 2vw;
 	}
-	// .small({
-	// 	.flex-column;
-	// 	height: @page*2/3;
-	// 	font-size: 2rem;
-	// });
 	.mobile({
 		.flex-column;
 		height: @page*2/3;
@@ -1255,11 +1236,6 @@ header {
 			.heading;
 			background: @set-nearly-white;
 		}
-		// .small({
-		// 	height: @page*.65;
-		// 	background-size: 150% 80%;
-		// 	background-position: bottom;
-		// });
 		.mobile({
 			height: @page*.65;
 			background-size: 180% 80%;
@@ -1297,16 +1273,6 @@ header {
 			text-align: right;
 			padding-left: 60vw;
 		}
-		// .small({
-		// 	height: @page*(2/3);
-		// 	.image-container img {
-		// 		.size(85%, 85%);
-		// 	}
-		// 	&.setrecords {
-		// 		background-position: 100% -20%;
-		// 		padding-left: 45vw;
-		// 	}
-		// });
 		.mobile({
 			height: @page*(2/3);
 			.image-container img {
@@ -1344,15 +1310,6 @@ header {
 		position: relative;
 		width: 25vw;
 	}
-	// .small({
-	// 	min-height: @page*2/3;
-	// 	> div {
-	// 		width: 50vw;
-	// 	}
-	// 	img {
-	// 		margin-top: 5vh;
-	// 	}
-	// });
 	.mobile({
 		font-size: 2rem;
 		> div {
@@ -1404,10 +1361,6 @@ header {
 			text-align: center;
 			font-size: 1.25rem;
 			z-index: 2;
-			// .small({
-			// 	.size(45vw, 45vw);
-			// 	padding: 1vw;
-			// });
 			.mobile({
 				.size(45vw, 45vw);
 				.center;
@@ -1454,12 +1407,6 @@ header {
 	i {
 		font-size: 8rem;
 	}
-	// .small({
-	// 	height: @page/3;
-	// 	i {
-	// 		font-size: 4rem;
-	// 	}
-	// });
 	.mobile({
 		height: @page/3;
 		font-size: 3rem;
@@ -1514,16 +1461,6 @@ header {
 		height: @page*0.7;
 		width: 67%;
 	}
-	// .small({
-	// 	.flex-column;
-	// 	.background {
-	// 		background-size: 100%;
-	// 		.size(100%, @page*0.8);
-	// 	}
-	// 	.heading {
-	// 		width: 100%;
-	// 	}
-	// });
 	.mobile({
 		font-size: 1.5rem;
 		.flex-column;
@@ -1557,12 +1494,6 @@ header {
 			margin: 1rem auto 2rem auto;
 		}
 	}
-	// .small({
-	// 	.member {
-	// 		.size(45vw, 35vh);
-	// 		margin: 2vw 2.5vw;
-	// 	}
-	// });
 	.mobile({
 		font-size: 2rem;
 		.member {
