@@ -356,7 +356,7 @@ footer {
 	z-index: 3;
 	&::after {
 		content: '';
-		width: @pageWidth;
+		width: 100%;
 		height: @playerHeight;
 		background: @set-dark-gray;
 	}
@@ -517,11 +517,26 @@ header {
 	}
 	h2 {
 		margin: 0 auto;
+		font-size: 1.5rem;
 	}
 	.createOverlay(0.5, @set-dark-gray);
 	&::before{
 		height: @pageHeightWithoutPlayer!important;
 	}
+	.mobile({
+		h2 {
+			font-size: 3rem;
+		}
+		a:not(#listen-now) {
+			font-size: 5rem;
+		}
+		#listen-now {
+			font-size: 3rem;
+		}
+		i {
+			font-size: 5rem;
+		}
+	});
 }
 #LandingApp {
 	background-size: 100% 100%;
@@ -645,7 +660,7 @@ header {
 #listen-now {
 	border: solid 1px;
 	padding: 1vh 2vw;
-	width: 25vw;
+	width: 20%;
 	&:hover {
 		background-color: fade(@set-blue, 10%);
 	}
@@ -1142,7 +1157,7 @@ header {
 	position: relative;
 	top: @headerHeight;
 	// width: 105vw;
-	width: 100vw;
+	width: 100%;
 }
 #landing-page {
 	background: url(../images/setmusic/landing-background.jpg);
@@ -1189,7 +1204,7 @@ header {
 		height: @page/3;
 		.text {
 			font-size: 3.5rem;
-			.size(105vw, 30%);
+			.size(100%, 30%);
 			text-align: center;
 			left: 0;
 			top: 30%;
