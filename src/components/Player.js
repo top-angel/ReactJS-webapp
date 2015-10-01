@@ -37,12 +37,11 @@ var Player = React.createClass({
 
 			playerService.generateSound(starttime, nextProps.appState, push)
 			.then(function(smObj) {
-				console.log('Now playing: ', smObj);
 
 				// Log Mixpanel event
 				var selectedSet = nextProps.appState.get('currentSet');
 				var setName;
-				if(selectedSet.episode != null && selectedSet.episode.length > 0) {
+				if(selectedSet.episode !== null && selectedSet.episode.length > 0) {
 					setName = selectedSet.artist+" - "+selectedSet.event+" - "+selectedSet.episode;
 				} else {
 					setName = selectedSet.artist+" - "+selectedSet.event;
@@ -54,7 +53,6 @@ var Player = React.createClass({
 					"set_event": selectedSet.event
 				};
 				mixpanel.track("Set Play", setProperties);
-				console.log(setProperties);
 
 				//plays a new set
 				push({
@@ -71,7 +69,6 @@ var Player = React.createClass({
 
 	togglePlay: function() {
 		var sound = this.props.appState.get('sound');
-		// console.log(sound);
 
 		playerService.togglePlay(sound);
 	},
