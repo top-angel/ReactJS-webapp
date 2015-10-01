@@ -1134,9 +1134,6 @@ header {
 #Setmusic {
 	position: relative;
 	top: @headerHeight;
-	.mobile({
-		font-size: 5rem;
-		})
 }
 #landing-page {
 	background: url(../images/setmusic/landing-background.jpg);
@@ -1155,7 +1152,7 @@ header {
 	.mobile({
 		background-size: 130% 100%;
 		h1 {margin: 19rem auto 0 auto;}
-		h2 {font-size: 1.75rem;}
+		h2 {font-size: 3rem;}
 	});
 }
 
@@ -1164,7 +1161,7 @@ header {
 	background: url(../images/setmusic/ezoo.jpg) no-repeat;
 	background-size: 100%;
 	position: relative;
-	font-size: 1.35rem;
+	font-size: 2rem;
 	.createOverlay(.40, @set-dark-gray);
 	&:before {
 		z-index: 1;
@@ -1178,7 +1175,6 @@ header {
 	}
 	.mobile({
 		height: @page/3;
-		font-size: 1rem;
 		.text {
 			font-size: 2rem;
 			.size(100vw, 30%);
@@ -1217,7 +1213,7 @@ header {
 	.mobile({
 		.flex-column;
 		height: @page*2/3;
-		font-size: 2rem;
+		font-size: 3rem;
 		img {
 			margin: 0 50%;
 		}
@@ -1238,7 +1234,7 @@ header {
 		}
 		.mobile({
 			height: @page*.65;
-			background-size: 180% 80%;
+			background-size: 140% 80%;
 			background-position: bottom;
 		});
 	}
@@ -1285,7 +1281,7 @@ header {
 				padding-left: 45vw;
 			}
 			p {
-				font-size: 2rem;
+				font-size: 3rem;
 			}
 		});
 	}
@@ -1311,7 +1307,7 @@ header {
 		width: 25vw;
 	}
 	.mobile({
-		font-size: 2rem;
+		font-size: 3rem;
 		> div {
 			width: 50vw;
 		}
@@ -1321,7 +1317,7 @@ header {
 		}
 	});
 	h6 {
-		font-size: 2rem;
+		font-size: 3rem;
 		margin: 0;
 		position: absolute;
 		top: 2vw;
@@ -1381,15 +1377,6 @@ header {
 				right: 25vw;
 				color: @spotify-green;
 			}
-			// .small({
-			// 	top: 35%;
-			// 	&.right {
-			// 		right: 15vw;
-			// 	}
-			// 	&.left {
-			// 		left: 15vw;
-			// 	}	
-			// });
 			.mobile({
 				top: 35%;
 				&.right {
@@ -1421,7 +1408,7 @@ header {
 	padding: 3rem;
 	font-size: 1.25rem;
 	.mobile({
-		font-size: 2rem;
+		font-size: 3rem;
 	});
 }
 
@@ -1440,7 +1427,7 @@ header {
 	}
 	.mobile({
 		height: @page/4;
-		font-size: 2rem;
+		font-size: 3rem;
 		img {
 			.size(140px, 140px);
 		}
@@ -1462,7 +1449,7 @@ header {
 		width: 67%;
 	}
 	.mobile({
-		font-size: 1.5rem;
+		font-size: 3rem;
 		.flex-column;
 		.background {
 			background-size: 100%;
@@ -1495,7 +1482,7 @@ header {
 		}
 	}
 	.mobile({
-		font-size: 2rem;
+		font-size: 3rem;
 		.member {
 			.size(45vw, 35vh);
 			margin: 2vw 2.5vw;
