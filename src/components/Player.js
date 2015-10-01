@@ -98,7 +98,7 @@ var Player = React.createClass({
 				<PlayerControl appState={appState} push={push} />
 				<div className='flex-column flex'>
 					<PlayerSeek appState={appState} push={push} />
-					<div className='player-info-container flex'>
+					<div className='flex flex-row'>
 						<PlayerSetInfo appState={appState} push={push} />
 						<PlayerTracklist {...props} />
 					</div>
