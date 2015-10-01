@@ -10,29 +10,15 @@
 //base settings
 
 body {
-    margin:0;
-    padding:0;
-    cursor:default;
-    max-width:@pageWidth;
-    overflow-x:hidden;
-}
-html {
-	font-family: @defaultFontStyle;
-	font-family: @lightFontStyle;
+	margin:0;
+	padding:0;
+	cursor:default;
+	max-width:@pageWidth;
+	overflow-x:hidden;
 	font-size: @defaultFontSize;
-	// &::-webkit-scrollbar-track {
-	//     background-color: @set-gray;
-	// }
-	// &::-webkit-scrollbar {
-	//     width: 5px;
-	//     height: 12px;
-	// }
-	// &::-webkit-scrollbar-thumb {
-	//     background: @set-blue;
-	// }
 	.mobile({
-		font-size: 32px;
 		-webkit-text-size-adjust: none;
+		font-size: 32px;
 	});
 	.medium({
 		font-size: @defaultFontSize*0.75;
@@ -40,6 +26,20 @@ html {
 	.small({
 		font-size: @defaultFontSize*0.75;
 	});
+}
+html {
+	font-family: @defaultFontStyle;
+	font-family: @lightFontStyle;
+	// font-size: @defaultFontSize;
+	// .mobile({
+	// 	font-size: 32px;
+	// });
+	// .medium({
+	// 	font-size: @defaultFontSize*0.75;
+	// });
+	// .small({
+	// 	font-size: @defaultFontSize*0.75;
+	// });
 }
 
 * {
@@ -1532,7 +1532,7 @@ header {
 				.size(240px, 240px);
 			}
 			h1 {
-				font-size: 5rem;
+				font-size: 4rem;
 			}
 			p {
 				font-size: 3rem;
