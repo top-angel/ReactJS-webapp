@@ -401,7 +401,7 @@ header {
 	background-color: @set-dark-gray;
 	height: @headerHeight;
 	position:fixed;
-	width:@pageWidth;
+	width:100%;
 	z-index: 100;
 	.icon-setmine {
 		color: white;
@@ -1134,7 +1134,7 @@ header {
 #Setmusic {
 	position: relative;
 	top: @headerHeight;
-	width: @pageWidth!important;
+	width: 100%;
 }
 #landing-page {
 	background: url(../images/setmusic/landing-background.jpg);
@@ -1249,6 +1249,7 @@ header {
 	}
 	p {
 		padding: 0 3vw;
+		font-family: @defaultFontStyle;
 	}
 	.product {
 		height: @page;
@@ -1284,7 +1285,7 @@ header {
 			}
 			&.setrecords {
 				height: @page/2;
-				background-position: -75vw 15vw;
+				background-position: -65vw 15vw;
 				padding-left: 35vw;
 			}
 			h1 {
