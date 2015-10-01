@@ -11,14 +11,16 @@ var PlayerControl = React.createClass({
 		};
 	},
 
-	// componentDidMount: function() {
-	// 	var self = this;
-	// 	$(document).keypress(function(e) {
-	// 		if(e.charCode == 32) {
-	// 			self.togglePlay();
-	// 		}
-	// 	});
-	// },
+	componentDidMount: function() {
+		var self = this;
+		$(document).keypress(function(e) {
+			if(e.charCode == 32) {
+				self.togglePlay();
+			} else {
+				return;
+			}
+		});
+	},
 
 	togglePlay: function() {
 		var sound = this.props.appState.get('sound');

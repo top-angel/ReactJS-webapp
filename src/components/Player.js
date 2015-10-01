@@ -71,7 +71,7 @@ var Player = React.createClass({
 
 	togglePlay: function() {
 		var sound = this.props.appState.get('sound');
-		console.log(sound);
+		// console.log(sound);
 
 		playerService.togglePlay(sound);
 	},
