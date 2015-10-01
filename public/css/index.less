@@ -389,7 +389,7 @@ footer {
 	}
 	.mobile({
 		.flex-column;
-		font-size: 3rem;
+		font-size: 4rem;
 		.copyright {
 			margin: 1rem 0;
 		}
@@ -1332,7 +1332,13 @@ header {
 	padding: 3rem 0 0 2vw;
 	display: flex;
 	border: solid 1px;
-	h3 {margin-top: 0;}
+	h1 {
+		font-size: 2rem;
+	}
+	h3 {
+		font-size: 1rem;
+		margin-top: 0;
+	}
 	&.white {
 		.background(white, @set-dark-gray);
 	}
@@ -1475,14 +1481,15 @@ header {
 			.border-radius(50%);
 		}
 		h1 {
+			font-size: 3rem;
 			margin-bottom: 0;
 		}
 		p {
+			font-size: 2rem;
 			margin: 1rem auto 2rem auto;
 		}
 	}
 	.mobile({
-		font-size: 3rem;
 		.member {
 			.size(45vw, 35vh);
 			margin: 2vw 2.5vw;
