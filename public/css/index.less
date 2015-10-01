@@ -401,7 +401,7 @@ header {
 	background-color: @set-dark-gray;
 	height: @headerHeight;
 	position:fixed;
-	width:100%;
+	width:@pageWidth;
 	z-index: 100;
 	.icon-setmine {
 		color: white;
@@ -416,7 +416,7 @@ header {
 		background-color: @set-dark-gray*1.2;
 	}
 	.mobile({
-		font-size: 4rem;
+		font-size: 3rem;
 		.search-bar, #login {
 			.hidden;
 		}
@@ -1284,7 +1284,7 @@ header {
 			}
 			&.setrecords {
 				height: @page/2;
-				background-position: -50vw 25vw;
+				background-position: -75vw 15vw;
 				padding-left: 35vw;
 			}
 			h1 {
@@ -1412,9 +1412,6 @@ header {
 	}
 	.mobile({
 		height: @page/3;
-		// i {
-		// 	font-size: 8rem;
-		// }
 	});
 }
 
@@ -1500,7 +1497,7 @@ header {
 	}
 	.mobile({
 		.member {
-			.size(45vw, 35vh);
+			.size(45vw, 55vh);
 			margin: 2vw 2.5vw;
 			img {
 				.size(240px, 240px);
