@@ -46,14 +46,14 @@ var Setmusic = React.createClass({
 						<img className='center' src='/images/setmusic/setmine-screen.png'/>
 					</div>
 					<aside className='flex-fixed flex-column'>
-						<div className='flex-4x flex-column'>
+						<div className='flex flex-column'>
 							<h1>Setmine</h1>
 							<img className='icon' src='/images/setmusic/setmine_navyblue.png'/>
 							<a href='https://setmine.com'>
 								Live Now
 							</a>
 						</div>
-						<p className='flex-3x flex-column'>
+						<p className='flex flex-column'>
 							Hear live sets
 							<br/>
 							<br/>
@@ -66,14 +66,14 @@ var Setmusic = React.createClass({
 				</div>
 				<div className='setstory product flex-row'>
 					<aside className='flex-fixed flex-column'>
-						<div className='flex-4x flex-column'>
+						<div className='flex flex-column'>
 							<h1>Setstory</h1>
 							<img className='icon' src='/images/setmusic/setstory_navyblue.png'/>
 							<a href='https://play.google.com/store/apps/details?id=com.setmine.setstory&hl=en'>
 								Live Now
 							</a>
 						</div>
-						<p className='flex-3x flex-column'>
+						<p className='flex flex-column'>
 							Analyze foot traffic
 							<br/>
 							<br/>
