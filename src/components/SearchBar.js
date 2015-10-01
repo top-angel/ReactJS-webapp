@@ -17,8 +17,10 @@ var SearchBar = React.createClass({
 		$(document.body).on('keydown', this.handleKeyDown);
 	},
 
-	handleKeyDown: function() {
-		$('#search').focus();
+	handleKeyDown: function(e) {
+		if(e.charCode != 32) {
+			$('#search').focus();
+		}
 	},
 
 	search: function(query) {
