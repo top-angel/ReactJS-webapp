@@ -1151,8 +1151,11 @@ header {
 	}
 	.mobile({
 		background-size: 130% 100%;
-		h1 {margin: 19rem auto 0 auto;}
-		h2 {font-size: 3rem;}
+		h1 {
+			font-size: 8rem;
+			margin: 19rem auto 0 auto;
+		}
+		h2 {font-size: 4rem;}
 	});
 }
 
@@ -1176,8 +1179,8 @@ header {
 	.mobile({
 		height: @page/3;
 		.text {
-			font-size: 2rem;
-			.size(100vw, 30%);
+			font-size: 4rem;
+			.size(110vw, 30%);
 			left: 0;
 			top: 30%;
 		}
@@ -1213,7 +1216,7 @@ header {
 	.mobile({
 		.flex-column;
 		height: @page*2/3;
-		font-size: 3rem;
+		font-size: 4rem;
 		img {
 			margin: 0 50%;
 		}
@@ -1270,18 +1273,19 @@ header {
 			padding-left: 60vw;
 		}
 		.mobile({
+			font-size: 4rem;
 			height: @page*(2/3);
 			.image-container img {
 				.size(85%, 85%);
 				top: 25%;
 			}
+			.icon {
+				.size(160px, 150px);
+			}
 			&.setrecords {
 				height: @page/2;
 				background-position: -20vw 25vw;
 				padding-left: 45vw;
-			}
-			p {
-				font-size: 3rem;
 			}
 		});
 	}
@@ -1313,11 +1317,11 @@ header {
 		}
 		img {
 			margin-top: 5vh;
-			.size(120px, 120px);
+			.size(160px, 160px);
 		}
 	});
 	h6 {
-		font-size: 3rem;
+		font-size: 5rem;
 		margin: 0;
 		position: absolute;
 		top: 2vw;
@@ -1333,10 +1337,10 @@ header {
 	display: flex;
 	border: solid 1px;
 	h1 {
-		font-size: 2rem;
+		font-size: 6rem;
 	}
 	h3 {
-		font-size: 1rem;
+		font-size: 4rem;
 		margin-top: 0;
 	}
 	&.white {
@@ -1367,7 +1371,7 @@ header {
 				.size(45vw, 45vw);
 				.center;
 				padding: 1vw;
-				font-size: 3rem;
+				font-size: 4rem;
 			});
 		}
 		&.bg {
@@ -1411,7 +1415,7 @@ header {
 
 #advantages {
 	.background(@set-nearly-white, @set-dark-gray);
-	padding: 3rem;
+	padding: 4rem;
 	font-size: 1.25rem;
 	.mobile({
 		font-size: 3rem;
@@ -1433,7 +1437,7 @@ header {
 	}
 	.mobile({
 		height: @page/4;
-		font-size: 3rem;
+		font-size: 4rem;
 		img {
 			.size(140px, 140px);
 		}
@@ -1455,7 +1459,7 @@ header {
 		width: 67%;
 	}
 	.mobile({
-		font-size: 3rem;
+		font-size: 4rem;
 		.flex-column;
 		.background {
 			background-size: 100%;
@@ -1481,11 +1485,11 @@ header {
 			.border-radius(50%);
 		}
 		h1 {
-			font-size: 3rem;
+			font-size: 6rem;
 			margin-bottom: 0;
 		}
 		p {
-			font-size: 2rem;
+			font-size: 4rem;
 			margin: 1rem auto 2rem auto;
 		}
 	}
