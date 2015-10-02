@@ -139,9 +139,6 @@ var App = React.createClass({
 			{property: "og:type", content: "website"},
 			{name: "google-site-verification", content: "T4hZD9xTwig_RvyoXaV9XQDYw5ksKEQywRkqaW-CGY4"}
 		]
-
-
-		console.log($(window).width());
 	},
 
 	_attachStreams: function() {

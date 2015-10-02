@@ -612,6 +612,9 @@ header {
 	&:active {
 		background-color:@set-blue;
 	}
+	.desktop({
+		width: initial;
+	});
 }
 
 #LocationModule {
@@ -1176,7 +1179,11 @@ header {
 		i {font-size: 2rem;}
 	}, 540px);
 	.desktop({
+		.flex-row;
 		aside {.flex-fixed;}
+		img {
+			.size(20%, 20%);
+		}
 	});
 }
 
@@ -1254,14 +1261,25 @@ header {
 		}
 	}
 	.desktop({
+		a {
+			width: initial;
+		}
 		.overview {
 			height: @page;
 			background-size: 100%;
 		}
 		.setmine, .setstory {
 			height: @page;
+			font-size: 1.25rem;
 			.flex-column:nth-child(1) {
 				.flex-fixed;
+			}
+		}
+		.product.setrecords {
+			background-position: -25vw 0!important;
+			> * {
+				margin-right: 2rem;
+				padding: 0;
 			}
 		}
 	});
@@ -1362,8 +1380,8 @@ section.why {
 			.size(20vh, 20vh);
 			top: 40%;
 		}
-		// .circle.left {left: 45vw;}
-		// .circle.right {right: 45vw;}
+		.circle.left {left: 30vw;}
+		.circle.right {right: 30vw;}
 	}, 700px);
 }
 
@@ -1416,6 +1434,17 @@ section.tech {
 			font-size: 1rem;
 		}
 	}
+	.desktop({
+		.flex-row;
+		.background {
+			height: 85vh;
+			background-size: 60%;
+			width: 67%;
+		}
+		.heading {
+			width: 33%;
+		}
+	});
 }
 
 #team {
