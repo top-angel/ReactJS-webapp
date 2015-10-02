@@ -362,9 +362,11 @@ header {
 		color: white;
 	}
 	.nav-button {
-		// padding:0 1vw;
 		text-align: center;
 		.hover(@set-light-gray, 2);
+		&.fa-search {
+			padding:0 1vw;
+		}
 	}
 	.active {
 		color: white;
@@ -1285,8 +1287,8 @@ header {
 	});
 }
 
-section.heading {
-	.heading(@set-nearly-white, @set-dark-gray);
+section.business {
+	.heading(white, @set-dark-gray);
 	h1 {
 		font-size: 2rem;
 		margin-bottom: 0;
@@ -1294,6 +1296,7 @@ section.heading {
 	h3 {
 		font-size: 1rem;
 	}
+	border: solid 1px @set-dark-gray;
 }
 
 #model {
