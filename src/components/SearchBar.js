@@ -18,11 +18,8 @@ var SearchBar = React.createClass({
 	},
 
 	handleKeypress: function(e) {
-		if(e.charCode == 32) {
-			console.log(e.charCode);
-		} else {
+		if(e.charCode != 32) {
 			$('#search').focus();
-			console.log(e.charCode);
 		}
 	},
 
