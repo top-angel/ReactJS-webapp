@@ -234,6 +234,14 @@
     font-family: @defaultFontStyle;
     letter-spacing: 0.1rem;
 }
+.heading(@background, @color) {
+    .background(@background, @color);
+    .flex-container;
+    padding: 2rem 0 0 2vw;
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+    font-size: 2rem;
+}
 .hidden-fade {
     opacity:0!important;
 }
@@ -291,23 +299,22 @@
 }
 
 //media queries
-.desktop(@rules, @min-value: 980px) {
-    @media screen and (min-width: @min-value) {@rules();}
+.desktop(@rules, @min: 640px) {
+    @media screen 
+    and (min-width: @min) 
+    {@rules();}
 }
-.mobile(@rules) {
+.small(@rules, @max: 540px) {
     @media screen
-    and (min-device-width: 375px)
-    and (max-device-width: 667px)
+    and (max-width: @max)
     {@rules();}
 }
-.medium(@rules, @max-value: 840px, @min-value: 540px) {
+.medium(@rules, @min: 420px, @max: 840px) {
     @media screen 
-    and (max-width: @max-value) 
-    and (min-width: @min-value) 
+    and (max-width: @max) 
+    and (min-width: @min) 
     {@rules();}
 }
-.small(@rules) {
-    @media screen 
-    and (max-width: 540px) 
-    {@rules();}
+@-ms-viewport{
+  width: device-width;
 }

@@ -25,7 +25,7 @@ var Setmusic = React.createClass({
 				<div className='image-container flex-container flex-fixed'>
 					<img src='/images/setmusic/beacons-music.png'/>
 				</div>
-				<aside className='flex-fixed'>
+				<aside>
 					<div className='flex-fixed flex-row'>
 						<i className='fa fa-fw fa-users'/>
 						<div>We identify fans at live events</div>
@@ -46,19 +46,17 @@ var Setmusic = React.createClass({
 						<img className='center' src='/images/setmusic/setmine-screen.png'/>
 					</div>
 					<aside className='flex-fixed flex-column'>
-						<div className='flex flex-column'>
+						<div className='flex-column'>
 							<h1>Setmine</h1>
 							<img className='icon' src='/images/setmusic/setmine_navyblue.png'/>
 							<a href='https://setmine.com'>
 								Live Now
 							</a>
 						</div>
-						<p className='flex flex-column'>
+						<p className='flex-fixed flex-column'>
 							Hear live sets
 							<br/>
-							<br/>
 							Unlock exclusive content
-							<br/>
 							<br/>
 							Discover new events
 						</p>
@@ -66,19 +64,17 @@ var Setmusic = React.createClass({
 				</div>
 				<div className='setstory product flex-row'>
 					<aside className='flex-fixed flex-column'>
-						<div className='flex flex-column'>
+						<div className='flex-column'>
 							<h1>Setstory</h1>
 							<img className='icon' src='/images/setmusic/setstory_navyblue.png'/>
 							<a href='https://play.google.com/store/apps/details?id=com.setmine.setstory&hl=en'>
 								Live Now
 							</a>
 						</div>
-						<p className='flex flex-column'>
+						<p className='flex-fixed flex-column'>
 							Analyze foot traffic
 							<br/>
-							<br/>
 							Accept artist offers
-							<br/>
 							<br/>
 							Pay per unlock
 						</p>
@@ -105,10 +101,10 @@ var Setmusic = React.createClass({
 				</div>
 			</section>
 
-			<div className='heading gray flex-column'>
+			<section className='business flex-column'>
 				<h1>Business model</h1>
 				<h3>Distributing music & driving foot traffic to retailers</h3>
-			</div>
+			</section>
 
 			<section id='model'>
 				<div className='flex-column'>
@@ -133,9 +129,9 @@ var Setmusic = React.createClass({
 				</div>
 			</section>
 
-			<div className='heading gray'>
+			<section className='why'>
 				<h1>Why Now?</h1>
-			</div>
+			</section>
 
 			<section id='why' className='flex-row'>
 				<div className='circle bg left flex-container'>
@@ -154,9 +150,9 @@ var Setmusic = React.createClass({
 				<p>Beacons are gaining traction across multiple industries. We bring people to beacons.</p>
 			</section>
 
-			<div className='heading white'>
+			<section className='tech'>
 				<h1>Technology generates new revenue models</h1>
-			</div>
+			</section>
 
 			<section id='tech-changes' className='flex-row'>
 				<div className='flex-column'>
@@ -186,7 +182,7 @@ var Setmusic = React.createClass({
 			</section>
 
 			<section id='platforms'>
-				<div className='heading flex-column blue'>
+				<div className='heading flex-column'>
 					<h1>Our Goal</h1>
 					<h3>Unlock on all music streaming platforms</h3>
 				</div>
