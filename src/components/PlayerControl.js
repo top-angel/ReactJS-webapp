@@ -14,7 +14,8 @@ var PlayerControl = React.createClass({
 	componentDidMount: function() {
 		var self = this;
 		$(document.body).keypress(function(e) {
-			if(e.charCode == 32) {
+			var search = document.getElementById('search');
+			if(e.charCode == 32 && search != document.activeElement) {
 				e.preventDefault();
 				self.togglePlay();
 			} else {
