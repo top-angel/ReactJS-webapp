@@ -69,21 +69,21 @@ function registerFacebookUser(auth, push) {
 				FB_TOKEN: auth
 			}
 		}
-	}).done(function(response) {
+	}).done(function(res) {
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
 				isUserLoggedIn: true,
-				user: response.payload.user
+				user: res.payload.user
 			}
 		});
 
 		//track user after logging in for the first time
 		mixpanel.people.set_once({
-			"First Name": registeredUser.first_name,
-			"Last Name": registeredUser.last_name,
-			"$email": registeredUser.username,
-			"fb_id": registeredUser.facebook_id,
+			"First Name": res.payload.user.first_name,
+			"Last Name": res.payload.user.last_name,
+			"$email": res.payload.user.username,
+			"fb_id": res.payload.user.facebook_id,
 			"date_tracked": new Date()
 		});
 	});
