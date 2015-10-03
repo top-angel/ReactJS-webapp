@@ -67,13 +67,12 @@ var SetTile = React.createClass({
 			var tracklist = res.payload.tracks;
 			var set = {
 				artist: self.props.artist,
-				event: self.props.event,
+				event: self.props.setName,
 				id: self.props.id,
 				set_length: self.props.set_length,
 				songURL: self.props.songURL,
 				artistimageURL: self.props.artistimageURL,
-				starttime: '00:00',
-				episode: self.props.episode
+				starttime: '00:00'
 			};
 
 			push({
@@ -144,7 +143,7 @@ var SetTile = React.createClass({
 					<div className='flex-row flex-fixed-2x'>
 						<img src={artistImage} className='click' onClick={this.openArtistPage} />
 						<div className='flex-column flex'>
-							<div className='flex click link' onClick={this.openFestivalPage}>{this.props.event}</div>
+							<div className='flex click link' onClick={this.openFestivalPage}>{this.props.setName}</div>
 							<div className='flex click link' to='artist' onClick={this.openArtistPage}>{this.props.artist}</div>
 	                    <div className='flex flex-row'>
 								<i className={favorite} onClick={this.favoriteSet} />

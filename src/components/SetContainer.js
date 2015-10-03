@@ -26,6 +26,12 @@ var SetContainer = React.createClass({
 				var favorited = false;
 			}
 
+			if(set.episode != null) {
+				var setName = set.event+' - '+set.episode	;
+			} else {
+				var setName = set.event;
+			}
+
 			var props = {
 				key: index,
 				id: set.id,
@@ -36,6 +42,7 @@ var SetContainer = React.createClass({
 				push: push,
 				artist: set.artist,
 				event: set.event,
+				setName: setName,
 				artistimageURL: set.artistimageURL,
 				popularity: set.popularity,
 				songURL: set.songURL,
@@ -43,8 +50,7 @@ var SetContainer = React.createClass({
 				timePosition: set.timePosition,
 				user: self.props.user,
 				loginStatus: self.props.loginStatus,
-				favorited: favorited,
-				episode: set.episode
+				favorited: favorited
 			};
 
 			return(<SetTile {...props} />);

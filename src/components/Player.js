@@ -52,14 +52,7 @@ var Player = React.createClass({
 
 				// Log Mixpanel event
 				var selectedSet = nextProps.appState.get('currentSet');
-
-				console.log('player hidden: '+nextProps.appState.get('playerHidden'));
-
-				if(selectedSet.episode != null && selectedSet.episode.length > 0) {
-					var setName = selectedSet.artist+" - "+selectedSet.event+" - "+selectedSet.episode;
-				} else {
-					var setName = selectedSet.artist+" - "+selectedSet.event;
-				}
+				var setName = selectedSet.artist+' - '+selectedSet.event;
 
 				mixpanel.track("Set Play", {
 					"set_id": selectedSet.id,
