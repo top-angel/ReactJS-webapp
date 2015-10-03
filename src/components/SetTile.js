@@ -23,7 +23,7 @@ var SetTile = React.createClass({
 		var loginStatus = this.props.loginStatus;
 
 		var favoriteUrl = constants.API_ROOT + 'user/updateFavoriteSets';
-		var _this = this;
+		var self = this;
 
 		if(loginStatus) {
 			favoriteSet.favoriteSet(push, user, this.props.id);
@@ -44,6 +44,7 @@ var SetTile = React.createClass({
 	openArtistPage: function() {
 		var routePath = this.props.artist.split(' ').join('_');
 		this.history.pushState(null, '/artist/' + routePath);
+		this.trackArtist();
 	},
 
 	openFestivalPage: function() {
@@ -60,18 +61,19 @@ var SetTile = React.createClass({
 
 	playSet: function() {
 		var push = this.props.push;
-		var _this = this;
+		var self = this;
 
 		this.getTracklist().done(function(res) {
 			var tracklist = res.payload.tracks;
 			var set = {
-				artist: _this.props.artist,
-				event: _this.props.event,
-				id: _this.props.id,
-				set_length: _this.props.set_length,
-				songURL: _this.props.songURL,
-				artistimageURL: _this.props.artistimageURL,
-				starttime: '00:00'
+				artist: self.props.artist,
+				event: self.props.event,
+				id: self.props.id,
+				set_length: self.props.set_length,
+				songURL: self.props.songURL,
+				artistimageURL: self.props.artistimageURL,
+				starttime: '00:00',
+				episode: self.props.episode
 			};
 
 			push({
@@ -86,8 +88,8 @@ var SetTile = React.createClass({
 			});
 
 			//TODO make sure this works
-			// _this.history.pushState(null, '/play/' + _this.props.id);
-			_this.updatePlayCount(_this.props.id);
+			// self.history.pushState(null, '/play/' + self.props.id);
+			self.updatePlayCount(self.props.id);
 		});
 	},
 
@@ -120,6 +122,12 @@ var SetTile = React.createClass({
 			success: function(data) {
 				console.log('play count updated');
 			}
+		});
+	},
+
+	trackArtist() {
+		mixpanel.track("Artist Clicked", {
+			"Artist": this.props.artist
 		});
 	},
 
@@ -157,7 +165,6 @@ var SetTile = React.createClass({
 						</div>
 					</div>
 				</div>
-
 			</div>
 		)
 	}

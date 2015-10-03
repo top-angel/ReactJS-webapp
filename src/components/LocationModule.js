@@ -74,8 +74,10 @@ var LocationModule = React.createClass({
 		});
 
 		this.getEventsByLocation();
-
 		this.history.pushState(null, '/events/closest');
+		mixpanel.track("Event Search Active", {
+			"search": suggest
+		});
 	},
 
 	render: function() {

@@ -11,6 +11,10 @@ var Favorites = React.createClass({
 		};
 	},
 
+	componentDidMount: function() {
+		mixpanel.track("Favorites Page Open");
+	},
+
 	render: function() {
 		var loginStatus = this.props.appState.get('isUserLoggedIn');
 		var user = this.props.appState.get('user');

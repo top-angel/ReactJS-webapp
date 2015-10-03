@@ -17,11 +17,11 @@ var SetContainer = React.createClass({
 	render: function() {
 		var data = this.props.sets;
 		var push = this.props.push;
-		var _this = this;
+		var self = this;
 
 		var tiles = data.map(function(set, index) {
-			if(_this.props.loginStatus) {
-				var favorited = favoriteSet.checkFavorite(set.id, _this.props.user.favorite_set_ids);
+			if(self.props.loginStatus) {
+				var favorited = favoriteSet.checkFavorite(set.id, self.props.user.favorite_set_ids);
 			} else {
 				var favorited = false;
 			}
@@ -41,9 +41,10 @@ var SetContainer = React.createClass({
 				songURL: set.songURL,
 				main_eventimageURL: set.main_eventimageURL,
 				timePosition: set.timePosition,
-				user: _this.props.user,
-				loginStatus: _this.props.loginStatus,
-				favorited: favorited
+				user: self.props.user,
+				loginStatus: self.props.loginStatus,
+				favorited: favorited,
+				episode: set.episode
 			};
 
 			return(<SetTile {...props} />);

@@ -77,14 +77,15 @@ function registerFacebookUser(auth, push) {
 				user: response.payload.user
 			}
 		});
-		//UNHIDE ONCE MIXPANEL WORKS
 
-		// mixpanel.people.set_once({
-		// 	"First Name": registeredUser.first_name,
-		// 	"Last Name": registeredUser.last_name,
-		// 	"$email": registeredUser.username,
-		// 	"fb_id": registeredUser.facebook_id,
-		// });
+		//track user after logging in for the first time
+		mixpanel.people.set_once({
+			"First Name": registeredUser.first_name,
+			"Last Name": registeredUser.last_name,
+			"$email": registeredUser.username,
+			"fb_id": registeredUser.facebook_id,
+			"date_tracked": new Date()
+		});
 	});
 }
 

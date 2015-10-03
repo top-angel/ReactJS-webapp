@@ -13,6 +13,7 @@ var NewSets = React.createClass({
 
 	componentWillMount: function() {
 		this.getNewSets();
+		mixpanel.track("New Sets Page Open");
 	},
 
 	getNewSets: function() {

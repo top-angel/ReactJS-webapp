@@ -21,6 +21,13 @@ var FeaturedTile = React.createClass({
 		} else {
 			this.history.pushState(null, '/festival/' + routePath);
 		}
+		this.trackClick();
+	},
+
+	trackClick() {
+		mixpanel.track("Featured Event Clicked", {
+			"event": this.props.event
+		});
 	},
 
 	render: function() {

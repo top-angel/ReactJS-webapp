@@ -16,7 +16,7 @@ var LandingView = React.createClass({
 	componentWillMount() {
 		var push = this.props.push;
 		var id = this.props.params.set;
-		var _this = this;
+		var self = this;
 
 		if(!!id) {
 			this.getSetById(id)
@@ -32,7 +32,7 @@ var LandingView = React.createClass({
 						starttime: '00:00'
 					};
 
-					_this.getTracklist(id)
+					self.getTracklist(id)
 					.done(function(res) {
 						console.log(res.payload.tracks);
 						var tracklist = res.payload.tracks;

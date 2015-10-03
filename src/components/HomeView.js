@@ -5,6 +5,10 @@ import LoginOverlay from './LoginOverlay';
 
 var HomeView = React.createClass({
 
+	componentDidMount: function() {
+		mixpanel.track("User Home Page Open");
+	},
+
 	render: function() {
 		var containerClass = 'flex-row flex-fixed-4x tile-container';
 

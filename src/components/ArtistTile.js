@@ -6,7 +6,7 @@ var ArtistTile = React.createClass({
 
 	displayName: 'ArtistTile',
 	mixins: [History],
-	getDefaultProps: function() {
+	getDefaultProps() {
 		return {
 			artists: {
 				imageURL: null
@@ -14,12 +14,19 @@ var ArtistTile = React.createClass({
 		};
 	},
 
-	openArtistPage: function() {
-		var routePath = this.props.artist.split(' ').join('_');
-		this.history.pushState(null, '/artist/' + routePath);
+	trackArtist() {
+		mixpanel.track("Artist Clicked", {
+			"Artist": this.props.artist
+		});
 	},
 
-	render: function() {
+	openArtistPage() {
+		var routePath = this.props.artist.split(' ').join('_');
+		this.history.pushState(null, '/artist/' + routePath);
+		this.trackArtist();
+	},
+
+	render() {
 		var image = {
 			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES +this.props.imageURL+"')"
 		};

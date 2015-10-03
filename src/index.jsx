@@ -128,17 +128,6 @@ var App = React.createClass({
 		loginService.startFacebookSDK(push);
 		var metadataPath = window.location.pathname;
 		console.log(metadataPath.substring(1));
-		this.props.tags = [
-			{property: "description", content: "Setmine is a music app dedicated to live events! Relive past music festivals: Ultra, Coachella + more! Find upcoming shows + buy tix + listen to DJs' sets"},
-			{property: "og:site_name", content: "Setmine"},
-			// {property: "og:url", content: "https://setmine.com/metadata/" + encodeURIComponent(metadataPath.substring(1))},
-			{property: "fb:app_id", content: "648288801959503"},
-			{property: "og:description", content: "Setmine offers live music enthusiasts a new way to experience their favorite festival music.  No more struggling to find your favorite sets--we've done it all for you.  Listen to Ultra, Coachella, TomorrowWorld, and many more! Also don't forget to listen your favorite DJ's radio shows!"},
-			{property: "og:image", content: "https://setmine.com/images/setmine-logo-facebook.png"},
-			{property: "og:title", content: "Setmine | View Lineups & Play Sets | Relive Your Favorite Events"},
-			{property: "og:type", content: "website"},
-			{name: "google-site-verification", content: "T4hZD9xTwig_RvyoXaV9XQDYw5ksKEQywRkqaW-CGY4"}
-		]
 	},
 
 	_attachStreams: function() {
@@ -150,10 +139,21 @@ var App = React.createClass({
 
 	render: function() {
 		var appState = this.state.appState;
+		var tags = [
+			{property: "description", content: "Setmine is a music app dedicated to live events! Relive past music festivals: Ultra, Coachella + more! Find upcoming shows + buy tix + listen to DJs' sets"},
+			{property: "og:site_name", content: "Setmine"},
+			// {property: "og:url", content: "https://setmine.com/metadata/" + encodeURIComponent(metadataPath.substring(1))},
+			{property: "fb:app_id", content: "648288801959503"},
+			{property: "og:description", content: "Setmine offers live music enthusiasts a new way to experience their favorite festival music.  No more struggling to find your favorite sets--we've done it all for you.  Listen to Ultra, Coachella, TomorrowWorld, and many more! Also don't forget to listen your favorite DJ's radio shows!"},
+			{property: "og:image", content: "https://setmine.com/images/setmine-logo-facebook.png"},
+			{property: "og:title", content: "Setmine | View Lineups & Play Sets | Relive Your Favorite Events"},
+			{property: "og:type", content: "website"},
+			{name: "google-site-verification", content: "T4hZD9xTwig_RvyoXaV9XQDYw5ksKEQywRkqaW-CGY4"}
+		]
 		
 		return (
 			<div id='App' className='flex-column'>
-				<DocMeta tags={this.props.tags} />
+				<DocMeta tags={tags} />
 
 				<Header appState={appState} push={push}/>
 				{

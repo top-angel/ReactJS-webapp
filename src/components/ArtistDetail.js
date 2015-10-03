@@ -25,14 +25,10 @@ var ArtistDetail = React.createClass({
 	},
 
 	getArtistData: function() {
-		var _this = this;
+		var self = this;
 		var push = this.props.push;
-		console.log("query");
-
 		var artist = this.props.params.artist;
 		var query = artist.split('_').join('%20');
-		console.log(query);
-
 		var artistData,
 			artistUrl = constants.API_ROOT + 'artist/search/' + query;
 
@@ -51,7 +47,7 @@ var ArtistDetail = React.createClass({
 				}
 			});
 
-			_this.setState({
+			self.setState({
 				loaded: true
 			});
 		});

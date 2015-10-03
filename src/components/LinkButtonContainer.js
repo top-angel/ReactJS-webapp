@@ -8,9 +8,6 @@ var LinkButtonContainer = React.createClass({
 			links: []
 		};
 	},
-	trackMixpanel: function() {
-
-	},
 
 	render: function() {
 		var links = this.props.links;

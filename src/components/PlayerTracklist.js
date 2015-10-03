@@ -2,23 +2,46 @@ import React from 'react';
 import constants from '../constants/constants';
 import playerService from '../services/playerService.js';
 import favoriteSet from '../services/favoriteSet';
+import {History} from 'react-router';
 
 import Track from './Track';
 
 var PlayerTracklist = React.createClass({
 
 	displayName: 'PlayerTrackInfo',
+	mixins: [History],
 
 	componentDidMount: function() {
 		$('#open-tracklist, .active-track').click(function() {
 			if($('.tracklist').hasClass('tracklist-open')) {
 				$('.tracklist').removeClass('tracklist-open')
-					.animate({ bottom: '-50vh'}, 200);
+					.animate({
+						bottom: '-50vh',
+						opacity: 0
+					}, 200);
 			} else {
 				$('.tracklist').addClass('tracklist-open')
-					.animate({ bottom: '10vh' }, 200);
+					.animate({
+						bottom: '10vh',
+						opacity: 1
+					}, 200);
 			}
-		});		
+		});
+
+		//HIDE TRACKLIST WHEN CLICKING OFFF
+		// $('.tracklist > *').click(function(e) {
+		// 	e.stopPropagation();
+		// });
+
+		// $(window).not($('.tracklist')).click(function() {
+		// 	// if($('.tracklist').hasClass('tracklist-open')) {
+		// 		$('.tracklist').removeClass('tracklist-open')
+		// 			.animate({
+		// 				bottom: '-50vh',
+		// 				opacity: 0
+		// 			}, 200);
+		// 	// }
+		// });
 	},
 
 	favoriteSet: function() {

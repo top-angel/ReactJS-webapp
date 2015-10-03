@@ -795,7 +795,7 @@ header {
 	text-align: center;
 	.background(@set-dark-gray, white);
 	.tracklist {
-		z-index: 99;
+		z-index: 20;
 		position: fixed;
 		height: @playerTracklistHeight;
 		bottom: -@playerTracklistHeight;
@@ -803,6 +803,7 @@ header {
 		.background(fade(@set-dark-gray, 90%), @set-nearly-white);
 		width: 40vw;
 		overflow-y: scroll;
+		opacity: 0;
 		> *:hover {
 		    .background(fade(@set-dark-gray, 60%), @set-blue);
 		} 

@@ -6,6 +6,10 @@ import LocationModule from './LocationModule';
 import EventContainer from './EventContainer';
 
 var EventsView = React.createClass({
+
+	componentDidMount: function() {
+		mixpanel.track("Events Page Open");
+	},
 	
 	displayName: 'EventsView',
 	render: function() {

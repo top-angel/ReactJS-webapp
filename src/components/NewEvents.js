@@ -10,9 +10,12 @@ var NewEvents = React.createClass({
 			loaded: false
 		};
 	},
+
 	componentWillMount: function() {
 		this.getNewEvents();
+		mixpanel.track("New Events Page Open");
 	},
+
 	getNewEvents: function() {
 		var _this = this;
 		var userId = this.props.appState.get('user').id;
@@ -39,6 +42,7 @@ var NewEvents = React.createClass({
 			});
 		});
 	},
+
 	render: function() {
 		var newEvents = this.props.appState.get('newEvents');
 		var containerClass = 'flex-row scrollable tile-container';

@@ -19,9 +19,9 @@ var TrackTile = React.createClass({
 
 	openArtistPage: function(e) {
 		e.stopPropagation();
-
 		var routePath = this.props.artist.split(' ').join('_');
 		this.history.pushState(null, '/artist/' + routePath);
+		this.trackArtist();
 	},
 
 	openFestivalPage: function(e) {
@@ -38,36 +38,34 @@ var TrackTile = React.createClass({
 		}
 	},
 
-
 	playSet: function() {
 		var push = this.props.push;
-		var _this = this;
+		var self = this;
 
 		this.getTracklist().done(function(res) {
 			var tracklist = res.payload.tracks;
 			var set = {
-				artist: _this.props.artist,
-				event: _this.props.event,
-				id: _this.props.id,
-				set_length: _this.props.set_length,
-				songURL: _this.props.songURL,
-				artistimageURL: _this.props.artistimageURL,
-				starttime: _this.props.starttime
+				artist: self.props.artist,
+				event: self.props.event,
+				id: self.props.id,
+				set_length: self.props.set_length,
+				songURL: self.props.songURL,
+				artistimageURL: self.props.artistimageURL,
+				starttime: self.props.starttime
 			};
-
-			console.log(set.starttime);
 
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					currentSet: set,
 					tracklist: tracklist,
-					currentTrack: _this.props.trackname
+					currentTrack: self.props.trackname
 				}
 			});
 
-			// _this.history.pushState(null, '/play/' + _this.props.id);
-			_this.updatePlayCount(_this.props.id);
+			// self.history.pushState(null, '/play/' + self.props.id);
+			self.updatePlayCount(self.props.id);
+			self.trackPlay();
 		});
 	},
 
@@ -81,6 +79,21 @@ var TrackTile = React.createClass({
 			success: function(data) {
 				console.log('play count updated');
 			}
+		});
+	},
+
+	trackArtist() {
+		mixpanel.track("Artist Clicked", {
+			"Artist": this.props.artist
+		});
+	},
+
+	trackPlay() {
+		mixpanel.track("Track Played", {
+			"Track Artist": this.props.artistname,
+			"Track Name": this.props.trackname,
+			"Set Artist": this.props.artist,
+			"Event": this.props.event
 		});
 	},
 

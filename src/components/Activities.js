@@ -12,9 +12,12 @@ var Activities = React.createClass({
 			loaded: false
 		};
 	},
+
 	componentWillMount: function() {
 		this.getActivities();
+		mixpanel.track("Activities Page Open");
 	},
+
 	getActivities: function() {
 		var _this = this;
 		var push = this.props.push;
@@ -39,6 +42,7 @@ var Activities = React.createClass({
 			});
 		});
 	},
+	
 	render: function() {
 		var push = this.props.push;
 		var appState = this.props.appState.get('activityBrowseData');

@@ -11,16 +11,25 @@ var DetailImageContainer = React.createClass({
 		};
 	},
 
-//THIS WORKS COPY TO ANY SHUFFLE FEATURES
+	trackRecommendClick(activity) {
+		mixpanel.track("Recommend Activity Clicked", {
+			"activity": activity
+		});
+	},
+
+	trackShuffleButton() {
+		mixpanel.track("Shuffle Button Clicked");
+	},
+
 	shuffle() {
 		if(this.props.pageType == 'upcoming') {
 			window.open(this.props.ticketLink);
 		} else if(this.props.pageType == 'activity') {
-			console.log(this.props.title);
+			this.trackRecommendClick(this.props.title);
 		} else {
 			var push = this.props.push;
 			var data, random, randomSet;
-			var _this = this;
+			var self = this;
 
 			$.ajax({
 				type: 'get',
@@ -32,7 +41,7 @@ var DetailImageContainer = React.createClass({
 				randomSet = data[random];
 				console.log(randomSet);
 
-				_this.getTracklist(randomSet.id).done(function(res) {
+				self.getTracklist(randomSet.id).done(function(res) {
 					var tracklist = res.payload.tracks;
 					var set = {
 						artist: randomSet.artist,
@@ -53,6 +62,8 @@ var DetailImageContainer = React.createClass({
 							playing: true,
 						}
 					});
+
+					self.trackShuffleButton();
 				});
 			});
 		}

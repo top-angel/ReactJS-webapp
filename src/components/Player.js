@@ -31,6 +31,7 @@ var Player = React.createClass({
 
 	componentWillReceiveProps: function(nextProps) {
 		var push = this.props.push;
+		var self = this;
 
 		if(nextProps.appState.get('currentSet') != this.props.appState.get('currentSet')) {
 			var starttime = nextProps.appState.get('currentSet').starttime;
@@ -39,24 +40,7 @@ var Player = React.createClass({
 			.then(function(smObj) {
 				console.log('Now playing: ', smObj);
 
-				// Log Mixpanel event
-				var selectedSet = nextProps.appState.get('currentSet');
-				var setName;
-				if(selectedSet.episode != null && selectedSet.episode.length > 0) {
-					setName = selectedSet.artist+" - "+selectedSet.event+" - "+selectedSet.episode;
-				} else {
-					setName = selectedSet.artist+" - "+selectedSet.event;
-				}
-				var setProperties = {
-					"set_id": selectedSet.id,
-					"set_name": setName,
-					"set_artist": selectedSet.artist,
-					"set_event": selectedSet.event
-				};
-				mixpanel.track("Set Play", setProperties);
-				console.log(setProperties);
-
-				//plays a new set
+				//play a new set
 				push({
 					type: 'SHALLOW_MERGE',
 					data: {
@@ -65,14 +49,37 @@ var Player = React.createClass({
 						playerHidden: false
 					}
 				});
+
+				// Log Mixpanel event
+				var selectedSet = nextProps.appState.get('currentSet');
+
+				console.log('player hidden: '+nextProps.appState.get('playerHidden'));
+
+				if(selectedSet.episode != null && selectedSet.episode.length > 0) {
+					var setName = selectedSet.artist+" - "+selectedSet.event+" - "+selectedSet.episode;
+				} else {
+					var setName = selectedSet.artist+" - "+selectedSet.event;
+				}
+
+				mixpanel.track("Set Play", {
+					"set_id": selectedSet.id,
+					"set_name": setName,
+					"set_artist": selectedSet.artist,
+					"set_event": selectedSet.event
+				});
+
+				// mixpanel user tracking
+				mixpanel.people.increment("play_count");
+				mixpanel.people.append("sets_played_ids", setProperties.set_id);
+				mixpanel.people.append("sets_played_names", setProperties.set_name);
+				mixpanel.people.append("sets_played_artists", setProperties.set_artist);
+				mixpanel.people.append("sets_played_events", setProperties.set_event);
 			});
 		} 
 	},
 
 	togglePlay: function() {
 		var sound = this.props.appState.get('sound');
-		// console.log(sound);
-
 		playerService.togglePlay(sound);
 	},
 
