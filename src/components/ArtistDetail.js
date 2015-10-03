@@ -107,12 +107,12 @@ var ArtistDetail = React.createClass({
 							to={'/artist/'+this.props.params.artist}
 							onlyActiveOnIndex={true}
 							activeClassName='active'>
-							<div className='center'>sets</div>
+							<div className='center'>SETS</div>
 						</Link>
 						<Link className='click flex-fixed set-flex'
 							to={'/artist/'+this.props.params.artist+'/events'}
 							activeClassName='active'>
-							<div className='center'>events</div>
+							<div className='center'>EVENTS</div>
 						</Link>
 					</div>
 					{

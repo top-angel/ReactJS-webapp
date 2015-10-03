@@ -1016,6 +1016,7 @@ header {
 	.card(1);
 	.border-radius(3px);
 	background-size: 100% 100%;
+	.createOverlay(0.4);
 	width: 23%;
 	height: @tileHeight;
 	margin: 2% 1%;
@@ -1056,6 +1057,18 @@ header {
 	}
 	.event {
 		.hover-bg(@set-dark-gray, 0.8);
+	}
+	.fa-play {
+		font-size: 2rem;
+		margin: 10% auto;
+		color: white;
+		opacity: 0;
+	}
+	&:hover {
+		.fa-play {
+			opacity: 1;
+			.transition(0.2s);
+		}
 	}
 }
 

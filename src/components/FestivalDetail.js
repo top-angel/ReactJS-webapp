@@ -82,7 +82,7 @@ var FestivalDetail = React.createClass({
 					<DetailImageContainer {...detailInfo}/>
 					<div className="flex-row links-container">
 						<div className='center flex-fixed'>
-							sets
+							SETS
 						</div>
 					</div>
 					<SetContainer {...setProps} />

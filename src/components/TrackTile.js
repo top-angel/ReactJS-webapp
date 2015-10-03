@@ -119,6 +119,8 @@ var TrackTile = React.createClass({
 			    	</p>
 			    </div>
 
+			    <i className='fa fa-play'/>
+
 			    <div className='set flex-column'>
 					<span className='artist' onClick={this.openArtistPage}>{this.props.artist}</span>
 					<span className='event' onClick={this.openFestivalPage}>{this.props.event}</span>
