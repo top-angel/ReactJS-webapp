@@ -6,6 +6,7 @@ import PlayerControl from './PlayerControl';
 import PlayerSeek from './PlayerSeek';
 import PlayerSetInfo from './PlayerSetInfo';
 import PlayerTracklist from './PlayerTracklist';
+import PlayerShare from './PlayerShare';
 
 var playingClass = 'fa center fa-pause play-button';
 var pausedClass = 'fa center fa-play play-button';
@@ -101,6 +102,7 @@ var Player = React.createClass({
 					<div className='flex flex-row'>
 						<PlayerSetInfo appState={appState} push={push} />
 						<PlayerTracklist {...props} />
+						<PlayerShare appState={appState} push={push} />
 					</div>
 				</div>
 			</div>

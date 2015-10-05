@@ -2,11 +2,13 @@ import React from 'react';
 import Immutable from 'immutable';
 import Router from 'react-router';
 import DocMeta from 'react-doc-meta';
+import R from 'ramda';
 
 import { IndexRoute, Link, Route, History, Redirect } from 'react-router';
 import GlobalEventHandler from './services/globalEventHandler';
 import loginService from './services/loginService';
 import detectMobileService from './services/detectMobileService';
+import constants from './constants/constants';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -122,6 +124,65 @@ var App = React.createClass({
 	componentWillMount: function() {
 		this._attachStreams();
 		detectMobileService.detectMobileBrowser();
+		this.playSet();
+	},
+
+	playSet() {
+		var id = this.props.params.set;
+		var self = this;
+
+		if(!!id) {
+			this.getSetById(id)
+				.done(function(res) {
+					var set = R.head(res.payload.set);
+					var currentSet = {
+						artist: set.artist,
+						event: set.event,
+						id: set.id,
+						set_length: set.set_length,
+						songURL: set.songURL,
+						artistimageURL: set.artistimageURL,
+						starttime: '00:00'
+					};
+
+					self.getTracklist(id)
+					.done(function(res) {
+						console.log(res.payload.tracks);
+						var tracklist = res.payload.tracks;
+
+						push({
+							type: 'SHALLOW_MERGE',
+							data: {
+								currentSet: currentSet,
+								tracklist: tracklist,
+								currentTrack: R.head(res.payload.tracklist),
+								playing: true
+							}
+						});
+					});
+			});
+		}
+	},
+
+	getSetById(id) {
+		return (
+			$.ajax({
+				type: 'get',
+				url: constants.API_ROOT + 'set/id',
+				data: {
+					'setId': [id]
+				}
+			})
+		);
+	},
+
+	getTracklist(id) {
+		return (
+			$.ajax({
+				url: constants.API_ROOT + 'tracklist/' + id,
+				type: 'get'
+			})
+		);
 	},
 
 	componentDidMount: function() {
@@ -131,9 +192,9 @@ var App = React.createClass({
 	},
 
 	_attachStreams: function() {
-		var _this = this;
+		var self = this;
 		evtHandler.floodGate.subscribe(newState => {
-			_this.setState({ appState: newState });
+			self.setState({ appState: newState });
 		});
 	},
 
@@ -149,7 +210,7 @@ var App = React.createClass({
 			{property: "og:title", content: "Setmine | View Lineups & Play Sets | Relive Your Favorite Events"},
 			{property: "og:type", content: "website"},
 			{name: "google-site-verification", content: "T4hZD9xTwig_RvyoXaV9XQDYw5ksKEQywRkqaW-CGY4"}
-		]
+		];
 		
 		return (
 			<div id='App' className='flex-column'>
@@ -168,17 +229,16 @@ var App = React.createClass({
 	}
 });
 
-
-
 var routes = (
 	<Route path='/' component={App}>
 		<IndexRoute component={LandingView}/>
 
-		<Route path='play/:set' component={LandingView} />
-		<Route path='user' component={HomeView}>
-			<IndexRoute component={Favorites}/>
-			<Route path='sets' component={NewSets}/>
-			<Route path='events' component={NewEvents}/>
+		<Route path='play/:set' component={SetsView}>
+			<IndexRoute component={Recent}/>
+			<Route path='mixes' component={Mixes}/>
+			<Route path='popular' component={Popular}/>
+			<Route path='festivals' component={Festivals}/>
+			<Route path='activities' component={Activities}/>
 		</Route>
 
 		<Route path='sets' component={SetsView}>
@@ -187,6 +247,12 @@ var routes = (
 			<Route path='popular' component={Popular}/>
 			<Route path='festivals' component={Festivals}/>
 			<Route path='activities' component={Activities}/>
+		</Route>
+
+		<Route path='user' component={HomeView}>
+			<IndexRoute component={Favorites}/>
+			<Route path='sets' component={NewSets}/>
+			<Route path='events' component={NewEvents}/>
 		</Route>
 
 		<Route path='events' component={EventsView}>

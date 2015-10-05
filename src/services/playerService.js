@@ -96,7 +96,9 @@ function scrub(position, appState, push) {
 	var currentSet = appState.get('currentSet');
 	var timeElapsed = appState.get('timeElapsed');
 
-	var set_length = convert.MMSSToMilliseconds(currentSet.set_length);
+	// var set_length = convert.MMSSToMilliseconds(currentSet.set_length);
+	var set_length = sound.durationEstimate;
+
 	var multiplier = position / 100;// 70 -> 0.7
 	var newPosition = multiplier * set_length;
 

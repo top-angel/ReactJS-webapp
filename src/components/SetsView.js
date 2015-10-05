@@ -5,9 +5,7 @@ import NavMenu from './NavMenu';
 var SetsView = React.createClass({
 
 	displayName: 'Sets Page',
-	componentDidMount: function() {
 
-	},
 	render: function() {
 		var navItems = [
 			{

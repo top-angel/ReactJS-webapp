@@ -812,9 +812,9 @@ header {
 		position: fixed;
 		height: @playerTracklistHeight;
 		bottom: -@playerTracklistHeight;
-		right: 12%;
+		right: @tracklistOffset*2;
 		.background(fade(@set-dark-gray, 90%), @set-nearly-white);
-		width: 40vw;
+		width: 45vw;
 		overflow-y: scroll;
 		opacity: 0;
 		> *:hover {
@@ -886,6 +886,9 @@ header {
 			color:@set-gray;
 		}
 	}
+}
+#PlayerShare {
+	width: @tracklistOffset;
 }
 
 #search {
@@ -1108,9 +1111,11 @@ header {
 
 
 
+/******************
 
+	SETMUSIC ABOUT PAGE
 
-//about page
+******************/
 
 @page: 100vh;
 #Setmusic {
@@ -1151,7 +1156,10 @@ header {
 		}
 	}, 580px);
 }
-
+#video {
+	background: @set-nearly-white;
+	height: @page;
+}
 #company-purpose {
 	height: @page/3;
 	background: url(../images/setmusic/ezoo.jpg) no-repeat;
@@ -1172,13 +1180,13 @@ header {
 	.desktop({
 		height: @page/2;
 		.text {
+			font-size: 1.25rem;
 			.size(33%, 35%);
 			position: relative;
 			left: 8%;
 		}
 	}, 460px);
 }
-
 #solution {
 	height: @page*2/3;
 	.flex-column;
@@ -1217,7 +1225,6 @@ header {
 		}
 	});
 }
-
 #products {
 	color: @set-nearly-white;
 	.overview {
@@ -1354,14 +1361,12 @@ section.business {
 		}
 	});
 }
-
 section.why {
 	.heading(@set-nearly-white, @set-dark-gray);
 	h1 {
 		font-size: 2rem;
 	}
 }
-
 #why {
 	height: @page/2;
 	position: relative;
@@ -1407,27 +1412,27 @@ section.why {
 		height: @page*2/3;
 		.circle.main {
 			.size(45vh, 45vh);
+			font-size: 1.25rem;
 		}
 		.circle.bg {
-			.size(20vh, 20vh);
-			top: 40%;
+			.size(25vh, 25vh);
+			top: 30%;
+			font-size: 6rem;
 		}
-		.circle.left {left: 30vw;}
-		.circle.right {right: 30vw;}
+		.circle.left {left: 30vw!important;}
+		.circle.right {right: 30vw!important;}
 	}, 700px);
 }
-
 #advantages {
 	.background(@set-nearly-white, @set-dark-gray);
+	border-top: solid 1px;
 	padding: 2rem;
 	font-size: 1.25rem;
 }
-
 section.tech {
 	.heading(white, @set-dark-gray);
 	font-size: 1rem;
 }
-
 #tech-changes {
 	height: @page/4;
 	.background(@set-dark-gray, @set-nearly-white);
@@ -1478,7 +1483,6 @@ section.tech {
 		}
 	});
 }
-
 #team {
 	.background(@set-nearly-white, @set-dark-gray);
 	.member {

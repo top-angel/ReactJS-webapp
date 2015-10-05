@@ -13,7 +13,7 @@ var PlayerSetInfo = React.createClass({
 		var time = convert.millisecondsToMMSS(timeElapsed);
 
 		return (
-			<div className='set-info flex-column flex-fixed'>
+			<div className='set-info flex-column flex-5x'>
 				<div className='set-name flex'>
 					{currentSet.artist + ' - ' + currentSet.event}
 				</div> 
