@@ -47,11 +47,11 @@ var DMCA = React.createClass({
 
 			<h2 className="dcmaHeadline">Once Proper Infringement Notification is Received by the Designated Agent</h2>
 			It is Setmusic policy: 
-			<ul className="dcma-indent">
+			<ol className="dcma-indent">
 				<li>to remove or disable access to the infringing material;</li>
 				<li>to notify the content provider, member or user that it has removed or disabled access to the material; and</li>
 				<li>that repeat offenders will have the infringing material removed from the system and that Company will terminate such content provider’s, member’s or user’s access to the Services.</li>
-			</ul>
+			</ol>
 
 			  <h2 className="dcmaHeadline">Procedure to Supply a Counter-Notice to the Designated Agent</h2>
 			  <p>If the content provider or user believes that the material that was removed (or to which access was disabled) is not infringing, or the content provider or user believes that it has the right to post and use the disputed material from the copyright owner, then the copyright owner’s agent, the content provider, or user (“the Countering Party”) must send a counter-notice containing the following information to the Designated Agent:
