@@ -14,7 +14,7 @@
 	background-color: inherit;
 	width: 100%;
 	border: 2px solid transparent;
-	// box-shadow: 0 0 1px @set-dark-gray;
+	// box-shadow: 0 0 1px @dark-gray;
 	padding: .5rem 1rem;
 	font-size: 1.25rem;
 	-webkit-transition: border 0.2s, box-shadow 0.2s;
@@ -34,8 +34,8 @@
 	max-height: 25em;
 	padding: 0;
 	margin-top: -1px;
-	.background(white, @set-dark-gray);
-	border: 2px solid @set-blue;
+	.background(white, @dark-gray);
+	border: 2px solid @blue;
 	border-top-width: 0;
 	overflow-x: hidden;
 	overflow-y: auto;
@@ -58,14 +58,14 @@
 	padding: .5em .65em;
 	cursor: pointer;
 	&:hover, &:focus {
-		background: @set-nearly-white;
+		background: @nearly-white;
 	}
 }
 
 .geosuggest-item--active {
-	background: @set-blue;
+	background: @blue;
 	color: #fff;
 	&:hover, &:focus {
-		background-color: @set-nearly-white;
+		background-color: @nearly-white;
 	}
 }

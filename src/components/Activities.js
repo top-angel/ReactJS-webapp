@@ -15,6 +15,9 @@ var Activities = React.createClass({
 
 	componentWillMount: function() {
 		this.getActivities();
+	},
+
+	componentDidMount: function() {
 		mixpanel.track("Activities Page Open");
 	},
 

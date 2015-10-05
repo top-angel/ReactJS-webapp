@@ -13,9 +13,15 @@ var Festivals = React.createClass({
 			loaded: false
 		};
 	},
+
 	componentWillMount: function() {
-		 this.getFestivals();
+		this.getFestivals();
 	},
+
+	componentDidMount: function() {
+		mixpanel.track("Festivals Page Open");
+	},
+
 	getFestivals: function() {
 		var _this = this;
 		var push = this.props.push;
@@ -41,6 +47,7 @@ var Festivals = React.createClass({
 			});
 		});
 	},
+
 	render: function() {
 		var appState = this.props.appState.get('festivalBrowseData');
 		var push = this.props.push;

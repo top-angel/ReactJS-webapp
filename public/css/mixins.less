@@ -104,7 +104,7 @@
     width: @width;
     background-color: @color;
 }
-.createOverlay(@opacity, @color: @set-dark-gray) {
+.createOverlay(@opacity, @color: @dark-gray) {
     z-index: 1;
     &::before {
         content: '';
@@ -116,7 +116,7 @@
         z-index: -1;
     }
 }
-.fadeBackground(@color:@set-dark-gray, @alpha:100%) {
+.fadeBackground(@color:@dark-gray, @alpha:100%) {
     background-color: fade(@color, @alpha);
 }
 .set-flex {
@@ -219,19 +219,19 @@
 .header  {
     font-size:4rem;
     font-weight: 400;
-    font-family: @defaultFontStyle;
+    font-family: Avenir Regular;
     letter-spacing: 0.5rem;
 }
 .header-medium {
     font-size:3rem;
     font-weight:400;
-    font-family: @defaultFontStyle;
+    font-family: Avenir Regular;
     letter-spacing: 0.2rem;
 }
 .header-small  {
     font-size:1.25rem;
     font-weight: 300;
-    font-family: @defaultFontStyle;
+    font-family: Avenir Regular;
     letter-spacing: 0.1rem;
 }
 .heading(@background, @color) {

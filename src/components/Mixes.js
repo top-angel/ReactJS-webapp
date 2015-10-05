@@ -13,9 +13,15 @@ var Mixes = React.createClass({
 			loaded: false
 		};
 	},
+
 	componentWillMount: function() {
-		 this.getMixes();
+		this.getMixes();
 	},
+
+	componentDidMount: function() {
+		mixpanel.track("Mixes Page Open");
+	},
+
 	getMixes: function() {
 		var _this = this;
 		var push = this.props.push;
@@ -41,6 +47,7 @@ var Mixes = React.createClass({
 			});
 		});
 	},
+
 	render: function() {
 		var push = this.props.push;
 		var appState = this.props.appState.get('mixBrowseData');

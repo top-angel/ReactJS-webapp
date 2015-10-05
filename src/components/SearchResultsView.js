@@ -57,21 +57,21 @@ var SearchResultsView = React.createClass({
 		var trackClass = 'flex-row results tracks';
 
 		return (
-			<div id="SearchResultsView" className="view overlay-container">
-				<div className="flex-row view-title-container search">
-					<div className="view-title sets results-filter flex set-flex" data-type='sets'>
-						<div className="center">Sets</div>
+			<div id='SearchResultsView' className='view overlay-container'>
+				<div className='flex-row view-title-container'>
+					<div className='view-title sets results-filter flex set-flex' data-type='sets'>
+						<div className='center'>SETS</div>
 					</div>
-					<div className="view-title events results-filter flex set-flex" data-type='events'>
-						<div className="center">Events</div>
+					<div className='view-title events results-filter flex set-flex' data-type='events'>
+						<div className='center'>EVENTS</div>
 					</div>
-					<div className="view-title tracks results-filter flex set-flex" data-type='tracks'>
-							<div className="center">Tracks</div>
+					<div className='view-title tracks results-filter flex set-flex' data-type='tracks'>
+							<div className='center'>TRACKS</div>
 					</div>
-					<div className="divider"/>
+					<div className='divider'/>
 				</div>
 				<Loader loaded={this.props.appState.get('loaded')}>
-					<div className="results-container flex-column">
+					<div className='results-container flex-column'>
 						<div className='header-small sets'>SETS</div>
 						<SetContainer
 							sets={searchResults.sets}

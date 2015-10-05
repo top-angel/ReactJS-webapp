@@ -12,9 +12,15 @@ var Popular = React.createClass({
 			loaded: false
 		};
 	},
+
 	componentWillMount: function() {
-		 this.getPopularSets();
+		this.getPopularSets();
 	},
+
+	componentDidMount: function() {
+		mixpanel.track("Popular Sets Page Open");
+	},
+
 	getPopularSets: function() {
 		var _this = this;
 		var push = this.props.push;
@@ -39,6 +45,7 @@ var Popular = React.createClass({
 			});
 		});
 	},
+
 	render: function() {
 		var data = this.props.appState.get('popularBrowseData');
 		var loginStatus = this.props.appState.get('isUserLoggedIn');

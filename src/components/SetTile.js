@@ -143,8 +143,8 @@ var SetTile = React.createClass({
 					<div className='flex-row flex-fixed-2x'>
 						<img src={artistImage} className='click' onClick={this.openArtistPage} />
 						<div className='flex-column flex'>
-							<div className='flex click link' onClick={this.openFestivalPage}>{this.props.setName}</div>
-							<div className='flex click link' to='artist' onClick={this.openArtistPage}>{this.props.artist}</div>
+							<div className='flex click link set-name' onClick={this.openFestivalPage}>{this.props.setName}</div>
+							<div className='flex click link artist' to='artist' onClick={this.openArtistPage}>{this.props.artist}</div>
 	                    <div className='flex flex-row'>
 								<i className={favorite} onClick={this.favoriteSet} />
 								<i className='link fa fa-fw fa-facebook center click' onClick={this.shareToFacebook} />

@@ -15,7 +15,11 @@ var Recent = React.createClass({
 	},
 
 	componentWillMount: function() {
-		 this.getRecentSets();
+		this.getRecentSets();
+	},
+
+	componentDidMount: function() {
+		mixpanel.track("Sets Page Open");
 	},
 
 	getRecentSets: function() {

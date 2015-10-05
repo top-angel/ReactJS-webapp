@@ -62,7 +62,7 @@ var ActivityDetail = React.createClass({
 			title: data.activity,
 			buttonText: 'Recommend',
 			pageType: 'activity',
-			imageURL: data.bannerImageUrl,
+			imageURL: data.banner_imageURL,
 			info: data.sets.length+ setText
 		};
 

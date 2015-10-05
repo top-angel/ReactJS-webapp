@@ -39,7 +39,7 @@ var EventTile = React.createClass({
 	                  <div className='center'>
 	                    {this.props.event}
 	                  </div>
-	                  <div className='center'>
+	                  <div className='center venue'>
 	                    {this.props.venue}
 	                  </div>
 	              </div>
