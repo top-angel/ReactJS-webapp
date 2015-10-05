@@ -17,7 +17,7 @@ var Setmusic = React.createClass({
 				</section>
 
 				<section id='video' className='flex-container'>
-					<iframe width='70%' height='70%' src="https://www.youtube.com/embed/r5XCYcxmR8s?rel=0" frameborder="0" allowfullscreen className='center'></iframe>
+					<iframe src="https://www.youtube.com/embed/r5XCYcxmR8s?rel=0" frameborder="0" allowfullscreen className='center'></iframe>
 				</section>
 
 				<section id='company-purpose' className='flex-column'>
@@ -47,63 +47,59 @@ var Setmusic = React.createClass({
 					<div className='overview'>
 						<h1>Products</h1>
 					</div>
-					<div className='setmine product flex-row'>
-						<div className='image-container flex-fixed'>
-							<img className='center' src='/images/setmusic/setmine-screen.png'/>
+					<div className='apps'>
+						<div className='setmine product flex-row'>
+							<aside className='flex-fixed flex-column'>
+								<div className='flex-column'>
+									<h1>Setmine</h1>
+									<img className='icon' src='/images/setmusic/setmine_navyblue.png'/>
+									<a href='https://setmine.com'>
+										Live Now
+									</a>
+								</div>
+								<ul className='flex-fixed flex-column'>
+									<li>Hear live sets</li>
+									<li>Unlock exclusive content</li>
+									<li>Discover new events</li>
+								</ul>
+							</aside>
+							<div className='image-container flex-fixed'>
+								<img className='center' src='/images/setmusic/setmine-screen.png'/>
+							</div>
 						</div>
-						<aside className='flex-fixed flex-column'>
-							<div className='flex-column'>
-								<h1>Setmine</h1>
-								<img className='icon' src='/images/setmusic/setmine_navyblue.png'/>
-								<a href='https://setmine.com'>
-									Live Now
-								</a>
+						<div className='setstory product flex-row'>
+							<div className='image-container flex-fixed'>
+								<img className='center' src='/images/setmusic/setstory-screen.png'/>
 							</div>
-							<p className='flex-fixed flex-column'>
-								Hear live sets
-								<br/>
-								Unlock exclusive content
-								<br/>
-								Discover new events
-							</p>
-						</aside>
-					</div>
-					<div className='setstory product flex-row'>
-						<aside className='flex-fixed flex-column'>
-							<div className='flex-column'>
-								<h1>Setstory</h1>
-								<img className='icon' src='/images/setmusic/setstory_navyblue.png'/>
-								<a href='https://play.google.com/store/apps/details?id=com.setmine.setstory&hl=en'>
-									Live Now
-								</a>
-							</div>
-							<p className='flex-fixed flex-column'>
-								Analyze foot traffic
-								<br/>
-								Accept artist offers
-								<br/>
-								Pay per unlock
-							</p>
-						</aside>
-						<div className='image-container flex-fixed'>
-							<img className='center' src='/images/setmusic/setstory-screen.png'/>
+							<aside className='flex-fixed flex-column'>
+								<div className='flex-column'>
+									<h1>Setstory</h1>
+									<img className='icon' src='/images/setmusic/setstory_navyblue.png'/>
+									<a href='https://play.google.com/store/apps/details?id=com.setmine.setstory&hl=en'>
+										Live Now
+									</a>
+								</div>
+								<ul className='flex-fixed flex-column'>
+									<li>Analyze foot traffic</li>
+									<li>Accept artist offers</li>
+									<li>Pay per unlock</li>
+								</ul>
+							</aside>
 						</div>
 					</div>
-					<div className='setrecords product flex-column'>
-						<h1>Setrecords</h1>
-						<img className='icon' src='/images/setmusic/setrecords_navyblue.png'/>
-						<a href='https://setmine.com/setrecords/demo'>
-							Live Now
-						</a>
-						<p>
-							Release content
-							<br/>
-							<br/>
-							View metrics
-							<br/>
-							<br/>
-							Collect revenue
-						</p>
+					<div className='setrecords product'>
+						<aside className='flex-column'>
+							<h1>Setrecords</h1>
+							<img className='icon center' src='/images/setmusic/setrecords_navyblue.png'/>
+							<a className='center' href='https://setmine.com/setrecords/demo'>
+								Live Now
+							</a>
+							<ul>
+								<li>Release content</li>
+								<li>View metrics</li>
+								<li>Collect revenue</li>
+							</ul>
+						</aside>
 					</div>
 				</section>
 
@@ -195,9 +191,9 @@ var Setmusic = React.createClass({
 					<div className='background'></div>
 				</section>
 
-				<div className='heading white'>
+				<section className='team'>
 					<h1>The Team</h1>
-				</div>
+				</section>
 
 				<section id='team' className='flex-row'>
 					<div className='member flex-column'>
