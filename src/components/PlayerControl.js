@@ -4,7 +4,7 @@ import constants from '../constants/constants';
 
 var PlayerControl = React.createClass({
 
-	displayName: 'PlayerControls',
+	displayName: 'PlayButton',
 	getDefaultProps: function() {
 		return {
 			appState: {}
@@ -49,7 +49,7 @@ var PlayerControl = React.createClass({
 		}
 
 		return (
-			<div className='player-image-container click' onClick={this.togglePlay}>
+			<div className='click' id='PlayButton' onClick={this.togglePlay}>
 				<div className='overlay set-flex'>
 					<i className={playingClass}/>
 				</div>

@@ -48,8 +48,6 @@ function generateSound(loadStart, appState, push) {
 
 	var sound = appState.get('sound');
 	var currentSet = appState.get('currentSet');
-
-	console.log(loadStart);
 	loadStart = convert.MMSSToMilliseconds(loadStart);
 
 	//// XXX TODO MOVE THIS
@@ -66,7 +64,7 @@ function generateSound(loadStart, appState, push) {
 		onload: function() {
 			var totalTime = sound.durationEstimate;
 		},
-
+		// volume: 0 //comment out for production
 		whileplaying: function() {
 			var currentTime = sound.position;
 			//UPDATE CURRENT TRACK HERE
@@ -116,10 +114,8 @@ function togglePlay(sound) {
 
 	if(sound.paused) {
 		sound.play();
-		console.log('play');
 	} else {
 		sound.pause();
-		console.log('pause');
 	}
 }
 

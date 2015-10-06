@@ -811,15 +811,17 @@ header {
 }
 #PlayerTracklist {
 	text-align: center;
-	.background(@dark-gray, white);
+	.background(@dark-gray, @nearly-white);
+	&:hover {
+		.background(@dark-gray*1.1, white);
+	}
 	.tracklist {
 		z-index: 20;
 		position: fixed;
 		height: @playerTracklistHeight;
-		bottom: -@playerTracklistHeight;
-		right: @tracklistOffset*2;
+		right: @tracklistOffset;
 		.background(fade(@dark-gray, 90%), @nearly-white);
-		width: 45vw;
+		width: 40vw;
 		overflow-y: scroll;
 		opacity: 0;
 		> *:hover {
@@ -828,13 +830,12 @@ header {
 		.active {
 			.background(@dark-gray, @blue);
 		}
-		i:hover {color: @blue;}
 	}
 	.track {
 		display: flex;
 		padding: 1rem 0;
 		.starttime {
-			margin: auto 0.5vw auto 1vw
+			margin: auto 0.5vw auto 2vw
 		}
 		.trackname {
 			margin: auto auto auto 2vw;
@@ -844,7 +845,7 @@ header {
 		}
 	}
 }
-.player-image-container {
+#PlayButton {
 	position: relative;
 	.size(@playerHeight, 100%);
 	.transition(0.2s);
@@ -894,6 +895,44 @@ header {
 }
 #PlayerShare {
 	width: @tracklistOffset;
+	@modalHeight: 5vh;
+	.link:hover {
+		color: @blue;
+	}
+	.modal {
+		.background(@dark-gray, @nearly-white);
+		.size(12vw, @modalHeight);
+		position: fixed;
+		bottom: @playerHeight*1.1;
+		right: 1vh;
+		visibility: hidden;
+		.text {
+			font-size: 1rem;
+			width: 95%;
+			margin: auto;
+			text-align: center;
+		}
+		span {
+			position: relative;
+			&::after {
+				content:'';
+				position: absolute;
+				bottom: -5px;
+				right: @tracklistOffset*.6;
+				background: @dark-gray;
+				.border-radius(0 0 0 3px);
+				z-index: -1;
+				.size(10px, 10px);
+				.transform(rotate(45deg));
+				.small({
+					right: 11.5vw;
+				}, 840px);
+			}
+		}
+	}
+	.small({
+		width: @tracklistOffset*2;
+	}, 840px);
 }
 
 #search {
@@ -960,7 +999,7 @@ header {
 	.detail {
 		.background(fade(@dark-gray, 90%), white);
 		position: relative;
-		height: 50%;
+		height: 55%;
 		margin-top: auto;
 		.flex-column {
 			padding: 5px;

@@ -26,7 +26,7 @@ var SetContainer = React.createClass({
 				var favorited = false;
 			}
 
-			if(set.episode != null) {
+			if(set.episode != null && set.episode.length > 0) {
 				var setName = set.event+' - '+set.episode	;
 			} else {
 				var setName = set.event;

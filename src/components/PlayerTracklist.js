@@ -2,7 +2,7 @@ import React from 'react';
 import constants from '../constants/constants';
 import playerService from '../services/playerService.js';
 import {History} from 'react-router';
-
+import { Motion, spring, presets } from 'react-motion';
 import Track from './Track';
 
 var PlayerTracklist = React.createClass({
@@ -10,54 +10,28 @@ var PlayerTracklist = React.createClass({
 	displayName: 'PlayerTrackInfo',
 	mixins: [History],
 
-	componentDidMount: function() {
-		$('#PlayerTracklist').click(function() {
-			if($('.tracklist').hasClass('tracklist-open')) {
-				$('.tracklist').removeClass('tracklist-open')
-					.animate({
-						bottom: '-50vh',
-						opacity: 0
-					}, 200);
-			} else {
-				$('.tracklist').addClass('tracklist-open')
-					.animate({
-						bottom: '10vh',
-						opacity: 1
-					}, 200);
-			}
-		});
-
-		//HIDE TRACKLIST WHEN CLICKING OFFF
-		// $('.tracklist > *').click(function(e) {
-		// 	e.stopPropagation();
-		// });
-
-		// $(window).not($('.tracklist')).click(function() {
-		// 	// if($('.tracklist').hasClass('tracklist-open')) {
-		// 		$('.tracklist').removeClass('tracklist-open')
-		// 			.animate({
-		// 				bottom: '-50vh',
-		// 				opacity: 0
-		// 			}, 200);
-		// 	// }
-		// });
-
-		//hide tracklist by pressing escape
-		// $(document.body).keypress(function(e) {
-		// 	console.log(e.charCode);
-		// });
+	getInitialState() {
+		return {
+			open: false
+		};
 	},
 
-	updateCurrentTrack: function() {
+	animate() {
+		this.setState({
+			open: !this.state.open
+		});
+	},
+
+	updateCurrentTrack() {
 		var appState = this.props.appState;
 		var push = this.props.push;
 		playerService.updateCurrentTrack(appState, push)
 	},
 
-	render: function() {
+	render() {
 		var appState = this.props.appState;
 		var push = this.props.push;
-		var _this = this;
+		var self = this;
 
 		var tracklist = appState.get('tracklist');
 		var currentTrack = appState.get('currentTrack');
@@ -85,13 +59,24 @@ var PlayerTracklist = React.createClass({
 
 		return (
 			<div className='flex-row flex-5x' id='PlayerTracklist'>
-				<div className='active-track center flex-fixed-3x'>
+				<div className='active-track center flex-fixed-3x' onClick={this.animate}>
 					{currentTrack}
 				</div>
-				<div className='tracklist'>
-					{tracks}
-				</div>
-				<div className='flex-container flex click' id='open-tracklist'>
+				<Motion style={{
+					yshift: this.state.open ? 10 : -50,
+					opacity: this.state.open ? 1: 0
+				}}>
+					{
+						({yshift, opacity}) =>
+						<div className='tracklist' onMouseLeave={() => {self.animate()}}style={{
+							opacity: `${opacity}`,
+							bottom: `${yshift}vh`
+						}}>
+							{tracks}
+						</div>
+					}
+				</Motion>
+				<div className='flex-container flex click hidden' id='open-tracklist'>
 					<i className='fa fa-fw center fa-bars'/>
 				</div>
 			</div>
