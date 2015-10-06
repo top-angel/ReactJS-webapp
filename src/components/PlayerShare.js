@@ -81,7 +81,8 @@ var PlayerShare = React.createClass({
 				<Motion style={{ 
 					y: this.state.open ? 'visible' : 'hidden'
 				}}>
-					{({y}) =>
+					{
+						({y}) =>
 						<div className='modal flex-container' style={{
 							visibility: `${y}`
 						}}>
@@ -91,21 +92,17 @@ var PlayerShare = React.createClass({
 					}
 				</Motion>
 				<i className={favoriteClass} 
-					title='Favorite Set'
 					onClick={this.favoriteSet} />
 
 				<CopyToClipboard text={playURL} onCopy={() => { self.copyURL() }}>
 					<i className='link fa fa-fw fa-clipboard center click'
-						title='Copy Link'
 						onMouseEnter={() => {self.animate()}}
 						onMouseLeave={() => {self.animate()}} />
 				</CopyToClipboard>
 
 				<i className='link fa fa-fw fa-facebook center click'
-					title='Share via Facebook' 
 					onClick={this.shareToFacebook} />
-				<i className='link fa fa-fw fa-twitter center click'
-					title='Share via Twitter' 
+				<i className='link fa fa-fw fa-twitter center click' 
 					onClick={this.shareToTwitter} />
 			</div>
 		);

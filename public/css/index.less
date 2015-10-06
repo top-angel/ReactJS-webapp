@@ -460,7 +460,7 @@ header {
 }
 
 #LandingView {
-	color: white;
+	color: @nearly-white;
 	.small({
 		width:105vw;
 	});
@@ -471,6 +471,7 @@ header {
 	height: @pageHeightWithoutPlayer;
 	font-weight: 100;
 	text-align: center;
+	.createOverlay(0.5, @dark-gray);
 	h1 {
 		font-size: 8rem;
 		font-weight: inherit;
@@ -480,7 +481,9 @@ header {
 		margin: 0 auto;
 		font-size: 1.5rem;
 	}
-	.createOverlay(0.5, @dark-gray);
+	a:hover {
+		color: @gray;
+	}
 	&::before{
 		height: @pageHeightWithoutPlayer!important;
 	}
