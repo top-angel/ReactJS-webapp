@@ -4,7 +4,7 @@ import favoriteSet from '../services/favoriteSet';
 
 var SetContainer = React.createClass({
 
-	getDefaultProps: function() {
+	getDefaultProps() {
 		return {
 			containerClass: 'flex-row tile-container',
 			sets: [],
@@ -14,7 +14,7 @@ var SetContainer = React.createClass({
 		};
 	},
 
-	render: function() {
+	render() {
 		var data = this.props.sets;
 		var push = this.props.push;
 		var self = this;

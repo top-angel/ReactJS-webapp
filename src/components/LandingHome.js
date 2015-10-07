@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 var LandingHome = React.createClass({
 
-	scroll: function() {
+	scroll() {
 		//TODO Fix this
 		setTimeout(function(){
 			$(window).scrollTo($('#LandingHome').height(), 400, {
@@ -12,14 +12,15 @@ var LandingHome = React.createClass({
 		}, 200);
 	},
 
-	trackiOS: function() {
+	trackiOS() {
 		mixpanel.track("iOS App Link Clicked");
 	},
-	trackAndroid: function() {
+
+	trackAndroid() {
 		mixpanel.track("Android App Link Clicked");
 	},
 	
-	render: function() {
+	render() {
 		return (
 			<div className='flex-column flex-container' id='LandingHome'>
 				<h1 className='center wow zoomIn'>Setmine</h1>
