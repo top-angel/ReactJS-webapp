@@ -7,34 +7,40 @@ import TrackContainer from './TrackContainer';
 
 var SearchResultsView = React.createClass({
 
+	getInitialState() {
+		return {
+			activeTab: 'sets'
+		};
+	},
+
 	componentDidMount: function() {
 		$('#seach').click();
 		
 		$('.results-filter').click(function(e){
-			e.stopPropagation();
-			var scrollOffset = -$('header').height()*2;
+			// e.stopPropagation();
+			var scrollOffset = -$('header').height()*0.875*2;
 			var type = $(this).attr('data-type');
-			//TODO make divider move when scrolling
+		// 	//TODO make divider move when scrolling using react motion
 
 			//search results scroll handlers
 			if($(this).is('.sets')) {
-				$('.view-title-container .divider').animate({
-					left: '0'
-				}, 200);
+				// $('.view-title-container .divider').animate({
+				// 	left: '0'
+				// }, 200);
 				$(window).scrollTo($('.header-small.sets'), 200, {
 					offset: scrollOffset
 				});
 			} else if($(this).is('.events')) {
-				$('.view-title-container .divider').animate({
-					left: '33%'
-				}, 200);
+				// $('.view-title-container .divider').animate({
+				// 	left: '33%'
+				// }, 200);
 				$(window).scrollTo($('.header-small.events'), 200, {
 					offset: scrollOffset
 				});
 			} else if($(this).is('.tracks')) {
-				$('.view-title-container .divider').animate({
-					left: '66%'
-				}, 200);
+				// $('.view-title-container .divider').animate({
+				// 	left: '66%'
+				// }, 200);
 				$(window).scrollTo($('.header-small.tracks'), 200, {
 					offset: scrollOffset
 				});
@@ -44,10 +50,12 @@ var SearchResultsView = React.createClass({
 		//TODO clear search results view on search click/empty input bar
 		//line 2173 in master-original
 	},
-	componentWillUnmount: function() {
+
+	componentWillUnmount() {
 		$('#search').val('');
 	},
-	render: function() {
+
+	render() {
 		var searchResults = this.props.appState.get('searchResults');
 		var loginStatus = this.props.appState.get('isUserLoggedIn');
 		var user = this.props.appState.get('user');
@@ -58,7 +66,7 @@ var SearchResultsView = React.createClass({
 
 		return (
 			<div id='SearchResultsView' className='view overlay-container'>
-				<div className='flex-row view-title-container'>
+				<div className='flex-row view-title-container search'>
 					<div className='view-title sets results-filter flex set-flex' data-type='sets'>
 						<div className='center'>SETS</div>
 					</div>
@@ -68,7 +76,7 @@ var SearchResultsView = React.createClass({
 					<div className='view-title tracks results-filter flex set-flex' data-type='tracks'>
 							<div className='center'>TRACKS</div>
 					</div>
-					<div className='divider'/>
+					<div className='divider hidden'/>
 				</div>
 				<Loader loaded={this.props.appState.get('loaded')}>
 					<div className='results-container flex-column'>

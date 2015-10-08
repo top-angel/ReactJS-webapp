@@ -3,7 +3,7 @@ import EventTile from './EventTile';
 
 var EventContainer = React.createClass({
 
-	getDefaultProps: function() {
+	getDefaultProps() {
 		return {
 			containerClass: 'flex-row tile-container',
 			errorClass: 'flex-column error',
@@ -11,7 +11,12 @@ var EventContainer = React.createClass({
 			events: []
 		};
 	},
-	render: function() {
+
+	shouldComponentUpdate(nextProps, nextState) {
+		return nextProps.events != this.props.events;
+	},
+
+	render() {
 		var events = this.props.events;
 		var push = this.props.push;
 

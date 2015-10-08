@@ -5,13 +5,13 @@ import constants from '../constants/constants';
 var PlayerControl = React.createClass({
 
 	displayName: 'PlayButton',
-	getDefaultProps: function() {
+	getDefaultProps() {
 		return {
 			appState: {}
 		};
 	},
 
-	componentDidMount: function() {
+	componentDidMount() {
 		var self = this;
 		$(document.body).keypress(function(e) {
 			var search = document.getElementById('search');
@@ -24,7 +24,7 @@ var PlayerControl = React.createClass({
 		});
 	},
 
-	togglePlay: function() {
+	togglePlay() {
 		var sound = this.props.appState.get('sound');
 		var playing = this.props.appState.get('playing');
 		var push = this.props.push;
@@ -38,7 +38,7 @@ var PlayerControl = React.createClass({
 		})
 	},
 
-	render: function() {
+	render() {
 		var currentSet = this.props.appState.get('currentSet');
 		var playing = this.props.appState.get('playing');
 

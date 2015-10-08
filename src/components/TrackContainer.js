@@ -4,14 +4,20 @@ import TrackTile from './TrackTile';
 var TrackContainer = React.createClass({
 
 	displayName: 'TrackContainer',
-	getDefaultProps: function() {
+
+	getDefaultProps() {
 		return {
 			containerId: 'TrackContainer',
 			containerClass: 'flex-row tile-container',
 			tracks: []
 		};
 	},
-	render: function() {
+
+	shouldComponentUpdate(nextProps, nextState) {
+		return nextProps.tracks != this.props.tracks;
+	},
+
+	render() {
 		var data = this.props.tracks;
 		var push = this.props.push;
 

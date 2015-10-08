@@ -113,7 +113,7 @@ var App = React.createClass({
 	displayName: 'App container',
 	mixins: [History],
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			// Let's assume that other ephemeral state
 			// MAY have to exist here.
@@ -121,10 +121,22 @@ var App = React.createClass({
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount() {
 		this._attachStreams();
 		detectMobileService.detectMobileBrowser();
 		this.playSet();
+	},
+
+	componentDidMount() {
+		var metadataPath = window.location.pathname;
+		loginService.startFacebookSDK(push);
+	},
+
+	_attachStreams() {
+		var self = this;
+		evtHandler.floodGate.subscribe(newState => {
+			self.setState({ appState: newState });
+		});
 	},
 
 	playSet() {
@@ -185,20 +197,7 @@ var App = React.createClass({
 		);
 	},
 
-	componentDidMount: function() {
-		loginService.startFacebookSDK(push);
-		var metadataPath = window.location.pathname;
-		console.log(metadataPath.substring(1));
-	},
-
-	_attachStreams: function() {
-		var self = this;
-		evtHandler.floodGate.subscribe(newState => {
-			self.setState({ appState: newState });
-		});
-	},
-
-	render: function() {
+	render() {
 		var appState = this.state.appState;
 		var tags = [
 			{property: "description", content: "Setmine is a music app dedicated to live events! Relive past music festivals: Ultra, Coachella + more! Find upcoming shows + buy tix + listen to DJs' sets"},

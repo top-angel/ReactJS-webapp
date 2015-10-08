@@ -14,6 +14,10 @@ var SetContainer = React.createClass({
 		};
 	},
 
+	shouldComponentUpdate(nextProps, nextState) {
+		return nextProps.sets != this.props.sets;
+	},
+
 	render() {
 		var data = this.props.sets;
 		var push = this.props.push;
