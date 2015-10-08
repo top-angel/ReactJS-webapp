@@ -6,12 +6,6 @@ import constants from '../constants/constants';
 var SearchBar = React.createClass({
 
 	mixins: [History],
-	componentDidMount() {
-		var self = this;
-		$(document.body).on('keypress', function(e) {
-			$('#search').focus();
-		})
-	},
 
 	handleKeypress(e) {
 		var query = document.getElementById('search').value;

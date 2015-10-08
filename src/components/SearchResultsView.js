@@ -14,7 +14,6 @@ var SearchResultsView = React.createClass({
 	},
 
 	componentDidMount: function() {
-		$('#seach').click();
 		
 		$('.results-filter').click(function(e){
 			// e.stopPropagation();

@@ -24,8 +24,7 @@ var EventContainer = React.createClass({
 			var tiles = (
 				<div className={this.props.errorClass}>
 					<h2>No Upcoming Events Found.</h2>
-					<br/>
-					<h2>Check back soon. We're Adding more every day!</h2>
+					<h4>Check back soon. We're Adding more every day!</h4>
 				</div>
 			);
 		} else {

@@ -13,13 +13,14 @@ var PlayerControl = React.createClass({
 
 	componentDidMount() {
 		var self = this;
-		$(document.body).keypress(function(e) {
+		$(window).keydown(function(e) {
 			var search = document.getElementById('search');
-			if(e.charCode == 32 && search != document.activeElement) {
+			if(e.keyCode == 32 && search != document.activeElement) {
 				e.preventDefault();
 				self.togglePlay();
+				return false;
 			} else {
-				return;
+				search.focus();
 			}
 		});
 	},
