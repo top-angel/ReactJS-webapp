@@ -17,6 +17,10 @@ var SetTile = React.createClass({
 		};
 	},
 
+	shouldComponentUpdate(nextProps, nextState) {
+		return nextProps.favorited != this.props.favorited;
+	},
+
 	favoriteSet: function() {
 		var push = this.props.push;
 		var user = this.props.user;
@@ -43,7 +47,7 @@ var SetTile = React.createClass({
 
 	openArtistPage: function() {
 		var routePath = this.props.artist.split(' ').join('_');
-		this.history.pushState(null, '/artist/' + routePath);
+		this.history.pushState(null, `/artist/${routePath}`);
 		mixpanel.track("Artist Clicked", {
 			"Artist": this.props.artist
 		});
@@ -54,10 +58,10 @@ var SetTile = React.createClass({
 
 		if(this.props.is_radiomix == 0) {
 			//go to festival page
-			this.history.pushState(null, '/festival/' + routePath);
+			this.history.pushState(null, `/festival/${routePath}`);
 		} else {
 			//go to mix page
-			this.history.pushState(null, '/mix/' + routePath);
+			this.history.pushState(null, `/mix/${routePath}`);
 		}
 	},
 

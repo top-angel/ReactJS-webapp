@@ -20,8 +20,10 @@ var TrackTile = React.createClass({
 	openArtistPage: function(e) {
 		e.stopPropagation();
 		var routePath = this.props.artist.split(' ').join('_');
-		this.history.pushState(null, '/artist/' + routePath);
-		this.trackArtist();
+		this.history.pushState(null, `/artist/${routePath}`);
+		mixpanel.track("Artist Clicked", {
+			"Artist": this.props.artist
+		});
 	},
 
 	openFestivalPage: function(e) {
@@ -30,11 +32,10 @@ var TrackTile = React.createClass({
 
 		if(this.props.is_radiomix == 0) {
 			//go to festival page
-			this.history.pushState(null, '/festival/' + routePath);
+			this.history.pushState(null, `/festival/${routePath}`);
 		} else {
-			//TODO GET API ROUTES FOR MIX
-			var routeId = this.props.id;//quick fix for now
-			this.history.pushState(null, '/mix/' + routeId);
+			var routeId = this.props.id;
+			this.history.pushState(null, `/mix/${routeId}`);
 		}
 	},
 
@@ -79,12 +80,6 @@ var TrackTile = React.createClass({
 			success: function(data) {
 				console.log('play count updated');
 			}
-		});
-	},
-
-	trackArtist() {
-		mixpanel.track("Artist Clicked", {
-			"Artist": this.props.artist
 		});
 	},
 
