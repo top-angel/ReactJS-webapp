@@ -47,6 +47,7 @@ a {
 	width: 22%;
 	height:25vh;
 	color: white;
+	position: relative;
 	.createOverlay(0.3);
 	.activity {
 		position: absolute;
@@ -250,6 +251,7 @@ a {
 	height: 100%;
 	color:white;
 	float: left;
+	position: relative;
 	.transition(0.2s);
 	.createOverlay(0.2, @dark-gray);
 	.transition(@panel-transition-duration);
@@ -656,13 +658,9 @@ header {
 }
 
 .loader {
-	.spinner {
-		.hidden;
-	}
 	&::before {
-		content: url(../images/setmine-loader.gif);
 		position: absolute;
-		margin: 20% 42.5%;
+		margin: 30vh 45vh;
 	}
 	.size(@windowWidth, @windowHeight);
 	position: relative;
@@ -766,7 +764,7 @@ header {
 		margin: auto 20px;
 		font-family: @bold;
 	}
-	.nav-button {
+	a {
 		font-family: @regular;
 		div {
 			margin: auto 30px;
@@ -823,14 +821,13 @@ header {
 		.background(@dark-gray*1.1, white);
 	}
 	.tracklist {
-		z-index: 20;
+		z-index: -1;
 		position: fixed;
 		height: @playerTracklistHeight;
 		right: @tracklistOffset;
 		.background(fade(@dark-gray, 90%), @nearly-white);
 		width: 40vw;
 		overflow-y: scroll;
-		opacity: 0;
 		> *:hover {
 		    .background(fade(@dark-gray, 60%), @blue);
 		} 
@@ -859,15 +856,12 @@ header {
 	img {
 		.size(100%,100%);
 	}
-	.play-button {
+	.fa {
 		visibility: hidden;
 	}
 	&:hover {
-		.overlay {
-			display: flex;
-			.createOverlay(0.5, @dark-gray);
-		}
-		.play-button {
+		.createOverlay(0.5, @dark-gray);
+		.fa {
 			visibility: visible;
 		}
 	}
@@ -963,18 +957,24 @@ header {
 	.header-small {
 		margin: 1vh 0;
 		padding: 5px 1vw;
-		background-color: @gray;
-	}
-	.results-filter {
-		cursor: pointer;
+		background-color: @light-gray;
+		.card(1);
 	}
 	.results-container {
 		position: relative;
 		top: 6vh;
 		padding-bottom: 6vh;
 	}
-	.results {
-    	min-height: 36vh;
+	.view-title-container {
+		position: fixed;
+		top: @headerHeight;
+		width: 100%;
+		z-index: 100;
+		.card(2);
+		.active {
+			.background(@light-gray, @dark-gray);
+			border-bottom: solid @blue 2px;
+		}
 	}
 }
 
@@ -1076,8 +1076,9 @@ header {
 	.createOverlay(0.4);
 	width: 23%;
 	height: @tileHeight;
-	margin: 2% 1%;
+	margin: 1%;
 	font-size: 16px;
+	position: relative;
 	.track {
 		.background(white, @dark-gray);
 		position: relative;
@@ -1146,15 +1147,6 @@ header {
 		position:absolute;
 		bottom:0;
 		left:33%;
-	}
-	&.search {
-		position: fixed;
-		top: @headerHeight;
-		width: 100%;
-		z-index: 100;
-		.divider {
-			left:0;
-		}
 	}
 }
 

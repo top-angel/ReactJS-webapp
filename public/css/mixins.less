@@ -67,25 +67,23 @@
 .buffer-lg {
     .flex(10,1,auto)!important;   
 }
-
 .card(@level: 1) {
     & when (@level = 1) {
-        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+        box-shadow: 0 1px 4px 0 rgba(49, 53, 66, 0.37);
     }
     & when (@level = 2) {
-        box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3), 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 0 6px 10px 0 rgba(49, 53, 66, 0.3), 0 2px 2px 0 rgba(49, 53, 66, 0.2);
     }
     & when (@level = 3) {
-        box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3), 0 11px 7px 0 rgba(0, 0, 0, 0.19);
+        box-shadow: 0 13px 25px 0 rgba(49, 53, 66, 0.3), 0 11px 7px 0 rgba(0, 0, 0, 0.19);
     }
     & when (@level = 4) {
-        box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.3), 0 14px 12px 0 rgba(0, 0, 0, 0.17);
+        box-shadow: 0 20px 40px 0 rgba(49, 53, 66, 0.3), 0 14px 12px 0 rgba(49, 53, 66, 0.17);
     }
     & when (@level = 5) {
-        box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15);
+        box-shadow: 0 27px 55px 0 rgba(49, 53, 66, 0.3), 0 17px 17px 0 rgba(49, 53, 66, 0.15);
     }
 }
-
 .center {
     margin:auto;
 }
@@ -257,21 +255,7 @@
       background-color: @color*@multiplier;
     }
 }
-.overlay-container {
-    position: relative;
-}
-.overlay {
-    position:absolute;
-    width:100%;
-    height:100%;
-    z-index: 1;
-    ~ * {
-        z-index: 2;
-    }
-    ~ img {
-        z-index: 3;
-    }
-}
+
 .scrollable {
     overflow-y:scroll!important;
 }

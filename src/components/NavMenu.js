@@ -13,13 +13,13 @@ var NavMenu = React.createClass({
 
 			return(
 				<Link 
-					className='nav-button click flex flex-row' 
+					className='click flex flex-row' 
 					to={nav.link} 
 					key={index}
 					onlyActiveOnIndex={nav.onlyActiveOnIndex} 
 					activeClassName='active'>
 						<i className={nav.icon}/>
-						<div className='center'>{nav.text}</div>
+						<div>{nav.text}</div>
 				</Link>
 			); 
 		});

@@ -63,13 +63,11 @@ var PlayerTracklist = React.createClass({
 					{currentTrack}
 				</div>
 				<Motion style={{
-					yshift: this.state.open ? 10 : -50,
-					opacity: this.state.open ? 1: 0
+					yshift: spring(this.state.open ? 10 : -50, presets.gentle)
 				}}>
 					{
 						({yshift, opacity}) =>
 						<div className='tracklist' onMouseLeave={() => {self.animate()}}style={{
-							opacity: `${opacity}`,
 							bottom: `${yshift}vh`
 						}}>
 							{tracks}

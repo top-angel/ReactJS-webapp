@@ -64,13 +64,13 @@ function generateSound(loadStart, appState, push) {
 		onload: function() {
 			var totalTime = sound.durationEstimate;
 		},
-		// volume: 0 //comment out for production
+		// volume: 0, //comment out for production
 		whileplaying: function() {
 			var currentTime = sound.position;
 			//UPDATE CURRENT TRACK HERE
 			var tracklist = appState.get('tracklist');
 			var currentTrack = updateCurrentTrack(sound, tracklist, push);
-
+			
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {

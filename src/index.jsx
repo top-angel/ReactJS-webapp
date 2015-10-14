@@ -95,7 +95,7 @@ var initialAppState = Immutable.Map({
 			lng: -82.325856
 		}
 	},
-
+	loaded: false,
 	searchResults: {
 		artists: [],
 		sets: [],

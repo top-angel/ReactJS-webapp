@@ -79,6 +79,7 @@ function registerFacebookUser(auth, push) {
 		});
 
 		//track user after logging in for the first time
+		mixpanel.identify(res.payload.user.facebook_id);
 		mixpanel.people.set_once({
 			"First Name": res.payload.user.first_name,
 			"Last Name": res.payload.user.last_name,

@@ -1,5 +1,4 @@
 import React from 'react';
-import splice from '../services/splice';
 import {History} from 'react-router';
 import constants from '../constants/constants';
 
@@ -7,9 +6,25 @@ var SearchBar = React.createClass({
 
 	mixins: [History],
 
+	// handleKeypress(e) {
+	// 	var query = document.getElementById('search').value;
+	// 	if(query.length % 2 == 0 && e.charCode != 32) {
+	// 		this.search(query);
+	// 	} else if(e.charCode == 13) {
+	// 		this.props.push({
+	// 			type: 'SHALLOW_MERGE',
+	// 			data: {
+	// 				loaded: false
+	// 			}
+	// 		});
+	// 		this.search(query);
+	// 	}
+	// },
 	handleKeypress(e) {
 		var query = document.getElementById('search').value;
-		if(e.charCode != 32 && query.length % 3 === 0) {
+		if(query.length >= 3) {
+			setInterval(this.search(query), 2000);
+		} else if(e.charCode == 13) {
 			this.search(query);
 		}
 	},
@@ -21,27 +36,19 @@ var SearchBar = React.createClass({
 		var results, 
 			searchUrl = constants.API_ROOT + 'search/' + query;
 
-		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				loaded: false
-			}
-		});
+		// if(activeSearchAjax != null) {
+		// 	activeSearchAjax.abort();
+		// 	activeSearchAjax = null;
+		// }
 
-		if(activeSearchAjax != null) {
-			activeSearchAjax.abort();
-			activeSearchAjax = null;
-		}
+		// activeSearchAjax = 
 
-		activeSearchAjax = $.ajax({
+		$.ajax({
 			url: searchUrl,
 			type: 'get'
 		})
 		.done(function(response) {
 			results = response.payload.search;
-			// var sets = splice.bigArray(results.sets, 50);
-			// var events = splice.bigArray(results.upcomingEvents, 50);
-			// var tracks = splice.bigArray(results.tracks, 50);
 			var sets = results.sets;
 			var events = results.upcomingEvents;
 			var tracks = results.tracks;
