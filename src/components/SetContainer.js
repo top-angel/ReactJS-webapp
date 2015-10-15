@@ -22,7 +22,9 @@ var SetContainer = React.createClass({
 			return true;
 		} else if(newFav != oldFav) {
 			return true;
-		} 
+		} else {
+			return false;
+		}
 	},
 
 	render() {
