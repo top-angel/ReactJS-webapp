@@ -132,7 +132,7 @@ a {
 	.border-radius(30px);
 }
 .detail-page {
-	.background(@nearly-white, white);
+	.background(@white, white);
 	text-align: center;
 	h1 {
 		margin-top: 10vh;
@@ -431,7 +431,7 @@ header {
 		}
 	}
 	.nav-button {
-		color: @nearly-white;
+		color: @white;
 		&:hover {
             background-color: @dark-gray*0.9;
 		} 
@@ -468,7 +468,7 @@ header {
 }
 
 #LandingView {
-	color: @nearly-white;
+	color: @white;
 	.small({
 		width:105vw;
 	});
@@ -535,7 +535,7 @@ header {
 			.background(@green, white);
 		}
 		.image-container {
-			background: @nearly-white;
+			background: @white;
 		}
 	}
 	.slide-2 {
@@ -551,7 +551,7 @@ header {
 			.background(@red, white);
 		}
 		.image-container {
-			background: @nearly-white;
+			background: @white;
 		}
 	}
 	.small({
@@ -666,7 +666,7 @@ header {
 	}
 	.size(@windowWidth, @windowHeight);
 	position: relative;
-	background-color: @nearly-white;
+	background-color: @white;
 	z-index: 10;
 }
 
@@ -685,7 +685,7 @@ header {
 	.fa-facebook:hover{color:white;}
 	.content {
 		.card(3);
-		.background(@nearly-white, @dark-gray);
+		.background(@white, @dark-gray);
 		width: 70%;
 		.divider {
 			.createDivider(95%, 2px, @dark-gray);
@@ -818,7 +818,7 @@ header {
 }
 #PlayerTracklist {
 	text-align: center;
-	.background(@dark-gray, @nearly-white);
+	.background(@dark-gray, @white);
 	&:hover {
 		.background(@dark-gray*1.1, white);
 	}
@@ -827,7 +827,7 @@ header {
 		position: fixed;
 		height: @playerTracklistHeight;
 		right: @tracklistOffset;
-		.background(fade(@dark-gray, 90%), @nearly-white);
+		.background(fade(@dark-gray, 90%), @white);
 		width: 40vw;
 		overflow-y: scroll;
 		> *:hover {
@@ -903,7 +903,7 @@ header {
 		color: @blue;
 	}
 	.modal {
-		.background(@dark-gray, @nearly-white);
+		.background(@dark-gray, @white);
 		.size(12vw, @modalHeight);
 		position: fixed;
 		bottom: @playerHeight*1.1;
@@ -1051,7 +1051,7 @@ header {
 			content: '';
 			height: @playerHeight;
 			width: 100%;
-			background-color: @nearly-white;
+			background-color: @white;
 		}
 	}
 }
@@ -1066,7 +1066,7 @@ header {
 .tile-container {
     min-height: 50vh;
     width: 100%;
-    background-color: @nearly-white;
+    background-color: @white;
     padding-bottom: @playerHeight;
 }
 
@@ -1142,7 +1142,7 @@ header {
 	top: @headerHeight;
 	position: relative;
 	min-height: @pageHeight;
-	background-color: @nearly-white;
+	background-color: @white;
 }
 
 .view-title-container {
@@ -1211,7 +1211,7 @@ header {
 	}, 580px);
 }
 #video {
-	background: @nearly-white;
+	background: @white;
 	height: @page;
 	iframe {
 		width: 100%;
@@ -1233,7 +1233,7 @@ header {
 		z-index: 1;
 	}
 	.text {
-		.background(@red, @nearly-white);
+		.background(@red, @white);
 		z-index: 2;
 		.size(100%, 30%);
 		text-align: center;
@@ -1256,7 +1256,7 @@ header {
 	.flex-column;
 	font-size: 1rem;
 	aside {
-		.background(@blue, @nearly-white);
+		.background(@blue, @white);
 		.flex-column;
 		.flex-fixed;
 		div {margin: auto 0;}
@@ -1288,7 +1288,7 @@ header {
 	});
 }
 #products {
-	color: @nearly-white;
+	color: @white;
 	.overview {
 		height: @page/2;
 		background: url(../images/setmusic/products.jpg) no-repeat;
@@ -1333,13 +1333,13 @@ header {
 			margin: 0 auto;
 		}
 		&.setmine {
-			.gradient(@nearly-white 50%, @blue 50%);
+			.gradient(@white 50%, @blue 50%);
 			ul {
 				text-align: left;
 			}
 		}
 		&.setstory {
-			.gradient(@nearly-white 50%, @green 50%);
+			.gradient(@white 50%, @green 50%);
 			ul {
 				text-align: right;
 			}
@@ -1411,7 +1411,7 @@ section.business {
 }
 
 #model {
-	.background(@blue, @nearly-white);
+	.background(@blue, @white);
 	.flexContainer(row, horizontal, wrap);
 	text-align: center;
 	font-size: 1rem;
@@ -1437,7 +1437,7 @@ section.business {
 	});
 }
 section.why {
-	.heading(@nearly-white, @dark-gray);
+	.heading(@white, @dark-gray);
 	h1 {
 		font-size: 2rem;
 	}
@@ -1450,7 +1450,7 @@ section.why {
 		.size(20vw, 20vw);
 		display: flex;
 		&.main {
-			.background(@red, @nearly-white);
+			.background(@red, @white);
 			.size(45vw, 45vw);
 			.center;
 			text-align: center;
@@ -1499,7 +1499,7 @@ section.why {
 	}, 700px);
 }
 #advantages {
-	.background(@nearly-white, @dark-gray);
+	.background(@white, @dark-gray);
 	border-top: solid 1px;
 	padding: 2rem;
 	font-size: 1.25rem;
@@ -1510,7 +1510,7 @@ section.tech {
 }
 #tech-changes {
 	height: @page/4;
-	.background(@dark-gray, @nearly-white);
+	.background(@dark-gray, @white);
 	text-align: center;
 	>div {
 		width: 25vw;
@@ -1526,7 +1526,7 @@ section.tech {
 #platforms {
 	.flex-column;
 	.background {
-		background: url(../images/setmusic/platforms.png) @nearly-white;
+		background: url(../images/setmusic/platforms.png) @white;
 		background-position: 50% 0%;
 		background-repeat: no-repeat;
 		background-size: 100%;
@@ -1563,7 +1563,7 @@ section.team {
 	font-size: 1rem;
 }
 #team {
-	.background(@nearly-white, @dark-gray);
+	.background(@white, @dark-gray);
 	.member {
 		margin: 3vw 1vw;
 		background: white;

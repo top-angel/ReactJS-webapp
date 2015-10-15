@@ -1,5 +1,4 @@
 import React from 'react';
-import Loader from 'react-loader';
 
 import SetContainer from './SetContainer';
 import EventContainer from './EventContainer';
@@ -52,7 +51,6 @@ var SearchResultsView = React.createClass({
 		this.props.push({
 			type: 'SHALLOW_MERGE',
 			data: {
-				loaded: false,
 				searchResults: {
 					sets: [],
 					upcomingEvents: [],
@@ -84,30 +82,28 @@ var SearchResultsView = React.createClass({
 							<div className='center'>TRACKS</div>
 					</div>
 				</div>
-				<Loader loaded={this.props.appState.get('loaded')}>
-					<div className='results-container flex-column'>
-						<div className='header-small sets'>SETS</div>
-						<SetContainer
-							sets={searchResults.sets}
-							push={this.props.push}
-							loginStatus={loginStatus}
-							user={user}
-							containerClass={setClass}
-						/>
-						<div className='header-small events'>EVENTS</div>
-						<EventContainer
-							events={searchResults.upcomingEvents}
-							push={this.props.push}
-							containerClass={eventClass}
-						/>
-						<div className='header-small tracks'>TRACKS</div>
-						<TrackContainer
-							tracks={searchResults.tracks}
-							push={this.props.push}
-							containerClass={trackClass}
-						/>
-					</div>
-				</Loader>
+				<div className='results-container flex-column'>
+					<div className='header-small sets'>SETS</div>
+					<SetContainer
+						sets={searchResults.sets}
+						push={this.props.push}
+						loginStatus={loginStatus}
+						user={user}
+						containerClass={setClass}
+					/>
+					<div className='header-small events'>EVENTS</div>
+					<EventContainer
+						events={searchResults.upcomingEvents}
+						push={this.props.push}
+						containerClass={eventClass}
+					/>
+					<div className='header-small tracks'>TRACKS</div>
+					<TrackContainer
+						tracks={searchResults.tracks}
+						push={this.props.push}
+						containerClass={trackClass}
+					/>
+				</div>
 			</div>
 		);
 	}

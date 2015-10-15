@@ -34,7 +34,6 @@ var SearchBar = React.createClass({
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					loaded: true,
 					searchResults: {
 						sets: sets,
 						upcomingEvents: events,
@@ -54,7 +53,7 @@ var SearchBar = React.createClass({
 				<input id='search' 
 					className='flex'
 					placeholder='search' 
-					onKeyPress={_.debounce(this.handleKeypress, 500)} />
+					onKeyPress={_.debounce(this.handleKeypress, 300)} />
           </div>
 		);
 	}
