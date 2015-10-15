@@ -15,9 +15,10 @@ var SetContainer = React.createClass({
 	},
 
 	shouldComponentUpdate(nextProps, nextState) {
-		var oldFav = this.props.user.favorite_set_ids;
-		var newFav = nextProps.user.favorite_set_ids;
-		return oldFav != newFav;
+		// var oldFav = this.props.user.favorite_set_ids;
+		// var newFav = nextProps.user.favorite_set_ids;
+		// return oldFav != newFav;
+		return nextProps.sets != this.props.sets;
 	},
 
 	render() {

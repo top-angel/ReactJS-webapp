@@ -17,10 +17,6 @@ var SetTile = React.createClass({
 		};
 	},
 
-	shouldComponentUpdate(nextProps, nextState) {
-		return nextProps.favorited != this.props.favorited;
-	},
-
 	favoriteSet: function() {
 		var push = this.props.push;
 		var user = this.props.user;

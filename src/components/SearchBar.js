@@ -1,32 +1,17 @@
 import React from 'react';
 import {History} from 'react-router';
 import constants from '../constants/constants';
+import _ from 'underscore';
 
 var SearchBar = React.createClass({
 
 	mixins: [History],
 
-	// handleKeypress(e) {
-	// 	var query = document.getElementById('search').value;
-	// 	if(query.length % 2 == 0 && e.charCode != 32) {
-	// 		this.search(query);
-	// 	} else if(e.charCode == 13) {
-	// 		this.props.push({
-	// 			type: 'SHALLOW_MERGE',
-	// 			data: {
-	// 				loaded: false
-	// 			}
-	// 		});
-	// 		this.search(query);
-	// 	}
-	// },
 	handleKeypress(e) {
 		var query = document.getElementById('search').value;
-		if(query.length >= 3) {
-			setInterval(this.search(query), 2000);
-		} else if(e.charCode == 13) {
+		if(query.length >= 3 || e.charCode == 13) {
 			this.search(query);
-		}
+		} 
 	},
 
 	search(query) {
@@ -35,13 +20,6 @@ var SearchBar = React.createClass({
 		var activeSearchAjax = null;
 		var results, 
 			searchUrl = constants.API_ROOT + 'search/' + query;
-
-		// if(activeSearchAjax != null) {
-		// 	activeSearchAjax.abort();
-		// 	activeSearchAjax = null;
-		// }
-
-		// activeSearchAjax = 
 
 		$.ajax({
 			url: searchUrl,
@@ -76,7 +54,7 @@ var SearchBar = React.createClass({
 				<input id='search' 
 					className='flex'
 					placeholder='search' 
-					onKeyPress={this.handleKeypress} />
+					onKeyPress={_.debounce(this.handleKeypress, 500)} />
           </div>
 		);
 	}

@@ -49,13 +49,15 @@ var SearchResultsView = React.createClass({
 
 	componentWillUnmount() {
 		$('#search').val('');
-		this.setState({
-			active: 'sets'
-		});
 		this.props.push({
 			type: 'SHALLOW_MERGE',
 			data: {
-				loaded: false
+				loaded: false,
+				searchResults: {
+					sets: [],
+					upcomingEvents: [],
+					tracks: []
+				}
 			}
 		});
 	},
