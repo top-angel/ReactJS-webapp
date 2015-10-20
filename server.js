@@ -8,7 +8,7 @@ var proxy = httpProxy.createProxyServer();
 var app = express();
 
 var isProduction = process.env.NODE_ENV === 'production';
-var port = isProduction ? 3000 : process.env.PORT;
+var port = isProduction ? 80 : process.env.PORT;
 var publicPath = path.resolve(__dirname, 'public');
 
 app.use(function( req, res, next ) {
