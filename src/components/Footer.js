@@ -36,6 +36,11 @@ var Footer = React.createClass({
 					<a href='http://bit.ly/SetmineAndroid' onClick={this.trackAndroid} title='view on Google Play'className='click'>
 						Android
 					</a>
+					<Link to='/setstoryLanding'>
+						<a className='click'>
+							Setstory 
+						</a>
+					</Link>
 					<div className='copyright'>
 		             	<i className='fa fa-copyright'/> 
 		             	{' Setmusic LLC. 2015'}

@@ -272,6 +272,7 @@ var routes = (
 		<Route path='mix/:mix' component={MixDetail}/>
 		<Route path='activity/:activity' component={ActivityDetail}/>
 		<Route path='legal' component={DMCA} />
+		<Route path='setstoryLanding' component={SetstoryLandingPage}/>
 
 		// Redirects from Setmine v5.0
 		<Redirect from='/browse/:artist/artist' to='/artist/:artist' />
