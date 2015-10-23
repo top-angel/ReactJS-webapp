@@ -39,8 +39,8 @@ var LandingApp = React.createClass({
 	},
 	render: function() {
 		return (
-			<div className='flex-column overlay-container' id='LandingApp'>
-				<div className='flex-row overlay-container slide slide-1 animated fadeIn'>
+			<div className='flex-column' id='LandingApp'>
+				<div className='flex-row slide slide-1 animated fadeIn'>
 					<div className='flex-column flex-fixed text-container'>
 						<h1 className='wow bounceInLeft'>
 							Say goodbye to missing a live performance

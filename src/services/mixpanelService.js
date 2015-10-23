@@ -1,7 +1,7 @@
 import Mixpanel from 'mixpanel';
 
-var mixpanel = Mixpanel.init('1ca22a505d480d37964aa10f8954b4a4');
-console.log(mixpanel); 
+// var mixpanel = Mixpanel.init('1ca22a505d480d37964aa10f8954b4a4');
+// console.log(mixpanel);
 
 var Analytics = {
 	trackArtist: function(artist) {
@@ -16,7 +16,6 @@ var Analytics = {
 		mixpanel.people.append("sets_played_names", set.set_name);
 		mixpanel.people.append("sets_played_artists", set.set_artist);
 		mixpanel.people.append("sets_played_events", set.set_event);
-		console.log('testshitfuckyolo');
 	}
 };
 

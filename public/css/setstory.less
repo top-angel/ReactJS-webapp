@@ -1,0 +1,218 @@
+@import "colors.less";
+@import "mixins.less";
+@import "variables.less";
+@import "fonts.less";
+
+/*****************
+
+SETSTORY lANDING PAGE 
+
+*****************/
+
+
+#SetstoryLandingPage {
+	font-family: @light;
+	margin-top: @headerHeight;
+	width: 100%;
+	background-color: @setstory-white;
+	justify-content: center;
+	align-items: center;
+
+    section.mainLanding{
+    	color: @setstory-white;
+    	width: 100%;
+    	height: @pageHeightWithoutPlayer;
+    	background-image: url("/images/setstory/background.jpg");
+    	background-repeat: no-repeat;
+    	background-size: 100% 100%;
+    	
+    	.mainLogo {
+    		margin: 1rem;
+    		img{
+    			.size(40px, 40px);
+    			margin: auto 0;
+    		}
+    		h2 {
+    			margin: auto 0;
+    		}
+		}
+	 	.aquire {
+	 		.flex-row;
+	 		width: 100%;
+	 		.landingPhones {
+	 			background: url('/images/setstory/landingPhones.png') no-repeat;
+				background-size: 50% 90%;
+				background-position: center;
+		   	}
+	 		.uv {
+	 			margin-top: 2vw;
+	 			width: 50%;
+	 			height: 100%;
+	 		}
+	 		h1 {
+	 			margin: 2rem;
+	 			font-size: 3rem;
+	 			letter-spacing: 0.2rem;
+	 		}
+			.setstory-apps {
+		 		color: white;
+		 		font-size: 6rem;
+		 		margin-top: 3rem;
+		 		width: 50%;
+			}
+	   	}
+	   	.small({
+	   		.aquire {
+	   			.flex-column;
+	   			h1 {
+		   			font-size: 2rem;
+		   		}
+		   		.uv {
+		   			width: 100%;
+		   		}
+		   		.setstory-apps {
+
+		   			font-size: 3rem;
+		   			margin-top: 0;
+		   		}
+	   		}
+	   		
+   		});
+	}
+
+	section.beacon {
+		color: @setstory-dark-gray;
+		justify-content: center;
+		align-items: center;
+		height: @pageHeightWithoutPlayer*2/3;
+		width: 100%;
+		img {
+			.size(110px , 110px);
+			margin: 2rem;
+		}
+		p {
+			width: 60%;
+			font-size: 1.75rem;
+			line-height: 2.5rem;
+		}
+		.small({
+			height: @pageHeightWithoutPlayer;
+			});
+	}
+
+	section.offer {
+		background: url('/images/setstory/inbox.png'), @dark-gray;
+		background-size: 80% 85%;
+		background-repeat: no-repeat;
+		background-position: center;
+    	height: @pageHeightWithoutPlayer;
+    	color: white;
+		h1 {
+			margin: 3vmax;
+			font-size: 1.5rem;
+			letter-spacing: 2px;
+			font-family: @bold;
+		}
+		.text-container {
+    		width: 100%;
+    		height: 38vw;
+    		background-size: 65%;
+    		background-position: center, bottom;
+    		background-repeat: no-repeat;
+    		.text {
+    			position: relative;
+    			div {
+    				position: absolute;
+	    			width: 50%;
+	    			.small({width:100%});
+    			}
+    			h2 {
+	    			color: @blue;
+	    			font-family: @bold;
+	    			letter-spacing: 2px;
+	    		}
+	    		p {
+	    			font-size: 1.1rem;
+	    			line-height: 1.5rem;
+	    			margin: 0;
+	    		}
+    		}
+    		.custom {
+    			bottom: 25%;
+    			left: 10%;
+    			.small({
+    				left:50%; 
+    				bottom:10%;
+  				});
+    		}
+    		.inbox {
+    			top: -10%;
+    			left: 40%;
+    			.small({
+    				left:-50%;
+    				top: 0;
+    			});
+    		}
+		}
+		.small({
+			background-size: 120% 35%;
+			height: 130vh;
+		});
+	}
+
+	section.metrics {
+		height: @pageHeightWithoutPlayer;
+		width: 100%;
+		.background(@light-gray, @dark-gray);
+		h2 {
+			font-family: Avenir Bold;
+			text-align: center;
+			width: 100%;
+			margin: 3rem 0;
+		}
+		.morty {
+			width: 100%;
+			.flex-row;
+			.metricsPic{
+				background: url('/images/setstory/metrics.png') no-repeat;
+				background-position: center 0%;
+				background-size: 70%;
+			}
+			.text-container {
+				font-size: 1.5rem;
+				width: 60%;
+				justify-content: center;
+				.flex-fixed-2x;
+    			.text {
+    				margin-bottom: 8%;
+    			}
+    			
+    			img {
+    				align: middle;
+    				.size( 50px , 50px);
+    			}
+
+    			p {
+    				margin: 0;
+    				margin-left: 4%;
+    				width: 60%;
+    				line-height: 2rem;
+    			}
+			}
+		}
+		.small({
+			height: 180vh;
+			.morty {
+				.flexContainer(column-reverse, vertical-reverse);
+				.text-container {
+					width: 100%;
+					justify-content: initial;
+					.flex-fixed;
+					.text {
+						margin-left: 10vw;
+					}
+				}
+			}
+		});
+	}
+}

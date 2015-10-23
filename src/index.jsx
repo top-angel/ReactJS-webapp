@@ -45,7 +45,7 @@ import ArtistTileContainer from './components/ArtistTileContainer';
 
 import DMCA from './components/DMCA';
 import Setmusic from './components/Setmusic';
-
+import SetstoryLandingPage from './components/SetstoryLandingPage';
 
 var initialAppState = Immutable.Map({
 	currentSet: {
@@ -70,8 +70,7 @@ var initialAppState = Immutable.Map({
 
 	isUserLoggedIn: false,
 	user: {
-		id: 108,
-		favorite_set_ids: []
+		id: 108
 	},
 	newSets: [],
 	newEvents: [],
@@ -96,7 +95,7 @@ var initialAppState = Immutable.Map({
 			lng: -82.325856
 		}
 	},
-	loaded: false,
+
 	searchResults: {
 		artists: [],
 		sets: [],
@@ -281,6 +280,9 @@ var routes = (
 
 		// Setmusic About
 		<Route path='about' component={Setmusic}/>
+
+		// Setstory About
+		<Route path='setstory' component={SetstoryLandingPage}/>
 	</Route>
 );
 
@@ -288,11 +290,8 @@ var headMount = document.getElementById('head-mount-point');
 var bodyMount = document.getElementById('body-mount-point');
 
 import createBrowserHistory from 'history/lib/createBrowserHistory';
-import createHashHistory from 'history/lib/createHashHistory';
 var history = createBrowserHistory();
-var hash = createHashHistory();
 
-//change history to hash for development
 React.render(
 	<Router history={history}>
 		{routes}
