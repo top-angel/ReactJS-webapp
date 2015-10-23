@@ -30,7 +30,7 @@ var SetstoryLandingPage = React.createClass({
 				</section>
 
 				<section className='beacon flex-column'>
-					<img src='/images/setstory/beaconicon.png'/>
+					<img src='/images/setstory/beaconIcon.png'/>
 					<p>We built a beacon network that brings customers to you by allowing artist to lock new music in venues, bars, & retail locations.</p>
 				</section>
 
@@ -86,7 +86,7 @@ var SetstoryLandingPage = React.createClass({
 							</div>	
 
 							<div  className='text flex-row'>
-								<img src='/images/setstory/iconchart.png' />
+								<img src='/images/setstory/iconChart.png' />
 								<p>You can compare metrics from each offer to determine which artist bring you the most customers.</p>
 							</div>
 
