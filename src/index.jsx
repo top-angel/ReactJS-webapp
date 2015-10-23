@@ -46,6 +46,7 @@ import ArtistTileContainer from './components/ArtistTileContainer';
 import DMCA from './components/DMCA';
 import Setmusic from './components/Setmusic';
 
+import SetstoryLandingPage from './components/SetstoryLandingPage';
 
 var initialAppState = Immutable.Map({
 	currentSet: {
@@ -230,7 +231,7 @@ var App = React.createClass({
 
 var routes = (
 	<Route path='/' component={App}>
-		<IndexRoute component={LandingView}/>
+		<IndexRoute component={SetstoryLandingPage}/>
 
 		<Route path='play/:set' component={SetsView}>
 			<IndexRoute component={Recent}/>
@@ -290,7 +291,7 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 var history = createBrowserHistory();
 
 React.render(
-	<Router history={history}>
+	<Router>
 		{routes}
 	</Router>
 , bodyMount);

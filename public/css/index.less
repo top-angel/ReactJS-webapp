@@ -1587,8 +1587,245 @@ section.team {
 			.size(22vw, 45vh);
 			margin: 1.5vw 1vw;
 			img {
-				.size(140px, 140px)
+				.size(110px, 110px);
 			}
 		});
 	}
 }
+
+
+/*SETSTORY lANDING PAGE */
+
+
+.SetstoryLandingPage{
+	font-family:  Avenir Regular;
+    margin-top: @headerHeight;
+    width: 100%;
+    height: 100%;
+    background-color: @setstory-white;
+    justify-content: center;
+    align-items: center;
+    font-family: Avenir Regular;
+
+    section.mainLanding{
+    	color: @setstory-white;
+    	width: 100%;
+    	height: 45.6vw;
+    	background-image: url("/public/images/setstory/background.jpg");
+    	background-repeat: no-repeat;
+    	background-size: 100%;
+    	
+    	.mainLogo{
+    		align-items: center;
+       		height: 5vw;
+    		width: 100%;
+    		img{
+    			.size(40px, 40px)
+    		}
+		}
+       	.aquire{
+       		height: 50vw;
+       		width: 100%;
+       		.landingPhones{
+       			width: 55%;
+       			height: 100%;
+       			background-image: url("/public/images/setstory/landingPhones.png");
+       			background-repeat: no-repeat;
+       			background-size: 57%;
+	       	}
+       		.uv{
+       			margin-top: 2vw;
+       			font-size: 4vw;
+       			text-align: center;
+       			width: 45%;
+       			height: 100%;
+       		}
+       		 .fa-apple{
+         		
+        		font-size: 200%;
+        		color: white;
+
+    		}
+    		.fa-android{
+        		padding-left: 50px;
+
+        		font-size: 200%;
+        		color: white;
+
+    		}
+    		.setstory-apps{
+       			color: white;
+        		
+        		justify-content: center;
+
+    		}	
+       	}
+    }
+
+    .beacon{
+    	color: @setstory-dark-gray;
+    	justify-content: center;
+    	align-items: center;
+    	height: 32vw;
+    	width: 100%;
+    	img{
+    		.size(110px , 110px);
+    	}
+    	.beaconText{
+    		
+    		width: 60%;
+    		font-size: 2vw;
+    	}
+    }
+
+   
+
+	#model {
+		.background(@setstory-blue, @nearly-white);
+		.flexContainer(row, horizontal, wrap);
+		text-align: center;
+		font-size: 1rem;
+		img {
+			.size(80px, 80px);
+			margin: 5vh auto 2vh;
+		}
+		>div {
+			position: relative;
+			width: 50vw;
+		}
+		h6 {
+			font-size: 1.5rem;
+			margin: 0;
+			position: absolute;
+			top: 2vw;
+			left: 2vw;
+		}
+		.desktop({
+			>div {
+				width: 25vw;
+			}
+		});
+	}
+	.offer{
+		background-color: #313542;
+    	height: 45vw;
+    	color: white;
+    	
+		h1{
+			margin-left: 5%;
+			height: 4vw;
+					}
+		.inbox{
+			
+			background-image: url("/public/images/setstory/inbox.png");
+    		width: 100%;
+    		height: 38vw;
+    		background-size: 65%;
+    		background-position: center, bottom;
+    		background-repeat: no-repeat;
+    		p{
+    				width: 80%;
+    				font-size: 1.5vw;
+    				margin: 0;
+    		}
+    		h2{
+    			color: @setstory-blue;
+    			text-align: center;
+    		}
+    		.custom{
+    			width: 34.6%;
+    			height: 100%;
+    			
+    			align-items: center;
+    			justify-content: flex-end;
+    			padding-bottom: 5%;
+    			padding-left: 5%;
+
+
+
+
+    		}
+    		.buffer{
+    			width: 34.75%;
+    			
+    		}
+    		.approve{
+    			width: 30.6%;
+    			height: 100%;
+    			padding-left: 5%;
+    			align-items: flex-start;
+    			
+    		}
+			
+		}
+
+	}
+
+	.metrics{
+		height: 42vw;
+		width: 100%;
+		background-color: @setstory-light-gray;
+		text-align: center;
+		.transparency{
+			 font-family: Avenir Bold;
+			text-align: center;
+			justify-content: center;
+    		align-items: center;
+			height: 8vw;
+			width: 100%;
+			p{
+				font-size: 1.5vw;
+			}
+			
+
+		}
+		.morty{
+			height: 38vw;
+			width: 100%;
+			
+			.metricsPic{
+				padding-top: 10%;
+				
+				width: 40%;
+				height: 90%;
+				background-image: url("/public/images/setstory/metrics.png");
+				background-repeat: no-repeat;
+				background-size: 46%;
+				background-position: center bottom;
+			}
+			.metricsTxt{
+				margin: 0;
+				font-size: 2vw;
+                height: 80%;
+				width: 60%;
+				text-align: center;
+				justify-content: center;
+    			text-align: center;
+    			.textArea{
+    				margin-top: 14%;
+    			}
+
+    			.text{
+    				text-align: center;
+					justify-content: center;
+    				text-align: center;
+    				margin-bottom: 6%;
+    			}
+    			
+    			img{
+    				align: middle;
+    				.size( 50px , 50px);
+    			}
+
+    			p{
+    				margin: 0;
+    				margin-left: 8%;
+    				width: 60%;
+    			}
+			
+			}
+		}
+	}
+}
+
+   
