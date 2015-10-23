@@ -31,20 +31,13 @@ function changeTrack(appState, push, starttime, currentTrack) {
 	var sound = appState.get('sound');
 	sound.setPosition(starttime);
 
-	// push({
-	// 	type: 'SHALLOW_MERGE',
-	// 	data: {
-	// 		currentTrack: currentTrack,
-	// 		timeElapsed: starttime
-	// 	}
-	// });
-	_.debounce(push({
+	push({
 		type: 'SHALLOW_MERGE',
 		data: {
 			currentTrack: currentTrack,
 			timeElapsed: starttime
 		}
-	}), 500);
+	});
 }
 
 function errorPromise(jqXHR, textStatus, errorThrown) {
@@ -77,14 +70,16 @@ function generateSound(loadStart, appState, push) {
 			var currentTime = sound.position;
 			//UPDATE CURRENT TRACK HERE
 			var tracklist = appState.get('tracklist');
-			var currentTrack = updateCurrentTrack(sound, tracklist, push);
+			// var currentTrack = updateCurrentTrack(sound, tracklist, push);
+			var currentTrack = _.debounce(updateCurrentTrack(sound, tracklist, push), 1000);
 			
-			push({
+
+			_.debounce(push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					timeElapsed: currentTime
 				}
-			});
+			}), 1000);
 		}
 	};
 
@@ -102,9 +97,7 @@ function scrub(position, appState, push) {
 	var currentSet = appState.get('currentSet');
 	var timeElapsed = appState.get('timeElapsed');
 
-	// var set_length = convert.MMSSToMilliseconds(currentSet.set_length);
 	var set_length = sound.durationEstimate;
-
 	var multiplier = position / 100;// 70 -> 0.7
 	var newPosition = multiplier * set_length;
 
@@ -119,7 +112,6 @@ function scrub(position, appState, push) {
 }
 
 function togglePlay(sound) {
-
 	if(sound.paused) {
 		sound.play();
 	} else {

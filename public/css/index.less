@@ -143,6 +143,9 @@ a {
 		background-position-y: 40%;
 		position: relative;
 		.createOverlay(0.75, @dark-gray);
+		.small({
+			height: 60vh;
+		});
 	}
 	>.divider {
 		.createDivider(100%, 2px, @gray);
@@ -859,7 +862,7 @@ header {
 		.size(100%,100%);
 	}
 	.fa {
-		visibility: hidden;
+		visibility: visible;
 	}
 	&:hover {
 		.createOverlay(0.5, @dark-gray);
@@ -965,7 +968,7 @@ header {
 	.results-container {
 		position: relative;
 		top: 6vh;
-		padding-bottom: 6vh;
+		padding-bottom: @playerHeight;
 	}
 	.view-title-container {
 		position: fixed;
