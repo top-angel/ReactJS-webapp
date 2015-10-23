@@ -1,5 +1,4 @@
 import React from 'react';
-import Loader from 'react-loader';
 
 import SetContainer from './SetContainer';
 import EventContainer from './EventContainer';
@@ -9,37 +8,34 @@ var SearchResultsView = React.createClass({
 
 	getInitialState() {
 		return {
-			activeTab: 'sets'
+			active: 'sets'
 		};
 	},
 
 	componentDidMount: function() {
-		
+		var self = this;
 		$('.results-filter').click(function(e){
-			// e.stopPropagation();
 			var scrollOffset = -$('header').height()*0.875*2;
 			var type = $(this).attr('data-type');
-		// 	//TODO make divider move when scrolling using react motion
-
-			//search results scroll handlers
+			//TODO make divider move when scrolling using react motion
 			if($(this).is('.sets')) {
-				// $('.view-title-container .divider').animate({
-				// 	left: '0'
-				// }, 200);
+				self.setState({
+					active: 'sets'
+				});
 				$(window).scrollTo($('.header-small.sets'), 200, {
 					offset: scrollOffset
 				});
 			} else if($(this).is('.events')) {
-				// $('.view-title-container .divider').animate({
-				// 	left: '33%'
-				// }, 200);
+				self.setState({
+					active: 'events'
+				});
 				$(window).scrollTo($('.header-small.events'), 200, {
 					offset: scrollOffset
 				});
 			} else if($(this).is('.tracks')) {
-				// $('.view-title-container .divider').animate({
-				// 	left: '66%'
-				// }, 200);
+				self.setState({
+					active: 'tracks'
+				});
 				$(window).scrollTo($('.header-small.tracks'), 200, {
 					offset: scrollOffset
 				});
@@ -52,6 +48,16 @@ var SearchResultsView = React.createClass({
 
 	componentWillUnmount() {
 		$('#search').val('');
+		this.props.push({
+			type: 'SHALLOW_MERGE',
+			data: {
+				searchResults: {
+					sets: [],
+					upcomingEvents: [],
+					tracks: []
+				}
+			}
+		});
 	},
 
 	render() {
@@ -66,41 +72,38 @@ var SearchResultsView = React.createClass({
 		return (
 			<div id='SearchResultsView' className='view overlay-container'>
 				<div className='flex-row view-title-container search'>
-					<div className='view-title sets results-filter flex set-flex' data-type='sets'>
+					<div className={this.state.active == 'sets' ? 'view-title sets results-filter flex flex-container active':'view-title sets results-filter flex flex-container'}  data-type='sets'>
 						<div className='center'>SETS</div>
 					</div>
-					<div className='view-title events results-filter flex set-flex' data-type='events'>
+					<div className={this.state.active == 'events' ? 'view-title events results-filter flex flex-container active':'view-title events results-filter flex flex-container'} data-type='events'>
 						<div className='center'>EVENTS</div>
 					</div>
-					<div className='view-title tracks results-filter flex set-flex' data-type='tracks'>
+					<div className={this.state.active == 'tracks' ? 'view-title tracks results-filter flex flex-container active':'view-title tracks results-filter flex flex-container'} data-type='tracks'>
 							<div className='center'>TRACKS</div>
 					</div>
-					<div className='divider hidden'/>
 				</div>
-				<Loader loaded={this.props.appState.get('loaded')}>
-					<div className='results-container flex-column'>
-						<div className='header-small sets'>SETS</div>
-						<SetContainer
-							sets={searchResults.sets}
-							push={this.props.push}
-							loginStatus={loginStatus}
-							user={user}
-							containerClass={setClass}
-						/>
-						<div className='header-small events'>EVENTS</div>
-						<EventContainer
-							events={searchResults.upcomingEvents}
-							push={this.props.push}
-							containerClass={eventClass}
-						/>
-						<div className='header-small tracks'>TRACKS</div>
-						<TrackContainer
-							tracks={searchResults.tracks}
-							push={this.props.push}
-							containerClass={trackClass}
-						/>
-					</div>
-				</Loader>
+				<div className='results-container flex-column'>
+					<div className='header-small sets'>SETS</div>
+					<SetContainer
+						sets={searchResults.sets}
+						push={this.props.push}
+						loginStatus={loginStatus}
+						user={user}
+						containerClass={setClass}
+					/>
+					<div className='header-small events'>EVENTS</div>
+					<EventContainer
+						events={searchResults.upcomingEvents}
+						push={this.props.push}
+						containerClass={eventClass}
+					/>
+					<div className='header-small tracks'>TRACKS</div>
+					<TrackContainer
+						tracks={searchResults.tracks}
+						push={this.props.push}
+						containerClass={trackClass}
+					/>
+				</div>
 			</div>
 		);
 	}

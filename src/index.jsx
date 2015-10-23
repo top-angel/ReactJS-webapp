@@ -71,7 +71,8 @@ var initialAppState = Immutable.Map({
 
 	isUserLoggedIn: false,
 	user: {
-		id: 108
+		id: 108,
+		favorite_set_ids: []
 	},
 	newSets: [],
 	newEvents: [],
@@ -96,7 +97,7 @@ var initialAppState = Immutable.Map({
 			lng: -82.325856
 		}
 	},
-
+	loaded: false,
 	searchResults: {
 		artists: [],
 		sets: [],
@@ -288,8 +289,11 @@ var headMount = document.getElementById('head-mount-point');
 var bodyMount = document.getElementById('body-mount-point');
 
 import createBrowserHistory from 'history/lib/createBrowserHistory';
+import createHashHistory from 'history/lib/createHashHistory';
 var history = createBrowserHistory();
+var hash = createHashHistory();
 
+//change history to hash for development
 React.render(
 	<Router>
 		{routes}

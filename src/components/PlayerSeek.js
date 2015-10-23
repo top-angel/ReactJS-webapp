@@ -9,8 +9,8 @@ var PlayerSeek = React.createClass({
 	scrub: function(e) {
 		var push = this.props.push;
 		var appState = this.props.appState;
-		var offset = $('#PlayButton').width();
-		var containerWidth = $('.player-progress').width();
+		var offset = document.getElementById('PlayButton').offsetWidth;
+		var containerWidth = document.getElementById('progress').offsetWidth;
 
 		var errorFactor = 1.0575; //compensates for soundmanger innacuracy
 		var containerPosition = (((e.pageX - offset)*errorFactor)/ $(window).width()) * 100;
@@ -36,7 +36,8 @@ var PlayerSeek = React.createClass({
 		});
 
 		var cursor = React.createElement('div', {
-			className: 'player-scrubber'
+			className: 'player-scrubber',
+			id: 'progress'
 		});
 		
 		return (

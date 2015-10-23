@@ -2,6 +2,7 @@ import Q from 'q';
 import R from 'ramda';
 import $ from 'jquery';
 import SM2 from 'soundmanager2';
+import _ from 'underscore';
 
 import convert from './convert';
 import constants from '../constants/constants';
@@ -30,13 +31,20 @@ function changeTrack(appState, push, starttime, currentTrack) {
 	var sound = appState.get('sound');
 	sound.setPosition(starttime);
 
-	push({
+	// push({
+	// 	type: 'SHALLOW_MERGE',
+	// 	data: {
+	// 		currentTrack: currentTrack,
+	// 		timeElapsed: starttime
+	// 	}
+	// });
+	_.debounce(push({
 		type: 'SHALLOW_MERGE',
 		data: {
 			currentTrack: currentTrack,
 			timeElapsed: starttime
 		}
-	});
+	}), 500);
 }
 
 function errorPromise(jqXHR, textStatus, errorThrown) {
@@ -64,13 +72,13 @@ function generateSound(loadStart, appState, push) {
 		onload: function() {
 			var totalTime = sound.durationEstimate;
 		},
-		// volume: 0 //comment out for production
+		// volume: 0, //comment out for production
 		whileplaying: function() {
 			var currentTime = sound.position;
 			//UPDATE CURRENT TRACK HERE
 			var tracklist = appState.get('tracklist');
 			var currentTrack = updateCurrentTrack(sound, tracklist, push);
-
+			
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {

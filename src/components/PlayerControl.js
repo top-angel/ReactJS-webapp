@@ -13,16 +13,24 @@ var PlayerControl = React.createClass({
 
 	componentDidMount() {
 		var self = this;
-		$(window).keydown(function(e) {
+
+		$(document.body).on('keypress', function(e) {
 			var search = document.getElementById('search');
-			if(e.keyCode == 32 && search != document.activeElement) {
-				e.preventDefault();
-				self.togglePlay();
-				return false;
-			} else {
-				search.focus();
+			var key = e.charCode;
+
+			switch(true) {
+				case(key == 32 && search != document.activeElement):
+					e.preventDefault();
+					self.togglePlay();
+					break;
+				case(key >= 97 && key <= 122 && document.location.pathname != '/events'):
+					search.focus();
+					break;
+				case(key >= 65 && key <=90 &&document.location.pathname != '/events'):
+					search.focus();
+					break;
 			}
-		});
+		})
 	},
 
 	togglePlay() {
@@ -49,12 +57,15 @@ var PlayerControl = React.createClass({
 			var playingClass = 'fa center fa-play';
 		}
 
+		var image = {
+			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES+'small_'+currentSet.artistimageURL+"')",
+			backgroundSize: '100% 100%'
+		};
+
 		return (
-			<div className='click' id='PlayButton' onClick={this.togglePlay}>
-				<div className='overlay set-flex'>
-					<i className={playingClass}/>
-				</div>
-				<img src={constants.S3_ROOT_FOR_IMAGES+'small_'+currentSet.artistimageURL} />
+			<div className='click flex-container' id='PlayButton' onMouseUp={this.togglePlay} style={image}>
+				<i className={playingClass}/>
+				<img className='hidden' src={constants.S3_ROOT_FOR_IMAGES+'small_'+currentSet.artistimageURL} />
 			</div>
 		);
 	}

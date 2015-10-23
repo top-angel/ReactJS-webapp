@@ -1,7 +1,7 @@
 import React from 'react';
-import splice from '../services/splice';
 import {History} from 'react-router';
 import constants from '../constants/constants';
+import _ from 'underscore';
 
 var SearchBar = React.createClass({
 
@@ -9,9 +9,9 @@ var SearchBar = React.createClass({
 
 	handleKeypress(e) {
 		var query = document.getElementById('search').value;
-		if(e.charCode != 32 && query.length % 3 === 0) {
+		if(query.length >= 3 || e.charCode == 13) {
 			this.search(query);
-		}
+		} 
 	},
 
 	search(query) {
@@ -21,27 +21,12 @@ var SearchBar = React.createClass({
 		var results, 
 			searchUrl = constants.API_ROOT + 'search/' + query;
 
-		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				loaded: false
-			}
-		});
-
-		if(activeSearchAjax != null) {
-			activeSearchAjax.abort();
-			activeSearchAjax = null;
-		}
-
-		activeSearchAjax = $.ajax({
+		$.ajax({
 			url: searchUrl,
 			type: 'get'
 		})
 		.done(function(response) {
 			results = response.payload.search;
-			// var sets = splice.bigArray(results.sets, 50);
-			// var events = splice.bigArray(results.upcomingEvents, 50);
-			// var tracks = splice.bigArray(results.tracks, 50);
 			var sets = results.sets;
 			var events = results.upcomingEvents;
 			var tracks = results.tracks;
@@ -49,7 +34,6 @@ var SearchBar = React.createClass({
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					loaded: true,
 					searchResults: {
 						sets: sets,
 						upcomingEvents: events,
@@ -69,7 +53,7 @@ var SearchBar = React.createClass({
 				<input id='search' 
 					className='flex'
 					placeholder='search' 
-					onKeyPress={this.handleKeypress} />
+					onKeyPress={_.debounce(this.handleKeypress, 300)} />
           </div>
 		);
 	}

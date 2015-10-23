@@ -43,8 +43,10 @@ var SetTile = React.createClass({
 
 	openArtistPage: function() {
 		var routePath = this.props.artist.split(' ').join('_');
-		this.history.pushState(null, '/artist/' + routePath);
-		this.trackArtist();
+		this.history.pushState(null, `/artist/${routePath}`);
+		mixpanel.track("Artist Clicked", {
+			"Artist": this.props.artist
+		});
 	},
 
 	openFestivalPage: function() {
@@ -52,10 +54,10 @@ var SetTile = React.createClass({
 
 		if(this.props.is_radiomix == 0) {
 			//go to festival page
-			this.history.pushState(null, '/festival/' + routePath);
+			this.history.pushState(null, `/festival/${routePath}`);
 		} else {
 			//go to mix page
-			this.history.pushState(null, '/mix/' + routePath);
+			this.history.pushState(null, `/mix/${routePath}`);
 		}
 	},
 
@@ -86,20 +88,19 @@ var SetTile = React.createClass({
 				}
 			});
 
-			//TODO make sure this works
-			// self.history.pushState(null, '/play/' + self.props.id);
 			self.updatePlayCount(self.props.id);
 		});
 	},
 
 	shareToFacebook: function() {
 		var url = 'https://setmine.com/play/' + this.props.id;
+		var self = this;
 
 		FB.ui({
 			method: 'feed',
 			link: url,
 			caption: 'Share this Set',
-			picture: constants.S3_ROOT_FOR_IMAGES + this.props.artistimageURL
+			picture: constants.S3_ROOT_FOR_IMAGES + self.props.artistimageURL
 		}, function(response) {
 			console.debug(response);
 		});
@@ -111,7 +112,6 @@ var SetTile = React.createClass({
 	},
 
 	updatePlayCount: function(id) {
-		//todo get url
 		$.ajax({
 			type: 'POST',
 			url: constants.API_ROOT + 'playCount',
@@ -121,12 +121,6 @@ var SetTile = React.createClass({
 			success: function(data) {
 				console.log('play count updated');
 			}
-		});
-	},
-
-	trackArtist() {
-		mixpanel.track("Artist Clicked", {
-			"Artist": this.props.artist
 		});
 	},
 
