@@ -19,7 +19,7 @@ var SetstoryLandingPage = React.createClass({
 					</div>
 					<div className='aquire flex'>
 						<div className='uv flex-column flex-fixed'>
-							<h1>Acquire new customers by parterning with muscians.</h1>
+							<h1>Acquire new customers by parterning with musicians.</h1>
 							<div className='flex-row setstory-apps center'>
 								<a href='https://itunes.apple.com/us/app/setmine/id921325688?mt=8' className='fa fa-apple fa-fw center'/>
 								<a href='https://play.google.com/store/apps/details?id=com.setmine.setstory' className='fa fa-android fa-fw center'/>
@@ -31,7 +31,7 @@ var SetstoryLandingPage = React.createClass({
 
 				<section className='beacon flex-column'>
 					<img src='/images/setstory/beaconIcon.png'/>
-					<p>We built a beacon network that brings customers to you by allowing artist to lock new music in venues, bars, & retail locations.</p>
+					<p>We built a beacon network that brings customers to you by allowing artists to lock new music in venues, bars, & retail locations.</p>
 				</section>
 
 				<section id='model'>
