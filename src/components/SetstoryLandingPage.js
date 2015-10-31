@@ -25,7 +25,7 @@ var SetstoryLandingPage = React.createClass({
 								<a href='https://play.google.com/store/apps/details?id=com.setmine.setstory' className='fa fa-android fa-fw center'/>
 							</div>
 						</div>
-						<div className='landingPhones flex-fixed'/>
+						<div className='landingPhones flex-fixed '/>
 					</div>
 				</section>
 
