@@ -1,5 +1,5 @@
 import React from 'react';
-import playerService from '../services/playerService.js';
+import {changeTrack} from '../services/playerService.js';
 import convert from '../services/convert';
 
 var Track = React.createClass({
@@ -19,7 +19,7 @@ var Track = React.createClass({
 
 		var starttime = convert.MMSSToMilliseconds(this.props.starttime);
 		console.log(starttime);
-		playerService.changeTrack(appState, push, starttime, currentTrack);
+		changeTrack(appState, push, starttime, currentTrack);
 	},
 
 	render: function() {

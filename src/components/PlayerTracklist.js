@@ -1,6 +1,6 @@
 import React from 'react';
 import constants from '../constants/constants';
-import playerService from '../services/playerService.js';
+import {updateCurrentTrack} from '../services/playerService.js';
 import {History} from 'react-router';
 import { Motion, spring, presets } from 'react-motion';
 import Track from './Track';
@@ -25,7 +25,7 @@ var PlayerTracklist = React.createClass({
 	updateCurrentTrack() {
 		var appState = this.props.appState;
 		var push = this.props.push;
-		playerService.updateCurrentTrack(appState, push)
+		updateCurrentTrack(appState, push)
 	},
 
 	render() {

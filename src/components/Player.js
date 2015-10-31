@@ -1,5 +1,6 @@
 import React from 'react';
-import playerService from '../services/playerService.js';
+// import playerService from '../services/playerService.js';
+import {generateSound, togglePlay} from '../services/playerService';
 import constants from '../constants/constants';
 
 import PlayerControl from './PlayerControl';
@@ -37,7 +38,7 @@ var Player = React.createClass({
 		if(nextProps.appState.get('currentSet') != this.props.appState.get('currentSet')) {
 			var starttime = nextProps.appState.get('currentSet').starttime;
 
-			playerService.generateSound(starttime, nextProps.appState, push)
+			generateSound(starttime, nextProps.appState, push)
 			.then(function(smObj) {
 				console.log('Now playing: ', smObj);
 
@@ -74,7 +75,7 @@ var Player = React.createClass({
 
 	togglePlay: function() {
 		var sound = this.props.appState.get('sound');
-		playerService.togglePlay(sound);
+		togglePlay(sound);
 	},
 
 	render: function() {

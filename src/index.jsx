@@ -159,9 +159,7 @@ var App = React.createClass({
 
 					self.getTracklist(id)
 					.done(function(res) {
-						console.log(res.payload.tracks);
 						var tracklist = res.payload.tracks;
-
 						push({
 							type: 'SHALLOW_MERGE',
 							data: {
@@ -172,7 +170,7 @@ var App = React.createClass({
 							}
 						});
 					});
-			});
+				});
 		}
 	},
 

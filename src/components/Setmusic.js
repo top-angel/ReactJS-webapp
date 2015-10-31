@@ -16,9 +16,9 @@ var Setmusic = React.createClass({
 					<h2>Delivering Foot-Traffic With Music</h2>
 				</section>
 
-				<section id='video' className='flex-container'>
+				{/*<section id='video' className='flex-container'>
 					<iframe src="https://www.youtube.com/embed/r5XCYcxmR8s?rel=0" frameborder="0" allowfullscreen className='center'></iframe>
-				</section>
+				</section>*/}
 
 				<section id='company-purpose' className='flex-column'>
 					<div className='text flex-column'>

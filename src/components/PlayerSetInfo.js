@@ -9,7 +9,6 @@ var PlayerSetInfo = React.createClass({
 		var appState = this.props.appState;
 		var currentSet = appState.get('currentSet');
 		var timeElapsed = appState.get('timeElapsed');
-
 		var time = convert.millisecondsToMMSS(timeElapsed);
 
 		return (

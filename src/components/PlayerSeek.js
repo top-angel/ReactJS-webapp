@@ -1,5 +1,5 @@
 import React from 'react';
-import playerService from '../services/playerService.js';
+import {scrub} from '../services/playerService.js';
 import convert from '../services/convert';
 
 var PlayerSeek = React.createClass({
@@ -15,7 +15,7 @@ var PlayerSeek = React.createClass({
 		var errorFactor = 1.0575; //compensates for soundmanger innacuracy
 		var containerPosition = (((e.pageX - offset)*errorFactor)/ $(window).width()) * 100;
 
-		playerService.scrub(containerPosition, appState, push);
+		scrub(containerPosition, appState, push);
 	},
 
 	render: function() {
