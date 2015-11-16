@@ -1,11 +1,25 @@
 import React from 'react';
-import {History} from 'react-router';
+import {History, Link} from 'react-router';
 import constants from '../constants/constants';
 import _ from 'underscore';
 
 var SearchBar = React.createClass({
 
 	mixins: [History],
+
+	componentWillUnmount() {
+		this.props.push({
+			type: 'SHALLOW_MERGE',
+			data: {
+				searchResults: {
+					sets: [],
+					upcomingEvents: [],
+					tracks: [],
+					artists: []
+				}
+			}
+		});
+	},
 
 	handleKeypress(e) {
 		var query = document.getElementById('search').value;
@@ -25,8 +39,9 @@ var SearchBar = React.createClass({
 			url: searchUrl,
 			type: 'get'
 		})
-		.done(function(response) {
+		.done(response => {
 			results = response.payload.search;
+			var artists = results.artists;
 			var sets = results.sets;
 			var events = results.upcomingEvents;
 			var tracks = results.tracks;
@@ -37,7 +52,8 @@ var SearchBar = React.createClass({
 					searchResults: {
 						sets: sets,
 						upcomingEvents: events,
-						tracks: tracks
+						tracks: tracks,
+						artists: artists
 					}
 				}
 			});
@@ -49,7 +65,7 @@ var SearchBar = React.createClass({
 	render() {
 		return (
 			<div className='center flex flex-row'>
-				<i className='nav-button fa fa-search center click'/>
+				<Link className='nav-button fa fa-search center click' to='/search' />
 				<input id='search' 
 					className='flex'
 					placeholder='search' 

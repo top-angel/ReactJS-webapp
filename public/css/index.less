@@ -101,25 +101,31 @@ a {
 	background-color: @green;//test
 	color: @dark-gray;
 	text-align: center;
+	z-index: 1;
 }
 
 .artist-tile {
 	background-size: 100% 100%;
-	color:white;
-	.size(15.5vw, 15.5vw);
 	margin: 1vh;
 	text-align: center;
 	position: relative;
-	.createOverlay(0.5, @dark-gray);
-	&:hover {
-		.createOverlay(0.25, @dark-gray);
-		.transition(0.2s);
-	}
+	cursor: pointer;
+	line-height: 1.5rem;
+	.background(white, @dark-gray);
+	.size(15.5vw, 20vw);
+	.card(1);
 	.center {
-		z-index: 3;
+		.background(@dark-gray, white);
+		.border-radius(5px);
+		padding: 0 .5rem;
+	}
+	img {
+		margin: 2rem auto;
+		.border-radius(50%);
+		.size(100px);
 	}
 	.small({
-		.size(50vw, 50vw);
+		.size(50vw);
 		margin: 0;
 	});
 }
@@ -1031,6 +1037,38 @@ header {
 		}
 		.artist {
 			color: @gray;
+		}
+	}
+	.modal {
+		@modalHeight: 3vh;
+		.background(@light-gray, @dark-gray);
+		.size(12vw, @modalHeight);
+		position: absolute;
+		bottom: 55%;
+		right: 20%
+		visibility: hidden;
+		.text {
+			font-size: 1rem;
+			width: 95%;
+			margin: auto;
+			text-align: center;
+		}
+		span {
+			position: relative;
+			&::after {
+				content:'';
+				position: absolute;
+				bottom: -5px;
+				right: @tracklistOffset*.6;
+				background: @dark-gray;
+				.border-radius(0 0 0 3px);
+				z-index: -1;
+				.size(10px, 10px);
+				.transform(rotate(45deg));
+				.small({
+					right: 11.5vw;
+				}, 840px);
+			}
 		}
 	}
 	.link:hover {color:@blue;}

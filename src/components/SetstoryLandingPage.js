@@ -21,7 +21,7 @@ var SetstoryLandingPage = React.createClass({
 						<div className='uv flex-column flex-fixed'>
 							<h1>Acquire new customers by parterning with musicians.</h1>
 							<div className='flex-row setstory-apps center'>
-								<a href='https://itunes.apple.com/us/app/setmine/id921325688?mt=8' className='fa fa-apple fa-fw center'/>
+								<a href='https://itunes.apple.com/us/app/setstory/id1044445159?mt=8' className='fa fa-apple fa-fw center'/>
 								<a href='https://play.google.com/store/apps/details?id=com.setmine.setstory' className='fa fa-android fa-fw center'/>
 							</div>
 						</div>

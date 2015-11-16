@@ -24,9 +24,9 @@ var Header = React.createClass({
 	          	<div className='center'>Artists</div>
 	          </Link>   
 	          <div className='buffer-4x'/>
-	          <Link className='search-bar flex-row flex-3x' to='/search'>
+	          <div className='search-bar flex-row flex-3x'>
 			       <SearchBar push={this.props.push} appState={this.props.appState}/>
-				</Link>
+				</div>
 				
 			</header>
 		);

@@ -9,42 +9,39 @@ var TITLE = 'Artists';
 var TYPE = 'artist';
 var Artists = React.createClass({
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			loaded: false
 		};
 	},
-	componentWillMount: function() {
-		this.getArtists();
-	},
-	getArtists: function() {
-		var push = this.props.push;
-		var _this = this;
-		var results,
-			artistUrl = constants.API_ROOT + 'artist';
 
-		$.ajax({
-			url: artistUrl,
-			type: 'get'
-		})
-		.done(function(response) {
-			results = response.payload.artist;
-			push({
+	componentWillMount() {
+		this.getArtists()
+		.done(res => {
+			this.props.push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					artistBrowseData: results
+					artistBrowseData: res.payload.artist
 				}
 			});
 
-			_this.setState({
+			this.setState({
 				loaded: true
 			});
 		});
 	},
-	render: function() {
+
+	getArtists() {
+		var artistUrl = constants.API_ROOT + 'artist';
+		return $.ajax({
+			url: artistUrl,
+			type: 'get'
+		})
+	},
+
+	render() {
 		var appState = this.props.appState.get('artistBrowseData');
 		var push = this.props.push;
-		var containerClass = 'flex-row flex view overlay-container scrollable';
 
 		var tiles = appState.map(function(artist, index) {
 			var props = {
@@ -53,7 +50,9 @@ var Artists = React.createClass({
 				id: artist.id,
 				push: push,
 				imageURL: artist.imageURL,
-				firstLetter: artist.artist[0]
+				firstLetter: artist.artist[0],
+				set_count: artist.set_count,
+				event_count: artist.event_count
 			};
 
 			return <ArtistTile {...props} />
@@ -61,7 +60,7 @@ var Artists = React.createClass({
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div className={containerClass}>
+				<div className='flex-row flex view scrollable'>
 					{tiles}
 				</div>
 			</Loader>

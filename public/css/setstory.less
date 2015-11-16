@@ -216,3 +216,30 @@ SETSTORY lANDING PAGE
 		});
 	}
 }
+
+#model {
+	.background(@blue, @white);
+	.flexContainer(row, horizontal, wrap);
+	text-align: center;
+	font-size: 1rem;
+	img {
+		.size(80px, 80px);
+		margin: 5vh auto 2vh;
+	}
+	>div {
+		position: relative;
+		width: 50vw;
+	}
+	h6 {
+		font-size: 1.5rem;
+		margin: 0;
+		position: absolute;
+		top: 2vw;
+		left: 2vw;
+	}
+	.desktop({
+		>div {
+			width: 25vw;
+		}
+	});
+}

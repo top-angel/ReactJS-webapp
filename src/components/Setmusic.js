@@ -3,17 +3,17 @@ import Footer from './Footer';
 
 var Setmusic = React.createClass({
 
-	componentDidMount: function() {
+	componentDidMount() {
 		$(window).scrollTo(0, 0);
 		mixpanel.track("About Page Open");
 	},
 
-	render: function() {
+	render() {
 		return (
 			<div id='Setmusic'>
 				<section id='landing-page' className='flex-column'>
 					<h1>SETMUSIC</h1>
-					<h2>Delivering Foot-Traffic With Music</h2>
+					<h2>We bring foot traffic to retailers with unlockable music</h2>
 				</section>
 
 				{/*<section id='video' className='flex-container'>

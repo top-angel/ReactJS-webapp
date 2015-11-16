@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ArtistTileContainer from './ArtistTileContainer';
 import SetContainer from './SetContainer';
 import EventContainer from './EventContainer';
 import TrackContainer from './TrackContainer';
@@ -8,10 +8,11 @@ var SearchResultsView = React.createClass({
 
 	getInitialState() {
 		return {
-			active: 'sets'
+			active: 'artists'
 		};
 	},
 
+// TODO make this without jquery
 	componentDidMount: function() {
 		var self = this;
 		$('.results-filter').click(function(e){
@@ -39,11 +40,25 @@ var SearchResultsView = React.createClass({
 				$(window).scrollTo($('.header-small.tracks'), 200, {
 					offset: scrollOffset
 				});
+			} else if($(this).is('.artists')) {
+				self.setState({
+					active: 'artists'
+				});
+				$(window).scrollTo($('.header-small.artists'), 200, {
+					offset: scrollOffset
+				});
 			}
+			// switch(true) {
+			// 	case $(this).is('.artists'):
+			// 		break;
+			// 	case $(this).is('.sets'):
+			// 		break;
+			// 	case $(this).is('.events'):
+			// 		break;
+			// 	case $(this).is('.tracks'):
+			// 		break;
+			// }
 		});
-
-		//TODO clear search results view on search click/empty input bar
-		//line 2173 in master-original
 	},
 
 	componentWillUnmount() {
@@ -72,6 +87,9 @@ var SearchResultsView = React.createClass({
 		return (
 			<div id='SearchResultsView' className='view overlay-container'>
 				<div className='flex-row view-title-container search'>
+					<div className={this.state.active == 'artists' ? 'view-title artists results-filter flex flex-container active':'view-title artists results-filter flex flex-container'}  data-type='artists'>
+						<div className='center'>ARTISTS</div>
+					</div>
 					<div className={this.state.active == 'sets' ? 'view-title sets results-filter flex flex-container active':'view-title sets results-filter flex flex-container'}  data-type='sets'>
 						<div className='center'>SETS</div>
 					</div>
@@ -83,26 +101,27 @@ var SearchResultsView = React.createClass({
 					</div>
 				</div>
 				<div className='results-container flex-column'>
+					<div className='header-small artists'>ARTISTS</div>
+					<ArtistTileContainer
+						artists={searchResults.artists}
+						push={this.props.push} />
 					<div className='header-small sets'>SETS</div>
 					<SetContainer
 						sets={searchResults.sets}
 						push={this.props.push}
 						loginStatus={loginStatus}
 						user={user}
-						containerClass={setClass}
-					/>
+						containerClass={setClass} />
 					<div className='header-small events'>EVENTS</div>
 					<EventContainer
 						events={searchResults.upcomingEvents}
 						push={this.props.push}
-						containerClass={eventClass}
-					/>
+						containerClass={eventClass} />
 					<div className='header-small tracks'>TRACKS</div>
 					<TrackContainer
 						tracks={searchResults.tracks}
 						push={this.props.push}
-						containerClass={trackClass}
-					/>
+						containerClass={trackClass} />
 				</div>
 			</div>
 		);

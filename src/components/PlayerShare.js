@@ -38,7 +38,7 @@ var PlayerShare = React.createClass({
 		e.stopPropagation();
 		var currentSet = this.props.appState.get('currentSet');
 
-		var url = 'https://setmine.com/play/' + currentSet.id;
+		var url = `https://setmine.com/play/${currentSet.id}`;
 		FB.ui({
 			method: 'feed',
 			link: url,
@@ -46,6 +46,7 @@ var PlayerShare = React.createClass({
 			picture: constants.S3_ROOT_FOR_IMAGES + currentSet.artistimageURL
 		}, function(response) {
 			console.debug(response);
+			console.log('share to facebook failed');
 		});
 	},
 

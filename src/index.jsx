@@ -6,7 +6,7 @@ import R from 'ramda';
 
 import { IndexRoute, Link, Route, History, Redirect } from 'react-router';
 import GlobalEventHandler from './services/globalEventHandler';
-import loginService from './services/loginService';
+import {startFacebookSDK} from './services/loginService';
 import detectMobileService from './services/detectMobileService';
 import constants from './constants/constants';
 
@@ -46,6 +46,7 @@ import ArtistTileContainer from './components/ArtistTileContainer';
 import DMCA from './components/DMCA';
 import Setmusic from './components/Setmusic';
 import SetstoryLandingPage from './components/SetstoryLandingPage';
+import About from './components/About';
 
 var initialAppState = Immutable.Map({
 	currentSet: {
@@ -129,7 +130,7 @@ var App = React.createClass({
 
 	componentDidMount() {
 		var metadataPath = window.location.pathname;
-		loginService.startFacebookSDK(push);
+		startFacebookSDK(push);
 	},
 
 	_attachStreams() {
@@ -277,7 +278,7 @@ var routes = (
 		<Redirect from='/event/:eventID' to='/event/:eventID' />
 
 		// Setmusic About
-		<Route path='about' component={Setmusic}/>
+		<Route path='about' component={About}/>
 
 		// Setstory About
 		<Route path='setstory' component={SetstoryLandingPage}/>
@@ -289,6 +290,8 @@ var bodyMount = document.getElementById('body-mount-point');
 
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 var history = createBrowserHistory();
+// import createHashHistory from 'history/lib/createHashHistory';
+// var history = createHashHistory();
 
 React.render(
 	<Router history={history}>

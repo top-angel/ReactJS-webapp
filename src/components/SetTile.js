@@ -1,12 +1,22 @@
 import React from 'react';
-import favoriteSet from '../services/favoriteSet';
+import {favoriteSet} from '../services/favoriteSet';
 import constants from '../constants/constants';
 import {History, Link} from 'react-router';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import { Motion } from 'react-motion';
 
 var SetTile = React.createClass({
 
 	displayName: 'Set Tile',
 	mixins: [History],
+
+	getInitialState() {
+		return {
+			copied: false,
+			open: false,
+			copyText: 'Copy to Clipboard'
+		};
+	},
 
 	getDefaultProps: function() {
 		return {
@@ -17,16 +27,29 @@ var SetTile = React.createClass({
 		};
 	},
 
+	animate() {
+		this.setState({
+			open: !this.state.open,
+			copyText: 'Copy to Clipboard'
+		});
+	},
+
+	copyURL() {
+		this.setState({
+			copyText: 'Copied!'
+		});
+	},
+
 	favoriteSet: function() {
 		var push = this.props.push;
 		var user = this.props.user;
 		var loginStatus = this.props.loginStatus;
 
-		var favoriteUrl = constants.API_ROOT + 'user/updateFavoriteSets';
+		var favoriteUrl = `${constants.API_ROOT}user/updateFavoriteSets`;
 		var self = this;
 
 		if(loginStatus) {
-			favoriteSet.favoriteSet(push, user, this.props.id);
+			favoriteSet(push, user, this.props.id);
 		} else {
 			this.history.pushState(null, '/user');
 		}
@@ -130,6 +153,8 @@ var SetTile = React.createClass({
 		};
 		var artistImage = constants.S3_ROOT_FOR_IMAGES+'small_'+this.props.artistimageURL;
 		var favorite = this.props.favorited ? 'link fa fa-fw fa-star center click' : 'link fa fa-fw fa-star-o center click';
+		var playURL = `https://setmine.com/play/${this.props.id}`;
+		var self = this;
 
 		return (
 			<div className='flex-column set-tile' style={eventImage}>
@@ -140,7 +165,25 @@ var SetTile = React.createClass({
 							<div className='flex click link set-name' onClick={this.openFestivalPage}>{this.props.setName}</div>
 							<div className='flex click link artist' to='artist' onClick={this.openArtistPage}>{this.props.artist}</div>
 	                    <div className='flex flex-row'>
+	                    	<Motion style={{ 
+								y: this.state.open ? 'visible' : 'hidden'
+							}}>
+								{
+									({y}) =>
+									<div className='modal flex-container' style={{
+										visibility: `${y}`
+									}}>
+										<div className='text'>{self.state.copyText}</div>
+										<span/>
+									</div>
+								}
+							</Motion>
 								<i className={favorite} onClick={this.favoriteSet} />
+								<CopyToClipboard text={playURL} onCopy={() => { self.copyURL() }}>
+									<i className='link fa fa-fw fa-clipboard center click'
+										onMouseEnter={() => {self.animate()}}
+										onMouseLeave={() => {self.animate()}} />
+								</CopyToClipboard>
 								<i className='link fa fa-fw fa-facebook center click' onClick={this.shareToFacebook} />
 								<i className='link fa fa-fw fa-twitter center click' onClick={this.shareToTwitter}/>
 	                    </div>
