@@ -65,7 +65,7 @@ function generateSound(loadStart, appState, push) {
 		onload: function() {
 			var totalTime = sound.durationEstimate;
 		},
-		// volume: 0, //comment out for production
+		volume: 0, //comment out for production
 		whileplaying: function() {
 			var currentTime = sound.position;
 			//UPDATE CURRENT TRACK HERE

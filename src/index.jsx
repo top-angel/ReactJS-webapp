@@ -132,6 +132,7 @@ var App = React.createClass({
 	componentDidMount() {
 		var metadataPath = window.location.pathname;
 		startFacebookSDK(push);
+		console.log(this.state.appState.get('isUserLoggedIn'));
 	},
 
 	_attachStreams() {
@@ -171,8 +172,9 @@ var App = React.createClass({
 								playing: true
 							}
 						});
-					});
-				});
+					}
+				);
+			});
 		}
 	},
 
@@ -287,10 +289,10 @@ var routes = (
 var headMount = document.getElementById('head-mount-point');
 var bodyMount = document.getElementById('body-mount-point');
 
-import createBrowserHistory from 'history/lib/createBrowserHistory';
-var history = createBrowserHistory();
-// import createHashHistory from 'history/lib/createHashHistory';
-// var history = createHashHistory();
+// import createBrowserHistory from 'history/lib/createBrowserHistory';
+// var history = createBrowserHistory();
+import createHashHistory from 'history/lib/createHashHistory';
+var history = createHashHistory();
 
 React.render(
 	<Router history={history}>

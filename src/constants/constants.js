@@ -1,8 +1,8 @@
 //TODO change to version 8 and make sure all requests work
-var API_VERSION = 8;
+var API_VERSION = 10;
 
-var API_BASE_URL = 'https://setmine.com';
-var API_ROOT = API_BASE_URL + '/api/v/' + API_VERSION + '/';
+var API_BASE_URL = 'https://api.setmine.com';
+var API_ROOT = `${API_BASE_URL}/v/${API_VERSION}/`;
 
 var S3_ROOT = 'https://s3.amazonaws.com/stredm/namecheap/';
 var S3_ROOT_FOR_IMAGES = 'https://d1wbxby8dwa4u.cloudfront.net/namecheap/';
