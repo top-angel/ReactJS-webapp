@@ -12,14 +12,6 @@ var ANDROID_URL = 'https://play.google.com/store/apps/details?id=com.setmine.and
 var IOS_URL = 'https://itunes.apple.com/us/app/setmine/id921325688?mt=8';
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-var colors = {
-	fb: '#3b5998',
-	twitter_: '#55acee',
-	instagram: '#3f729b',
-	soundcloud: '#ff8800',
-	youtube: '#cd201f'
-};
-
 module.exports =  {
 	S3_ROOT: S3_ROOT,
 	S3_ROOT_FOR_IMAGES: S3_ROOT_FOR_IMAGES,

@@ -18,7 +18,7 @@ soundManager.setup({
 	url: '/swf/soundmanager2.swf',
 	debugMode: false,
 	onready: function() {
-		console.log('SM2 loaded');
+		// console.log('SM2 loaded');
 		smDeferred.resolve();
 	},
 	ontimeout: function() {

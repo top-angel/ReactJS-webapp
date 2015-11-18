@@ -2,7 +2,8 @@ import React from 'react';
 import $ from 'jquery';
 
 var LandingApp = React.createClass({
-	componentDidMount: function() {
+
+	componentDidMount() {
 		var activeSlide = 'fa fa-fw fa-circle click';
 		var inactiveSlide = 'fa fa-fw fa-circle-o click';
 		var slides = $('.slide'),
@@ -37,7 +38,12 @@ var LandingApp = React.createClass({
 		//initialize slider on load
 		moveTo('next');
 	},
-	render: function() {
+
+	componentWillUnmount() {
+		clearTimeout();
+	},
+
+	render() {
 		return (
 			<div className='flex-column' id='LandingApp'>
 				<div className='flex-row slide slide-1 animated fadeIn'>

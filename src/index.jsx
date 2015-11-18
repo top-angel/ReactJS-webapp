@@ -47,7 +47,7 @@ import DMCA from './components/DMCA';
 import Setmusic from './components/Setmusic';
 import SetstoryLandingPage from './components/SetstoryLandingPage';
 import About from './components/About';
-// import BlogWrapper from './components/BlogWrapper';
+import BlogWrapper from './components/BlogWrapper';
 
 var initialAppState = Immutable.Map({
 	currentSet: {
@@ -278,21 +278,19 @@ var routes = (
 		<Redirect from='/browse/:mix/mix' to='/mix/:mix' />
 		<Redirect from='/event/:eventID' to='/event/:eventID' />
 
-		{/*Setmusic About*/}
 		<Route path='about' component={About}/>
-
-		{/*Setstory About*/}
 		<Route path='setstory' component={SetstoryLandingPage}/>
+		{/*<Route path='blog' component={BlogWrapper}/>*/}
 	</Route>
 );
 
 var headMount = document.getElementById('head-mount-point');
 var bodyMount = document.getElementById('body-mount-point');
 
-// import createBrowserHistory from 'history/lib/createBrowserHistory';
-// var history = createBrowserHistory();
-import createHashHistory from 'history/lib/createHashHistory';
-var history = createHashHistory();
+import createBrowserHistory from 'history/lib/createBrowserHistory';
+var history = createBrowserHistory();
+// import createHashHistory from 'history/lib/createHashHistory';
+// var history = createHashHistory();
 
 React.render(
 	<Router history={history}>
