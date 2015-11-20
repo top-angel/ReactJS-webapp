@@ -38,6 +38,7 @@
     "react-geosuggest": "^1.8.0",
     "react-loader": "^1.4.0",
     "react-motion": "^0.3.0",
+    "react-pagify": "^0.9.0",
     "react-router": "^1.0.0-rc1",
     "rx": "^3.1.0",
     "sass-loader": "^2.0.1",

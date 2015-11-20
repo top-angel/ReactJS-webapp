@@ -166,18 +166,18 @@ var SetTile = React.createClass({
 							<div className='flex click link artist' to='artist' onClick={this.openArtistPage}>{this.props.artist}</div>
 	                    <div className='flex flex-row'>
 	                    	<Motion style={{ 
-								y: this.state.open ? 'visible' : 'hidden'
-							}}>
-								{
-									({y}) =>
-									<div className='modal flex-container' style={{
-										visibility: `${y}`
-									}}>
-										<div className='text'>{self.state.copyText}</div>
-										<span/>
-									</div>
-								}
-							</Motion>
+									y: this.state.open ? 'visible' : 'hidden'
+								}}>
+									{
+										({y}) =>
+										<div className='modal flex-container' style={{
+											visibility: `${y}`
+										}}>
+											<div className='text'>{self.state.copyText}</div>
+											<span/>
+										</div>
+									}
+								</Motion>
 								<i className={favorite} onClick={this.favoriteSet} />
 								<CopyToClipboard text={playURL} onCopy={() => { self.copyURL() }}>
 									<i className='link fa fa-fw fa-clipboard center click'

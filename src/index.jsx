@@ -8,7 +8,7 @@ import { IndexRoute, Link, Route, History, Redirect } from 'react-router';
 import GlobalEventHandler from './services/globalEventHandler';
 import {startFacebookSDK} from './services/loginService';
 import detectMobileService from './services/detectMobileService';
-import constants from './constants/constants';
+import {API_ROOT} from './constants/constants';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -126,12 +126,16 @@ var App = React.createClass({
 	componentWillMount() {
 		this._attachStreams();
 		detectMobileService.detectMobileBrowser();
-		this.playSet();
+		if(!!this.props.params.set) {
+			this.playSet();
+		}
 	},
 
 	componentDidMount() {
 		var metadataPath = window.location.pathname;
 		startFacebookSDK(push);
+
+		// check if user is logged in
 		console.log(this.state.appState.get('isUserLoggedIn'));
 	},
 
@@ -146,55 +150,44 @@ var App = React.createClass({
 		var id = this.props.params.set;
 		var self = this;
 
-		if(!!id) {
-			this.getSetById(id)
-				.done(function(res) {
-					var set = R.head(res.payload.set);
-					var currentSet = {
-						artist: set.artist,
-						event: set.event,
-						id: set.id,
-						set_length: set.set_length,
-						songURL: set.songURL,
-						artistimageURL: set.artistimageURL,
-						starttime: '00:00'
-					};
+		this.getSetById(id).done(res => {
+			if(res.status == 'success') {
+				var set = res.payload.sets_id;
+				var tracks = set.tracks;
+				var artists = R.pluck('artist', set.artists);
+				var artist = artists.toString().split(',').join(', ');
 
-					self.getTracklist(id)
-					.done(function(res) {
-						var tracklist = res.payload.tracks;
-						push({
-							type: 'SHALLOW_MERGE',
-							data: {
-								currentSet: currentSet,
-								tracklist: tracklist,
-								currentTrack: R.head(res.payload.tracklist),
-								playing: true
-							}
-						});
+				var currentSet = {
+					artist: artist,
+					event: set.event.event,
+					id: set.id,
+					set_length: set.set_length,
+					songURL: set.songURL,
+					artistimageURL: set.icon_image.imageURL,
+					starttime: '00:00'
+				};
+
+				push({
+					type: 'SHALLOW_MERGE',
+					data: {
+						currentSet: currentSet,
+						tracklist: tracks,
+						currentTrack: tracks[1].trackname,
+						playing: true
 					}
-				);
-			});
-		}
+				});
+			}
+		});
 	},
 
 	getSetById(id) {
 		return (
 			$.ajax({
 				type: 'get',
-				url: constants.API_ROOT + 'set/id',
-				data: {
-					'setId': [id]
-				}
+				url: `${API_ROOT}sets/id/${id}`
 			})
-		);
-	},
-
-	getTracklist(id) {
-		return (
-			$.ajax({
-				url: constants.API_ROOT + 'tracklist/' + id,
-				type: 'get'
+			.fail(err => {
+				console.error(err);
 			})
 		);
 	},

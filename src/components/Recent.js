@@ -1,6 +1,6 @@
 import React from 'react';
 import Loader from 'react-loader';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
 import SetContainer from './SetContainer';
 
 var TITLE = 'Recent';
@@ -8,45 +8,47 @@ var TYPE = 'set';
 
 var Recent = React.createClass({
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			loaded: false
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount() {
 		this.getRecentSets();
 	},
 
-	componentDidMount: function() {
+	componentDidMount() {
 		mixpanel.track("Sets Page Open");
 	},
 
-	getRecentSets: function() {
-		var _this = this;
+	getRecentSets() {
 		var push = this.props.push;
 		var recentSets,
-			recentUrl = constants.API_ROOT + 'recent';
+			recentUrl = `${API_ROOT}sets/recent`
 
 		$.ajax({
 			url: recentUrl,
 			type: 'get'
 		})
-		.done(function(response) {
-			recentSets = response.payload.recent;
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					recentBrowseData: recentSets
-				}
-			});
+		.done(res => {
+			if(res.status === 'success') {
+				recentSets = res.payload.sets_recent;
+				push({
+					type: 'SHALLOW_MERGE',
+					data: {
+						recentBrowseData: recentSets
+					}
+				});
 
-			_this.setState({
-				loaded: true
-			});
+				this.setState({
+					loaded: true
+				});
+			}
 		});
 	},
-	render: function() {
+
+	render() {
 		var sets = this.props.appState.get('recentBrowseData');
 		var loginStatus = this.props.appState.get('isUserLoggedIn');
 		var user = this.props.appState.get('user');

@@ -1,5 +1,4 @@
 import React from 'react';
-// import playerService from '../services/playerService.js';
 import {generateSound, togglePlay} from '../services/playerService';
 import constants from '../constants/constants';
 
@@ -40,7 +39,7 @@ var Player = React.createClass({
 
 			generateSound(starttime, nextProps.appState, push)
 			.then(function(smObj) {
-				console.log('Now playing: ', smObj);
+				// console.log('Now playing: ', smObj);
 
 				//play a new set
 				push({
@@ -89,11 +88,7 @@ var Player = React.createClass({
 			push: push
 		};
 
-		if(playerHidden) {
-			var playerClass = 'flex-row hidden';
-		} else {
-			var playerClass = 'flex-row';
-		}
+		var playerClass = playerHidden? 'flex-row hidden' : 'flex-row';
 
 		return (
 			<div className={playerClass} id='Player'>
