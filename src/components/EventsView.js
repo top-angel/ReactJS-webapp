@@ -7,15 +7,14 @@ import EventContainer from './EventContainer';
 
 var EventsView = React.createClass({
 
-	componentDidMount: function() {
+	componentDidMount() {
 		mixpanel.track("Events Page Open");
 	},
 	
-	displayName: 'EventsView',
-	render: function() {
+	render() {
 		var push = this.props.push;
 		var appState = this.props.appState;
-		var containerClass='flex-row results-container tile-container';
+		var containerClass='flex-row tile-container';
 
 		return (
 			<div id="EventsView" className="view flex-column">

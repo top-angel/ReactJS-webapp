@@ -1,11 +1,12 @@
 import React from 'react';
-import constants from '../constants/constants';
+import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
 import {History} from 'react-router';
 
 var FeaturedTile = React.createClass({
 
 	mixins: [History],
-	componentDidMount: function() {
+	componentDidMount() {
+		// move this to react motion maybe
 		$('.featured-tile').hover(function() {
 			$('.featured-info', $(this)).addClass('slideInUp')
 		}, function() {
@@ -13,7 +14,7 @@ var FeaturedTile = React.createClass({
 		});
 	},
 
-	openDetailPage: function() {
+	openDetailPage() {
 		var routePath = this.props.event.split(' ').join('-');
 
 		if(this.props.type == 'upcoming') {
@@ -30,16 +31,15 @@ var FeaturedTile = React.createClass({
 		});
 	},
 
-	render: function() {
+	render() {
 		var image = {
-			backgroundImage: "url(" + constants.S3_ROOT_FOR_IMAGES + this.props.main_imageURL+")"
+			backgroundImage: `url(${S3_ROOT_FOR_IMAGES + this.props.main_imageURL})`
 		};
 
 		return (
-			<div 
-			className="featured-tile flex-column overlay-container click" 
-			style={image} 
-			onClick={this.openDetailPage} >
+			<div className="featured-tile flex-column overlay-container click" 
+				style={image} 
+				onClick={this.openDetailPage} >
 			    <div className="flex-column featured-info animated">
 			        <div className="event-name">{this.props.event}</div>
 			        <div className="event-date">{this.props.formattedDate}</div>

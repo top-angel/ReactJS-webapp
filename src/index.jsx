@@ -68,7 +68,9 @@ var initialAppState = Immutable.Map({
 	activityBrowseData: [],
 	recentBrowseData: [],
 	popularBrowseData: [],
-	landingEvents: [],
+	featuredEvents: [],
+	upcomingEvents: [],
+	closestEvents: [],
 
 	isUserLoggedIn: false,
 	user: {

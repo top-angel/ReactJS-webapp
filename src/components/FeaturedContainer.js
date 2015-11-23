@@ -1,5 +1,5 @@
 import React from 'react';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
 import splice from '../services/splice';
 import Loader from 'react-loader';
 
@@ -7,55 +7,56 @@ import FeaturedTile from './FeaturedTile';
 
 var FeaturedContainer = React.createClass({
 		
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			loaded: false
 		};
 	},
 
-	componentWillMount: function() {
-		this.getLandingEvents();
+	componentWillMount() {
+		this.getFeaturedEvents();
 	},
 
-	getLandingEvents: function() {
+	getFeaturedEvents() {
 		var push = this.props.push;
-		var landingUrl = constants.API_ROOT + 'landing';
-		var _this = this;
 
+		//url only shows recent festivals, no upcoming events
 		$.ajax({
-			url: landingUrl,
-			type: 'GET'
+			url: `${API_ROOT}events/featured`,
+			type: 'get'
 		})
-		.done(function(response) {
-			var landingEvents = response.payload.landing;
-			splice.bigArray(landingEvents, 25);
+		.done(res => {
+			if(res.status === 'success') {
+				var featuredEvents = res.payload.events_featured;
+				push({
+					type: 'SHALLOW_MERGE',
+					data: {
+						featuredEvents: featuredEvents
+					}
+				});
 
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					landingEvents: landingEvents
-				}
-			});
-
-			_this.setState({
-				loaded: true
-			});
+				this.setState({
+					loaded: true
+				});
+			}
 		});
 	},
 
-	render: function() {
-		var landingEvents = this.props.appState.get('landingEvents');
+	render() {
+		var featuredEvents = this.props.appState.get('featuredEvents');
 		var push = this.props.push;
+
+		console.log(featuredEvents.length);
 		
-		var featuredTiles = landingEvents.map(function(event, index) {
+		var featuredTiles = featuredEvents.map((event, index) => {
 			var props = {
 				key: index,
-				id: event.id,
-				event: event.event,
-				main_imageURL: event.main_imageURL,
-				formattedDate: event.formattedDate,
+				id: event.event_id,
+				event: event.event.event,
+				main_imageURL: event.event.banner_image.imageURL,
+				formattedDate: event.event.formatted_date,
 				push: push,
-				type: event.type
+				type: event.event.type
 			};
 
 			return <FeaturedTile {...props} />

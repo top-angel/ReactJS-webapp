@@ -1,6 +1,6 @@
 import React from 'react';
 import Loader from 'react-loader';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
 
 import FestivalTile from './FestivalTile';
 
@@ -8,32 +8,31 @@ var TITLE = 'Festivals';
 var TYPE = 'event';
 var Festivals = React.createClass({
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			loaded: false
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount() {
 		this.getFestivals();
 	},
 
-	componentDidMount: function() {
+	componentDidMount() {
 		mixpanel.track("Festivals Page Open");
 	},
 
-	getFestivals: function() {
-		var _this = this;
+	getFestivals() {
 		var push = this.props.push;
 		var results,
-			festivalUrl = constants.API_ROOT + 'festival';
+			festivalUrl = `https://setmine.com/api/v/8/festival`
 
 		$.ajax({
 			url: festivalUrl,
 			type: 'get'
 		})
-		.done(function(response) {
-			results = response.payload.festival;
+		.done(res => {
+			results = res.payload.festival;
 			
 			push({
 				type: 'SHALLOW_MERGE',
@@ -42,18 +41,17 @@ var Festivals = React.createClass({
 				}
 			});
 
-			_this.setState({
+			this.setState({
 				loaded: true
 			});
 		});
 	},
 
-	render: function() {
-		var appState = this.props.appState.get('festivalBrowseData');
+	render() {
+		var festivals = this.props.appState.get('festivalBrowseData');
 		var push = this.props.push;
-		var containerClass = 'flex-row scrollable tile-container';
 
-		var tiles = appState.map(function(festival, index) {
+		var tiles = festivals.map((festival, index) => {
 			var props = {
 				push: push,
 				key: index,
@@ -68,7 +66,7 @@ var Festivals = React.createClass({
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div className={containerClass}>
+				<div className='flex-row scrollable tile-container'>
 					{tiles}
 				</div>
 			</Loader>

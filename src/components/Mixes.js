@@ -1,6 +1,6 @@
 import React from 'react';
 import Loader from 'react-loader';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
 import MixTile from './MixTile';
 
 var TITLE = 'Mixes';
@@ -8,59 +8,57 @@ var TYPE = 'mix';
 
 var Mixes = React.createClass({
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			loaded: false
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount() {
 		this.getMixes();
 	},
 
-	componentDidMount: function() {
+	componentDidMount() {
 		mixpanel.track("Mixes Page Open");
 	},
 
-	getMixes: function() {
-		var _this = this;
+	getMixes() {
 		var push = this.props.push;
 		var results,
-			mixUrl = constants.API_ROOT + 'mix';
+			mixUrl = `${API_ROOT}mixes`;
 
 		$.ajax({
 			url: mixUrl,
 			type: 'get'
 		})
-		.done(function(response) {
-			results = response.payload.mix;
+		.done(res => {
+			if(res.status === 'success') {
+				results = res.payload.mixes;
+				push({
+					type: 'SHALLOW_MERGE',
+					data: {
+						mixBrowseData: results
+					}
+				});
 
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					mixBrowseData: results
-				}
-			});
-
-			_this.setState({
-				loaded: true
-			});
+				this.setState({
+					loaded: true
+				});
+			}
 		});
 	},
 
-	render: function() {
+	render() {
 		var push = this.props.push;
-		var appState = this.props.appState.get('mixBrowseData');
-		var browseClass='flex-row scrollable tile-container';
+		var mixes = this.props.appState.get('mixBrowseData');
 
-		var tiles = appState.map(function(mix, index) {
-
+		var tiles = mixes.map((mix, index) => {
 			var props = {
 				key: index,
 				id: mix.id,
 				push: push,
 				event: mix.event,
-				imageURL: mix.imageURL
+				imageURL: mix.icon_image.imageURL_small
 			};
 
 			return <MixTile {...props} />
@@ -68,7 +66,7 @@ var Mixes = React.createClass({
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div className={browseClass}>
+				<div className='flex-row scrollable tile-container'>
 					{tiles}
 				</div>
 			</Loader>

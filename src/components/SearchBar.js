@@ -1,6 +1,6 @@
 import React from 'react';
 import {History, Link} from 'react-router';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
 import _ from 'underscore';
 
 var SearchBar = React.createClass({
@@ -33,17 +33,17 @@ var SearchBar = React.createClass({
 		var push = this.props.push;
 		var activeSearchAjax = null;
 		var results, 
-			searchUrl = constants.API_ROOT + 'search/' + query;
+			searchUrl = `${API_ROOT}search/${query}`;
 
 		$.ajax({
 			url: searchUrl,
 			type: 'get'
 		})
-		.done(response => {
-			results = response.payload.search;
+		.done(res => {
+			results = res.payload.search;
 			var artists = results.artists;
 			var sets = results.sets;
-			var events = results.upcomingEvents;
+			var events = results.events;
 			var tracks = results.tracks;
 
 			push({

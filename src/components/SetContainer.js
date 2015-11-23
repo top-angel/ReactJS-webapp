@@ -6,7 +6,7 @@ var SetContainer = React.createClass({
 
 	getDefaultProps() {
 		return {
-			containerClass: 'flex-row tile-container',
+			containerClass: 'flex-row tile-container scrollable',
 			sets: [],
 			user: {
 				favorite_set_ids: []
@@ -39,7 +39,7 @@ var SetContainer = React.createClass({
 			}
 
 			if(set.episode != null && set.episode.length > 0) {
-				var setName = set.event.event+' - '+set.episode	;
+				var setName = `${set.event.event} - ${set.episode}`;
 			} else {
 				var setName = set.event.event;
 			}
@@ -55,7 +55,7 @@ var SetContainer = React.createClass({
 				artist: set.artists[0].artist,
 				event: set.event.event,
 				setName: setName,
-				artistimageURL: set.artists[0].icon_image.imageURL,
+				artistimageURL: set.artists[0].icon_image.imageURL_small,
 				popularity: set.popularity,
 				songURL: set.songURL,
 				main_eventimageURL: set.event.icon_image.imageURL,
@@ -65,7 +65,7 @@ var SetContainer = React.createClass({
 				favorited: favorited
 			};
 
-			return(<SetTile {...props} />);
+			return <SetTile {...props} />;
 		});
 
 

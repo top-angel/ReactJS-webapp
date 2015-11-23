@@ -1,16 +1,17 @@
 import React from 'react';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
+import Loader from 'react-loader';
 import EventContainer from './EventContainer';
 
 var UpcomingEvents = React.createClass({
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			loaded: false
 		};
 	},
 
-	getDefaultProps: function() {
+	getDefaultProps() {
 		return {
 			appState: {
 				soonestEvents: []
@@ -18,41 +19,48 @@ var UpcomingEvents = React.createClass({
 		};
 	},
 
-	// componentWillMount: function() {
-	// 	this.getUpcomingEvents();
-	// },
+	componentWillMount() {
+		this.getUpcomingEvents();
+	},
 
-	// getUpcomingEvents: function() {
-	// 	var push = this.props.push;
-	// 	var upcomingUrl = constants.API_ROOT + 'upcoming';
-	// 	var _this = this;
+	getUpcomingEvents() {
+		var push = this.props.push;
+		$.ajax({
+			type: 'get',
+			url: `${API_ROOT}events/upcoming`,
+			data: {
+				property: 'start_date',
+				order: 'ASC'
+			}
+		})
+		.done(res => {
+			if(res.status === 'success') {
+				console.log(res.payload);
+				push({
+					type: 'SHALLOW_MERGE',
+					data: {
+						upcomingEvents: res.payload.upcoming
+					}
+				});
+				this.setState({
+					loaded: true
+				});
+			}
+		});
+	},
 
-	// 	$.ajax({
-	// 		type: 'get',
-	// 		url: upcomingUrl
-	// 	})
-	// 	.done(function(response) {
-	// 		push({
-	// 			type: 'SHALLOW_MERGE',
-	// 			data: {
-	// 				soonestEvents: response.payload.upcoming.soonestEvents
-	// 			}
-	// 		});
-
-	// 		_this.setState({
-	// 			loaded: true
-	// 		});
-	// 	});
-	// },
-
-	render: function() {
+	render() {
 		var props = {
 			push: this.props.push,
-			events: this.props.appState.get('soonestEvents'),
+			events: this.props.appState.get('upcomingEvents'),
 			containerClass: 'flex-row tile-container'
 		};
 
-		return <EventContainer {...props} />
+		return (
+			<Loader loaded={this.state.loaded}>
+				<EventContainer {...props} />
+			</Loader>	
+		);
 	}
 
 });

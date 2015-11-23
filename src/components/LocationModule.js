@@ -1,5 +1,5 @@
 import React from 'react';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
 import Geosuggest from 'react-geosuggest';
 import {History, Link, IndexLink} from 'react-router';
 
@@ -7,7 +7,8 @@ var LocationModule = React.createClass({
 
 	displayName: 'LandingModule',
 	mixins: [History],
-	getDefaultProps: function() {
+
+	getDefaultProps() {
 		return {
 			appState: {
 				location: {
@@ -21,12 +22,12 @@ var LocationModule = React.createClass({
 		};
 	},
 
-	componentDidMount: function() {
+	componentDidMount() {
 		navigator.geolocation.getCurrentPosition(this.getDefaultCoordinates);
-		this.getEventsByLocation();
+		this.getClosestEvents();
 	},
 
-	getDefaultCoordinates: function(location) {
+	getDefaultCoordinates(location) {
 		var push = this.props.push;
 		var coordinates = {
 			latitude: location.coords.latitude,
@@ -35,35 +36,34 @@ var LocationModule = React.createClass({
 		};
 	},
 
-	getEventsByLocation: function() {
+	getClosestEvents() {
 		var push = this.props.push;
 		var location = this.props.appState.get('location');
 		console.log(location);
 		var coordinates = location.location;
 		console.log(coordinates);
 
-		var eventUrl = constants.API_ROOT + 'upcoming?latitude=' + coordinates.lat + '&longitude=' + coordinates.lng;
-
 		$.ajax({
+			url: `${API_ROOT}events/upcoming`,
 			type: 'get',
-			url: eventUrl,
-			success: function(response) {
-				if(response.status == 'success') {
-					push({
-						type: 'SHALLOW_MERGE',
-						data: {
-							closestEvents: response.payload.upcoming.soonestEventsAroundMe,
-							soonestEvents: response.payload.upcoming.soonestEvents
-						}
-					});
-				} else {
-					console.log('Could not get events');
-				}
+			data: {
+				latitude: coordinates.lat,
+				longitude: coordinates.lng
 			}
-		});
+		})
+		.done(res => {
+			if(res.status === 'success') {
+				push({
+					type: 'SHALLOW_MERGE',
+					data: {
+						closestEvents: res.payload
+					}
+				})
+			}
+		})
 	},
 
-	onSuggestSelect: function(suggest) {
+	onSuggestSelect(suggest) {
 		var push = this.props.push;
 
 		push({
@@ -73,14 +73,14 @@ var LocationModule = React.createClass({
 			}
 		});
 
-		this.getEventsByLocation();
+		this.getClosestEvents();
 		this.history.pushState(null, '/events/closest');
 		mixpanel.track("Event Search Active", {
 			"search": suggest
 		});
 	},
 
-	render: function() {
+	render() {
 		var defaultLocation = this.props.appState.get('location');
 
 		return (

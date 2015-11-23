@@ -1,6 +1,6 @@
 import React from 'react';
 import {favoriteSet} from '../services/favoriteSet';
-import constants from '../constants/constants';
+import {API_ROOT, S3_ROOT_FOR_IMAGES} from '../constants/constants';
 import {History, Link} from 'react-router';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { Motion } from 'react-motion';
@@ -18,7 +18,7 @@ var SetTile = React.createClass({
 		};
 	},
 
-	getDefaultProps: function() {
+	getDefaultProps() {
 		return {
 			starttime: 0,
 			loginStatus: false,
@@ -40,12 +40,12 @@ var SetTile = React.createClass({
 		});
 	},
 
-	favoriteSet: function() {
+	favoriteSet() {
 		var push = this.props.push;
 		var user = this.props.user;
 		var loginStatus = this.props.loginStatus;
 
-		var favoriteUrl = `${constants.API_ROOT}user/updateFavoriteSets`;
+		var favoriteUrl = `${API_ROOT}user/updateFavoriteSets`;
 		var self = this;
 
 		if(loginStatus) {
@@ -55,8 +55,8 @@ var SetTile = React.createClass({
 		}
 	},
 
-	getTracklist: function() {
-		var trackListUrl = constants.API_ROOT + 'tracklist/' + this.props.id;
+	getTracklist() {
+		var trackListUrl = API_ROOT + 'tracklist/' + this.props.id;
 
 		return $.ajax({
 			url: trackListUrl,
@@ -64,7 +64,7 @@ var SetTile = React.createClass({
 		});
 	},
 
-	openArtistPage: function() {
+	openArtistPage() {
 		var routePath = this.props.artist.split(' ').join('_');
 		this.history.pushState(null, `/artist/${routePath}`);
 		mixpanel.track("Artist Clicked", {
@@ -72,7 +72,7 @@ var SetTile = React.createClass({
 		});
 	},
 
-	openFestivalPage: function() {
+	openFestivalPage() {
 		var routePath = this.props.event.split(' ').join('-');
 
 		if(this.props.is_radiomix == 0) {
@@ -84,7 +84,7 @@ var SetTile = React.createClass({
 		}
 	},
 
-	playSet: function() {
+	playSet() {
 		var push = this.props.push;
 		var self = this;
 
@@ -115,7 +115,7 @@ var SetTile = React.createClass({
 		});
 	},
 
-	shareToFacebook: function() {
+	shareToFacebook() {
 		var url = 'https://setmine.com/play/' + this.props.id;
 		var self = this;
 
@@ -123,35 +123,35 @@ var SetTile = React.createClass({
 			method: 'feed',
 			link: url,
 			caption: 'Share this Set',
-			picture: constants.S3_ROOT_FOR_IMAGES + self.props.artistimageURL
+			picture: S3_ROOT_FOR_IMAGES + self.props.artistimageURL
 		}, function(response) {
 			console.debug(response);
 		});
 	},
 
-	shareToTwitter: function() {
+	shareToTwitter() {
 		var parameters = 'url=' + encodeURIComponent('https://setmine.com/play/' + this.props.id + '&via=SetMineApp');
 		window.open('https://twitter.com/intent/tweet?' + parameters, '_blank', 'height=420, width=550');
 	},
 
-	updatePlayCount: function(id) {
+	updatePlayCount(id) {
 		$.ajax({
 			type: 'POST',
-			url: constants.API_ROOT + 'playCount',
+			url: API_ROOT + 'playCount',
 			data: {
 				id: id
 			},
-			success: function(data) {
+			success(data) {
 				console.log('play count updated');
 			}
 		});
 	},
 
-	render: function() {
+	render() {
 		var eventImage = {
-			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + this.props.main_eventimageURL + "')"
+			backgroundImage: `url(${S3_ROOT_FOR_IMAGES+this.props.main_eventimageURL})`
 		};
-		var artistImage = constants.S3_ROOT_FOR_IMAGES+'small_'+this.props.artistimageURL;
+		var artistImage = S3_ROOT_FOR_IMAGES+this.props.artistimageURL;
 		var favorite = this.props.favorited ? 'link fa fa-fw fa-star center click' : 'link fa fa-fw fa-star-o center click';
 		var playURL = `https://setmine.com/play/${this.props.id}`;
 		var self = this;
@@ -191,12 +191,12 @@ var SetTile = React.createClass({
 					</div>
 					<div className='divider center'/>
 					<div className='flex-row flex-fixed'>
-						<div className='flex-fixed click set-flex play'
+						<div className='flex-fixed click flex-container play'
 						onClick={this.playSet}>
 							<i className='fa fa-play center'>{'  '+this.props.popularity}</i>
 						</div>
 						<div className='divider'/>
-						<div className='flex-fixed set-flex'>
+						<div className='flex-fixed flex-container'>
 							<i className='fa fa-clock-o center'>{'  '+this.props.set_length}</i>
 						</div>
 					</div>
