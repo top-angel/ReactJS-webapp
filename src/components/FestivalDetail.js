@@ -1,6 +1,6 @@
 import React from 'react';
 import R from 'ramda';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
 import Loader from 'react-loader';
 
 import SetContainer from './SetContainer';
@@ -8,32 +8,30 @@ import DetailImageContainer from './DetailImageContainer';
 
 var FestivalDetail = React.createClass({
 
-	displayName: 'FestivalDetail',
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			loaded: false
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount() {
 		this.getFestivalData();
 	},
 
-	getFestivalData: function() {
-		var _this = this;
+	getFestivalData() {
 		var push = this.props.push;
 		var festival = this.props.params.festival;
 		var query = festival.split('-').join('%20');
 
 		var festivalData,
-			festivalUrl = constants.API_ROOT + 'festival/search/' + query;
+			festivalUrl = API_ROOT + 'festival/search/' + query;
 
 		$.ajax({
 			url: festivalUrl,
 			type: 'get',
 		})
-		.done(function(response) {
-			festivalData = response.payload.festival;
+		.done(res => {
+			festivalData = res.payload.events.events_id;
 
 			push({
 				type: 'SHALLOW_MERGE',
@@ -49,7 +47,7 @@ var FestivalDetail = React.createClass({
 		});
 	},
 
-	render: function() {
+	render() {
 		var appState = this.props.appState;
 		var push = this.props.push;
 

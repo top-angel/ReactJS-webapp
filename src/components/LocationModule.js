@@ -5,24 +5,9 @@ import {History, Link, IndexLink} from 'react-router';
 
 var LocationModule = React.createClass({
 
-	displayName: 'LandingModule',
 	mixins: [History],
 
-	getDefaultProps() {
-		return {
-			appState: {
-				location: {
-					label: 'TEST SHIT FUCK THIS',
-					location: {
-						lat: 29.652175,
-						lng: -82.325856
-					}
-				}
-			}
-		};
-	},
-
-	componentDidMount() {
+	componentWillMount() {
 		navigator.geolocation.getCurrentPosition(this.getDefaultCoordinates);
 		this.getClosestEvents();
 	},
@@ -43,6 +28,7 @@ var LocationModule = React.createClass({
 		var coordinates = location.location;
 		console.log(coordinates);
 
+// TODO this won't load for some reason
 		$.ajax({
 			url: `${API_ROOT}events/upcoming`,
 			type: 'get',
@@ -58,15 +44,15 @@ var LocationModule = React.createClass({
 					data: {
 						closestEvents: res.payload
 					}
-				})
+				});
+			} else {
+				console.log('Could not load events');
 			}
 		})
 	},
 
 	onSuggestSelect(suggest) {
-		var push = this.props.push;
-
-		push({
+		this.props.push({
 			type: 'SHALLOW_MERGE',
 			data: {
 				location: suggest

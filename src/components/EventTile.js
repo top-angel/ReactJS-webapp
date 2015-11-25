@@ -21,33 +21,25 @@ var EventTile = React.createClass({
 		};
 
 		return (
-		<div className='flex-column overlay-container event-tile' style={image}>
-
-			    <div className='event-date-container flex-5x flex-column click' onClick={this.openEventPage} >
+			<div className='flex-column event-tile' style={image}>
+				<div className='event-date-container flex-5x flex-column click' onClick={this.openEventPage} >
 					<h2>{month}</h2>
 					<div className='divider'/>
 					<h2>{day}</h2>
-			    </div>
-
-			    <div className='divider'/>
-
-			    <div className='detail flex-row flex'>
-	              <a href={this.props.ticket_link} className='set-flex flex click ticket-link tile-button'>
-	                  <i className='fa fa-fw fa-ticket center'/>
-	              </a>
-	              <div className='flex-3x flex-column event-info'>
-	                  <div className='center'>
-	                    {this.props.event}
-	                  </div>
-	                  <div className='center venue'>
-	                    {this.props.venue}
-	                  </div>
-	              </div>
-	              <div className='set-flex flex click event view-trigger tile-button' onClick={this.openEventPage}>
-	                  <i className='fa fa-fw fa-long-arrow-right center'/>
-	              </div>
-	          </div>
-
+				</div>
+				<div className='divider'/>
+				<div className='detail flex-row flex'>
+					<a href={this.props.ticket_link} className='flex-container flex click ticket-link tile-button'>
+						<i className='fa fa-fw fa-ticket center'/>
+					</a>
+					<div className='flex-3x flex-column event-info'>
+						<div className='center'>{this.props.event}</div>
+						<div className='center venue'>{this.props.venue}</div>
+					</div>
+					<div className='flex-container flex click event tile-button' onClick={this.openEventPage}>
+						<i className='fa fa-fw fa-long-arrow-right center'/>
+					</div>
+				</div>
 			</div>
 		);
 	}

@@ -1,5 +1,5 @@
 import React from 'react';
-import constants from '../constants/constants';
+import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
 import {History} from 'react-router';
 
 var ArtistTile = React.createClass({
@@ -21,7 +21,7 @@ var ArtistTile = React.createClass({
 
 	render() {
 		var image = {
-			backgroundImage: `url('${constants.S3_ROOT_FOR_IMAGES}small_${this.props.imageURL}')`
+			backgroundImage: `url('${S3_ROOT_FOR_IMAGES}small_${this.props.imageURL}')`
 		};
 		var setText = this.props.set_count > 1 ? 'sets' : 'set';
 		var eventText = this.props.event_count != 1 ? 'events' : 'event';
@@ -38,7 +38,7 @@ var ArtistTile = React.createClass({
 
 		return (
 			<div className='artist-tile flex-column' onClick={this.openArtistPage} >
-				<img src={constants.S3_ROOT_FOR_IMAGES+this.props.imageURL} />
+				<img src={S3_ROOT_FOR_IMAGES+this.props.imageURL} />
 				<div className='center'>{this.props.artist}</div>
 				<p>{artistInfo}</p>
 			</div>

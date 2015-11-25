@@ -1,15 +1,16 @@
 import React from 'react';
 import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
 import {History} from 'react-router';
+import {Motion, spring, presets} from 'react-motion';
 
 var FeaturedTile = React.createClass({
 
 	mixins: [History],
+
 	componentDidMount() {
-		// move this to react motion maybe
-		$('.featured-tile').hover(function() {
-			$('.featured-info', $(this)).addClass('slideInUp')
-		}, function() {
+		$('.featured-tile').hover(() => {
+			$('.featured-info', $(this)).addClass('slideInUp');
+		}, () => {
 			$('.featured-info').removeClass('slideInUp');
 		});
 	},

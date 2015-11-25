@@ -1,6 +1,6 @@
 import React from 'react';
 import R from 'ramda';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
 
 import Loader from 'react-loader';
 import DetailImageContainer from './DetailImageContainer';
@@ -8,46 +8,42 @@ import ArtistTileContainer from './ArtistTileContainer';
 
 var EventDetail = React.createClass({
 
-	displayName: 'EventDetail',
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			loaded: false
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount() {
 		this.getEventData();
 	},
 
-	getEventData: function() {
-		var _this = this;
+	getEventData() {
 		var push = this.props.push;
 		var event = this.props.params.event;
 
-		var eventData,
-			eventUrl = constants.API_ROOT + 'upcoming/id/' + event;
-
 		$.ajax({
-			url: eventUrl,
+			url: `${API_ROOT}events/id/${event}`,
 			type: 'get',
 		})
-		.done(function(response) {
-			eventData = response.payload.upcoming;
+		.done(res => {
+			if(res.status === 'success') {
+				eventData = res.payload.events.events_id;
+				push({
+					type: 'SHALLOW_MERGE',
+					data: {
+						detailId: eventData.id,
+						detailData: eventData
+					}
+				});
 
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					detailId: eventData.id,
-					detailData: eventData
-				}
-			});
-
-			_this.setState({
-				loaded: true
-			});
+				this.setState({
+					loaded: true
+				});
+			}
 		});
 	},
-	render: function() {
+	render() {
 		var appState = this.props.appState;
 		var detailData = appState.get('detailData');
 

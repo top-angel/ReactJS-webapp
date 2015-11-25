@@ -28,19 +28,19 @@ var EventContainer = React.createClass({
 				</div>
 			);
 		} else {
-			var tiles = events.map(function(event, index) {
+			var tiles = events.map((event, index) => {
 				var props = {
 					key: index,
 					id: event.id,
 					push: push,
 					event: event.event,
 					start_date: event.start_date,
-					main_imageURL: event.main_imageURL,
+					main_imageURL: event.icon_image.imageURL,
 					ticket_link: event.ticket_link,
-					venue: event.venue
+					venue: event.venue.venue
 				};
 
-				return <EventTile {...props} /> ;
+				return <EventTile {...props} />
 			});
 		}
 

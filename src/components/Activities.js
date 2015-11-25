@@ -7,46 +7,47 @@ var TITLE = 'Activities';
 var TYPE = 'activity';
 var Activities = React.createClass({
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			loaded: false
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount() {
 		this.getActivities();
 	},
 
-	componentDidMount: function() {
+	componentDidMount() {
 		mixpanel.track("Activities Page Open");
 	},
 
-	getActivities: function() {
-		var _this = this;
+	getActivities() {
 		var push = this.props.push;
 		var results,
-			activityUrl = constants.API_ROOT + 'activity';
+			activityUrl = 'https://setmine.com/api/v/8/activity/';
 
 		$.ajax({
 			url: activityUrl,
 			type: 'get'
 		})
-		.done(function(response) {
-			results = response.payload.activity;
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					activityBrowseData: results
-				}
-			});
+		.done(res => {
+			if(res.status === 'success') {
+				results = res.payload.activity;
+				push({
+					type: 'SHALLOW_MERGE',
+					data: {
+						activityBrowseData: results
+					}
+				});
 
-			_this.setState({
-				loaded: true
-			});
+				this.setState({
+					loaded: true
+				});
+			}
 		});
 	},
 	
-	render: function() {
+	render() {
 		var push = this.props.push;
 		var appState = this.props.appState.get('activityBrowseData');
 		var containerClass = 'flex-row scrollable tile-container';

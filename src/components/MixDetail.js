@@ -1,6 +1,6 @@
 import React from 'react';
 import Loader from 'react-loader';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
 
 import SetContainer from './SetContainer';
 import DetailImageContainer from './DetailImageContainer';
@@ -8,32 +8,31 @@ import DetailImageContainer from './DetailImageContainer';
 var MixDetail = React.createClass({
 
 	displayName: 'MixDetail',
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			loaded: false
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount() {
 		this.getMixData();
 	},
 
-	getMixData: function() {
-		var _this = this;
+	getMixData() {
 		var push = this.props.push;
 		var mix = this.props.params.mix;
 		var query = mix.split('-').join('%20');
 
-
+		// TODO write backend route for getting mix by id
 		var mixData,
-			mixUrl = constants.API_ROOT + 'mix/search/' + query;
+			mixUrl = API_ROOT + 'mixes/search/' + query;
 
 		$.ajax({
 			url: mixUrl,
 			type: 'get',
 		})
-		.done(function(response) {
-			mixData = response.payload.mix;
+		.done(res => {
+			mixData = res.payload.mix;
 
 			push({
 				type: 'SHALLOW_MERGE',
@@ -43,13 +42,13 @@ var MixDetail = React.createClass({
 				}
 			});
 
-			_this.setState({
+			this.setState({
 				loaded: true
 			});
 		});
 	},
 
-	render: function() {
+	render() {
 		var push = this.props.push;
 		var appState = this.props.appState;
 

@@ -153,7 +153,7 @@ var App = React.createClass({
 		var self = this;
 
 		this.getSetById(id).done(res => {
-			if(res.status == 'success') {
+			if(res.status === 'success') {
 				var set = res.payload.sets_id;
 				var tracks = set.tracks;
 				var artists = R.pluck('artist', set.artists);
@@ -187,9 +187,6 @@ var App = React.createClass({
 			$.ajax({
 				type: 'get',
 				url: `${API_ROOT}sets/id/${id}`
-			})
-			.fail(err => {
-				console.error(err);
 			})
 		);
 	},
@@ -284,10 +281,10 @@ var routes = (
 var headMount = document.getElementById('head-mount-point');
 var bodyMount = document.getElementById('body-mount-point');
 
-// import createBrowserHistory from 'history/lib/createBrowserHistory';
-// var history = createBrowserHistory();
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 import createHashHistory from 'history/lib/createHashHistory';
 var history = createHashHistory();
+// var history = createBrowserHistory();
 
 React.render(
 	<Router history={history}>

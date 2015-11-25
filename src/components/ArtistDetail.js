@@ -2,7 +2,7 @@ import React from 'react';
 import Loader from 'react-loader';
 import {Link} from 'react-router';
 import R from 'ramda';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
 
 import SetContainer from './SetContainer';
 import EventContainer from './EventContainer';
@@ -12,48 +12,45 @@ import LinkButtonContainer from './LinkButtonContainer';
 
 var ArtistDetail = React.createClass({
 
-	displayName: 'ArtistDetail',
-
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			loaded: false
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount() {
 		this.getArtistData();
 	},
 
-	getArtistData: function() {
-		var self = this;
+	getArtistData() {
 		var push = this.props.push;
 		var artist = this.props.params.artist;
 		var query = artist.split('_').join('%20');
-		var artistData,
-			artistUrl = constants.API_ROOT + 'artist/search/' + query;
 
 		$.ajax({
-			url: artistUrl,
+			url: `${API_ROOT}artists/search/${query}`,
 			type: 'get'
 		})
-		.done(function(response) {
-			artistData = response.payload.artist;
+		.done(res => {
+			if(res.status === 'success') {
+				var artistData = response.payload.artist;
 
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					detailId: artistData.id,
-					detailData: artistData
-				}
-			});
+				push({
+					type: 'SHALLOW_MERGE',
+					data: {
+						detailId: artistData.id,
+						detailData: artistData
+					}
+				});
 
-			self.setState({
-				loaded: true
-			});
+				this.setState({
+					loaded: true
+				});
+			}
 		});
 	},
 
-	render: function() {
+	render() {
 		var appState = this.props.appState;
 		var push = this.props.push;
 
@@ -61,8 +58,9 @@ var ArtistDetail = React.createClass({
 		var loginStatus = this.props.appState.get('isUserLoggedIn');
 		var user = this.props.appState.get('user');
 
-		var setText = artistData.set_count > 1 ? ' sets | ' : ' set | ';
-		var eventText = artistData.event_count != 1 ? ' events' : ' event';
+		var setText = artistData.set_count != 1 ? 'sets' : 'set';
+		var eventText = artistData.event_count != 1 ? 'events' : 'event';
+		var artistInfo = `${artistData.set_count} ${setText} | ${artistData.event_count} ${eventText}`;
 
 		var detailInfo = {
 			appState: appState,
@@ -70,7 +68,7 @@ var ArtistDetail = React.createClass({
 			title: artistData.artist,
 			buttonText: 'Shuffle',
 			imageURL: artistData.imageURL,
-			info: artistData.set_count + setText + artistData.event_count + eventText
+			info: artistInfo
 		};
 
 		var links = [
@@ -103,14 +101,14 @@ var ArtistDetail = React.createClass({
 					<LinkButtonContainer links={links}/>
 					<div className='divider'/>
 					<div className="flex-row links-container">
-						<Link className='click flex-fixed set-flex'
+						<Link className='click flex-fixed flex-container'
 							to={'/artist/'+this.props.params.artist}
 							onlyActiveOnIndex={true}
 							activeClassName='active'>
 							<div className='center'>SETS</div>
 						</Link>
-						<Link className='click flex-fixed set-flex'
-							to={'/artist/'+this.props.params.artist+'/events'}
+						<Link className='click flex-fixed flex-container'
+							to={`/artist/${this.props.params.artist}/events`}
 							activeClassName='active'>
 							<div className='center'>EVENTS</div>
 						</Link>
@@ -118,7 +116,7 @@ var ArtistDetail = React.createClass({
 					{
 						React.cloneElement(this.props.children, {
 							sets: artistData.sets,
-							events: artistData.upcomingEvents,
+							events: artistData.events,
 							push: push,
 							loginStatus: loginStatus,
 							user: user
