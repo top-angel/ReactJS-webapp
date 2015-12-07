@@ -1,21 +1,23 @@
 import React from 'react';
-import constants from '../constants/constants';
-import moment from 'moment';
-import {History} from 'react-router';
+import { S3_ROOT_FOR_IMAGES } from '../constants/constants';
+import Moment from 'moment';
+import { History } from 'react-router';
 
 var FestivalTile = React.createClass({
 	
 	displayName: 'FestivalTile',
 	mixins: [History],
-	openFestivalPage: function() {
+
+	openFestivalPage() {
 		var routePath = this.props.event.split(' ').join('-');
 		this.history.pushState(null, '/festival/' + routePath);
 	},
-	render: function() {
+
+	render() {
 		var image = {
-			backgroundImage: "url('" + constants.S3_ROOT_FOR_IMAGES + this.props.main_imageURL + "')"
+			backgroundImage: "url('" + S3_ROOT_FOR_IMAGES + this.props.main_imageURL + "')"
 		};
-		var date = moment(this.props.start_date).format('MMM DD YYYY');
+		var date = Moment(this.props.start_date).format('MMM DD YYYY');
 		var setCount = this.props.set_count + ' sets';
 		var info = setCount + ' | ' + date;
 		var event = this.props.event;

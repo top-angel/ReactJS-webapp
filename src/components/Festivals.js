@@ -6,6 +6,7 @@ import FestivalTile from './FestivalTile';
 
 var TITLE = 'Festivals';
 var TYPE = 'event';
+
 var Festivals = React.createClass({
 
 	getInitialState() {
@@ -32,18 +33,20 @@ var Festivals = React.createClass({
 			type: 'get'
 		})
 		.done(res => {
-			results = res.payload.festival;
-			
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					festivalBrowseData: results
-				}
-			});
+			if(res.status === 'success') {
+				results = res.payload.festival;
+				
+				push({
+					type: 'SHALLOW_MERGE',
+					data: {
+						festivalBrowseData: results
+					}
+				});
 
-			this.setState({
-				loaded: true
-			});
+				this.setState({
+					loaded: true
+				});
+			}
 		});
 	},
 
@@ -58,7 +61,8 @@ var Festivals = React.createClass({
 				id: festival.id,
 				main_imageURL: festival.main_imageURL,
 				set_count: festival.set_count,
-				event: festival.event
+				event: festival.event,
+				start_date: festival.start_date
 			};
 
 			return <FestivalTile {...props} />

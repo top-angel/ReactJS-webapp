@@ -39,8 +39,7 @@ var Player = React.createClass({
 
 			generateSound(starttime, nextProps.appState, push)
 			.then(function(smObj) {
-				// console.log('Now playing: ', smObj);
-
+				
 				//play a new set
 				push({
 					type: 'SHALLOW_MERGE',

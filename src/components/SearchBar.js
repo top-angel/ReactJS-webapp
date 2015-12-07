@@ -40,25 +40,29 @@ var SearchBar = React.createClass({
 			type: 'get'
 		})
 		.done(res => {
-			results = res.payload.search;
-			var artists = results.artists;
-			var sets = results.sets;
-			var events = results.events;
-			var tracks = results.tracks;
+			if(res.status === 'success') {
+				results = res.payload.search;
+				var artists = results.artists;
+				var sets = results.sets;
+				var events = results.events;
+				var tracks = results.tracks;
 
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					searchResults: {
-						sets: sets,
-						upcomingEvents: events,
-						tracks: tracks,
-						artists: artists
+				console.log(results);
+
+				push({
+					type: 'SHALLOW_MERGE',
+					data: {
+						searchResults: {
+							sets: sets,
+							upcomingEvents: events,
+							tracks: tracks,
+							artists: artists
+						}
 					}
-				}
-			});
+				});
 
-			self.history.pushState(null, '/search');
+				self.history.pushState(null, '/search');
+			}
 		});
 	},
 	
