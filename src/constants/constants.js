@@ -1,5 +1,5 @@
 //TODO change to version 8 and make sure all requests work
-var API_VERSION = 8;
+var API_VERSION = 7;
 
 var API_BASE_URL = 'https://setmine.com';
 var API_ROOT = API_BASE_URL + '/api/v/' + API_VERSION + '/';
