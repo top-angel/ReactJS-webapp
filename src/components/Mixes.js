@@ -23,12 +23,12 @@ var Mixes = React.createClass({
 		mixpanel.track("Mixes Page Open");
 	},
 
-	getMixes(page=1) {
+	getMixes() {
 		$.ajax({
 			url: `${API_ROOT}mixes`,
 			type: 'get',
 			data: {
-				page: page
+				limit: 5000
 			}
 		})
 		.done(res => {
@@ -47,8 +47,7 @@ var Mixes = React.createClass({
 					next: next,
 					prev: prev,
 					total: total,
-					limit: limit,
-					page: page+1
+					limit: limit
 				});
 			}
 		});
@@ -61,7 +60,7 @@ var Mixes = React.createClass({
 				id: mix.id,
 				push: this.props.push,
 				event: mix.event,
-				imageURL: mix.icon_image.imageURL_small
+				icon_image: mix.icon_image.imageURL_small
 			};
 
 			return <MixTile {...props} />
@@ -69,7 +68,7 @@ var Mixes = React.createClass({
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div className='flex-row scrollable tile-container' style={{position:'relative'}}>
+				<div className='flex-row scrollable tile-container'>
 					{tiles} 
 				</div>
 			</Loader>

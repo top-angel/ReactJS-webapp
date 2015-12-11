@@ -20,25 +20,19 @@ var MixDetail = React.createClass({
 
 	getMixData() {
 		var push = this.props.push;
-		var mix = this.props.params.mix;
-		var query = mix.split('-').join('%20');
 
 // TODO use mix id to get mix data test: 69
-		var mixData,
-			mixUrl = API_ROOT + 'mixes/search/' + query;
+		var mixUrl = API_ROOT + 'mixes/id/' + this.props.params.mix;
 
 		$.ajax({
 			url: mixUrl,
 			type: 'get',
 		})
 		.done(res => {
-			mixData = res.payload.mix;
-
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					detailId: mixData.id,
-					detailData: mixData
+					detailData: res.payload.mix_id
 				}
 			});
 

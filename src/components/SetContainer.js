@@ -56,6 +56,7 @@ var SetContainer = React.createClass({
 				songURL: set.songURL,
 				banner_image: set.event.icon_image.imageURL,
 				// banner_image: set.banner_image.imageURL,
+				// banner_image: set.icon_image.imageURL,
 				user: this.props.user,
 				loginStatus: this.props.loginStatus,
 				favorited: favorited
