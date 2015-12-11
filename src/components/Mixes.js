@@ -1,16 +1,17 @@
 import React from 'react';
 import Loader from 'react-loader';
 import {API_ROOT} from '../constants/constants';
-import MixTile from './MixTile';
+import R from 'ramda';
 
-var TITLE = 'Mixes';
-var TYPE = 'mix';
+import MixTile from './MixTile';
 
 var Mixes = React.createClass({
 
 	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			page: 1,
+			mixes: []
 		};
 	},
 
@@ -22,41 +23,43 @@ var Mixes = React.createClass({
 		mixpanel.track("Mixes Page Open");
 	},
 
-	getMixes() {
-		var push = this.props.push;
-		var results,
-			mixUrl = `${API_ROOT}mixes`;
-
+	getMixes(page=1) {
 		$.ajax({
-			url: mixUrl,
-			type: 'get'
+			url: `${API_ROOT}mixes`,
+			type: 'get',
+			data: {
+				page: page
+			}
 		})
 		.done(res => {
 			if(res.status === 'success') {
-				results = res.payload.mixes;
-				push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						mixBrowseData: results
-					}
-				});
+				var {items, currentpage, base, isFirstPage, isLastPage, next, prev, total, limit} = res.payload.page
+				var mixes = R.concat(this.state.mixes, res.payload.mixes)
 
 				this.setState({
-					loaded: true
+					loaded: true,
+					mixes: mixes,
+					items: items,
+					currentpage: currentpage,
+					base: base,
+					isFirstPage: isFirstPage,
+					isLastPage: isLastPage,
+					next: next,
+					prev: prev,
+					total: total,
+					limit: limit,
+					page: page+1
 				});
 			}
 		});
 	},
 
 	render() {
-		var push = this.props.push;
-		var mixes = this.props.appState.get('mixBrowseData');
-
-		var tiles = mixes.map((mix, index) => {
+		var tiles = this.state.mixes.map((mix, index) => {
 			var props = {
 				key: index,
 				id: mix.id,
-				push: push,
+				push: this.props.push,
 				event: mix.event,
 				imageURL: mix.icon_image.imageURL_small
 			};
@@ -66,8 +69,8 @@ var Mixes = React.createClass({
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div className='flex-row scrollable tile-container'>
-					{tiles}
+				<div className='flex-row scrollable tile-container' style={{position:'relative'}}>
+					{tiles} 
 				</div>
 			</Loader>
 		);
@@ -75,4 +78,4 @@ var Mixes = React.createClass({
 
 });
 
-module.exports = Mixes;
+export default Mixes

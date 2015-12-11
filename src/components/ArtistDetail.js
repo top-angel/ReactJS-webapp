@@ -33,7 +33,7 @@ var ArtistDetail = React.createClass({
 		})
 		.done(res => {
 			if(res.status === 'success') {
-				var artistData = response.payload.artist;
+				var artistData = res.payload.artists_name;
 
 				push({
 					type: 'SHALLOW_MERGE',
@@ -55,8 +55,8 @@ var ArtistDetail = React.createClass({
 		var push = this.props.push;
 
 		var artistData = appState.get('detailData');
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
-		var user = this.props.appState.get('user');
+		var loginStatus = appState.get('isUserLoggedIn');
+		var user = appState.get('user');
 
 		var setText = artistData.set_count != 1 ? 'sets' : 'set';
 		var eventText = artistData.event_count != 1 ? 'events' : 'event';
@@ -67,7 +67,7 @@ var ArtistDetail = React.createClass({
 			push: push,
 			title: artistData.artist,
 			buttonText: 'Shuffle',
-			imageURL: artistData.imageURL,
+			imageURL: artistData.icon_image.imageURL,
 			info: artistInfo
 		};
 
@@ -100,9 +100,9 @@ var ArtistDetail = React.createClass({
 					<DetailImageContainer {...detailInfo} />
 					<LinkButtonContainer links={links}/>
 					<div className='divider'/>
-					<div className="flex-row links-container">
+					<div className='flex-row links-container'>
 						<Link className='click flex-fixed flex-container'
-							to={'/artist/'+this.props.params.artist}
+							to={`/artist/${this.props.params.artist}`}
 							onlyActiveOnIndex={true}
 							activeClassName='active'>
 							<div className='center'>SETS</div>
@@ -116,7 +116,7 @@ var ArtistDetail = React.createClass({
 					{
 						React.cloneElement(this.props.children, {
 							sets: artistData.sets,
-							events: artistData.events,
+							events: artistData.upcoming_events,
 							push: push,
 							loginStatus: loginStatus,
 							user: user

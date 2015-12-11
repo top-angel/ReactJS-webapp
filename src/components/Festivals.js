@@ -4,14 +4,12 @@ import {API_ROOT} from '../constants/constants';
 
 import FestivalTile from './FestivalTile';
 
-var TITLE = 'Festivals';
-var TYPE = 'event';
-
 var Festivals = React.createClass({
 
 	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			festivals: []
 		};
 	},
 
@@ -24,46 +22,44 @@ var Festivals = React.createClass({
 	},
 
 	getFestivals() {
-		var push = this.props.push;
-		var results,
-			festivalUrl = `https://setmine.com/api/v/8/festival`
+		var push = this.props.push
+		var url = `https://setmine.com/api/v/8/festival`;
+		// var url = `${API_ROOT}events/festivals`;
 
 		$.ajax({
-			url: festivalUrl,
+			url: url,
 			type: 'get'
 		})
 		.done(res => {
 			if(res.status === 'success') {
-				results = res.payload.festival;
+				var festivals = res.payload.festival;
 				
-				push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						festivalBrowseData: results
-					}
-				});
+				// push({
+				// 	type: 'SHALLOW_MERGE',
+				// 	data: {
+				// 		festivalBrowseData: festivals
+				// 	}
+				// });
 
 				this.setState({
-					loaded: true
+					loaded: true,
+					festivals: festivals
 				});
 			}
 		});
 	},
 
 	render() {
-		var festivals = this.props.appState.get('festivalBrowseData');
-		var push = this.props.push;
-
-		var tiles = festivals.map((festival, index) => {
+		var tiles = this.state.festivals.map((festival, index) => {
 			var props = {
-				push: push,
+				push: this.props.push,
 				key: index,
 				id: festival.id,
 				main_imageURL: festival.main_imageURL,
 				set_count: festival.set_count,
 				event: festival.event,
 				start_date: festival.start_date
-			};
+			}
 
 			return <FestivalTile {...props} />
 		});
@@ -79,4 +75,4 @@ var Festivals = React.createClass({
 
 });
 
-module.exports = Festivals;
+export default Festivals

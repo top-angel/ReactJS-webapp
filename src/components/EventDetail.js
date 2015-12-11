@@ -3,7 +3,7 @@ import R from 'ramda';
 import {API_ROOT} from '../constants/constants';
 
 import Loader from 'react-loader';
-import DetailImageContainer from './DetailImageContainer';
+import EventDetailHeader from './EventDetailHeader'
 import ArtistTileContainer from './ArtistTileContainer';
 
 var EventDetail = React.createClass({
@@ -28,12 +28,10 @@ var EventDetail = React.createClass({
 		})
 		.done(res => {
 			if(res.status === 'success') {
-				eventData = res.payload.events.events_id;
 				push({
 					type: 'SHALLOW_MERGE',
 					data: {
-						detailId: eventData.id,
-						detailData: eventData
+						detailData: res.payload.events_id
 					}
 				});
 
@@ -48,13 +46,10 @@ var EventDetail = React.createClass({
 		var detailData = appState.get('detailData');
 
 		var detailInfo = {
-			push: this.props.push,
-			info: detailData.formattedDate,
-			data: detailData,
+			date: detailData.formatted_date,
 			title: detailData.event,
 			ticketLink: detailData.ticket_link,
-			buttonText: 'Tickets',
-			pageType: 'upcoming'
+			imageURL: detailData.banner_image.imageURL
 		};
 
 		var lineup = {
@@ -64,9 +59,9 @@ var EventDetail = React.createClass({
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div id='detail' className='view detail-page'>
-					<DetailImageContainer {...detailInfo}/>
-					<div className="flex-row links-container">
+				<div id='detail' className='detail-page'>
+					<EventDetailHeader {...detailInfo}/>
+					<div className='flex-row links-container'>
 						<div className='center flex-fixed'>
 							LINEUP
 						</div>

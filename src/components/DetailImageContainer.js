@@ -1,13 +1,13 @@
 import React from 'react';
-var constants = require('../constants/constants');
+import {API_ROOT, S3_ROOT_FOR_IMAGES} from '../constants/constants';
 
 var DetailImageContainer = React.createClass({
 
-	displayName: 'DetailImageContainer',
 	getDefaultProps() {
 		return {
 			info: null,
-			buttonText: null
+			buttonText: null,
+			imageURL: ''
 		};
 	},
 
@@ -33,7 +33,7 @@ var DetailImageContainer = React.createClass({
 
 			$.ajax({
 				type: 'get',
-				url: constants.API_ROOT + 'search/' + this.props.title
+				url: API_ROOT + 'search/' + this.props.title
 			})
 			.done(function(response) {
 				data = response.payload.search.sets;
@@ -41,7 +41,7 @@ var DetailImageContainer = React.createClass({
 				randomSet = data[random];
 				console.log(randomSet);
 
-				self.getTracklist(randomSet.id).done(function(res) {
+				self.getTracklist(randomSet.id).done(res => {
 					var tracklist = res.payload.tracks;
 					var set = {
 						artist: randomSet.artist,
@@ -70,7 +70,7 @@ var DetailImageContainer = React.createClass({
 	},
 
 	getTracklist(id) {
-		var trackListUrl = constants.API_ROOT + 'tracklist/' + id;
+		var trackListUrl = API_ROOT + 'tracklist/' + id;
 
 		return $.ajax({
 			url: trackListUrl,
@@ -79,15 +79,15 @@ var DetailImageContainer = React.createClass({
 	},
 
 	render () {
-		var imageStyle = {
-			backgroundImage: "url('" + constants.S3_ROOT_FOR_IMAGES + 'large_' + this.props.imageURL + "')"
-		};
+		var image = {
+			background: `url('${S3_ROOT_FOR_IMAGES+this.props.imageURL}')`
+		}
 
 		return (
-			<div className='flex-column flex image-container overlay-container' style={imageStyle}>
-				<h1 className='header center artist-name'>{this.props.title}</h1>
-				<div className='header-small center'>{this.props.info}</div>
-				<a className='header-small center click' id='detail-button' onClick={this.shuffle}>
+			<div className='flex-column detail-header' style={image}>
+				<h1 className='center'>{this.props.title}</h1>
+				<h3 className='center'>{this.props.info}</h3>
+				<a id='detail-button' onClick={this.shuffle}>
 					{this.props.buttonText}
 				</a>
 			</div>

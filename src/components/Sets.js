@@ -2,11 +2,8 @@ import React from 'react';
 import {History} from 'react-router';
 import NavMenu from './NavMenu';
 
-var SetsView = React.createClass({
-
-	displayName: 'Sets Page',
-
-	render: function() {
+var Sets = React.createClass({
+	render() {
 		var navItems = [
 			{
 				text: 'Recent',
@@ -52,7 +49,6 @@ var SetsView = React.createClass({
 			</div>
 		);
 	}
-
 });
 
-module.exports = SetsView;
+module.exports = Sets;

@@ -1,21 +1,23 @@
 import React from 'react';
-import Radium from 'radium';
 import R from 'ramda';
 import Loader from 'react-loader';
 
 import {API_ROOT, colors} from '../constants/constants';
-import AlphabetScroller from './AlphabetScroller';
 import ArtistTile from './ArtistTile';
 import Footer from './Footer';
-import PageSelect from './PageSelect';
+
+var artistPage = {
+	background: colors.white,
+	position: 'relative',
+	top: '8vh'
+}
 
 var Artists = React.createClass({
 
 	getInitialState() {
 		return {
 			loaded: false,
-			artists: [],
-			page: {}
+			artists: []
 		};
 	},
 
@@ -26,9 +28,7 @@ var Artists = React.createClass({
 				var artists = this.filterArtists(res.payload.artists);
 				this.setState({
 					loaded: true,
-					artists: artists,
-					page: res.payload.page,
-					items: res.payload.page.items
+					artists: artists
 				});
 			}
 		});
@@ -39,30 +39,28 @@ var Artists = React.createClass({
 			var artists = this.filterArtists(res.payload.artists);
 			this.setState({
 				loaded: true,
-				artists: artists,
-				page: res.payload.page,
-				items: res.payload.page.items
+				artists: artists
 			});
 		}
 	},
 
-	changePage(e) {
-		var page = e.target.innerHTML.toString();
-		switch(page) {
-			case '...':
-				break;
-			case '':
-				this.setState((prevState, currentProps) => {
-					var newPage = prevState.page.currentpage++;
-					console.log(newPage)
-					this.getArtists(newPage).done(res => this.updateArtists(res));
-				});
-				break;
-			default:
-				this.getArtists(page).done(res => this.updateArtists(res));
-				break;
-		}
-	},
+	// changePage(e) {
+	// 	var page = e.target.innerHTML.toString();
+	// 	switch(page) {
+	// 		case '...':
+	// 			break;
+	// 		case '':
+	// 			this.setState((prevState, currentProps) => {
+	// 				var newPage = prevState.page.currentpage++;
+	// 				console.log(newPage)
+	// 				this.getArtists(newPage).done(res => this.updateArtists(res));
+	// 			});
+	// 			break;
+	// 		default:
+	// 			this.getArtists(page).done(res => this.updateArtists(res));
+	// 			break;
+	// 	}
+	// },
 
 	filterArtists(array) {
 		//	only show artists with sets
@@ -72,15 +70,14 @@ var Artists = React.createClass({
 		return R.filter(hasSets, array);
 	},
 
-	getArtists(page=1) {
-		// returns 100 artists in ascending alphabetical order by default
+	getArtists() {
 		var artistUrl = `${API_ROOT}artists`;
 		return (
 			$.ajax({
 				url: artistUrl,
 				type: 'get',
 				data: {
-					page: page,
+					limit: 5000,
 					property: 'artist',
 					order: 'ASC',
 				}
@@ -90,7 +87,7 @@ var Artists = React.createClass({
 
 	render() {
 		var push = this.props.push;
-		var tiles = this.state.artists.map(function(artist, index) {
+		var tiles = this.state.artists.map((artist, index) => {
 			var props = {
 				artist: artist.artist,
 				key: index,
@@ -105,8 +102,7 @@ var Artists = React.createClass({
 		});
 
 		return (
-			<div style={{background: colors.white}}>
-				<PageSelect page={this.state.page} items={this.state.items} changePage={this.changePage} />
+			<div style={artistPage}>
 				<Loader loaded={this.state.loaded}>
 					<div className='flex-row flex scrollable'>
 						{tiles}
@@ -119,4 +115,4 @@ var Artists = React.createClass({
 
 });
 
-module.exports = Radium(Artists);
+module.exports = Artists

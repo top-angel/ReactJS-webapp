@@ -1,66 +1,53 @@
-import React from 'react';
-import {API_ROOT} from '../constants/constants';
-import splice from '../services/splice';
-import Loader from 'react-loader';
+import React from 'react'
+import {API_ROOT} from '../constants/constants'
 
-import FeaturedTile from './FeaturedTile';
+import Loader from 'react-loader'
+import FeaturedTile from './FeaturedTile'
 
 var FeaturedContainer = React.createClass({
 		
 	getInitialState() {
 		return {
-			loaded: false
-		};
+			loaded: false,
+			events: []
+		}
 	},
 
 	componentWillMount() {
-		this.getFeaturedEvents();
+		this.getFeaturedEvents()
 	},
 
 	getFeaturedEvents() {
-		var push = this.props.push;
-
-		//url only shows recent festivals, no upcoming events
 		$.ajax({
 			url: `${API_ROOT}events/featured`,
 			type: 'get'
-		})
-		.done(res => {
+		}).done(res => {
 			if(res.status === 'success') {
-				var featuredEvents = res.payload.events_featured;
-				push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						featuredEvents: featuredEvents
-					}
-				});
-
+				var featuredEvents = res.payload.events_featured
 				this.setState({
-					loaded: true
-				});
+					loaded: true,
+					events: featuredEvents
+				})
 			}
-		});
+		})
 	},
 
 	render() {
-		var featuredEvents = this.props.appState.get('featuredEvents');
-		var push = this.props.push;
-
-		console.log(featuredEvents.length);
-		
+		var featuredEvents = this.state.events
+		var push = this.props.push
 		var featuredTiles = featuredEvents.map((event, index) => {
 			var props = {
 				key: index,
 				id: event.event_id,
 				event: event.event.event,
-				main_imageURL: event.event.banner_image.imageURL,
+				banner_image: event.event.banner_image.imageURL,
 				formattedDate: event.event.formatted_date,
 				push: push,
-				type: event.event.type
-			};
+				set_count: event.event.set_count
+			}
 
 			return <FeaturedTile {...props} />
-		});
+		})
 
 		return (
 			<Loader loaded={this.state.loaded}>
@@ -70,8 +57,8 @@ var FeaturedContainer = React.createClass({
 					</div>
 				</div>
 			</Loader>
-		);
+		)
 	}
-});
+})
 
-module.exports = FeaturedContainer;
+export default FeaturedContainer

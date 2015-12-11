@@ -10,7 +10,12 @@ var FestivalDetail = React.createClass({
 
 	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			festival: {
+				banner_image: {
+					imageURL: null
+				}
+			}
 		};
 	},
 
@@ -20,55 +25,52 @@ var FestivalDetail = React.createClass({
 
 	getFestivalData() {
 		var push = this.props.push;
-		var festival = this.props.params.festival;
-		var query = festival.split('-').join('%20');
-
-		var festivalData,
-			festivalUrl = API_ROOT + 'festival/search/' + query;
+		var festivalUrl = `${API_ROOT}events/id/${this.props.params.festival}`
 
 		$.ajax({
 			url: festivalUrl,
 			type: 'get',
-		})
-		.done(res => {
-			festivalData = res.payload.events.events_id;
+		}).done(res => {
+			// push({
+			// 	type: 'SHALLOW_MERGE',
+			// 	data: {
+			// 		defailData: res.payload.events_id
+			// 	}
+			// });
 
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					detailId: festivalData.id,
-					detailData: festivalData
-				}
-			});
-
-			_this.setState({
-				loaded: true
+			this.setState({
+				loaded: true,
+				festival: res.payload.events_id
 			});
 		});
 	},
 
 	render() {
-		var appState = this.props.appState;
-		var push = this.props.push;
+		// var appState = this.props.appState;
+		// var push = this.props.push;
 
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
-		var user = this.props.appState.get('user');
-		var data = this.props.appState.get('detailData');
+		var { appState, push } = this.props
 
-		var setText = data.set_count > 1 ? ' sets' : ' set';
+		var loginStatus = appState.get('isUserLoggedIn');
+		var user = appState.get('user');
+		// var festival = appState.get('festival');
+
+		var festival = this.state.festival
+
+
+		var setText = festival.set_count != 1 ? 'sets' : 'set';
+		var festivalInfo = `${festival.set_count} ${setText}`;
 
 		var detailInfo = {
-			appState: appState,
 			push: push,
-			title: data.event,
-			buttonText: 'Shuffle',
-			imageURL: data.main_imageURL,
-			info: data.set_count + setText
+			title: festival.event,
+			info: festivalInfo,
+			imageURL: festival.banner_image.imageURL
 		};
 
-		var setProps = {
+		var sets = {
 			containerClass: 'flex-row flex',
-			sets: data.sets,
+			sets: festival.sets,
 			push: push,
 			loginStatus: loginStatus,
 			user: user
@@ -78,12 +80,12 @@ var FestivalDetail = React.createClass({
 			<Loader loaded={this.state.loaded}>
 				<div id='detail' className='view detail-page'>
 					<DetailImageContainer {...detailInfo}/>
-					<div className="flex-row links-container">
+					<div className='flex-row links-container'>
 						<div className='center flex-fixed'>
 							SETS
 						</div>
 					</div>
-					<SetContainer {...setProps} />
+					<SetContainer {...sets} />
 				</div>
 			</Loader>
 		);

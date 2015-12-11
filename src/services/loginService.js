@@ -1,5 +1,5 @@
 import React from 'react';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
 import mixpanelService from './mixpanelService.js';
 
 function startFacebookSDK(push) {
@@ -63,13 +63,13 @@ function checkLoginState(push) {
 function registerFacebookUser(auth, push) {
 	$.ajax({
 		type: 'POST',
-		url: constants.API_ROOT + 'user/facebookRegister',
+		url: `${API_ROOT}'setmineuser/login/facebook`,
 		data: {
 			userData: {
-				FB_TOKEN: auth
+				facebook_token: auth
 			}
 		}
-	}).done(function(res) {
+	}).done(res => {
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {

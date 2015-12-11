@@ -5,17 +5,11 @@ import SetContainer from './SetContainer';
 
 var Favorites = React.createClass({
 
-	getInitialState: function() {
-		return {
-			loaded: true
-		};
-	},
-
-	componentDidMount: function() {
+	componentDidMount() {
 		mixpanel.track("Favorites Page Open");
 	},
 
-	render: function() {
+	render() {
 		var loginStatus = this.props.appState.get('isUserLoggedIn');
 		var user = this.props.appState.get('user');
 		var favorites = user.favorite_sets;
@@ -34,4 +28,4 @@ var Favorites = React.createClass({
 
 });
 
-module.exports = Favorites;
+export default Favorites

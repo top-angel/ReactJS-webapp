@@ -22,12 +22,12 @@ module.exports = {
 		template: 'src/index-dev.html',
 		inject: 'body'
 	})],
-	devtool: 'source-map',
+	devtool: 'cheap-source-map',
 	module: {
 		loaders: [
 			{
-				test: /.jsx?$/,
-				loader: 'babel-loader!jsx-loader',
+				test: /\.jsx?$/,
+				loader: 'babel-loader',
 				exclude: /node_modules/,
 				query: {
 					presets: ['es2015', 'react']

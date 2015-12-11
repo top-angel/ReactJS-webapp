@@ -3,13 +3,14 @@ import {Link} from 'react-router';
 
 var NavMenu = React.createClass({
 
-	getDefaultProps: function() {
+	getDefaultProps() {
 		return {
 			navItems: []
 		};
 	},
-	render: function() {
-		var links = this.props.navItems.map(function(nav, index){
+
+	render() {
+		var links = this.props.navItems.map((nav, index) => {
 
 			return(
 				<Link 
@@ -26,7 +27,7 @@ var NavMenu = React.createClass({
 		
 		return (
 			<nav id='NavMenu' className='flex-column flex-fixed'>
-				<div className='set-flex flex'>
+				<div className='flex-container flex'>
 					<div className='nav-header'>BROWSE</div>
 				</div>
 				{links}

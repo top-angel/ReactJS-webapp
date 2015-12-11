@@ -1,6 +1,5 @@
 import React from 'react';
 import {generateSound, togglePlay} from '../services/playerService';
-import constants from '../constants/constants';
 
 import PlayerControl from './PlayerControl';
 import PlayerSeek from './PlayerSeek';
@@ -12,13 +11,10 @@ var playingClass = 'fa center fa-pause play-button';
 var pausedClass = 'fa center fa-play play-button';
 
 var Player = React.createClass({
-	
-	displayName: 'Player',
 
 	componentDidMount: function() {
-		var push = this.props.push;
+		var {push} = this.props;
 		var sound = this.props.appState.get('sound');
-		var _this = this;
 
 		if(sound != null) {
 			push({
@@ -31,8 +27,7 @@ var Player = React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		var push = this.props.push;
-		var self = this;
+		var {push} = this.props;
 
 		if(nextProps.appState.get('currentSet') != this.props.appState.get('currentSet')) {
 			var starttime = nextProps.appState.get('currentSet').starttime;

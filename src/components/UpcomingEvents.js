@@ -35,7 +35,6 @@ var UpcomingEvents = React.createClass({
 		})
 		.done(res => {
 			if(res.status === 'success') {
-				console.log(res.payload);
 				push({
 					type: 'SHALLOW_MERGE',
 					data: {

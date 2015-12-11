@@ -20,15 +20,11 @@ var Footer = React.createClass({
 					<a className='click hidden' id='contact'>
 						Contact Us
 					</a>
-					<Link to='/about'>
-						<a className='click' href='https://www.setmine.com/about'>
-							About
-						</a>
+					<Link to='/about' className='click'>
+						About
 					</Link>
-					<Link to='/legal'>
-						<a className='click' id='dmca'>
-							DMCA Notice
-						</a>
+					<Link to='/legal' className='click' id='dmca'>
+						DMCA Notice
 					</Link>
 					<a href='http://bit.ly/SetmineiOS' onClick={this.trackiOS} title='view on App Store' className='click'>
 						iOS
@@ -36,10 +32,8 @@ var Footer = React.createClass({
 					<a href='http://bit.ly/SetmineAndroid' onClick={this.trackAndroid} title='view on Google Play'className='click'>
 						Android
 					</a>
-					<Link to='/setstory'>
-						<a className='click'>
-							Setstory 
-						</a>
+					<Link to='/setstory' className='click'>
+						Setstory 
 					</Link>
 					<div className='copyright'>
 		             	<i className='fa fa-copyright'/> 

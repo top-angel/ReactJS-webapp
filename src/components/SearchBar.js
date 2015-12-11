@@ -1,11 +1,10 @@
 import React from 'react';
 import {History, Link} from 'react-router';
 import {API_ROOT} from '../constants/constants';
+import history from '../services/history';
 import _ from 'underscore';
 
 var SearchBar = React.createClass({
-
-	mixins: [History],
 
 	componentWillUnmount() {
 		this.props.push({
@@ -29,7 +28,6 @@ var SearchBar = React.createClass({
 	},
 
 	search(query) {
-		var self = this;
 		var push = this.props.push;
 		var activeSearchAjax = null;
 		var results, 
@@ -61,7 +59,7 @@ var SearchBar = React.createClass({
 					}
 				});
 
-				self.history.pushState(null, '/search');
+				history.push(null, '/search');
 			}
 		});
 	},

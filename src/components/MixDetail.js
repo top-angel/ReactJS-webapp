@@ -23,7 +23,7 @@ var MixDetail = React.createClass({
 		var mix = this.props.params.mix;
 		var query = mix.split('-').join('%20');
 
-		// TODO write backend route for getting mix by id
+// TODO use mix id to get mix data test: 69
 		var mixData,
 			mixUrl = API_ROOT + 'mixes/search/' + query;
 
@@ -52,22 +52,22 @@ var MixDetail = React.createClass({
 		var push = this.props.push;
 		var appState = this.props.appState;
 
-		var data = appState.get('detailData');
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
-		var user = this.props.appState.get('user');
-		var setText = data.sets.length > 1 ? ' sets' : ' set';
+		var detailData = appState.get('detailData');
+		var loginStatus = appState.get('isUserLoggedIn');
+		var user = appState.get('user');
+
+		var setText = detailData.set_count != 1 ? 'sets' : 'set';
+		var info = `${detailData.set_count} ${setText}`;
 
 		var detailInfo = {
-			appState: appState,
 			push: push,
-			title: data.event,
-			buttonText: 'Shuffle',
-			imageURL: data.imageURL,
-			info: data.sets.length + setText
+			title: detailData.event,
+			imageURL: detailData.banner_image.imageURL,
+			info: info
 		};
 		
-		var setProps = {
-			sets: data.sets,
+		var sets = {
+			sets: detailData.sets,
 			push: push,
 			loginStatus: loginStatus,
 			user: user
@@ -75,14 +75,14 @@ var MixDetail = React.createClass({
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div id='detail' className='view detail-page'>
+				<div id='detail' className='detail-page'>
 					<DetailImageContainer {...detailInfo}/>
-					<div className="flex-row links-container">
+					<div className='flex-row links-container'>
 						<div className='center flex-fixed'>
 							SETS
 						</div>
 					</div>
-					<SetContainer {...setProps} />
+					<SetContainer {...sets} />
 				</div>
 			</Loader>
 		);

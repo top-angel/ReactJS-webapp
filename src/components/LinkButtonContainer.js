@@ -2,14 +2,13 @@ import React from 'react';
 
 var LinkButtonContainer = React.createClass({
 
-	displayName: 'LinkButtonContainer',
-	getDefaultProps: function() {
+	getDefaultProps() {
 		return {
 			links: []
 		};
 	},
 
-	render: function() {
+	render() {
 		var links = this.props.links;
 
 		for(var i in links) {
@@ -20,8 +19,8 @@ var LinkButtonContainer = React.createClass({
 			}
 		}
 
-		var icons = links.map(function(link, index) {
-			var classString = "fa fa-fw fa-2x center click fa-" + link.type;
+		var icons = links.map((link, index) => {
+			var classString = `fa fa-fw fa-2x center click fa-${link.type}`;
 			if(!!link.url) {
 				return (
 					<a className='flex set-flex' href={link.url} key={index}>
@@ -31,7 +30,7 @@ var LinkButtonContainer = React.createClass({
 			}
 		});
 
-		var hideContainer = 'flex-row links-container ' + hidden;
+		var hideContainer = `flex-row links-container ${hidden}`;
 
 		return (
 			<div className={hideContainer}>{icons}</div>

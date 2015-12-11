@@ -1,6 +1,7 @@
 import React from 'react';
-import SetTile from './SetTile';
 import {checkFavorite} from '../services/favoriteSet';
+
+import SetTile from './SetTile';
 
 var SetContainer = React.createClass({
 
@@ -28,15 +29,10 @@ var SetContainer = React.createClass({
 	},
 
 	render() {
-		var data = this.props.sets;
-		var push = this.props.push;
+		var { sets, push } = this.props
 
-		var tiles = data.map((set, index) => {
-			if(this.props.loginStatus) {
-				var favorited = checkFavorite(set.id, this.props.user.favorite_set_ids);
-			} else {
-				var favorited = false;
-			}
+		var tiles = sets.map((set, index) => {
+			var favorited = this.props.loginStatus ? checkFavorite(set.id, this.props.user) : false
 
 			if(set.episode != null && set.episode.length > 0) {
 				var setName = `${set.event.event} - ${set.episode}`;
@@ -55,17 +51,17 @@ var SetContainer = React.createClass({
 				artist: set.artists[0].artist,
 				event: set.event.event,
 				setName: setName,
-				artistimageURL: set.artists[0].icon_image.imageURL_small,
+				artist_image: set.artists[0].icon_image.imageURL_small,
 				popularity: set.popularity,
 				songURL: set.songURL,
-				main_eventimageURL: set.event.icon_image.imageURL,
-				timePosition: set.timePosition,
+				banner_image: set.event.icon_image.imageURL,
+				// banner_image: set.banner_image.imageURL,
 				user: this.props.user,
 				loginStatus: this.props.loginStatus,
 				favorited: favorited
 			};
 
-			return <SetTile {...props} />;
+			return <SetTile {...props} />
 		});
 
 

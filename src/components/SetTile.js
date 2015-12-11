@@ -1,14 +1,13 @@
 import React from 'react';
 import {favoriteSet} from '../services/favoriteSet';
 import {API_ROOT, S3_ROOT_FOR_IMAGES} from '../constants/constants';
-import {History, Link} from 'react-router';
+import { Link } from 'react-router';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { Motion } from 'react-motion';
 
-var SetTile = React.createClass({
+import history from '../services/history'
 
-	displayName: 'Set Tile',
-	mixins: [History],
+var SetTile = React.createClass({
 
 	getInitialState() {
 		return {
@@ -51,22 +50,20 @@ var SetTile = React.createClass({
 		if(loginStatus) {
 			favoriteSet(push, user, this.props.id);
 		} else {
-			this.history.pushState(null, '/user');
+			history.pushState(null, '/user');
 		}
 	},
 
 	getTracklist() {
-		var trackListUrl = API_ROOT + 'tracklist/' + this.props.id;
-
 		return $.ajax({
-			url: trackListUrl,
+			url: `${API_ROOT}sets/id/${this.props.id}`,
 			type: 'get'
-		});
+		})
 	},
 
 	openArtistPage() {
 		var routePath = this.props.artist.split(' ').join('_');
-		this.history.pushState(null, `/artist/${routePath}`);
+		history.pushState(null, `/artist/${routePath}`);
 		mixpanel.track("Artist Clicked", {
 			"Artist": this.props.artist
 		});
@@ -77,10 +74,10 @@ var SetTile = React.createClass({
 
 		if(this.props.is_radiomix == 0) {
 			//go to festival page
-			this.history.pushState(null, `/festival/${routePath}`);
+			history.pushState(null, `/festival/${routePath}`);
 		} else {
 			//go to mix page
-			this.history.pushState(null, `/mix/${routePath}`);
+			history.pushState(null, `/mix/${routePath}`);
 		}
 	},
 
@@ -88,7 +85,7 @@ var SetTile = React.createClass({
 		var push = this.props.push;
 		var self = this;
 
-		this.getTracklist().done(function(res) {
+		this.getTracklist().done((res) => {
 			var tracklist = res.payload.tracks;
 			var set = {
 				artist: self.props.artist,
@@ -111,7 +108,7 @@ var SetTile = React.createClass({
 				}
 			});
 
-			self.updatePlayCount(self.props.id);
+			this.updatePlayCount(this.props.id);
 		});
 	},
 
@@ -136,22 +133,23 @@ var SetTile = React.createClass({
 
 	updatePlayCount(id) {
 		$.ajax({
-			type: 'POST',
-			url: API_ROOT + 'playCount',
+			type: 'post',
+			url: `${API_ROOT}sets/play`,
 			data: {
-				id: id
+				set_id: id,
+				user_id: this.props.user.id
 			},
 			success(data) {
-				console.log('play count updated');
+				console.log('play count updated')
 			}
-		});
+		})
 	},
 
 	render() {
 		var eventImage = {
-			backgroundImage: `url(${S3_ROOT_FOR_IMAGES+this.props.main_eventimageURL})`
+			backgroundImage: `url(${S3_ROOT_FOR_IMAGES+this.props.banner_image})`
 		};
-		var artistImage = S3_ROOT_FOR_IMAGES+this.props.artistimageURL;
+		var artistImage = S3_ROOT_FOR_IMAGES+this.props.artist_image;
 		var favorite = this.props.favorited ? 'link fa fa-fw fa-star center click' : 'link fa fa-fw fa-star-o center click';
 		var playURL = `https://setmine.com/play/${this.props.id}`;
 		var self = this;
