@@ -54,7 +54,7 @@ var SetTile = React.createClass({
 		}
 	},
 
-	getTracklist() {
+	getSet() {
 		return $.ajax({
 			url: `${API_ROOT}sets/id/${this.props.id}`,
 			type: 'get'
@@ -70,30 +70,27 @@ var SetTile = React.createClass({
 	},
 
 	openFestivalPage() {
-		var routePath = this.props.event.split(' ').join('-');
-
+		var routePath = this.props.event_id
 		if(this.props.is_radiomix == 0) {
-			//go to festival page
 			history.pushState(null, `/festival/${routePath}`);
 		} else {
-			//go to mix page
 			history.pushState(null, `/mix/${routePath}`);
 		}
 	},
 
 	playSet() {
 		var push = this.props.push;
-		var self = this;
-
-		this.getTracklist().done((res) => {
+		this.getSet().done((res) => {
 			var tracklist = res.payload.tracks;
+			console.log(tracklist)
+			
 			var set = {
-				artist: self.props.artist,
-				event: self.props.setName,
-				id: self.props.id,
-				set_length: self.props.set_length,
-				songURL: self.props.songURL,
-				artistimageURL: self.props.artistimageURL,
+				artist: this.props.artist,
+				event: this.props.setName,
+				id: this.props.id,
+				set_length: this.props.set_length,
+				songURL: this.props.songURL,
+				artistimageURL: this.props.artistimageURL,
 				starttime: '00:00'
 			};
 
@@ -102,7 +99,7 @@ var SetTile = React.createClass({
 				data: {
 					currentSet: set,
 					tracklist: tracklist,
-					currentTrack: res.payload.tracklist[0],
+					currentTrack: tracklist,
 					playing: true,
 					timeElapsed: 0
 				}

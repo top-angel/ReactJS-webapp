@@ -10,8 +10,6 @@ var Mixes = React.createClass({
 	getInitialState() {
 		return {
 			loaded: false,
-			page: 1,
-			mixes: []
 		};
 	},
 
@@ -33,21 +31,9 @@ var Mixes = React.createClass({
 		})
 		.done(res => {
 			if(res.status === 'success') {
-				var {items, currentpage, base, isFirstPage, isLastPage, next, prev, total, limit} = res.payload.page
-				var mixes = R.concat(this.state.mixes, res.payload.mixes)
-
 				this.setState({
 					loaded: true,
-					mixes: mixes,
-					items: items,
-					currentpage: currentpage,
-					base: base,
-					isFirstPage: isFirstPage,
-					isLastPage: isLastPage,
-					next: next,
-					prev: prev,
-					total: total,
-					limit: limit
+					mixes: res.payload.mixes
 				});
 			}
 		});

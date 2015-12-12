@@ -1,11 +1,10 @@
 import Q from 'q';
 import R from 'ramda';
-import $ from 'jquery';
 import SM2 from 'soundmanager2';
 import _ from 'underscore';
 
 import convert from './convert';
-import constants from '../constants/constants';
+import {S3_ROOT} from '../constants/constants';
 
 var soundManager = SM2.soundManager;
 
@@ -56,7 +55,7 @@ function generateSound(loadStart, appState, push) {
 		soundManager.destroySound('currentSound');
 	}
 
-	var songURL = constants.S3_ROOT + currentSet.songURL;
+	var songURL = S3_ROOT + currentSet.songURL;
 
 	var soundConf = {
 		id: 'currentSound',

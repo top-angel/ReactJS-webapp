@@ -22,10 +22,14 @@ var initialAppState = Immutable.Map({
 	playerHidden: true,
 	playing: false,
 	timeElapsed: 0,
+
 	artistBrowseData: [],
 	activityBrowseData: [],
 	recentBrowseData: [],
 	popularBrowseData: [],
+
+	mixes: [],
+
 	featuredEvents: [],
 	upcomingEvents: [],
 	closestEvents: [],
@@ -67,7 +71,6 @@ var initialAppState = Immutable.Map({
 
 var evtHandler = GlobalEventHandler(initialAppState);
 var evtTypes = evtHandler.types;
-
 var push = evtHandler.push;
 
 var App = React.createClass({
@@ -105,7 +108,6 @@ var App = React.createClass({
 
 	playSet() {
 		var id = this.props.params.set;
-		var self = this;
 
 		this.getSetById(id).done(res => {
 			if(res.status === 'success') {
@@ -146,12 +148,19 @@ var App = React.createClass({
 		);
 	},
 
+	renderPlayer() {
+		if(this.state.appState.get('playing')) {
+			return <Player appState={this.state.appState} push={push} />
+		} else {
+			return ''
+		}
+	},
+
 	render() {
-		var appState = this.state.appState;
+		var {appState} = this.state;
 		var tags = [
 			{property: "description", content: "Setmine is a music app dedicated to live events! Relive past music festivals: Ultra, Coachella + more! Find upcoming shows + buy tix + listen to DJs' sets"},
 			{property: "og:site_name", content: "Setmine"},
-			// {property: "og:url", content: "https://setmine.com/metadata/" + encodeURIComponent(metadataPath.substring(1))},
 			{property: "fb:app_id", content: "648288801959503"},
 			{property: "og:description", content: "Setmine offers live music enthusiasts a new way to experience their favorite festival music.  No more struggling to find your favorite sets--we've done it all for you.  Listen to Ultra, Coachella, TomorrowWorld, and many more! Also don't forget to listen your favorite DJ's radio shows!"},
 			{property: "og:image", content: "https://setmine.com/images/setmine-logo-facebook.png"},
@@ -170,7 +179,7 @@ var App = React.createClass({
 						push: push
 					})
 				}
-				<Player appState={appState} push={push} />
+				{this.renderPlayer()}
 			</div>
 		);
 	}

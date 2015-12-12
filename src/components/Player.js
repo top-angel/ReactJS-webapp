@@ -13,8 +13,8 @@ var pausedClass = 'fa center fa-play play-button';
 var Player = React.createClass({
 
 	componentDidMount: function() {
-		var {push} = this.props;
-		var sound = this.props.appState.get('sound');
+		var {push, appState} = this.props;
+		var sound = appState.get('sound');
 
 		if(sound != null) {
 			push({
@@ -27,9 +27,9 @@ var Player = React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		var {push} = this.props;
+		var {push, appState} = this.props;
 
-		if(nextProps.appState.get('currentSet') != this.props.appState.get('currentSet')) {
+		if(nextProps.appState.get('currentSet') != appState.get('currentSet')) {
 			var starttime = nextProps.appState.get('currentSet').starttime;
 
 			generateSound(starttime, nextProps.appState, push)

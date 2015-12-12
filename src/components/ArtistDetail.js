@@ -30,16 +30,14 @@ var ArtistDetail = React.createClass({
 		$.ajax({
 			url: `${API_ROOT}artists/search/${query}`,
 			type: 'get'
-		})
-		.done(res => {
+		}).done(res => {
 			if(res.status === 'success') {
-				var artistData = res.payload.artists_name;
+				var artist = res.payload.artists_name;
 
 				push({
 					type: 'SHALLOW_MERGE',
 					data: {
-						detailId: artistData.id,
-						detailData: artistData
+						detailData: artist
 					}
 				});
 
@@ -51,8 +49,7 @@ var ArtistDetail = React.createClass({
 	},
 
 	render() {
-		var appState = this.props.appState;
-		var push = this.props.push;
+		var {push, appState} = this.props;
 
 		var artistData = appState.get('detailData');
 		var loginStatus = appState.get('isUserLoggedIn');
@@ -63,7 +60,6 @@ var ArtistDetail = React.createClass({
 		var artistInfo = `${artistData.set_count} ${setText} | ${artistData.event_count} ${eventText}`;
 
 		var detailInfo = {
-			appState: appState,
 			push: push,
 			title: artistData.artist,
 			buttonText: 'Shuffle',

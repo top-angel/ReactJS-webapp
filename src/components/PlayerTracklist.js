@@ -1,14 +1,10 @@
 import React from 'react';
 import constants from '../constants/constants';
 import {updateCurrentTrack} from '../services/playerService.js';
-import {History} from 'react-router';
 import { Motion, spring, presets } from 'react-motion';
 import Track from './Track';
 
 var PlayerTracklist = React.createClass({
-
-	displayName: 'PlayerTrackInfo',
-	mixins: [History],
 
 	getInitialState() {
 		return {
@@ -23,14 +19,12 @@ var PlayerTracklist = React.createClass({
 	},
 
 	updateCurrentTrack() {
-		var appState = this.props.appState;
-		var push = this.props.push;
+		var {push, appState} = this.props;
 		updateCurrentTrack(appState, push)
 	},
 
 	render() {
-		var appState = this.props.appState;
-		var push = this.props.push;
+		var {push, appState} = this.props;
 		var self = this;
 
 		var tracklist = appState.get('tracklist');
@@ -50,7 +44,6 @@ var PlayerTracklist = React.createClass({
 				key: index,
 				trackname: track.trackname,
 				starttime: track.starttime,
-				appState: appState,
 				push: push
 			};
 

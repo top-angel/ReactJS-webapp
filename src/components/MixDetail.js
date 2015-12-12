@@ -43,8 +43,7 @@ var MixDetail = React.createClass({
 	},
 
 	render() {
-		var push = this.props.push;
-		var appState = this.props.appState;
+		var {push, appState} = this.props;
 
 		var detailData = appState.get('detailData');
 		var loginStatus = appState.get('isUserLoggedIn');

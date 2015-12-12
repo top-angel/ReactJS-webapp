@@ -10,12 +10,7 @@ var FestivalDetail = React.createClass({
 
 	getInitialState() {
 		return {
-			loaded: false,
-			festival: {
-				banner_image: {
-					imageURL: null
-				}
-			}
+			loaded: false
 		};
 	},
 
@@ -31,32 +26,25 @@ var FestivalDetail = React.createClass({
 			url: festivalUrl,
 			type: 'get',
 		}).done(res => {
-			// push({
-			// 	type: 'SHALLOW_MERGE',
-			// 	data: {
-			// 		defailData: res.payload.events_id
-			// 	}
-			// });
+			push({
+				type: 'SHALLOW_MERGE',
+				data: {
+					detailData: res.payload.events_id
+				}
+			});
 
 			this.setState({
-				loaded: true,
-				festival: res.payload.events_id
+				loaded: true
 			});
 		});
 	},
 
 	render() {
-		// var appState = this.props.appState;
-		// var push = this.props.push;
-
 		var { appState, push } = this.props
 
 		var loginStatus = appState.get('isUserLoggedIn');
 		var user = appState.get('user');
-		// var festival = appState.get('festival');
-
-		var festival = this.state.festival
-
+		var festival = appState.get('detailData');
 
 		var setText = festival.set_count != 1 ? 'sets' : 'set';
 		var festivalInfo = `${festival.set_count} ${setText}`;

@@ -36,8 +36,7 @@ var LocationModule = React.createClass({
 				latitude: coordinates.lat,
 				longitude: coordinates.lng
 			}
-		})
-		.done(res => {
+		}).done(res => {
 			if(res.status === 'success') {
 				push({
 					type: 'SHALLOW_MERGE',
@@ -78,6 +77,7 @@ var LocationModule = React.createClass({
 				<Geosuggest
 					className='flex'
 					location={new google.maps.LatLng(location.latitude, location.longitude)}
+					radius={25}
 					onSuggestSelect={this.onSuggestSelect} />
 			</div>
 		);
