@@ -39,4 +39,4 @@ var LinkButtonContainer = React.createClass({
 
 });
 
-module.exports = LinkButtonContainer;
+export default LinkButtonContainer;

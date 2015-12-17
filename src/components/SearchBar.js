@@ -1,5 +1,5 @@
 import React from 'react';
-import {History, Link} from 'react-router';
+import {Link} from 'react-router';
 import {API_ROOT} from '../constants/constants';
 import history from '../services/history';
 import _ from 'underscore';
@@ -59,7 +59,7 @@ var SearchBar = React.createClass({
 					}
 				});
 
-				history.push(null, '/search');
+				history.pushState(null, '/search');
 			}
 		});
 	},

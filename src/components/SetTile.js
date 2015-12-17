@@ -1,6 +1,6 @@
 import React from 'react';
-import {favoriteSet} from '../services/favoriteSet';
-import {API_ROOT, S3_ROOT_FOR_IMAGES} from '../constants/constants';
+import { favoriteSet } from '../services/favoriteSet';
+import { API_ROOT, S3_ROOT_FOR_IMAGES } from '../constants/constants';
 import { Link } from 'react-router';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { Motion } from 'react-motion';
@@ -40,13 +40,7 @@ var SetTile = React.createClass({
 	},
 
 	favoriteSet() {
-		var push = this.props.push;
-		var user = this.props.user;
-		var loginStatus = this.props.loginStatus;
-
-		var favoriteUrl = `${API_ROOT}user/updateFavoriteSets`;
-		var self = this;
-
+		var {push, user, loginState} = this.props;
 		if(loginStatus) {
 			favoriteSet(push, user, this.props.id);
 		} else {
@@ -63,25 +57,24 @@ var SetTile = React.createClass({
 
 	openArtistPage() {
 		var routePath = this.props.artist.split(' ').join('_');
-		history.pushState(null, `/artist/${routePath}`);
+		history.pushStateState(null, `/artist/${routePath}`);
 		mixpanel.track("Artist Clicked", {
 			"Artist": this.props.artist
 		});
 	},
 
 	openFestivalPage() {
-		var routePath = this.props.event_id
 		if(this.props.is_radiomix == 0) {
-			history.pushState(null, `/festival/${routePath}`);
+			history.pushState(null, `/festival/${this.props.event_id}`);
 		} else {
-			history.pushState(null, `/mix/${routePath}`);
+			history.pushState(null, `/mix/${this.props.event_id}`);
 		}
 	},
 
 	playSet() {
 		var push = this.props.push;
 		this.getSet().done((res) => {
-			var tracklist = res.payload.tracks;
+			var tracklist = res.payload.sets_id.tracks;
 			console.log(tracklist)
 			
 			var set = {
@@ -90,16 +83,18 @@ var SetTile = React.createClass({
 				id: this.props.id,
 				set_length: this.props.set_length,
 				songURL: this.props.songURL,
-				artistimageURL: this.props.artistimageURL,
+				artist_image: this.props.artist_image,
 				starttime: '00:00'
 			};
+
+			console.log(set);
 
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					currentSet: set,
 					tracklist: tracklist,
-					currentTrack: tracklist,
+					currentTrack: tracklist[0].trackname,
 					playing: true,
 					timeElapsed: 0
 				}
@@ -117,7 +112,7 @@ var SetTile = React.createClass({
 			method: 'feed',
 			link: url,
 			caption: 'Share this Set',
-			picture: S3_ROOT_FOR_IMAGES + self.props.artistimageURL
+			picture: S3_ROOT_FOR_IMAGES + self.props.artist_image
 		}, function(response) {
 			console.debug(response);
 		});
@@ -201,4 +196,4 @@ var SetTile = React.createClass({
 	}
 });
 
-module.exports = SetTile;
+export default SetTile;

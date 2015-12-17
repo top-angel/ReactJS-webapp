@@ -10,6 +10,7 @@ var Mixes = React.createClass({
 	getInitialState() {
 		return {
 			loaded: false,
+			mixes: []
 		};
 	},
 
@@ -28,8 +29,7 @@ var Mixes = React.createClass({
 			data: {
 				limit: 5000
 			}
-		})
-		.done(res => {
+		}).done(res => {
 			if(res.status === 'success') {
 				this.setState({
 					loaded: true,

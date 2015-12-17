@@ -1,58 +1,45 @@
-import React from 'react';
-import Loader from 'react-loader';
-import {API_ROOT} from '../constants/constants';
-import SetContainer from './SetContainer';
+import React from 'react'
+import Loader from 'react-loader'
+import {API_ROOT} from '../constants/constants'
+import SetContainer from './SetContainer'
 
-var TITLE = 'Popular';
-var TYPE = 'set';
 var Popular = React.createClass({
 
 	getInitialState() {
 		return {
-			loaded: false
-		};
+			loaded: false,
+			sets: []
+		}
 	},
 
 	componentWillMount() {
-		this.getPopularSets();
+		this.getPopularSets()
 	},
 
 	componentDidMount() {
-		mixpanel.track("Popular Sets Page Open");
+		mixpanel.track("Popular Sets Page Open")
 	},
 
 	getPopularSets() {
-		var push = this.props.push;
-		var results,
-			popularUrl = `${API_ROOT}sets/popular`;
-
 		$.ajax({
-			url: popularUrl,
+			url: `${API_ROOT}sets/popular`,
 			type: 'get'
-		})
-		.done(res => {
+		}).done(res => {
 			if(res.status === 'success') {
-				results = res.payload.sets_popular;
-				push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						popularBrowseData: results
-					}
-				});
-
 				this.setState({
-					loaded: true
-				});
+					loaded: true,
+					sets: res.payload.sets_popular
+				})
 			}
-		});
+		})
 	},
 
 	render() {
-		var sets = this.props.appState.get('popularBrowseData');
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
-		var user = this.props.appState.get('user');
-		var containerClass = 'flex-row scrollable';
-		var push = this.props.push;
+		var sets = this.state.sets
+		var loginStatus = this.props.appState.get('isUserLoggedIn')
+		var user = this.props.appState.get('user')
+		var containerClass = 'flex-row scrollable'
+		var push = this.props.push
 		
 		return (
 			<Loader loaded={this.state.loaded}>
@@ -64,9 +51,9 @@ var Popular = React.createClass({
 					user={user}
 				/>
 			</Loader>
-		);
+		)
 	}
 
-});
+})
 
-module.exports = Popular;
+module.exports = Popular

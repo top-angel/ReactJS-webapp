@@ -13,12 +13,7 @@ var Home = React.createClass({
 		if(loginStatus) {
 			return;
 		} else {
-			return (
-				<LoginOverlay 
-					appState={this.props.appState} 
-					push={this.props.push}
-				/>
-			)
+			return <LoginOverlay push={this.props.push} />
 		}
 	},
 
@@ -30,10 +25,7 @@ var Home = React.createClass({
 		return (
 			<div id="HomeView" className='flex-row'>
 				{this.showOverlay()}
-				<HomeSidebar 
-					appState={this.props.appState}
-					user={user}
-				/>
+				<HomeSidebar user={user} />
 				{
 					React.cloneElement(this.props.children, {
 						push: this.props.push,

@@ -1,49 +1,46 @@
 import React from 'react';
 import Loader from 'react-loader';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
 import SetContainer from './SetContainer';
 
 var NewSets = React.createClass({
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			loaded: false
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount() {
 		this.getNewSets();
 		mixpanel.track("New Sets Page Open");
 	},
 
-	getNewSets: function() {
-		var _this = this;
+	getNewSets() {
 		var userId = this.props.appState.get('user').id;
 		var push = this.props.push;
-		var newSets,
-			newSetsUrl = constants.API_ROOT + 'user/stream/' + userId + '?filter=sets';
 
 		$.ajax({
-			url: newSetsUrl,
-			type: 'get'
-		})
-		.done(function(response) {
-			newSets = response.payload.user.stream;
-
+			url: `${API_ROOT}setmineuser/${userId}/stream`,
+			type: 'get',
+			data: {
+				filter: 'sets'
+			}
+		}).done(res => {
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					newSets: newSets
+					newSets: res.payload.setmineuser_stream
 				}
 			});
 
-			_this.setState({
+			this.setState({
 				loaded: true
 			});
 		});
 	},
 
-	render: function() {
+	render() {
 		var newSets = this.props.appState.get('newSets');
 		var loginStatus = this.props.appState.get('isUserLoggedIn');
 		var user = this.props.appState.get('user');
@@ -62,4 +59,4 @@ var NewSets = React.createClass({
 
 });
 
-module.exports = NewSets;
+export default NewSets;

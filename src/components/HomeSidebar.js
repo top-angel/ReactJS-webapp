@@ -44,4 +44,4 @@ var HomeSidebar = React.createClass({
 
 });
 
-module.exports = HomeSidebar;
+export default HomeSidebar;

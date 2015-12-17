@@ -22,7 +22,7 @@ var Festivals = React.createClass({
 	},
 
 	getFestivals() {
-		var push = this.props.push
+		// TODO upgrade to new API once routes are there
 		var url = `https://setmine.com/api/v/8/festival`;
 		// var url = `${API_ROOT}events/festivals`;
 
@@ -32,18 +32,9 @@ var Festivals = React.createClass({
 		})
 		.done(res => {
 			if(res.status === 'success') {
-				var festivals = res.payload.festival;
-				
-				// push({
-				// 	type: 'SHALLOW_MERGE',
-				// 	data: {
-				// 		festivalBrowseData: festivals
-				// 	}
-				// });
-
 				this.setState({
 					loaded: true,
-					festivals: festivals
+					festivals: res.payload.festival
 				});
 			}
 		});

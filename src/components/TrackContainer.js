@@ -3,11 +3,8 @@ import TrackTile from './TrackTile';
 
 var TrackContainer = React.createClass({
 
-	displayName: 'TrackContainer',
-
 	getDefaultProps() {
 		return {
-			containerId: 'TrackContainer',
 			containerClass: 'flex-row tile-container',
 			tracks: []
 		};
@@ -18,10 +15,9 @@ var TrackContainer = React.createClass({
 	},
 
 	render() {
-		var data = this.props.tracks;
-		var push = this.props.push;
+		var { tracks, push } = this.props;
 
-		var tiles = data.map(function(track, index) {
+		var tiles = tracks.map((track, index) => {
 			var props = {
 				songname: track.songname,
 				artistname: track.artistname,
@@ -34,8 +30,8 @@ var TrackContainer = React.createClass({
 				artist: track.artist,
 				is_radiomix: track.is_radiomix,
 				event_id: track.event_id,
-				main_eventimageURL: track.main_eventimageURL,
-				artistimageURL: track.artistimageURL,
+				banner_image: track.banner_image.imageURL,
+				artist_image: track.artists[0].icon_image.imageURL_small,
 				push: push,
 				key: index
 			};
@@ -44,7 +40,7 @@ var TrackContainer = React.createClass({
 		});
 
 		return (
-			<div className={this.props.containerClass} id={this.props.containerId}>
+			<div className={this.props.containerClass}>
 				{tiles}
 			</div>
 		);

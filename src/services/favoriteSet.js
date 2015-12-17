@@ -1,21 +1,18 @@
 import React from 'react';
 import R from 'ramda';
-import constants from '../constants/constants';
-import mixpanelService from '../services/mixpanelService.js';
+import {API_ROOT} from '../constants/constants';
 
-function favoriteSet(push, user, id) {
-	var favoriteUrl = constants.API_ROOT + 'user/updateFavoriteSets';
+export function favoriteSet(push, user, id) {
 	$.ajax({
 		type: 'POST',
-		url: favoriteUrl,
+		url: `${API_ROOT}setmineuser/favorites`,
 		data: {
 			'userData': {
 				'userID': user.id,
 				'setId': id
 			}
 		}
-	})
-	.done(function(res) {
+	}).done((res) => {
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
@@ -25,12 +22,7 @@ function favoriteSet(push, user, id) {
 	});
 }
 
-function checkFavorite(set, favorites) {
+export function checkFavorite(set, favorites) {
 	var setString = R.toString(set);
 	return R.contains(setString, favorites);
 }
-
-module.exports = {
-	checkFavorite: checkFavorite,
-	favoriteSet: favoriteSet
-};

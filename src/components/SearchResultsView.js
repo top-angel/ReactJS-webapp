@@ -128,4 +128,4 @@ var SearchResultsView = React.createClass({
 	}
 });
 
-module.exports = SearchResultsView;
+export default SearchResultsView;

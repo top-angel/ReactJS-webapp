@@ -1,49 +1,46 @@
 import React from 'react';
 import Loader from 'react-loader';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
 import EventContainer from './EventContainer';
 
 var NewEvents = React.createClass({
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			loaded: false
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount() {
 		this.getNewEvents();
 		mixpanel.track("New Events Page Open");
 	},
 
-	getNewEvents: function() {
-		var _this = this;
+	getNewEvents() {
 		var userId = this.props.appState.get('user').id;
 		var push = this.props.push;
-		var results,
-			newEventsUrl = constants.API_ROOT + 'user/stream/' + userId + '?filter=upcoming';
 
 		$.ajax({
-			url: newEventsUrl,
-			type: 'get'
-		})
-		.done(function(response) {
-			results = response.payload.user.stream;
-
+			url: `${API_ROOT}setmineuser/${userId}/stream`,
+			type: 'upcoming',
+			data: {
+				filter: 'events'
+			}
+		}).done(res => {
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					newEvents: results
+					newEvents: res.payload.setmineuser_stream
 				}
 			});
 
-			_this.setState({
+			this.setState({
 				loaded: true
 			});
 		});
 	},
 
-	render: function() {
+	render() {
 		var newEvents = this.props.appState.get('newEvents');
 		var containerClass = 'flex-row scrollable tile-container';
 		

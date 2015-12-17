@@ -1,13 +1,10 @@
 import React from 'react'
-import { Link, History } from 'react-router';
+import { Link } from 'react-router';
 import SearchBar from './SearchBar';
 
 var Header = React.createClass({
 
-	mixins: [History],
-
-	render: function() {
-		
+	render() {
 		return (
 			<header className='flex-row'>
 				<Link className='nav-button fa icon-setmine click center' to='/' onlyActiveOnIndex={true} />
@@ -35,4 +32,4 @@ var Header = React.createClass({
 	}
 });
 
-module.exports = Header;
+export default Header;

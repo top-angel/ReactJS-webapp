@@ -12,7 +12,7 @@ var pausedClass = 'fa center fa-play play-button';
 
 var Player = React.createClass({
 
-	componentDidMount: function() {
+	componentDidMount() {
 		var {push, appState} = this.props;
 		var sound = appState.get('sound');
 
@@ -26,7 +26,7 @@ var Player = React.createClass({
 		}
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps(nextProps) {
 		var {push, appState} = this.props;
 
 		if(nextProps.appState.get('currentSet') != appState.get('currentSet')) {
@@ -47,33 +47,38 @@ var Player = React.createClass({
 
 				// Log Mixpanel event
 				var selectedSet = nextProps.appState.get('currentSet');
-				var setName = selectedSet.artist+' - '+selectedSet.event;
-
-				mixpanel.track("Set Play", {
-					"set_id": selectedSet.id,
-					"set_name": setName,
-					"set_artist": selectedSet.artist,
-					"set_event": selectedSet.event
-				});
-
-				// mixpanel user tracking
-				mixpanel.people.increment("play_count");
-				mixpanel.people.append("sets_played_ids", setProperties.set_id);
-				mixpanel.people.append("sets_played_names", setProperties.set_name);
-				mixpanel.people.append("sets_played_artists", setProperties.set_artist);
-				mixpanel.people.append("sets_played_events", setProperties.set_event);
+				this.trackMixpanel(selectedSet);
 			});
 		} 
 	},
 
-	togglePlay: function() {
+	togglePlay() {
 		var sound = this.props.appState.get('sound');
 		togglePlay(sound);
 	},
 
-	render: function() {
-		var push = this.props.push;
-		var appState = this.props.appState;
+	trackMixpanel(selectedSet) {
+		// Log Mixpanel event
+		// var selectedSet = nextProps.appState.get('currentSet');
+		var setName = selectedSet.artist+' - '+selectedSet.event;
+
+		mixpanel.track("Set Play", {
+			"set_id": selectedSet.id,
+			"set_name": setName,
+			"set_artist": selectedSet.artist,
+			"set_event": selectedSet.event
+		});
+
+		// mixpanel user tracking
+		mixpanel.people.increment("play_count");
+		mixpanel.people.append("sets_played_ids", setProperties.set_id);
+		mixpanel.people.append("sets_played_names", setProperties.set_name);
+		mixpanel.people.append("sets_played_artists", setProperties.set_artist);
+		mixpanel.people.append("sets_played_events", setProperties.set_event);
+	},
+
+	render() {
+		var {push, appState} = this.props;
 		var currentSet = appState.get('currentSet');
 		var playerHidden = appState.get('playerHidden');
 
@@ -82,17 +87,17 @@ var Player = React.createClass({
 			push: push
 		};
 
-		var playerClass = playerHidden? 'flex-row hidden' : 'flex-row';
+		var hidePlayer = playerHidden? 'hidden' : '';
 
 		return (
-			<div className={playerClass} id='Player'>
-				<PlayerControl appState={appState} push={push} />
+			<div className={`flex-row ${hidePlayer}`} id='Player'>
+				<PlayerControl {...props} />
 				<div className='flex-column flex'>
-					<PlayerSeek appState={appState} push={push} />
+					<PlayerSeek {...props} />
 					<div className='flex flex-row'>
-						<PlayerSetInfo appState={appState} push={push} />
+						<PlayerSetInfo {...props} />
 						<PlayerTracklist {...props} />
-						<PlayerShare appState={appState} push={push} />
+						<PlayerShare {...props} />
 					</div>
 				</div>
 			</div>
@@ -100,4 +105,4 @@ var Player = React.createClass({
 	}
 });
 
-module.exports = Player;
+export default Player;

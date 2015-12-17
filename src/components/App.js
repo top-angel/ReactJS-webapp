@@ -5,7 +5,7 @@ import DocMeta from 'react-doc-meta';
 import GlobalEventHandler from '../services/globalEventHandler';
 import {startFacebookSDK} from '../services/loginService';
 import detectMobileService from '../services/detectMobileService';
-import {API_ROOT} from '../constants/constants';
+import {API_ROOT, DEFAULT_IMAGE} from '../constants/constants';
 
 import Header from './Header';
 import Player from './Player';
@@ -23,13 +23,6 @@ var initialAppState = Immutable.Map({
 	playing: false,
 	timeElapsed: 0,
 
-	artistBrowseData: [],
-	activityBrowseData: [],
-	recentBrowseData: [],
-	popularBrowseData: [],
-
-	mixes: [],
-
 	featuredEvents: [],
 	upcomingEvents: [],
 	closestEvents: [],
@@ -41,17 +34,17 @@ var initialAppState = Immutable.Map({
 	newEvents: [],
 	detailId: null,
 	detailData: {
-		"sets": [],
-		"upcomingEvents": [],
-		"banner_image": {
-			imageURL: ''
+		sets: [],
+		upcomingEvents: [],
+		icon_image: {
+			imageURL: DEFAULT_IMAGE
 		},
-		"links": {
-			"facebook": null,
-			"twitter": null,
-			"instagram": null,
-			"soundcloud": null,
-			"youtube": null
+		links: {
+			facebook: null,
+			twitter: null,
+			instagram: null,
+			soundcloud: null,
+			youtube: null
 		}
 	},
 	location: {
@@ -77,8 +70,6 @@ var App = React.createClass({
 
 	getInitialState() {
 		return {
-			// Let's assume that other ephemeral state
-			// MAY have to exist here.
 			appState: initialAppState
 		};
 	},
@@ -140,16 +131,19 @@ var App = React.createClass({
 	},
 
 	getSetById(id) {
-		return (
-			$.ajax({
-				type: 'get',
-				url: `${API_ROOT}sets/id/${id}`
-			})
-		);
+		return $.ajax({
+			type: 'get',
+			url: `${API_ROOT}sets/id/${id}`
+		})
 	},
 
 	renderPlayer() {
-		if(this.state.appState.get('playing')) {
+		// if(!this.state.appState.get('playerHidden')) {
+		// 	return <Player appState={this.state.appState} push={push} />
+		// } else {
+		// 	return ''
+		// }
+		if(this.state.appState.get('sound') != null) {
 			return <Player appState={this.state.appState} push={push} />
 		} else {
 			return ''
@@ -179,7 +173,7 @@ var App = React.createClass({
 						push: push
 					})
 				}
-				{this.renderPlayer()}
+				<Player appState={appState} push={push} />
 			</div>
 		);
 	}

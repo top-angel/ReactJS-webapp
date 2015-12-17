@@ -22,8 +22,7 @@ var Artists = React.createClass({
 	},
 
 	componentWillMount() {
-		this.getArtists()
-		.done(res => {
+		this.getArtists().done(res => {
 			if(res.status === 'success') {
 				var artists = this.filterArtists(res.payload.artists);
 				this.setState({
@@ -44,26 +43,7 @@ var Artists = React.createClass({
 		}
 	},
 
-	// changePage(e) {
-	// 	var page = e.target.innerHTML.toString();
-	// 	switch(page) {
-	// 		case '...':
-	// 			break;
-	// 		case '':
-	// 			this.setState((prevState, currentProps) => {
-	// 				var newPage = prevState.page.currentpage++;
-	// 				console.log(newPage)
-	// 				this.getArtists(newPage).done(res => this.updateArtists(res));
-	// 			});
-	// 			break;
-	// 		default:
-	// 			this.getArtists(page).done(res => this.updateArtists(res));
-	// 			break;
-	// 	}
-	// },
-
 	filterArtists(array) {
-		//	only show artists with sets
 		var hasSets = set => {
 			return set.set_count != 0;
 		};
@@ -93,7 +73,7 @@ var Artists = React.createClass({
 				key: index,
 				id: artist.id,
 				push: push,
-				imageURL: artist.icon_image.imageURL,
+				imageURL: artist.icon_image.imageURL_small,
 				set_count: artist.set_count,
 				event_count: artist.event_count
 			};

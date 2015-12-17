@@ -18,13 +18,23 @@ var SetContainer = React.createClass({
 	shouldComponentUpdate(nextProps, nextState) {
 		var oldFav = this.props.user.favorite_set_ids;
 		var newFav = nextProps.user.favorite_set_ids;
-
-		if(nextProps.sets != this.props.sets) {
-			return true;
-		} else if(newFav != oldFav) {
-			return true;
-		} else {
-			return false;
+		// if(nextProps.sets != this.props.sets) {
+		// 	return true;
+		// } else if(newFav != oldFav) {
+		// 	return true;
+		// } else {
+		// 	return false;
+		// }
+		switch(true) {
+			case nextProps.sets != this.props.sets:
+				return true;
+				break;
+			case newFav != oldFav:
+				return true;
+				break;
+			default:
+				return false;
+				break;
 		}
 	},
 
@@ -34,6 +44,7 @@ var SetContainer = React.createClass({
 		var tiles = sets.map((set, index) => {
 			var favorited = this.props.loginStatus ? checkFavorite(set.id, this.props.user) : false
 
+			// API data needs episode
 			if(set.episode != null && set.episode.length > 0) {
 				var setName = `${set.event.event} - ${set.episode}`;
 			} else {
@@ -54,9 +65,7 @@ var SetContainer = React.createClass({
 				artist_image: set.artists[0].icon_image.imageURL_small,
 				popularity: set.popularity,
 				songURL: set.songURL,
-				banner_image: set.event.icon_image.imageURL,
-				// banner_image: set.banner_image.imageURL,
-				// banner_image: set.icon_image.imageURL,
+				banner_image: set.event.banner_image.imageURL,
 				user: this.props.user,
 				loginStatus: this.props.loginStatus,
 				favorited: favorited
@@ -64,7 +73,6 @@ var SetContainer = React.createClass({
 
 			return <SetTile {...props} />
 		});
-
 
 		return (
 			<div className={this.props.containerClass}>
@@ -75,4 +83,4 @@ var SetContainer = React.createClass({
 
 });
 
-module.exports = SetContainer;
+export default SetContainer;

@@ -12,7 +12,6 @@ var soundManager = SM2.soundManager;
 var smDeferred = Q.defer();
 var smPromise = smDeferred.promise;
 
-
 soundManager.setup({
 	url: '/swf/soundmanager2.swf',
 	debugMode: false,
@@ -64,7 +63,7 @@ function generateSound(loadStart, appState, push) {
 		onload: function() {
 			var totalTime = sound.durationEstimate;
 		},
-		volume: 0, //comment out for production
+		// volume: 0, //comment out for production
 		whileplaying: function() {
 			var currentTime = sound.position;
 			//UPDATE CURRENT TRACK HERE
@@ -122,7 +121,7 @@ function togglePlay(sound) {
 function updateCurrentTrack(sound, tracklist, push) {
 	var currentPosition = sound.position;
 
-	var currentTrack = tracklist.filter(function(track, index) {
+	var currentTrack = tracklist.filter((track, index) => {
 		var starttime = convert.MMSSToMilliseconds(track.starttime);
 
 		if(starttime <= currentPosition) {
