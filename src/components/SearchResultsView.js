@@ -111,17 +111,17 @@ var SearchResultsView = React.createClass({
 						push={this.props.push}
 						loginStatus={loginStatus}
 						user={user}
-						containerClass={setClass} />
+						className={setClass} />
 					<div className='header-small events'>EVENTS</div>
 					<EventContainer
 						events={searchResults.upcomingEvents}
 						push={this.props.push}
-						containerClass={eventClass} />
+						className={eventClass} />
 					<div className='header-small tracks'>TRACKS</div>
 					<TrackContainer
 						tracks={searchResults.tracks}
 						push={this.props.push}
-						containerClass={trackClass} />
+						className={trackClass} />
 				</div>
 			</div>
 		);

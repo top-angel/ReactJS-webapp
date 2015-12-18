@@ -7,7 +7,7 @@ var SetContainer = React.createClass({
 
 	getDefaultProps() {
 		return {
-			containerClass: 'flex-row tile-container scrollable',
+			className: 'flex-row tile-container scrollable',
 			sets: [],
 			user: {
 				favorite_set_ids: []
@@ -75,7 +75,7 @@ var SetContainer = React.createClass({
 		});
 
 		return (
-			<div className={this.props.containerClass}>
+			<div className={this.props.className}>
 				{tiles}
 			</div>
 		);

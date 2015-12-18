@@ -5,7 +5,7 @@ var EventContainer = React.createClass({
 
 	getDefaultProps() {
 		return {
-			containerClass: 'flex-row tile-container',
+			className: 'flex-row tile-container',
 			errorClass: 'flex-column error',
 			id: null,
 			events: []
@@ -17,8 +17,7 @@ var EventContainer = React.createClass({
 	},
 
 	render() {
-		var events = this.props.events;
-		var push = this.props.push;
+		var {events, push} = this.props;
 
 		if(events.length == 0) {
 			var tiles = (
@@ -35,7 +34,7 @@ var EventContainer = React.createClass({
 					push: push,
 					event: event.event,
 					start_date: event.start_date,
-					main_imageURL: event.icon_image.imageURL,
+					banner_image: event.icon_image.imageURL,
 					ticket_link: event.ticket_link,
 					venue: event.venue.venue
 				};
@@ -45,7 +44,7 @@ var EventContainer = React.createClass({
 		}
 
 		return (
-			<div className={this.props.containerClass || this.props.errorClass}>
+			<div className={this.props.className || this.props.errorClass}>
 				{tiles}
 			</div>
 		);
@@ -53,4 +52,4 @@ var EventContainer = React.createClass({
 
 });
 
-module.exports = EventContainer;
+export default EventContainer;

@@ -5,7 +5,7 @@ var TrackContainer = React.createClass({
 
 	getDefaultProps() {
 		return {
-			containerClass: 'flex-row tile-container',
+			className: 'flex-row tile-container',
 			tracks: []
 		};
 	},
@@ -40,7 +40,7 @@ var TrackContainer = React.createClass({
 		});
 
 		return (
-			<div className={this.props.containerClass}>
+			<div className={this.props.className}>
 				{tiles}
 			</div>
 		);

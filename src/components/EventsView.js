@@ -12,9 +12,7 @@ var EventsView = React.createClass({
 	},
 	
 	render() {
-		var push = this.props.push;
-		var appState = this.props.appState;
-		var containerClass='flex-row tile-container';
+		var {appState, push} = this.props;
 
 		return (
 			<div id="EventsView" className="view flex-column">
@@ -28,16 +26,15 @@ var EventsView = React.createClass({
 				<LocationModule
 					push={push}
                 	appState={appState} />
-            	{
+	        	{
 					React.cloneElement(this.props.children, {
 						appState: appState,
-						push: push,
-						containerClass: containerClass
+						push: push
 					})
 				}
-          </div>
+			</div>
 		);
 	}
 });
 
-module.exports = EventsView
+export default EventsView

@@ -39,13 +39,11 @@ var initialAppState = Immutable.Map({
 		icon_image: {
 			imageURL: DEFAULT_IMAGE
 		},
-		links: {
-			facebook: null,
-			twitter: null,
-			instagram: null,
-			soundcloud: null,
-			youtube: null
-		}
+		fb_link: null,
+		twitter_link: null,
+		instagram_link: null,
+		soundcloud_link: null,
+		youtube_link: null
 	},
 	location: {
 		label: 'DEFAULT LOCATION',
@@ -74,6 +72,16 @@ var App = React.createClass({
 		};
 	},
 
+	childContextTypes: {
+		push: React.PropTypes.func
+	},
+
+	getChildContext() {
+		return {
+			push: push
+		}
+	},
+
 	componentWillMount() {
 		this.initializeApp();
 		detectMobileService.detectMobileBrowser();
@@ -83,11 +91,9 @@ var App = React.createClass({
 	},
 
 	componentDidMount() {
-		var metadataPath = window.location.pathname;
 		startFacebookSDK(push);
-
 		// check if user is logged in
-		console.log(this.state.appState.get('isUserLoggedIn'));
+		// console.log(this.state.appState.get('isUserLoggedIn'));
 	},
 
 	initializeApp() {
@@ -98,15 +104,13 @@ var App = React.createClass({
 	},
 
 	playSet() {
-		var id = this.props.params.set;
-
-		this.getSetById(id).done(res => {
+		var setId = this.props.params.set;
+		this.getSetById(setId).done(res => {
 			if(res.status === 'success') {
 				var set = res.payload.sets_id;
 				var tracks = set.tracks;
 				var artists = R.pluck('artist', set.artists);
 				var artist = artists.toString().split(',').join(', ');
-
 				var currentSet = {
 					artist: artist,
 					event: set.event.event,

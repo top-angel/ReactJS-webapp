@@ -1,21 +1,11 @@
 import React from 'react';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
 import EventContainer from './EventContainer';
 
 var ClosestEvents = React.createClass({
-
-	getDefaultProps() {
-		return {
-			appState: {
-				closestEvents: []
-			}
-		};
-	},
-
 	render() {
 		var props = {
-			closestEvents: this.props.appState.get('closestEvents'),
-			containerClass: 'flex-row tile-container',
+			events: this.props.appState.get('closestEvents'),
 			push: this.props.push
 		};
 
@@ -26,4 +16,4 @@ var ClosestEvents = React.createClass({
 
 });
 
-module.exports = ClosestEvents;
+export default ClosestEvents;

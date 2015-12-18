@@ -1,23 +1,19 @@
 import React from 'react';
 import moment from 'moment';
-import {History} from 'react-router';
-import constants from '../constants/constants';
+import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
+import history from '../services/history';
 
 var EventTile = React.createClass({
 
-	displayName: 'EventTile',
-	mixins: [History],
-
-	openEventPage: function() {
-		var routePath = this.props.id;
-		this.history.pushState(null, '/event/' + routePath);
+	openEventPage() {
+		this.history.pushState(null, '/event/' + this.props.id);
 	},
 
-	render: function() {
+	render() {
 		var month = moment(this.props.start_date).format('MMM');
     	var day = moment(this.props.start_date).format('DD');
 		var image = {
-			backgroundImage: "url('" + constants.S3_ROOT_FOR_IMAGES+this.props.main_imageURL + "')"
+			backgroundImage: `url('${S3_ROOT_FOR_IMAGES+this.props.banner_image}')`
 		};
 
 		return (
@@ -45,4 +41,4 @@ var EventTile = React.createClass({
 	}
 })
 
-module.exports = EventTile;
+export default EventTile;

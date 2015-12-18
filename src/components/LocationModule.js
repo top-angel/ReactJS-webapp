@@ -1,11 +1,10 @@
 import React from 'react';
-import {API_ROOT} from '../constants/constants';
 import Geosuggest from 'react-geosuggest';
-import {History, Link, IndexLink} from 'react-router';
+import {Link, IndexLink} from 'react-router';
+import {API_ROOT} from '../constants/constants';
+import history from '../services/history';
 
 var LocationModule = React.createClass({
-
-	mixins: [History],
 
 	componentWillMount() {
 		navigator.geolocation.getCurrentPosition(this.getDefaultCoordinates);
@@ -59,7 +58,7 @@ var LocationModule = React.createClass({
 		});
 
 		this.getClosestEvents();
-		this.history.pushState(null, '/events/closest');
+		history.pushState(null, '/events/closest');
 		mixpanel.track("Event Search Active", {
 			"search": suggest
 		});
@@ -85,4 +84,4 @@ var LocationModule = React.createClass({
 
 });
 
-module.exports = LocationModule;
+export default LocationModule;

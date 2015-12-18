@@ -137,6 +137,10 @@ var SetTile = React.createClass({
 		})
 	},
 
+	contextTypes: {
+		push: React.PropTypes.func
+	},
+
 	render() {
 		var eventImage = {
 			backgroundImage: `url(${S3_ROOT_FOR_IMAGES+this.props.banner_image})`
