@@ -9,25 +9,11 @@ var SearchResultsView = React.createClass({
 	contextTypes: {
 		push: React.PropTypes.func
 	},
-	
+
 	getInitialState() {
 		return {
 			active: 'artists'
 		};
-	},
-
-	componentWillUnmount() {
-		this.context.push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				searchResults: {
-					sets: [],
-					upcomingEvents: [],
-					tracks: [],
-					artists: []
-				}
-			}
-		});
 	},
 
 // TODO make this without jquery
@@ -81,7 +67,7 @@ var SearchResultsView = React.createClass({
 
 	componentWillUnmount() {
 		$('#search').val('');
-		this.props.push({
+		this.context.push({
 			type: 'SHALLOW_MERGE',
 			data: {
 				searchResults: {
@@ -97,6 +83,7 @@ var SearchResultsView = React.createClass({
 		var searchResults = this.props.appState.get('searchResults');
 		var loginStatus = this.props.appState.get('isUserLoggedIn');
 		var user = this.props.appState.get('user');
+
 
 		var setClass = 'flex-row results sets';
 		var eventClass = 'flex-row results events';

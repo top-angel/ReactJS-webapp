@@ -59,7 +59,6 @@ const Player = React.createClass({
 
 	trackMixpanel(selectedSet) {
 		// Log Mixpanel event
-		// var selectedSet = nextProps.appState.get('currentSet');
 		var setName = selectedSet.artist+' - '+selectedSet.event;
 
 		mixpanel.track("Set Play", {
@@ -79,25 +78,18 @@ const Player = React.createClass({
 
 	render() {
 		var appState = this.props.appState;
-		// var {push, appState} = this.props;
 		var currentSet = appState.get('currentSet');
-
-		var playerProps = {
-			appState: appState
-			// push: push
-		};
-
 		var hidePlayer = appState.get('playerHidden') ? 'hidden' : '';
 
 		return (
 			<div className={`flex-row ${hidePlayer}`} id='Player'>
-				<PlayerControl {...playerProps} />
+				<PlayerControl appState={appState} />
 				<div className='flex-column flex'>
-					<PlayerSeek {...playerProps} />
+					<PlayerSeek appState={appState} />
 					<div className='flex flex-row'>
-						<PlayerSetInfo {...playerProps} />
-						<PlayerTracklist {...playerProps} />
-						<PlayerShare {...playerProps} />
+						<PlayerSetInfo appState={appState} />
+						<PlayerTracklist appState={appState} />
+						<PlayerShare appState={appState} />
 					</div>
 				</div>
 			</div>

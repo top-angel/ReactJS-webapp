@@ -65,8 +65,8 @@ const SetContainer = React.createClass({
 				popularity: set.popularity,
 				songURL: set.songURL,
 				banner_image: set.event.banner_image.imageURL,
-				user: this.props.user,
-				loginStatus: this.props.loginStatus,
+				// user: this.props.user,
+				// loginStatus: this.props.loginStatus,
 				favorited: favorited
 			})
 		});

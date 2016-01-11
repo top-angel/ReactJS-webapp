@@ -57,12 +57,16 @@ var push = evtHandler.push;
 const App = React.createClass({
 
 	childContextTypes: {
-		push: React.PropTypes.func
+		push: React.PropTypes.func,
+		user: React.PropTypes.object,
+		loginStatus: React.PropTypes.bool
 	},
 
 	getChildContext() {
 		return {
-			push: push
+			push: push,
+			user: this.state.appState.get('user'),
+			loginStatus: this.state.appState.get('isUserLoggedIn')
 		}
 	},
 

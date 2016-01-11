@@ -5,6 +5,12 @@ import { favoriteSet } from '../services/favoriteSet';
 
 const SetShare = React.createClass({
 
+	contextTypes: {
+		push: React.PropTypes.func,
+		user: React.PropTypes.object,
+		loginStatus: React.PropTypes.bool
+	},
+
 	getInitialState() {
 		return {
 			copied: false,
@@ -27,7 +33,7 @@ const SetShare = React.createClass({
 	},
 
 	favoriteSet() {
-		var {user, loginState} = this.props;
+		var {user, loginStatus} = this.context;
 		if(loginStatus) {
 			favoriteSet(this.context.push, user, this.props.id);
 		} else {

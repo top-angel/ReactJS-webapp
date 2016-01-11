@@ -25,8 +25,7 @@ var EventDetail = React.createClass({
 		$.ajax({
 			url: `${API_ROOT}events/id/${event}`,
 			type: 'get',
-		})
-		.done(res => {
+		}).done(res => {
 			if(res.status === 'success') {
 				push({
 					type: 'SHALLOW_MERGE',
@@ -74,4 +73,4 @@ var EventDetail = React.createClass({
 
 });
 
-module.exports = EventDetail;
+export default EventDetail;

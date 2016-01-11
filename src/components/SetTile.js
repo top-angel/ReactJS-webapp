@@ -6,14 +6,16 @@ import SetShare from './SetShare';
 var SetTile = React.createClass({
 
 	contextTypes: {
-		push: React.PropTypes.func
+		push: React.PropTypes.func,
+		user: React.PropTypes.object,
+		loginStatus: React.PropTypes.bool
 	},
 
 	getDefaultProps() {
 		return {
 			starttime: 0,
-			loginStatus: false,
-			user: {},
+			// loginStatus: false,
+			// user: {},
 			favorited: false
 		};
 	},
@@ -78,7 +80,7 @@ var SetTile = React.createClass({
 			url: `${API_ROOT}sets/play`,
 			data: {
 				set_id: id,
-				user_id: this.props.user.id || null
+				user_id: this.context.user.id || null
 			},
 			success(data) {
 				console.log('play count updated')
@@ -101,8 +103,6 @@ var SetTile = React.createClass({
 							<div className='flex click link set-name' onClick={this.openFestivalPage}>{this.props.setName}</div>
 							<div className='flex click link artist' to='artist' onClick={this.openArtistPage}>{this.props.artist}</div>
 							<SetShare 
-								user={this.props.user}
-								loginState={this.props.loginState} 
 								id={this.props.id} 
 								favorited={this.props.favorited} />
 						</div>

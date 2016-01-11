@@ -11,16 +11,19 @@ import LinkButtonContainer from './LinkButtonContainer';
 
 var ArtistDetail = React.createClass({
 
-	displayName: 'Artist Detail Page',
+	contextTypes: {
+		push: React.PropTypes.func
+	},
+
+	componentWillMount() {
+		this.getArtistData();
+	},
+
 	getInitialState() {
 		// TODO move artist detail to state instead of appstate
 		return {
 			loaded: false
 		};
-	},
-
-	componentWillMount() {
-		this.getArtistData();
 	},
 
 	getArtistData() {
@@ -50,7 +53,7 @@ var ArtistDetail = React.createClass({
 	},
 
 	render() {
-		var {push, appState} = this.props;
+		var {appState} = this.props;
 
 		var artistData = appState.get('detailData');
 		var loginStatus = appState.get('isUserLoggedIn');
@@ -114,9 +117,9 @@ var ArtistDetail = React.createClass({
 						React.cloneElement(this.props.children, {
 							sets: artistData.sets,
 							events: artistData.upcoming_events,
-							push: push,
-							loginStatus: loginStatus,
-							user: user
+							// push: push,
+							// loginStatus: loginStatus,
+							// user: user
 						})
 					}
 				</div>
@@ -126,4 +129,4 @@ var ArtistDetail = React.createClass({
 
 });
 
-module.exports = ArtistDetail;
+export default ArtistDetail;
