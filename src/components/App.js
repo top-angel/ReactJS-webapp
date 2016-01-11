@@ -23,16 +23,12 @@ var initialAppState = Immutable.Map({
 	playing: false,
 	timeElapsed: 0,
 
-	featuredEvents: [],
-	upcomingEvents: [],
 	closestEvents: [],
 	isUserLoggedIn: false,
 	user: {
-		id: 108
+		id: 67
 	},
-	newSets: [],
-	newEvents: [],
-	detailId: null,
+	favorites: [],
 	detailData: {
 		sets: [],
 		upcomingEvents: [],
@@ -45,13 +41,7 @@ var initialAppState = Immutable.Map({
 		soundcloud_link: null,
 		youtube_link: null
 	},
-	location: {
-		label: 'DEFAULT LOCATION',
-		location: {
-			lat: 29.652175,
-			lng: -82.325856
-		}
-	},
+
 	searchResults: {
 		artists: [],
 		sets: [],
@@ -64,13 +54,7 @@ var evtHandler = GlobalEventHandler(initialAppState);
 var evtTypes = evtHandler.types;
 var push = evtHandler.push;
 
-var App = React.createClass({
-
-	getInitialState() {
-		return {
-			appState: initialAppState
-		};
-	},
+const App = React.createClass({
 
 	childContextTypes: {
 		push: React.PropTypes.func
@@ -80,6 +64,12 @@ var App = React.createClass({
 		return {
 			push: push
 		}
+	},
+
+	getInitialState() {
+		return {
+			appState: initialAppState
+		};
 	},
 
 	componentWillMount() {
@@ -93,7 +83,7 @@ var App = React.createClass({
 	componentDidMount() {
 		startFacebookSDK(push);
 		// check if user is logged in
-		// console.log(this.state.appState.get('isUserLoggedIn'));
+		console.log('user logged in: ' + this.state.appState.get('isUserLoggedIn'));
 	},
 
 	initializeApp() {
@@ -155,7 +145,7 @@ var App = React.createClass({
 	},
 
 	render() {
-		var {appState} = this.state;
+		var appState = this.state.appState;
 		var tags = [
 			{property: "description", content: "Setmine is a music app dedicated to live events! Relive past music festivals: Ultra, Coachella + more! Find upcoming shows + buy tix + listen to DJs' sets"},
 			{property: "og:site_name", content: "Setmine"},

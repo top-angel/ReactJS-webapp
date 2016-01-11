@@ -1,8 +1,12 @@
 import React from 'react';
-import {changeTrack} from '../services/playerService.js';
+import {changeTrack} from '../services/playerService';
 import convert from '../services/convert';
 
 var Track = React.createClass({
+
+	contextTypes: {
+		push: React.PropTypes.func
+	},
 
 	getDefaultProps() {
 		return {
@@ -12,9 +16,9 @@ var Track = React.createClass({
 	},
 
 	changeTrack() {
-		var {push, trackname, starttime, className} = this.props;
+		var {appState, trackname, starttime, className} = this.props;
 		var starttime = convert.MMSSToMilliseconds(starttime);
-		changeTrack(appState, push, starttime, trackname);
+		changeTrack(appState, this.context.push, starttime, trackname);
 	},
 
 	render() {
@@ -30,4 +34,4 @@ var Track = React.createClass({
 
 });
 
-module.exports = Track;
+export default Track;

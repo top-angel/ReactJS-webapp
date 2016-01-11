@@ -2,7 +2,7 @@ import React from 'react';
 import {API_ROOT} from '../constants/constants';
 import mixpanelService from './mixpanelService.js';
 
-function startFacebookSDK(push) {
+export function startFacebookSDK(push) {
 	window.fbAsyncInit = function() {
 		FB.init({
 			appId      : '648288801959503',
@@ -70,13 +70,18 @@ function registerFacebookUser(auth, push) {
 			}
 		}
 	}).done(res => {
+		// TODO makesure res.payload.setmine_user is valid
+		console.log(res)
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
 				isUserLoggedIn: true,
-				user: res.payload.user
+				user: res.payload.setmine_user
 			}
 		});
+
+		// check if user is logged in
+		console.log('successfully logged in');
 
 		//track user after logging in for the first time
 		mixpanel.identify(res.payload.user.facebook_id);
@@ -90,11 +95,6 @@ function registerFacebookUser(auth, push) {
 	});
 }
 
-function login(push) {
+export function login(push) {
 	FB.login(checkLoginState(push));
-}
-
-module.exports = {
-	login: login,
-	startFacebookSDK: startFacebookSDK
 }

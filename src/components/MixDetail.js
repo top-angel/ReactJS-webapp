@@ -5,9 +5,9 @@ import {API_ROOT} from '../constants/constants';
 import SetContainer from './SetContainer';
 import DetailImageContainer from './DetailImageContainer';
 
-var MixDetail = React.createClass({
+const MixDetail = React.createClass({
 
-	displayName: 'MixDetail',
+	displayName: 'Mix Detail Page',
 	getInitialState() {
 		return {
 			loaded: false
@@ -32,7 +32,7 @@ var MixDetail = React.createClass({
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					detailData: res.payload.mix_id
+					detailData: res.payload.mixes_id
 				}
 			});
 
@@ -50,13 +50,12 @@ var MixDetail = React.createClass({
 		var user = appState.get('user');
 
 		var setText = detailData.set_count != 1 ? 'sets' : 'set';
-		var info = `${detailData.set_count} ${setText}`;
 
 		var detailInfo = {
 			push: push,
 			title: detailData.event,
-			imageURL: detailData.banner_image.imageURL,
-			info: info
+			imageURL: detailData.icon_image.imageURL,
+			info: `${detailData.set_count} ${setText}`
 		};
 		
 		var sets = {

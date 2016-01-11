@@ -5,8 +5,12 @@ import history from '../services/history';
 
 var EventTile = React.createClass({
 
+	contextTypes: {
+		push: React.PropTypes.func
+	},
+
 	openEventPage() {
-		this.history.pushState(null, '/event/' + this.props.id);
+		history.pushState(null, '/event/' + this.props.id);
 	},
 
 	render() {

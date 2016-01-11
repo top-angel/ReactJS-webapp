@@ -4,15 +4,18 @@ import {Motion, spring, presets} from 'react-motion'
 import history from '../services/history'
 
 var FeaturedTile = React.createClass({
+	
 	openDetailPage() {
 		history.pushState(null, `/festival/${this.props.id}`)
 		this.trackClick()
 	},
+
 	trackClick() {
 		mixpanel.track('Featured Event Clicked', {
 			'event': this.props.event
 		})
 	},
+
 	render() {
 		var image = {
 			backgroundImage: `url(${S3_ROOT_FOR_IMAGES + this.props.banner_image})`

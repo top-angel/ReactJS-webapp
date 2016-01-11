@@ -1,5 +1,5 @@
 import React from 'react';
-import {generateSound, togglePlay} from '../services/playerService';
+import {generateSound} from '../services/playerService';
 
 import PlayerControl from './PlayerControl';
 import PlayerSeek from './PlayerSeek';
@@ -10,14 +10,18 @@ import PlayerShare from './PlayerShare';
 var playingClass = 'fa center fa-pause play-button';
 var pausedClass = 'fa center fa-play play-button';
 
-var Player = React.createClass({
+const Player = React.createClass({
+
+	contextTypes: {
+		push: React.PropTypes.func
+	},
 
 	componentDidMount() {
-		var {push, appState} = this.props;
-		var sound = appState.get('sound');
+		var sound = this.props.appState.get('sound');
+		console.log(sound);
 
 		if(sound != null) {
-			push({
+			this.context.push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					playerHidden: false
@@ -27,14 +31,15 @@ var Player = React.createClass({
 	},
 
 	componentWillReceiveProps(nextProps) {
-		var {push, appState} = this.props;
+		var appState = this.props.appState;
+		var push = this.context.push;
 
 		if(nextProps.appState.get('currentSet') != appState.get('currentSet')) {
 			var starttime = nextProps.appState.get('currentSet').starttime;
 
 			generateSound(starttime, nextProps.appState, push)
 			.then(function(smObj) {
-				
+				console.log(smObj)
 				//play a new set
 				push({
 					type: 'SHALLOW_MERGE',
@@ -50,11 +55,6 @@ var Player = React.createClass({
 				this.trackMixpanel(selectedSet);
 			});
 		} 
-	},
-
-	togglePlay() {
-		var sound = this.props.appState.get('sound');
-		togglePlay(sound);
 	},
 
 	trackMixpanel(selectedSet) {
@@ -78,26 +78,26 @@ var Player = React.createClass({
 	},
 
 	render() {
-		var {push, appState} = this.props;
+		var appState = this.props.appState;
+		// var {push, appState} = this.props;
 		var currentSet = appState.get('currentSet');
-		var playerHidden = appState.get('playerHidden');
 
-		var props = {
-			appState: appState,
-			push: push
+		var playerProps = {
+			appState: appState
+			// push: push
 		};
 
-		var hidePlayer = playerHidden? 'hidden' : '';
+		var hidePlayer = appState.get('playerHidden') ? 'hidden' : '';
 
 		return (
 			<div className={`flex-row ${hidePlayer}`} id='Player'>
-				<PlayerControl {...props} />
+				<PlayerControl {...playerProps} />
 				<div className='flex-column flex'>
-					<PlayerSeek {...props} />
+					<PlayerSeek {...playerProps} />
 					<div className='flex flex-row'>
-						<PlayerSetInfo {...props} />
-						<PlayerTracklist {...props} />
-						<PlayerShare {...props} />
+						<PlayerSetInfo {...playerProps} />
+						<PlayerTracklist {...playerProps} />
+						<PlayerShare {...playerProps} />
 					</div>
 				</div>
 			</div>

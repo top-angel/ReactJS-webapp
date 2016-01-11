@@ -6,18 +6,8 @@ import _ from 'underscore';
 
 var SearchBar = React.createClass({
 
-	componentWillUnmount() {
-		this.props.push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				searchResults: {
-					sets: [],
-					upcomingEvents: [],
-					tracks: [],
-					artists: []
-				}
-			}
-		});
+	contextTypes: {
+		push: React.PropTypes.func
 	},
 
 	handleKeypress(e) {
@@ -28,7 +18,6 @@ var SearchBar = React.createClass({
 	},
 
 	search(query) {
-		var push = this.props.push;
 		var activeSearchAjax = null;
 		var results, 
 			searchUrl = `${API_ROOT}search/${query}`;
@@ -36,18 +25,14 @@ var SearchBar = React.createClass({
 		$.ajax({
 			url: searchUrl,
 			type: 'get'
-		})
-		.done(res => {
+		}).done(res => {
 			if(res.status === 'success') {
 				results = res.payload.search;
-				var artists = results.artists;
-				var sets = results.sets;
-				var events = results.events;
-				var tracks = results.tracks;
+				var {artists, sets, events, tracks} = results;
 
 				console.log(results);
 
-				push({
+				this.context.push({
 					type: 'SHALLOW_MERGE',
 					data: {
 						searchResults: {
@@ -79,4 +64,4 @@ var SearchBar = React.createClass({
 });
 
 
-module.exports = SearchBar;
+export default SearchBar;

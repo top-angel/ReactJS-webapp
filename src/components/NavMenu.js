@@ -11,18 +11,17 @@ var NavMenu = React.createClass({
 
 	render() {
 		var links = this.props.navItems.map((nav, index) => {
-
 			return(
 				<Link 
 					className='click flex flex-row' 
-					to={nav.link} 
+					to={nav.link}
 					key={index}
 					onlyActiveOnIndex={nav.onlyActiveOnIndex} 
 					activeClassName='active'>
 						<i className={nav.icon}/>
 						<div>{nav.text}</div>
 				</Link>
-			); 
+			);
 		});
 		
 		return (
@@ -38,4 +37,4 @@ var NavMenu = React.createClass({
 
 });
 
-module.exports = NavMenu;
+export default NavMenu;

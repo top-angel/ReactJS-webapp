@@ -1,7 +1,6 @@
 import React from 'react';
 import Loader from 'react-loader';
 import {Link} from 'react-router';
-import R from 'ramda';
 import {API_ROOT} from '../constants/constants';
 
 import SetContainer from './SetContainer';
@@ -12,7 +11,9 @@ import LinkButtonContainer from './LinkButtonContainer';
 
 var ArtistDetail = React.createClass({
 
+	displayName: 'Artist Detail Page',
 	getInitialState() {
+		// TODO move artist detail to state instead of appstate
 		return {
 			loaded: false
 		};
@@ -32,7 +33,7 @@ var ArtistDetail = React.createClass({
 			type: 'get'
 		}).done(res => {
 			if(res.status === 'success') {
-				var artist = res.payload.artists_name;
+				var artist = res.payload.artists_search;
 
 				push({
 					type: 'SHALLOW_MERGE',
@@ -60,7 +61,7 @@ var ArtistDetail = React.createClass({
 		var artistInfo = `${artistData.set_count} ${setText} | ${artistData.event_count} ${eventText}`;
 
 		var detailInfo = {
-			push: push,
+			sets: artistData.sets,
 			title: artistData.artist,
 			buttonText: 'Shuffle',
 			imageURL: artistData.icon_image.imageURL,

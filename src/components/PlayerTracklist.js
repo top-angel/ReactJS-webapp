@@ -6,6 +6,10 @@ import Track from './Track';
 
 var PlayerTracklist = React.createClass({
 
+	contextTypes: {
+		push: React.PropTypes.func
+	},
+
 	getInitialState() {
 		return {
 			open: false
@@ -19,35 +23,28 @@ var PlayerTracklist = React.createClass({
 	},
 
 	updateCurrentTrack() {
-		var {push, appState} = this.props;
-		updateCurrentTrack(appState, push)
+		updateCurrentTrack(this.props.appState, this.context.push)
 	},
 
 	render() {
-		var {push, appState} = this.props;
+		var appState = this.props.appState;
 		var self = this;
 
 		var tracklist = appState.get('tracklist');
 		var currentTrack = appState.get('currentTrack');
 		var loginStatus = appState.get('isUserLoggedIn');
 
-		var tracks = tracklist.map(function(track, index) {
+		var tracks = tracklist.map((track, index) => {
 			//update tracklist to show current track
-			if(track.trackname == currentTrack) {
-				var trackStyle = 'flex track active'
-			} else {
-				var trackStyle = 'flex track'
-			}
+			var trackStyle = track.trackname == currentTrack ? 'flex track active' : 'flex track'
 
-			var props = {
+			return React.createElement(Track, {
 				className: trackStyle,
 				key: index,
 				trackname: track.trackname,
 				starttime: track.starttime,
-				push: push
-			};
-
-			return <Track {...props} />
+				appState: appState
+			})
 		});
 
 		return (

@@ -16,7 +16,7 @@ soundManager.setup({
 	url: '/swf/soundmanager2.swf',
 	debugMode: false,
 	onready: function() {
-		// console.log('SM2 loaded');
+		console.log('SM2 loaded');
 		smDeferred.resolve();
 	},
 	ontimeout: function() {
@@ -111,8 +111,10 @@ function scrub(position, appState, push) {
 
 function togglePlay(sound) {
 	if(sound.paused) {
+		console.log('playing')
 		sound.play();
 	} else {
+		console.log('paused')
 		sound.pause();
 	}
 }

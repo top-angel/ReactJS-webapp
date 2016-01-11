@@ -1,13 +1,15 @@
 import React from 'react';
-import {scrub} from '../services/playerService.js';
+import {scrub} from '../services/playerService';
 import convert from '../services/convert';
 
 var PlayerSeek = React.createClass({
 
-	displayName: 'PlayerSeek',
+	contextTypes: {
+		push: React.PropTypes.func
+	},
 
-	scrub: function(e) {
-		var push = this.props.push;
+	scrub(e) {
+		var push = this.context.push;
 		var appState = this.props.appState;
 		var offset = document.getElementById('PlayButton').offsetWidth;
 		var containerWidth = document.getElementById('progress').offsetWidth;
@@ -18,7 +20,7 @@ var PlayerSeek = React.createClass({
 		scrub(containerPosition, appState, push);
 	},
 
-	render: function() {
+	render() {
 		var appState = this.props.appState;
 		var currentSet = appState.get('currentSet');
 		var timeElapsed = appState.get('timeElapsed');

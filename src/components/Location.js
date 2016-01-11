@@ -1,33 +1,62 @@
 import React from 'react';
 import Geosuggest from 'react-geosuggest';
-import {Link, IndexLink} from 'react-router';
+import {Link} from 'react-router';
 import {API_ROOT} from '../constants/constants';
 import history from '../services/history';
 
-var LocationModule = React.createClass({
+const Location = React.createClass({
+
+	contextTypes: {
+		push: React.PropTypes.func
+	},
 
 	componentWillMount() {
 		navigator.geolocation.getCurrentPosition(this.getDefaultCoordinates);
 		this.getClosestEvents();
 	},
 
+	getInitialState() {
+		return {
+			location: {
+				label: 'DEFAULT LOCATION',
+				location: {
+					lat: 29.652175,
+					lng: -82.325856
+				}
+			}
+		}
+	},
+
 	getDefaultCoordinates(location) {
-		var push = this.props.push;
 		var coordinates = {
 			latitude: location.coords.latitude,
 			longitude: location.coords.longitude,
 			time: location.coords.timestamp
 		};
+
+		console.log(coordinates)
+
+		// set state of location?
+		// this.setState({
+		// 	location: {
+		// 		label: 'USER LOCATION',
+		// 		location: {
+		// 			lat: coordinates.latitude,
+		// 			lng: coordinates.longitude
+		// 		}
+		// 	}
+		// });
 	},
 
 	getClosestEvents() {
-		var push = this.props.push;
-		var location = this.props.appState.get('location');
+		var push = this.context.push;
+		// var location = this.props.appState.get('location');
+		var location = this.state.location
 		console.log(location);
+
 		var coordinates = location.location;
 		console.log(coordinates);
 
-// TODO this won't load for some reason
 		$.ajax({
 			url: `${API_ROOT}events/upcoming`,
 			type: 'get',
@@ -40,7 +69,7 @@ var LocationModule = React.createClass({
 				push({
 					type: 'SHALLOW_MERGE',
 					data: {
-						closestEvents: res.payload
+						closestEvents: res.payload.upcoming
 					}
 				});
 			} else {
@@ -50,7 +79,7 @@ var LocationModule = React.createClass({
 	},
 
 	onSuggestSelect(suggest) {
-		this.props.push({
+		this.context.push({
 			type: 'SHALLOW_MERGE',
 			data: {
 				location: suggest
@@ -65,8 +94,8 @@ var LocationModule = React.createClass({
 	},
 
 	render() {
-		var defaultLocation = this.props.appState.get('location');
-
+		// var defaultLocation = this.props.appState.get('location');
+		var location = this.state.location
 		return (
 			<div id='LocationModule' className='flex-row flex-zero'>
 				<Link className='flex click' to='/events' onlyActiveOnIndex={true} activeClassName='active'>Upcoming</Link>
@@ -84,4 +113,4 @@ var LocationModule = React.createClass({
 
 });
 
-export default LocationModule;
+export default Location;

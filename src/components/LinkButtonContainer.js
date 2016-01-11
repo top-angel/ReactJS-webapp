@@ -30,11 +30,7 @@ var LinkButtonContainer = React.createClass({
 			}
 		});
 
-		var hideContainer = `flex-row links-container ${hidden}`;
-
-		return (
-			<div className={hideContainer}>{icons}</div>
-		);
+		return <div className={`flex-row links-container ${hidden}`}>{icons}</div>
 	}
 
 });

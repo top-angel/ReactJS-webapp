@@ -4,7 +4,7 @@ import {API_ROOT} from '../constants/constants'
 import Loader from 'react-loader'
 import FeaturedTile from './FeaturedTile'
 
-var FeaturedContainer = React.createClass({
+var FeaturedEvents = React.createClass({
 		
 	getInitialState() {
 		return {
@@ -24,6 +24,7 @@ var FeaturedContainer = React.createClass({
 		}).done(res => {
 			if(res.status === 'success') {
 				var featuredEvents = res.payload.events_featured
+				console.log(featuredEvents.length)
 				this.setState({
 					loaded: true,
 					events: featuredEvents
@@ -36,7 +37,7 @@ var FeaturedContainer = React.createClass({
 		var featuredEvents = this.state.events
 		var push = this.props.push
 		var featuredTiles = featuredEvents.map((event, index) => {
-			var props = {
+			return React.createElement(FeaturedTile, {
 				key: index,
 				id: event.event_id,
 				event: event.event.event,
@@ -44,9 +45,7 @@ var FeaturedContainer = React.createClass({
 				formattedDate: event.event.formatted_date,
 				push: push,
 				set_count: event.event.set_count
-			}
-
-			return <FeaturedTile {...props} />
+			})
 		})
 
 		return (
@@ -61,4 +60,4 @@ var FeaturedContainer = React.createClass({
 	}
 })
 
-export default FeaturedContainer
+export default FeaturedEvents

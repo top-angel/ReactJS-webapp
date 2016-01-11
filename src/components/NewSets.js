@@ -7,7 +7,8 @@ var NewSets = React.createClass({
 
 	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			newSets: []
 		};
 	},
 
@@ -27,21 +28,23 @@ var NewSets = React.createClass({
 				filter: 'sets'
 			}
 		}).done(res => {
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					newSets: res.payload.setmineuser_stream
-				}
-			});
+			// push({
+			// 	type: 'SHALLOW_MERGE',
+			// 	data: {
+			// 		newSets: res.payload.setmineuser_stream
+			// 	}
+			// });
 
 			this.setState({
+				newSets: res.payload.setmineuser_stream,
 				loaded: true
 			});
 		});
 	},
 
 	render() {
-		var newSets = this.props.appState.get('newSets');
+		// var newSets = this.props.appState.get('newSets');
+		var newSets = this.state.newSets;
 		var loginStatus = this.props.appState.get('isUserLoggedIn');
 		var user = this.props.appState.get('user');
 

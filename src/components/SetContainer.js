@@ -1,9 +1,10 @@
 import React from 'react';
+import R from 'ramda';
 import {checkFavorite} from '../services/favoriteSet';
 
 import SetTile from './SetTile';
 
-var SetContainer = React.createClass({
+const SetContainer = React.createClass({
 
 	getDefaultProps() {
 		return {
@@ -15,6 +16,7 @@ var SetContainer = React.createClass({
 		};
 	},
 
+// TODO add favorite_set_ids to API
 	shouldComponentUpdate(nextProps, nextState) {
 		var oldFav = this.props.user.favorite_set_ids;
 		var newFav = nextProps.user.favorite_set_ids;
@@ -39,26 +41,23 @@ var SetContainer = React.createClass({
 	},
 
 	render() {
-		var { sets, push } = this.props
-
+		var sets = this.props.sets
 		var tiles = sets.map((set, index) => {
 			var favorited = this.props.loginStatus ? checkFavorite(set.id, this.props.user) : false
-
-			// API data needs episode
-			if(set.episode != null && set.episode.length > 0) {
-				var setName = `${set.event.event} - ${set.episode}`;
+			// if(R.keys(set.episode).length != 0) {
+			if(set.episode) {
+				var setName = `${set.event.event} - ${set.episode.episode}`;
 			} else {
 				var setName = set.event.event;
 			}
 
-			var props = {
+			return React.createElement(SetTile, {
 				key: index,
 				id: set.id,
 				artist_id: set.artists[0].id,
 				event_id: set.event_id,
 				is_radiomix: set.event.is_radiomix,
 				set_length: set.set_length,
-				push: push,
 				artist: set.artists[0].artist,
 				event: set.event.event,
 				setName: setName,
@@ -69,9 +68,7 @@ var SetContainer = React.createClass({
 				user: this.props.user,
 				loginStatus: this.props.loginStatus,
 				favorited: favorited
-			};
-
-			return <SetTile {...props} />
+			})
 		});
 
 		return (

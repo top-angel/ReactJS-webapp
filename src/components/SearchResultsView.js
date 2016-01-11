@@ -6,14 +6,32 @@ import TrackContainer from './TrackContainer';
 
 var SearchResultsView = React.createClass({
 
+	contextTypes: {
+		push: React.PropTypes.func
+	},
+	
 	getInitialState() {
 		return {
 			active: 'artists'
 		};
 	},
 
+	componentWillUnmount() {
+		this.context.push({
+			type: 'SHALLOW_MERGE',
+			data: {
+				searchResults: {
+					sets: [],
+					upcomingEvents: [],
+					tracks: [],
+					artists: []
+				}
+			}
+		});
+	},
+
 // TODO make this without jquery
-	componentDidMount: function() {
+	componentDidMount() {
 		var self = this;
 		$('.results-filter').click(function(e){
 			var scrollOffset = -$('header').height()*0.875*2;

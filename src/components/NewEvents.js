@@ -7,7 +7,8 @@ var NewEvents = React.createClass({
 
 	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			newEvents: []
 		};
 	},
 
@@ -27,21 +28,23 @@ var NewEvents = React.createClass({
 				filter: 'events'
 			}
 		}).done(res => {
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					newEvents: res.payload.setmineuser_stream
-				}
-			});
+			// push({
+			// 	type: 'SHALLOW_MERGE',
+			// 	data: {
+			// 		newEvents: res.payload.setmineuser_stream
+			// 	}
+			// });
 
 			this.setState({
+				newEvents: res.payload.setmineuser_stream,
 				loaded: true
 			});
 		});
 	},
 
 	render() {
-		var newEvents = this.props.appState.get('newEvents');
+		// var newEvents = this.props.appState.get('newEvents');
+		var newEvents = this.state.newEvents;
 		var containerClass = 'flex-row scrollable tile-container';
 		
 		return (

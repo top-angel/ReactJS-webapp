@@ -2,7 +2,11 @@ import React from 'react';
 import {togglePlay} from '../services/playerService';
 import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
 
-var PlayerControl = React.createClass({
+const PlayerControl = React.createClass({
+
+	contextTypes: {
+		push: React.PropTypes.func
+	},
 
 	componentDidMount() {
 		$(document.body).on('keypress', (e) => {
@@ -17,7 +21,7 @@ var PlayerControl = React.createClass({
 				case(key >= 97 && key <= 122 && document.location.pathname != '/events'):
 					search.focus();
 					break;
-				case(key >= 65 && key <=90 &&document.location.pathname != '/events'):
+				case(key >= 65 && key <= 90 && document.location.pathname != '/events'):
 					search.focus();
 					break;
 			}
@@ -29,7 +33,7 @@ var PlayerControl = React.createClass({
 		var playing = this.props.appState.get('playing');
 
 		togglePlay(sound);
-		this.props.push({
+		this.context.push({
 			type: 'SHALLOW_MERGE',
 			data: {
 				playing: !playing
@@ -60,4 +64,4 @@ var PlayerControl = React.createClass({
 	}
 });
 
-module.exports = PlayerControl;
+export default PlayerControl;

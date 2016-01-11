@@ -16,9 +16,9 @@ var TrackContainer = React.createClass({
 
 	render() {
 		var { tracks, push } = this.props;
-
+		
 		var tiles = tracks.map((track, index) => {
-			var props = {
+			return React.createElement(TrackTile, {
 				songname: track.songname,
 				artistname: track.artistname,
 				trackname: track.trackname,
@@ -32,11 +32,8 @@ var TrackContainer = React.createClass({
 				event_id: track.event_id,
 				banner_image: track.banner_image.imageURL,
 				artist_image: track.artists[0].icon_image.imageURL_small,
-				push: push,
 				key: index
-			};
-
-			return <TrackTile {...props} />
+			})
 		});
 
 		return (
@@ -48,4 +45,4 @@ var TrackContainer = React.createClass({
 
 });
 
-module.exports = TrackContainer;
+export default TrackContainer;

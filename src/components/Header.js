@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import SearchBar from './SearchBar';
 
 var Header = React.createClass({
-
 	render() {
 		return (
 			<header className='flex-row'>
@@ -25,7 +24,7 @@ var Header = React.createClass({
 				</Link>*/}
 				<div className='buffer-4x'/>
 				<div className='search-bar flex-row flex-3x'>
-					<SearchBar push={this.props.push} appState={this.props.appState}/>
+					<SearchBar/>
 				</div>
 			</header>
 		);

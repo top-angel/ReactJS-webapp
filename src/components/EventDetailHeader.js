@@ -15,7 +15,9 @@ export default class EventDetailHeader extends React.Component {
 	}
 	render() {
 		var image = {
-			background: `url('${S3_ROOT_FOR_IMAGES+this.props.imageURL}')`
+			background: `url('${S3_ROOT_FOR_IMAGES+this.props.imageURL}') no-repeat`,
+			backgroundSize: '100%',
+			backgroundPositionY: '40%'
 		}
 		
 		return (

@@ -2,18 +2,26 @@ import React from 'react';
 import Loader from 'react-loader';
 import {API_ROOT} from '../constants/constants';
 import SetContainer from './SetContainer';
+import $ from 'jquery';
 
-var Favorites = React.createClass({
+const Favorites = React.createClass({
 
 	componentWillMount() {
-		this.getFavoriteSets()
+		var id = this.props.appState.get('user').id
+		this.getFavoriteSets(id)
 	},
 
 	componentDidMount() {
 		mixpanel.track("Favorites Page Open");
 	},
 
-	getFavoriteSets() {
+	getInitialState() {
+		return {
+			loaded: false
+		};
+	},
+
+	getFavoriteSets(userId) {
 		$.ajax({
 			type: 'get',
 			url: `${API_ROOT}setmineuser/${userId}/stream`,
@@ -26,14 +34,17 @@ var Favorites = React.createClass({
 				data: {
 					favorites: res.payload.setmineuser_stream
 				}
-			})
+			});
+
+			this.setState({
+				loaded: true
+			});
 		})
 	},
 
 	render() {
 		var loginStatus = this.props.appState.get('isUserLoggedIn');
 		var user = this.props.appState.get('user');
-		// var favorites = user.favorite_sets;
 		var favorites = this.props.appState.get('favorites')
 
 		return (

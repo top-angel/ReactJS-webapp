@@ -1,14 +1,14 @@
 import React from 'react';
 import constants from '../constants/constants';
-import loginService from '../services/loginService.js';
+import {login} from '../services/loginService.js';
 
 var LoginOverlay = React.createClass({
 
 	login() {
-		loginService.login(this.props.push);
+		login(this.props.push);
 	},
 
-	render: function() {
+	render() {
 		return (
 			<div id='LoginOverlay' className='flex-column' >
 				<div className='content flex-column center'>
@@ -37,4 +37,4 @@ var LoginOverlay = React.createClass({
 
 });
 
-module.exports = LoginOverlay;
+export default LoginOverlay;

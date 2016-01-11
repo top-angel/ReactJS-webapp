@@ -1,5 +1,4 @@
 import React from 'react';
-import {History} from 'react-router';
 import NavMenu from './NavMenu';
 
 var Sets = React.createClass({
@@ -51,4 +50,4 @@ var Sets = React.createClass({
 	}
 });
 
-module.exports = Sets;
+export default Sets;

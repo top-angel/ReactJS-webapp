@@ -1,12 +1,17 @@
 import React, {addons} from 'react';
-import favoriteSet from '../services/favoriteSet';
 import {History} from 'react-router';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { Motion } from 'react-motion';
 
+import history from '../services/history'
+import favoriteSet from '../services/favoriteSet'
+
+
 var PlayerShare = React.createClass({
 
-	mixins: [History],
+	contextTypes: {
+		push: React.PropTypes.func
+	},
 
 	getInitialState() {
 		return {
@@ -28,9 +33,9 @@ var PlayerShare = React.createClass({
 		var id = this.props.appState.get('currentSet').id;
 
 		if(loginStatus) {
-			favoriteSet.favoriteSet(this.props.push, user, id);
+			favoriteSet.favoriteSet(this.context.push, user, id);
 		} else {
-			this.history.pushState(null, '/user');
+			history.pushState(null, '/user');
 		}
 	},
 

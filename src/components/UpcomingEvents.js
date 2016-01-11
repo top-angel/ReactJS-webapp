@@ -7,15 +7,8 @@ var UpcomingEvents = React.createClass({
 
 	getInitialState() {
 		return {
-			loaded: false
-		};
-	},
-
-	getDefaultProps() {
-		return {
-			appState: {
-				soonestEvents: []
-			}
+			loaded: false,
+			upcomingEvents: []
 		};
 	},
 
@@ -35,14 +28,15 @@ var UpcomingEvents = React.createClass({
 		})
 		.done(res => {
 			if(res.status === 'success') {
-				push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						upcomingEvents: res.payload.upcoming
-					}
-				});
+				// push({
+				// 	type: 'SHALLOW_MERGE',
+				// 	data: {
+				// 		upcomingEvents: res.payload.upcoming
+				// 	}
+				// });
 				this.setState({
-					loaded: true
+					loaded: true,
+					upcomingEvents: res.payload.upcoming
 				});
 			}
 		});
@@ -51,7 +45,8 @@ var UpcomingEvents = React.createClass({
 	render() {
 		var props = {
 			push: this.props.push,
-			events: this.props.appState.get('upcomingEvents'),
+			// events: this.props.appState.get('upcomingEvents'),
+			events: this.state.upcomingEvents,
 			containerClass: 'flex-row tile-container'
 		};
 
@@ -64,4 +59,4 @@ var UpcomingEvents = React.createClass({
 
 });
 
-module.exports = UpcomingEvents;
+export default UpcomingEvents;

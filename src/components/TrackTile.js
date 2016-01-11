@@ -5,6 +5,10 @@ import history from '../services/history';
 
 var TrackTile = React.createClass({
 
+	contextTypes: {
+		push: React.PropTypes.func
+	},
+
 	getSetInfo() {
 		return $.ajax({
 			url: `${API_ROOT}sets/id/${this.props.id}`,
@@ -31,8 +35,7 @@ var TrackTile = React.createClass({
 	},
 
 	playSet() {
-		var push = this.props.push;
-		this.getTracklist().done(res => {
+		this.getSetInfo().done(res => {
 			var tracklist = res.payload.tracks;
 			var set = {
 				artist: this.props.artist,
@@ -44,7 +47,7 @@ var TrackTile = React.createClass({
 				starttime: this.props.starttime
 			};
 
-			push({
+			this.context.push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					currentSet: set,
@@ -82,7 +85,8 @@ var TrackTile = React.createClass({
 
 	render() {
 		var image = {
-			backgroundImage: `url('${S3_ROOT_FOR_IMAGES+this.props.banner_image}')`
+			backgroundImage: `url('${S3_ROOT_FOR_IMAGES+this.props.banner_image}')`,
+			backgroundSize: '100% 100%'
 		};
 		// var track = `${this.props.songname} - ${this.props.artistname}`;
 		var time = `${this.props.starttime} | ${this.props.set_length}`;
