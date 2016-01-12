@@ -29,7 +29,7 @@ var Festivals = React.createClass({
 			if(res.status === 'success') {
 				this.setState({
 					loaded: true,
-					festivals: res.payload.events_festivals.festivals
+					festivals: res.payload.events_festivals
 				});
 			}
 		});
