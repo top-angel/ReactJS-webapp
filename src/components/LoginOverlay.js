@@ -4,8 +4,12 @@ import {login} from '../services/loginService.js';
 
 var LoginOverlay = React.createClass({
 
+	contextTypes: {
+		push: React.PropTypes.func
+	},
+
 	login() {
-		login(this.props.push);
+		login(this.context.push);
 	},
 
 	render() {

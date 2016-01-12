@@ -4,29 +4,30 @@ import LoginOverlay from './LoginOverlay';
 
 const Home = React.createClass({
 
+	contextTypes: {
+		push: React.PropTypes.func,
+		user: React.PropTypes.object,
+		loginStatus: React.PropTypes.bool
+	},
+
 	componentDidMount() {
 		mixpanel.track("User Home Page Open");
 	},
 
 	showOverlay(loginStatus) {
 		if(!loginStatus) {
-			return <LoginOverlay push={this.props.push} />
+			return <LoginOverlay />
 		}
 	},
 
 	render() {
-		var className = 'flex-row flex-fixed-4x tile-container';
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
-		var user = this.props.appState.get('user');
-
 		return (
 			<div id='HomeView' className='flex-row'>
-				{this.showOverlay(loginStatus)}
-				<HomeSidebar user={user} />
+				{this.showOverlay(this.context.loginStatus)}
+				<HomeSidebar user={this.context.user} />
 				{
 					React.cloneElement(this.props.children, {
-						push: this.props.push,
-						className: className,
+						className: 'flex-row flex-fixed-4x tile-container',
 						appState: this.props.appState
 					})
 				}

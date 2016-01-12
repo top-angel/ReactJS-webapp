@@ -13,17 +13,16 @@ export function favoriteSet(push, user, setId) {
 			}
 		}
 	}).done((res) => {
-		// TODO you might need to change this
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
-				user: res.payload.user
+				user: res.payload.favorites.user
 			}
 		});
 	});
 }
 
-export function checkFavorite(set, favorites) {
-	var setString = R.toString(set);
+export function checkFavorite(setId, favorites) {
+	var setString = R.toString(setId);
 	return R.contains(setString, favorites);
 }

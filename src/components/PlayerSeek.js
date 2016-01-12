@@ -51,4 +51,4 @@ var PlayerSeek = React.createClass({
 	}
 })
 
-module.exports = PlayerSeek;
+export default PlayerSeek;

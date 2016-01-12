@@ -18,8 +18,9 @@ var NewEvents = React.createClass({
 	},
 
 	getNewEvents() {
-		var userId = this.props.appState.get('user').id;
-		var push = this.props.push;
+		// var userId = this.props.appState.get('user').id;
+		var userId = this.context.user.id;
+		// var push = this.props.push;
 
 		$.ajax({
 			url: `${API_ROOT}setmineuser/${userId}/stream`,
@@ -43,21 +44,13 @@ var NewEvents = React.createClass({
 	},
 
 	render() {
-		// var newEvents = this.props.appState.get('newEvents');
-		var newEvents = this.state.newEvents;
-		var containerClass = 'flex-row scrollable tile-container';
-		
 		return (
 			<Loader loaded={this.state.loaded}>
-				<EventContainer
-					containerClass={containerClass}
-					events={newEvents}
-					push={this.props.push}
-				/>
+				<EventContainer events={this.state.newEvents} />
 			</Loader>
 		);
 	}
 
 });
 
-module.exports = NewEvents;
+export default NewEvents;

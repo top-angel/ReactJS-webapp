@@ -39,18 +39,18 @@ export function startFacebookSDK(push) {
 }
 
 function statusChangeCallback(response, push) {
-	console.log('statusChangeCallback');
-	console.log(response);
+	console.log('facebook API response', response);
 	if (response.status === 'connected') {
 		// Logged into your app and Facebook.
-		registerFacebookUser(response.authResponse, push)
+		// registerFacebookUser(response.authResponse, push)
+		registerFacebookUser(response.authResponse.accessToken, push)
 	} else if (response.status === 'not_authorized') {
 		// The person is logged into Facebook, but not your app.
-			
+		console.log('Logged into Facebook, but you need to authorize this app');
 	} else {
 		// The person is not logged into Facebook, so we're not sure if
 		// they are logged into this app or not.
-		console.debug("Not logged into Facebook");
+		console.debug('Not logged into Facebook');
 	}
 }
 
@@ -63,20 +63,17 @@ function checkLoginState(push) {
 function registerFacebookUser(auth, push) {
 	$.ajax({
 		type: 'POST',
-		url: `${API_ROOT}'setmineuser/login/facebook`,
+		url: `${API_ROOT}setmineuser/login/facebook`,
 		data: {
-			userData: {
-				facebook_token: auth
-			}
+			facebook_token: auth
 		}
 	}).done(res => {
-		// TODO makesure res.payload.setmine_user is valid
 		console.log(res)
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
 				isUserLoggedIn: true,
-				user: res.payload.setmine_user
+				user: res.payload.setmineuser_login_facebook
 			}
 		});
 

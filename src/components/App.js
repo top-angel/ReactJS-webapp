@@ -105,11 +105,11 @@ const App = React.createClass({
 		});
 	},
 
-	renderPlayer() {
+	showPlayer() {
 		if(this.state.appState.get('sound') != null) {
 			return <Player appState={this.state.appState}/>
 		} else {
-			return ''
+			return
 		}
 	},
 
@@ -135,7 +135,8 @@ const App = React.createClass({
 						appState: appState
 					})
 				}
-				<Player appState={appState} />
+				{/*<Player appState={appState} />*/}
+				{this.showPlayer()}
 			</div>
 		);
 	}

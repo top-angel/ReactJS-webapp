@@ -5,6 +5,11 @@ import SetContainer from './SetContainer';
 
 var NewSets = React.createClass({
 
+	contextTypes: {
+		push: React.PropTypes.func,
+		user: React.PropTypes.object
+	},
+
 	getInitialState() {
 		return {
 			loaded: false,
@@ -18,8 +23,9 @@ var NewSets = React.createClass({
 	},
 
 	getNewSets() {
-		var userId = this.props.appState.get('user').id;
-		var push = this.props.push;
+		// var userId = this.props.appState.get('user').id;
+		// var push = this.props.push;
+		var userId = this.context.user.id
 
 		$.ajax({
 			url: `${API_ROOT}setmineuser/${userId}/stream`,
@@ -44,18 +50,12 @@ var NewSets = React.createClass({
 
 	render() {
 		// var newSets = this.props.appState.get('newSets');
-		var newSets = this.state.newSets;
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
-		var user = this.props.appState.get('user');
+		// var loginStatus = this.props.appState.get('isUserLoggedIn');
+		// var user = this.props.appState.get('user');
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<SetContainer
-					sets={newSets}
-					push={this.props.push}
-					loginStatus={loginStatus}
-					user={user}
-				/>
+				<SetContainer sets={this.state.newSets} />
 			</Loader>
 		);
 	}

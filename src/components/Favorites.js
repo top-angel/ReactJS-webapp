@@ -6,9 +6,17 @@ import $ from 'jquery';
 
 const Favorites = React.createClass({
 
+	contextTypes: {
+		push: React.PropTypes.func,
+		user: React.PropTypes.object,
+		loginStatus: React.PropTypes.bool
+	},
+
 	componentWillMount() {
-		var id = this.props.appState.get('user').id
-		this.getFavoriteSets(id)
+		var userId = this.context.user.id;
+		if(this.context.loginStatus) {
+			this.getFavoriteSets(userId)
+		}
 	},
 
 	componentDidMount() {
@@ -29,7 +37,7 @@ const Favorites = React.createClass({
 				filter: 'favorites'
 			}
 		}).done(res => {
-			this.props.push({
+			this.context.push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					favorites: res.payload.setmineuser_stream
@@ -42,19 +50,24 @@ const Favorites = React.createClass({
 		})
 	},
 
-	render() {
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
-		var user = this.props.appState.get('user');
-		var favorites = this.props.appState.get('favorites')
+	showFavorites(loginStatus) {
+		if(loginStatus) {
+			var favorites = this.props.appState.get('favorites')
+			return (
+				<Loader loaded={this.state.loaded}>
+					<SetContainer sets={favorites} />
+				</Loader>
+			)
+		} else {
+			return
+		}
+	},
 
+	render() {
+		var favorites = this.props.appState.get('favorites')
 		return (
 			<Loader loaded={this.state.loaded}>
-				<SetContainer
-					sets={favorites}
-					push={this.props.push}
-					loginStatus={loginStatus}
-					user={user}
-				/>
+				<SetContainer sets={favorites} />
 			</Loader>
 		);
 	}

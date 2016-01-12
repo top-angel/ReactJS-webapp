@@ -4,13 +4,15 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { Motion } from 'react-motion';
 
 import history from '../services/history'
-import favoriteSet from '../services/favoriteSet'
+import {checkFavorites} from '../services/favoriteSet'
 
 
 var PlayerShare = React.createClass({
 
 	contextTypes: {
-		push: React.PropTypes.func
+		push: React.PropTypes.func,
+		loginStatus: React.PropTypes.bool,
+		user: React.PropTypes.object
 	},
 
 	getInitialState() {
@@ -28,12 +30,10 @@ var PlayerShare = React.createClass({
 	},
 
 	favoriteSet: function() {
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
-		var user = this.props.appState.get('user');
 		var id = this.props.appState.get('currentSet').id;
 
 		if(loginStatus) {
-			favoriteSet.favoriteSet(this.context.push, user, id);
+			favoriteSet(this.context.push, user, id);
 		} else {
 			history.pushState(null, '/user');
 		}
@@ -70,7 +70,6 @@ var PlayerShare = React.createClass({
 
 	render() {
 		var appState = this.props.appState;
-		var loginStatus = appState.get('isUserLoggedIn');
 		var playURL = 'https://setmine.com/play/'+this.props.appState.get('currentSet').id;
 		var self = this;
 

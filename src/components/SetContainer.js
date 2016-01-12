@@ -6,6 +6,12 @@ import SetTile from './SetTile';
 
 const SetContainer = React.createClass({
 
+	contextTypes: {
+		push: React.PropTypes.func,
+		user: React.PropTypes.object,
+		loginStatus: React.PropTypes.bool
+	},
+
 	getDefaultProps() {
 		return {
 			className: 'flex-row tile-container scrollable',
@@ -43,7 +49,7 @@ const SetContainer = React.createClass({
 	render() {
 		var sets = this.props.sets
 		var tiles = sets.map((set, index) => {
-			var favorited = this.props.loginStatus ? checkFavorite(set.id, this.props.user) : false
+			var favorited = this.context.loginStatus ? checkFavorite(set.id, this.context.user) : false
 
 		// TODO TEST DIS
 			if(R.keys(set.episode).length != 0) {

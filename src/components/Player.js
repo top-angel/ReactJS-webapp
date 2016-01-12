@@ -37,8 +37,7 @@ const Player = React.createClass({
 		if(nextProps.appState.get('currentSet') != appState.get('currentSet')) {
 			var starttime = nextProps.appState.get('currentSet').starttime;
 
-			generateSound(starttime, nextProps.appState, push)
-			.then(function(smObj) {
+			generateSound(starttime, nextProps.appState, push).then(function(smObj) {
 				//play a new set
 				push({
 					type: 'SHALLOW_MERGE',
