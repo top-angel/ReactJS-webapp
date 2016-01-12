@@ -1,7 +1,6 @@
 import React from 'react';
 import {API_ROOT, S3_ROOT_FOR_IMAGES} from '../constants/constants';
 import {playSet, updatePlayCount} from '../services/playerService';
-import convert from '../services/convert';
 import history from '../services/history';
 
 var TrackTile = React.createClass({

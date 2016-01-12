@@ -1,12 +1,12 @@
 import React from 'react';
-import convert from '../services/convert';
+import {millisecondsToMMSS} from '../services/convert';
 
 var PlayerSetInfo = React.createClass({
 	render() {
 		var appState = this.props.appState;
 		var currentSet = appState.get('currentSet');
 		var timeElapsed = appState.get('timeElapsed');
-		var time = convert.millisecondsToMMSS(timeElapsed);
+		var time = millisecondsToMMSS(timeElapsed);
 
 		return (
 			<div className='set-info flex-column flex-5x'>

@@ -3,7 +3,7 @@ import R from 'ramda';
 import SM2 from 'soundmanager2';
 import _ from 'underscore';
 
-import convert from './convert';
+import {MMSSToMilliseconds} from './convert';
 import {S3_ROOT, API_ROOT} from '../constants/constants';
 
 var soundManager = SM2.soundManager;
@@ -47,7 +47,7 @@ function errorPromise(jqXHR, textStatus, errorThrown) {
 export function generateSound(loadStart, appState, push) {
 	var sound = appState.get('sound');
 	var currentSet = appState.get('currentSet');
-	loadStart = convert.MMSSToMilliseconds(loadStart);
+	loadStart = MMSSToMilliseconds(loadStart);
 
 	//// XXX TODO MOVE THIS
 	if(sound != null) {
@@ -195,7 +195,7 @@ export function updateCurrentTrack(sound, tracklist, push) {
 	var currentPosition = sound.position;
 
 	var currentTrack = tracklist.filter((track, index) => {
-		var starttime = convert.MMSSToMilliseconds(track.starttime);
+		var starttime = MMSSToMilliseconds(track.starttime);
 
 		if(starttime <= currentPosition) {
 			var playing = track.trackname;

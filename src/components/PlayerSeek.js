@@ -1,6 +1,6 @@
 import React from 'react';
 import {scrub} from '../services/playerService';
-import convert from '../services/convert';
+import {MMSSToMilliseconds} from '../services/convert';
 
 var PlayerSeek = React.createClass({
 
@@ -25,7 +25,7 @@ var PlayerSeek = React.createClass({
 		var currentSet = appState.get('currentSet');
 		var timeElapsed = appState.get('timeElapsed');
 
-		var setLength = convert.MMSSToMilliseconds(currentSet.setLength);
+		var setLength = MMSSToMilliseconds(currentSet.setLength);
 		var percent = (timeElapsed / setLength) * 100;
 
 		var progressStyle = {
