@@ -35,19 +35,9 @@ var Recent = React.createClass({
 	},
 
 	render() {
-		var {appState, push} = this.props
-		var sets = this.state.sets
-		var loginStatus = appState.get('isUserLoggedIn')
-		var user = appState.get('user')
-		
 		return (
 			<Loader loaded={this.state.loaded}>
-				<SetContainer
-					push={push}
-					sets={sets}
-					loginStatus={loginStatus}
-					user={user}
-				/>
+				<SetContainer sets={this.state.sets} />
 			</Loader>
 		)
 	}

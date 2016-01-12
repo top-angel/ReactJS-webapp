@@ -22,43 +22,35 @@ var Festivals = React.createClass({
 	},
 
 	getFestivals() {
-		// TODO upgrade to new API once routes are there
-		var url = `https://setmine.com/api/v/8/festival`;
-		// var url = `${API_ROOT}events/festivals`;
-
 		$.ajax({
-			url: url,
+			url: `${API_ROOT}events/festivals`,
 			type: 'get'
-		})
-		.done(res => {
+		}).done(res => {
 			if(res.status === 'success') {
 				this.setState({
 					loaded: true,
-					festivals: res.payload.festival
+					festivals: res.payload.events_festivals.festivals
 				});
 			}
 		});
 	},
 
 	render() {
-		var tiles = this.state.festivals.map((festival, index) => {
-			var props = {
-				push: this.props.push,
+		var festivalTiles = this.state.festivals.map((festival, index) => {
+			return React.createElement(FestivalTile, {
 				key: index,
 				id: festival.id,
-				main_imageURL: festival.main_imageURL,
-				set_count: festival.set_count,
-				event: festival.event,
-				start_date: festival.start_date
-			}
-
-			return <FestivalTile {...props} />
+				festival: festival.event,
+				bannerImage: festival.banner_image.imageURL,
+				setCount: festival.set_count,
+				formattedDate: festival.formatted_date
+			})
 		});
 
 		return (
 			<Loader loaded={this.state.loaded}>
 				<div className='flex-row scrollable tile-container'>
-					{tiles}
+					{festivalTiles}
 				</div>
 			</Loader>
 		);

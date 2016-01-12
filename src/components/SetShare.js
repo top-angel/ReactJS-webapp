@@ -42,14 +42,11 @@ const SetShare = React.createClass({
 	},
 
 	shareToFacebook() {
-		var url = 'https://setmine.com/play/' + this.props.id;
-		var self = this;
-
 		FB.ui({
 			method: 'feed',
-			link: url,
+			link: 'https://setmine.com/play/' + this.props.id,
 			caption: 'Share this Set',
-			picture: S3_ROOT_FOR_IMAGES + self.props.artist_image
+			picture: S3_ROOT_FOR_IMAGES + this.props.artist_image
 		}, function(response) {
 			console.debug(response);
 		});
@@ -71,19 +68,17 @@ const SetShare = React.createClass({
 				}}>
 					{
 						({y}) =>
-						<div className='modal flex-container' style={{
-							visibility: `${y}`
-						}}>
+						<div className='modal flex-container' style={{visibility: `${y}`}}>
 							<div className='text'>{this.state.copyText}</div>
 							<span/>
 						</div>
 					}
 				</Motion>
 				<i className={favorite} onClick={this.favoriteSet} />
-				<CopyToClipboard text={playURL} onCopy={() => { this.copyURL() }}>
+				<CopyToClipboard text={playURL} onCopy={() => this.copyURL()}>
 					<i className='link fa fa-fw fa-clipboard center click'
-						onMouseEnter={() => {this.animate()}}
-						onMouseLeave={() => {this.animate()}} />
+						onMouseEnter={() => this.animate()}
+						onMouseLeave={() => this.animate()} />
 				</CopyToClipboard>
 				<i className='link fa fa-fw fa-facebook center click' onClick={this.shareToFacebook} />
 				<i className='link fa fa-fw fa-twitter center click' onClick={this.shareToTwitter}/>

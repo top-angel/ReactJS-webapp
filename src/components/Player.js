@@ -1,5 +1,5 @@
 import React from 'react';
-import {generateSound} from '../services/playerService';
+import {generateSound, mixpanelTrackSetPlay} from '../services/playerService';
 
 import PlayerControl from './PlayerControl';
 import PlayerSeek from './PlayerSeek';
@@ -39,7 +39,6 @@ const Player = React.createClass({
 
 			generateSound(starttime, nextProps.appState, push)
 			.then(function(smObj) {
-				console.log(smObj)
 				//play a new set
 				push({
 					type: 'SHALLOW_MERGE',
@@ -52,28 +51,9 @@ const Player = React.createClass({
 
 				// Log Mixpanel event
 				var selectedSet = nextProps.appState.get('currentSet');
-				this.trackMixpanel(selectedSet);
+				mixpanelTrackSetPlay(selectedSet);
 			});
 		} 
-	},
-
-	trackMixpanel(selectedSet) {
-		// Log Mixpanel event
-		var setName = selectedSet.artist+' - '+selectedSet.event;
-
-		mixpanel.track("Set Play", {
-			"set_id": selectedSet.id,
-			"set_name": setName,
-			"set_artist": selectedSet.artist,
-			"set_event": selectedSet.event
-		});
-
-		// mixpanel user tracking
-		mixpanel.people.increment("play_count");
-		mixpanel.people.append("sets_played_ids", setProperties.set_id);
-		mixpanel.people.append("sets_played_names", setProperties.set_name);
-		mixpanel.people.append("sets_played_artists", setProperties.set_artist);
-		mixpanel.people.append("sets_played_events", setProperties.set_event);
 	},
 
 	render() {

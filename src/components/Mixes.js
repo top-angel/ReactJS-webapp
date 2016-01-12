@@ -1,7 +1,6 @@
 import React from 'react';
 import Loader from 'react-loader';
 import {API_ROOT} from '../constants/constants';
-import R from 'ramda';
 
 import MixTile from './MixTile';
 
@@ -40,22 +39,19 @@ var Mixes = React.createClass({
 	},
 
 	render() {
-		var tiles = this.state.mixes.map((mix, index) => {
-			var props = {
+		var mixTiles = this.state.mixes.map((mix, index) => {
+			return React.createElement(MixTile, {
 				key: index,
 				id: mix.id,
-				push: this.props.push,
 				event: mix.event,
-				icon_image: mix.icon_image.imageURL_small
-			};
-
-			return <MixTile {...props} />
+				iconImage: mix.icon_image.imageURL_small
+			})
 		});
 
 		return (
 			<Loader loaded={this.state.loaded}>
 				<div className='flex-row scrollable tile-container'>
-					{tiles} 
+					{mixTiles} 
 				</div>
 			</Loader>
 		);

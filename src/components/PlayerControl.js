@@ -52,7 +52,7 @@ const PlayerControl = React.createClass({
 		}
 
 		var image = {
-			backgroundImage: `url('${S3_ROOT_FOR_IMAGES+currentSet.artist_image}')`,
+			backgroundImage: `url('${S3_ROOT_FOR_IMAGES+currentSet.artistImage}')`,
 			backgroundSize: '100% 100%'
 		};
 

@@ -14,7 +14,7 @@ var ArtistTileContainer = React.createClass({
 			return React.createElement(ArtistTile, {
 				artist: artist.artist,
 				key: artist.id,
-				imageURL: artist.imageURL,
+				imageURL: artist.icon_image.imageURL,
 				set_count: artist.set_count,
 				event_count: artist.event_count
 			})

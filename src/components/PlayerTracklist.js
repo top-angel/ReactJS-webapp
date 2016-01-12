@@ -57,7 +57,7 @@ var PlayerTracklist = React.createClass({
 				}}>
 					{
 						({yshift, opacity}) =>
-						<div className='tracklist' onMouseLeave={() => {self.animate()}}style={{
+						<div className='tracklist' onMouseLeave={() => self.animate()} style={{
 							bottom: `${yshift}vh`
 						}}>
 							{tracks}
@@ -73,4 +73,4 @@ var PlayerTracklist = React.createClass({
 
 });
 
-module.exports = PlayerTracklist;
+export default PlayerTracklist;

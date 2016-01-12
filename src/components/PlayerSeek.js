@@ -25,8 +25,8 @@ var PlayerSeek = React.createClass({
 		var currentSet = appState.get('currentSet');
 		var timeElapsed = appState.get('timeElapsed');
 
-		var set_length = convert.MMSSToMilliseconds(currentSet.set_length);
-		var percent = (timeElapsed / set_length) * 100;
+		var setLength = convert.MMSSToMilliseconds(currentSet.setLength);
+		var percent = (timeElapsed / setLength) * 100;
 
 		var progressStyle = {
 			width: percent + '%'

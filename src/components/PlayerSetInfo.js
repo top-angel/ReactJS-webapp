@@ -2,10 +2,7 @@ import React from 'react';
 import convert from '../services/convert';
 
 var PlayerSetInfo = React.createClass({
-
-	displayName: 'PlayerSetInfo',
-
-	render: function() {
+	render() {
 		var appState = this.props.appState;
 		var currentSet = appState.get('currentSet');
 		var timeElapsed = appState.get('timeElapsed');
@@ -17,12 +14,11 @@ var PlayerSetInfo = React.createClass({
 					{currentSet.artist + ' - ' + currentSet.event}
 				</div> 
 				<div className='set-time flex'>
-					{time + ' / ' + currentSet.set_length}
+					{time + ' / ' + currentSet.setLength}
 				</div>
 			</div>
 		);
 	}
 });
 
-
-module.exports = PlayerSetInfo;
+export default PlayerSetInfo;

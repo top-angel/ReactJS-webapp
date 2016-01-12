@@ -6,7 +6,11 @@ import Loader from 'react-loader';
 import SetContainer from './SetContainer';
 import DetailImageContainer from './DetailImageContainer';
 
-var FestivalDetail = React.createClass({
+const FestivalDetail = React.createClass({
+
+	contextTypes: {
+		push: React.PropTypes.func
+	},
 
 	getInitialState() {
 		return {
@@ -15,18 +19,16 @@ var FestivalDetail = React.createClass({
 	},
 
 	componentWillMount() {
-		this.getFestivalData();
+		this.getFestivalData(this.props.params.festival);
 	},
 
-	getFestivalData() {
-		var push = this.props.push;
-		var festivalUrl = `${API_ROOT}events/id/${this.props.params.festival}`
-
+// test 452 Ultra 2015
+	getFestivalData(id) {
 		$.ajax({
-			url: festivalUrl,
+			url: `${API_ROOT}events/id/${id}`,
 			type: 'get',
 		}).done(res => {
-			push({
+			this.context.push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					detailData: res.payload.events_id
@@ -40,28 +42,16 @@ var FestivalDetail = React.createClass({
 	},
 
 	render() {
-		var { appState, push } = this.props
-
-		var loginStatus = appState.get('isUserLoggedIn');
-		var user = appState.get('user');
-		var festival = appState.get('detailData');
+		var festival = this.props.appState.get('detailData');
 
 		var setText = festival.set_count != 1 ? 'sets' : 'set';
 		var festivalInfo = `${festival.set_count} ${setText}`;
 
 		var detailInfo = {
-			push: push,
 			title: festival.event,
 			info: festivalInfo,
-			imageURL: festival.banner_image.imageURL
-		};
-
-		var sets = {
-			containerClass: 'flex-row flex',
-			sets: festival.sets,
-			push: push,
-			loginStatus: loginStatus,
-			user: user
+			imageURL: festival.banner_image.imageURL,
+			sets: R.pluck('id', festival.sets)
 		};
 
 		return (
@@ -73,11 +63,11 @@ var FestivalDetail = React.createClass({
 							SETS
 						</div>
 					</div>
-					<SetContainer {...sets} />
+					<SetContainer sets={festival.sets} />
 				</div>
 			</Loader>
 		);
 	}
 });
 
-module.exports = FestivalDetail;
+export default FestivalDetail;

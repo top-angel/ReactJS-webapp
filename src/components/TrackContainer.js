@@ -16,23 +16,22 @@ var TrackContainer = React.createClass({
 
 	render() {
 		var { tracks, push } = this.props;
-		
 		var tiles = tracks.map((track, index) => {
 			return React.createElement(TrackTile, {
-				songname: track.songname,
-				artistname: track.artistname,
-				trackname: track.trackname,
+				key: index,
+				songname: track.song_name,
+				artistname: track.artist_name,
+				trackname: track.track_name,
 				id: track.id,
 				songURL: track.songURL,
 				starttime: track.starttime,
 				set_length: track.set_length,
-				event: track.event,
-				artist: track.artist,
+				event: track.event.event,
+				artist: track.artists[0].artist,
 				is_radiomix: track.is_radiomix,
 				event_id: track.event_id,
-				banner_image: track.banner_image.imageURL,
-				artist_image: track.artists[0].icon_image.imageURL_small,
-				key: index
+				banner_image: track.event.banner_image.imageURL,
+				artist_image: track.artists[0].icon_image.imageURL_small
 			})
 		});
 

@@ -7,7 +7,10 @@ import DetailImageContainer from './DetailImageContainer';
 
 const MixDetail = React.createClass({
 
-	displayName: 'Mix Detail Page',
+	contextTypes: {
+		push: React.PropTypes.func
+	},
+
 	getInitialState() {
 		return {
 			loaded: false
@@ -15,21 +18,16 @@ const MixDetail = React.createClass({
 	},
 
 	componentWillMount() {
-		this.getMixData();
+		this.getMixData(this.props.params.mix);
 	},
 
-	getMixData() {
-		var push = this.props.push;
-
-// TODO use mix id to get mix data test: 69
-		var mixUrl = API_ROOT + 'mixes/id/' + this.props.params.mix;
-
+	getMixData(id) {
+	// TODO use mix id to get mix data test: 69
 		$.ajax({
-			url: mixUrl,
+			url: `${API_ROOT}'mixes/id/'${id}`,
 			type: 'get',
-		})
-		.done(res => {
-			push({
+		}).done(res => {
+			this.context.push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					detailData: res.payload.mixes_id
@@ -43,26 +41,19 @@ const MixDetail = React.createClass({
 	},
 
 	render() {
-		var {push, appState} = this.props;
+		var {appState} = this.props;
 
-		var detailData = appState.get('detailData');
+		var mix = appState.get('mix');
 		var loginStatus = appState.get('isUserLoggedIn');
 		var user = appState.get('user');
 
-		var setText = detailData.set_count != 1 ? 'sets' : 'set';
+		var setText = mix.set_count != 1 ? 'sets' : 'set';
 
 		var detailInfo = {
 			push: push,
-			title: detailData.event,
-			imageURL: detailData.icon_image.imageURL,
-			info: `${detailData.set_count} ${setText}`
-		};
-		
-		var sets = {
-			sets: detailData.sets,
-			push: push,
-			loginStatus: loginStatus,
-			user: user
+			title: mix.event,
+			imageURL: mix.icon_image.imageURL,
+			info: `${mix.set_count} ${setText}`
 		};
 
 		return (
@@ -74,7 +65,7 @@ const MixDetail = React.createClass({
 							SETS
 						</div>
 					</div>
-					<SetContainer {...sets} />
+					<SetContainer sets={mix.sets} />
 				</div>
 			</Loader>
 		);
@@ -82,4 +73,4 @@ const MixDetail = React.createClass({
 
 });
 
-module.exports = MixDetail;
+export default MixDetail;

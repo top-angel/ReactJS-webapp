@@ -35,25 +35,15 @@ var Popular = React.createClass({
 	},
 
 	render() {
-		var sets = this.state.sets
-		var loginStatus = this.props.appState.get('isUserLoggedIn')
-		var user = this.props.appState.get('user')
-		var containerClass = 'flex-row scrollable'
-		var push = this.props.push
-		
 		return (
 			<Loader loaded={this.state.loaded}>
-				<SetContainer
-					push={push}
-					sets={sets}
-					containerClass={containerClass}
-					loginStatus={loginStatus}
-					user={user}
-				/>
+				<SetContainer 
+					className='flex-row scrollable'
+					sets={this.state.sets} />
 			</Loader>
 		)
 	}
 
 })
 
-module.exports = Popular
+export default Popular

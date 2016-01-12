@@ -27,7 +27,7 @@ var ArtistDetail = React.createClass({
 	},
 
 	getArtistData() {
-		var push = this.props.push;
+		var push = this.context.push;
 		var artist = this.props.params.artist;
 		var query = artist.split('_').join('%20');
 

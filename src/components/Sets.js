@@ -41,8 +41,7 @@ var Sets = React.createClass({
 				<NavMenu navItems={navItems}/>
 				{
 					React.cloneElement(this.props.children, {
-						appState: this.props.appState,
-						push: this.props.push
+						appState: this.props.appState
 					})
 				}
 			</div>

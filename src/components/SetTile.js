@@ -1,6 +1,7 @@
 import React from 'react';
 import { API_ROOT, S3_ROOT_FOR_IMAGES } from '../constants/constants';
 import history from '../services/history'
+import {playSet, updatePlayCount} from '../services/playerService';
 import SetShare from './SetShare';
 
 var SetTile = React.createClass({
@@ -13,18 +14,8 @@ var SetTile = React.createClass({
 
 	getDefaultProps() {
 		return {
-			starttime: 0,
-			// loginStatus: false,
-			// user: {},
 			favorited: false
 		};
-	},
-
-	getSet() {
-		return $.ajax({
-			url: `${API_ROOT}sets/id/${this.props.id}`,
-			type: 'get'
-		})
 	},
 
 	openArtistPage() {
@@ -36,72 +27,34 @@ var SetTile = React.createClass({
 	},
 
 	openFestivalPage() {
-		if(this.props.is_radiomix == 0) {
-			history.pushState(null, `/festival/${this.props.event_id}`);
+		if(this.props.isRadiomix == 0) {
+			history.pushState(null, `/festival/${this.props.eventId}`);
 		} else {
-			history.pushState(null, `/mix/${this.props.event_id}`);
+			history.pushState(null, `/mix/${this.props.eventId}`);
 		}
 	},
 
-	playSet() {
-		this.getSet().done((res) => {
-			var tracklist = res.payload.sets_id.tracks;			
-			var set = {
-				artist: this.props.artist,
-				event: this.props.setName,
-				id: this.props.id,
-				set_length: this.props.set_length,
-				songURL: this.props.songURL,
-				artist_image: this.props.artist_image,
-				starttime: '00:00'
-			};
-
-			console.log(tracklist);
-			console.log(set);
-
-			this.context.push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					currentSet: set,
-					tracklist: tracklist,
-					currentTrack: tracklist[0].trackname,
-					playing: true,
-					timeElapsed: 0
-				}
-			});
-
-			this.updatePlayCount(this.props.id);
-		});
-	},
-
-	updatePlayCount(id) {
-		$.ajax({
-			type: 'post',
-			url: `${API_ROOT}sets/play`,
-			data: {
-				set_id: id,
-				user_id: this.context.user.id || null
-			},
-			success(data) {
-				console.log('play count updated')
-			}
-		})
+	playSet() {	
+		playSet(this.props.id, this.context.push)
+		updatePlayCount(this.props.id, this.context.user.id)
 	},
 
 	render() {
 		var eventImage = {
-			backgroundImage: `url(${S3_ROOT_FOR_IMAGES+this.props.banner_image})`
+			backgroundImage: `url(${S3_ROOT_FOR_IMAGES+this.props.bannerImage})`
 		};
-		var artistImage = S3_ROOT_FOR_IMAGES+this.props.artist_image;
 
 		return (
 			<div className='flex-column set-tile' style={eventImage}>
 				<div className='detail flex-column'>
 					<div className='flex-row flex-fixed-2x'>
-						<img src={artistImage} className='click' onClick={this.openArtistPage} />
+						<img 
+							src={S3_ROOT_FOR_IMAGES+this.props.artistImage} 
+							className='click' 
+							onClick={this.openArtistPage} />
 						<div className='flex-column flex'>
 							<div className='flex click link set-name' onClick={this.openFestivalPage}>{this.props.setName}</div>
-							<div className='flex click link artist' to='artist' onClick={this.openArtistPage}>{this.props.artist}</div>
+							<div className='flex click link artist' onClick={this.openArtistPage}>{this.props.artist}</div>
 							<SetShare 
 								id={this.props.id} 
 								favorited={this.props.favorited} />
@@ -110,12 +63,12 @@ var SetTile = React.createClass({
 					<div className='divider center'/>
 					<div className='flex-row flex-fixed'>
 						<div className='flex-fixed click flex-container play'
-						onClick={this.playSet}>
+							onClick={this.playSet}>
 							<i className='fa fa-play center'>{'  '+this.props.popularity}</i>
 						</div>
 						<div className='divider'/>
 						<div className='flex-fixed flex-container'>
-							<i className='fa fa-clock-o center'>{'  '+this.props.set_length}</i>
+							<i className='fa fa-clock-o center'>{'  '+this.props.setLength}</i>
 						</div>
 					</div>
 				</div>

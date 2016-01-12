@@ -23,7 +23,7 @@ var Header = React.createClass({
 					<div className='center'>Blog</div>
 				</Link>*/}
 				<div className='buffer-4x'/>
-				<div className='search-bar flex-row flex-3x'>
+				<div className='flex-row flex-3x' style={{marginRight: '1vw'}}>
 					<SearchBar/>
 				</div>
 			</header>

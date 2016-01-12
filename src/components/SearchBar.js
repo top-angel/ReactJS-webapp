@@ -18,20 +18,14 @@ var SearchBar = React.createClass({
 	},
 
 	search(query) {
-		var activeSearchAjax = null;
-		var results, 
-			searchUrl = `${API_ROOT}search/${query}`;
+		var searchUrl = `${API_ROOT}search/${query}`;
 
 		$.ajax({
 			url: searchUrl,
 			type: 'get'
 		}).done(res => {
 			if(res.status === 'success') {
-				results = res.payload.search;
-				var {artists, sets, events, tracks} = results;
-
-				console.log(results);
-
+				var {artists, sets, events, tracks} = res.payload.search;
 				this.context.push({
 					type: 'SHALLOW_MERGE',
 					data: {

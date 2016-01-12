@@ -1,19 +1,14 @@
 import React from 'react';
 import {API_ROOT, S3_ROOT_FOR_IMAGES} from '../constants/constants';
+import {playSet, updatePlayCount} from '../services/playerService';
 import convert from '../services/convert';
 import history from '../services/history';
 
 var TrackTile = React.createClass({
 
 	contextTypes: {
-		push: React.PropTypes.func
-	},
-
-	getSetInfo() {
-		return $.ajax({
-			url: `${API_ROOT}sets/id/${this.props.id}`,
-			type: 'get'
-		})
+		push: React.PropTypes.func,
+		user: React.PropTypes.object
 	},
 
 	openArtistPage(e) {
@@ -35,49 +30,15 @@ var TrackTile = React.createClass({
 	},
 
 	playSet() {
-		this.getSetInfo().done(res => {
-			var tracklist = res.payload.tracks;
-			var set = {
-				artist: this.props.artist,
-				event: this.props.event,
-				id: this.props.id,
-				set_length: this.props.set_length,
-				songURL: this.props.songURL,
-				artist_image: this.props.artist_image,
-				starttime: this.props.starttime
-			};
-
-			this.context.push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					currentSet: set,
-					tracklist: tracklist,
-					currentTrack: this.props.trackname
-				}
-			});
-
-			this.updatePlayCount(this.props.id);
-			this.trackPlay();
-		});
-	},
-
-	updatePlayCount(id) {
-		$.ajax({
-			type: 'POST',
-			url: API_ROOT + 'playCount',
-			data: {
-				id: id
-			},
-			success(data) {
-				console.log('play count updated');
-			}
-		});
+		playSet(this.props.id, this.context.push, this.props.starttime)
+		updatePlayCount(this.props.id, this.context.user.id)
+		this.trackPlay()
 	},
 
 	trackPlay() {
 		mixpanel.track("Track Played", {
-			"Track Artist": this.props.artistname,
-			"Track Name": this.props.trackname,
+			"Track Artist": this.props.artist_name,
+			"Track Name": this.props.track_name,
 			"Set Artist": this.props.artist,
 			"Event": this.props.event
 		});
@@ -88,7 +49,6 @@ var TrackTile = React.createClass({
 			backgroundImage: `url('${S3_ROOT_FOR_IMAGES+this.props.banner_image}')`,
 			backgroundSize: '100% 100%'
 		};
-		// var track = `${this.props.songname} - ${this.props.artistname}`;
 		var time = `${this.props.starttime} | ${this.props.set_length}`;
 
 		return (
@@ -112,4 +72,4 @@ var TrackTile = React.createClass({
 
 });
 
-module.exports = TrackTile;
+export default TrackTile;

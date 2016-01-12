@@ -44,8 +44,9 @@ const SetContainer = React.createClass({
 		var sets = this.props.sets
 		var tiles = sets.map((set, index) => {
 			var favorited = this.props.loginStatus ? checkFavorite(set.id, this.props.user) : false
-			// if(R.keys(set.episode).length != 0) {
-			if(set.episode) {
+
+		// TODO TEST DIS
+			if(R.keys(set.episode).length != 0) {
 				var setName = `${set.event.event} - ${set.episode.episode}`;
 			} else {
 				var setName = set.event.event;
@@ -54,19 +55,16 @@ const SetContainer = React.createClass({
 			return React.createElement(SetTile, {
 				key: index,
 				id: set.id,
-				artist_id: set.artists[0].id,
-				event_id: set.event_id,
-				is_radiomix: set.event.is_radiomix,
-				set_length: set.set_length,
+				eventId: set.event_id,
+				isRadiomix: set.event.is_radiomix,
+				setLength: set.set_length,
 				artist: set.artists[0].artist,
 				event: set.event.event,
 				setName: setName,
-				artist_image: set.artists[0].icon_image.imageURL_small,
+				artistImage: set.artists[0].icon_image.imageURL_small,
 				popularity: set.popularity,
-				songURL: set.songURL,
-				banner_image: set.event.banner_image.imageURL,
-				// user: this.props.user,
-				// loginStatus: this.props.loginStatus,
+				songUrl: set.songURL,
+				bannerImage: set.event.banner_image.imageURL,
 				favorited: favorited
 			})
 		});

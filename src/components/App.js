@@ -1,8 +1,10 @@
 import React from 'react';
 import Immutable from 'immutable';
 import DocMeta from 'react-doc-meta';
+import R from 'ramda';
 
 import GlobalEventHandler from '../services/globalEventHandler';
+import {playSet, updatePlayCount} from '../services/playerService';
 import {startFacebookSDK} from '../services/loginService';
 import detectMobileService from '../services/detectMobileService';
 import {API_ROOT, DEFAULT_IMAGE} from '../constants/constants';
@@ -12,7 +14,7 @@ import Player from './Player';
 
 var initialAppState = Immutable.Map({
 	currentSet: {
-		set_length: '00:00',
+		setLength: '00:00',
 		starttime: '00:00',
 		id: null
 	},
@@ -32,6 +34,9 @@ var initialAppState = Immutable.Map({
 	detailData: {
 		sets: [],
 		upcomingEvents: [],
+		banner_image: {
+			imageURL: DEFAULT_IMAGE
+		},
 		icon_image: {
 			imageURL: DEFAULT_IMAGE
 		},
@@ -80,7 +85,10 @@ const App = React.createClass({
 		this.initializeApp();
 		detectMobileService.detectMobileBrowser();
 		if(!!this.props.params.set) {
-			this.playSet();
+			// this.playSet();
+			var setId = this.props.params.set;
+			playSet(setId, push)
+			updatePlayCount(setId, this.state.appState.get('user').id)
 		}
 	},
 
@@ -97,52 +105,9 @@ const App = React.createClass({
 		});
 	},
 
-	playSet() {
-		var setId = this.props.params.set;
-		this.getSetById(setId).done(res => {
-			if(res.status === 'success') {
-				var set = res.payload.sets_id;
-				var tracks = set.tracks;
-				var artists = R.pluck('artist', set.artists);
-				var artist = artists.toString().split(',').join(', ');
-				var currentSet = {
-					artist: artist,
-					event: set.event.event,
-					id: set.id,
-					set_length: set.set_length,
-					songURL: set.songURL,
-					artistimageURL: set.icon_image.imageURL,
-					starttime: '00:00'
-				};
-
-				push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						currentSet: currentSet,
-						tracklist: tracks,
-						currentTrack: tracks[1].trackname,
-						playing: true
-					}
-				});
-			}
-		});
-	},
-
-	getSetById(id) {
-		return $.ajax({
-			type: 'get',
-			url: `${API_ROOT}sets/id/${id}`
-		})
-	},
-
 	renderPlayer() {
-		// if(!this.state.appState.get('playerHidden')) {
-		// 	return <Player appState={this.state.appState} push={push} />
-		// } else {
-		// 	return ''
-		// }
 		if(this.state.appState.get('sound') != null) {
-			return <Player appState={this.state.appState} push={push} />
+			return <Player appState={this.state.appState}/>
 		} else {
 			return ''
 		}
@@ -164,14 +129,13 @@ const App = React.createClass({
 		return (
 			<div id='App' className='flex-column'>
 				<DocMeta tags={tags} />
-				<Header appState={appState} push={push}/>
+				<Header appState={appState} />
 				{
 					React.cloneElement(this.props.children, {
-						appState: appState,
-						push: push
+						appState: appState
 					})
 				}
-				<Player appState={appState} push={push} />
+				<Player appState={appState} />
 			</div>
 		);
 	}
