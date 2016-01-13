@@ -3,6 +3,7 @@ import Loader from 'react-loader';
 import {API_ROOT} from '../constants/constants';
 import SetContainer from './SetContainer';
 import $ from 'jquery';
+import R from 'ramda';
 
 const Favorites = React.createClass({
 
@@ -13,9 +14,8 @@ const Favorites = React.createClass({
 	},
 
 	componentWillMount() {
-		var userId = this.context.user.id;
 		if(this.context.loginStatus) {
-			this.getFavoriteSets(userId)
+			this.getFavoriteSets(this.context.user.id)
 		}
 	},
 
@@ -37,10 +37,16 @@ const Favorites = React.createClass({
 				filter: 'favorites'
 			}
 		}).done(res => {
+			// store user's favorite set ids in appState
+			var favorites = res.payload.setmineuser_stream;
+			var favoriteSetIds = R.pluck('id', favorites);
+			console.log(favoriteSetIds);
+
 			this.context.push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					favorites: res.payload.setmineuser_stream
+					favorites: favorites,
+					favoriteSetIds: favoriteSetIds
 				}
 			});
 
@@ -50,18 +56,17 @@ const Favorites = React.createClass({
 		})
 	},
 
-	showFavorites(loginStatus) {
-		if(loginStatus) {
-			var favorites = this.props.appState.get('favorites')
-			return (
-				<Loader loaded={this.state.loaded}>
-					<SetContainer sets={favorites} />
-				</Loader>
-			)
-		} else {
-			return
-		}
-	},
+	// showFavorites(loginStatus) {
+	// 	if(loginStatus) {
+	// 		return (
+	// 			<Loader loaded={this.state.loaded}>
+	// 				<SetContainer sets={this.props.appState.get('favorites')})} />
+	// 			</Loader>
+	// 		);
+	// 	} else {
+	// 		return
+	// 	}
+	// },
 
 	render() {
 		var favorites = this.props.appState.get('favorites')

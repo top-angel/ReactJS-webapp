@@ -1,6 +1,7 @@
 import React from 'react';
 import {API_ROOT} from '../constants/constants';
-import mixpanelService from './mixpanelService.js';
+import mixpanelService from './mixpanelService';
+import {getFavoriteSets} from './favoriteSet';
 
 export function startFacebookSDK(push) {
 	window.fbAsyncInit = function() {
@@ -69,19 +70,23 @@ function registerFacebookUser(auth, push) {
 		}
 	}).done(res => {
 		console.log(res)
+		var user = res.payload.setmineuser_login_facebook
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
 				isUserLoggedIn: true,
-				user: res.payload.setmineuser_login_facebook
+				user: user
 			}
-		});
+		})
 
 		// check if user is logged in
-		console.log('successfully logged in');
+		console.log('successfully logged in')
+
+		// get favorites
+		getFavoriteSets(user.id, push)
 
 		//track user after logging in for the first time
-		mixpanel.identify(res.payload.user.facebook_id);
+		mixpanel.identify(res.payload.setmineuser_login_facebook.facebook_id);
 		mixpanel.people.set_once({
 			"First Name": res.payload.user.first_name,
 			"Last Name": res.payload.user.last_name,

@@ -30,11 +30,13 @@ var PlayerShare = React.createClass({
 	},
 
 	favoriteSet: function() {
-		var id = this.props.appState.get('currentSet').id;
+		var setId = this.props.appState.get('currentSet').id;
+		var {push, user} = this.context;
 
 		if(loginStatus) {
-			favoriteSet(this.context.push, user, id);
+			favoriteSet(setId, user.id, push);
 		} else {
+			// notification instead of page redirect
 			history.pushState(null, '/user');
 		}
 	},
@@ -74,7 +76,7 @@ var PlayerShare = React.createClass({
 		var self = this;
 
 		if(loginStatus) {
-			var favorited = favoriteSet.checkFavorite(appState.get('currentSet').id, appState.get('user').favorite_set_ids);
+			var favorited = checkFavorite(appState.get('currentSet').id, appState.get('favoriteSetIds'));
 		} else {
 			var favorited = false;
 		}
@@ -115,4 +117,4 @@ var PlayerShare = React.createClass({
 
 });
 
-module.exports = PlayerShare;
+export default PlayerShare;

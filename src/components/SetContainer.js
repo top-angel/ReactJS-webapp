@@ -9,23 +9,23 @@ const SetContainer = React.createClass({
 	contextTypes: {
 		push: React.PropTypes.func,
 		user: React.PropTypes.object,
-		loginStatus: React.PropTypes.bool
+		loginStatus: React.PropTypes.bool,
+		favoriteSetIds: React.PropTypes.array
 	},
 
 	getDefaultProps() {
 		return {
 			className: 'flex-row tile-container scrollable',
-			sets: [],
-			user: {
-				favorite_set_ids: []
-			}
+			sets: []
 		};
 	},
 
 // TODO add favorite_set_ids to API
-	shouldComponentUpdate(nextProps, nextState) {
-		var oldFav = this.props.user.favorite_set_ids;
-		var newFav = nextProps.user.favorite_set_ids;
+	shouldComponentUpdate(nextProps, nextState, nextContext) {
+		var oldFav = this.context.favoriteSetIds
+		var newFav = nextContext.favoriteSetIds
+		// var oldFav = this.props.appState.get('favoriteSetIds');
+		// var newFav = nextProps.appState.get('favoriteSetIds');
 		// if(nextProps.sets != this.props.sets) {
 		// 	return true;
 		// } else if(newFav != oldFav) {
@@ -33,6 +33,7 @@ const SetContainer = React.createClass({
 		// } else {
 		// 	return false;
 		// }
+
 		switch(true) {
 			case nextProps.sets != this.props.sets:
 				return true;
@@ -47,11 +48,10 @@ const SetContainer = React.createClass({
 	},
 
 	render() {
-		var sets = this.props.sets
-		var tiles = sets.map((set, index) => {
+		var tiles = this.props.sets.map((set, index) => {
 			var favorited = this.context.loginStatus ? checkFavorite(set.id, this.context.user) : false
 
-		// TODO TEST DIS
+			// TODO TEST DIS
 			if(R.keys(set.episode).length != 0) {
 				var setName = `${set.event.event} - ${set.episode.episode}`;
 			} else {

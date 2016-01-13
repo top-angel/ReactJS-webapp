@@ -6,6 +6,7 @@ import R from 'ramda';
 import GlobalEventHandler from '../services/globalEventHandler';
 import {playSet, updatePlayCount} from '../services/playerService';
 import {startFacebookSDK} from '../services/loginService';
+import {getFavorites} from '../services/favoriteSet';
 import detectMobileService from '../services/detectMobileService';
 import {API_ROOT, DEFAULT_IMAGE} from '../constants/constants';
 
@@ -24,13 +25,15 @@ var initialAppState = Immutable.Map({
 	playerHidden: true,
 	playing: false,
 	timeElapsed: 0,
-
-	closestEvents: [],
 	isUserLoggedIn: false,
 	user: {
-		id: 67
+		id: 67,
+		first_name: '',
+		last_name: ''
 	},
 	favorites: [],
+	favoriteSetIds: [],
+	closestEvents: [],
 	detailData: {
 		sets: [],
 		upcomingEvents: [],
@@ -46,7 +49,6 @@ var initialAppState = Immutable.Map({
 		soundcloud_link: null,
 		youtube_link: null
 	},
-
 	searchResults: {
 		artists: [],
 		sets: [],
@@ -64,14 +66,16 @@ const App = React.createClass({
 	childContextTypes: {
 		push: React.PropTypes.func,
 		user: React.PropTypes.object,
-		loginStatus: React.PropTypes.bool
+		loginStatus: React.PropTypes.bool,
+		favoriteSetIds: React.PropTypes.array,
 	},
 
 	getChildContext() {
 		return {
 			push: push,
 			user: this.state.appState.get('user'),
-			loginStatus: this.state.appState.get('isUserLoggedIn')
+			loginStatus: this.state.appState.get('isUserLoggedIn'),
+			favoriteSetIds: this.state.appState.get('favoriteSetIds')
 		}
 	},
 
@@ -82,8 +86,12 @@ const App = React.createClass({
 	},
 
 	componentWillMount() {
+		// initialize global appState and push fn
 		this.initializeApp();
 		detectMobileService.detectMobileBrowser();
+		// initialize Facebook SDK & check if user is logged in
+		startFacebookSDK(push);
+		// play set if specified in url
 		if(!!this.props.params.set) {
 			// this.playSet();
 			var setId = this.props.params.set;
@@ -93,7 +101,6 @@ const App = React.createClass({
 	},
 
 	componentDidMount() {
-		startFacebookSDK(push);
 		// check if user is logged in
 		console.log('user logged in: ' + this.state.appState.get('isUserLoggedIn'));
 	},

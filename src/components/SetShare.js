@@ -33,9 +33,9 @@ const SetShare = React.createClass({
 	},
 
 	favoriteSet() {
-		var {user, loginStatus} = this.context;
+		var {user, loginStatus, push} = this.context;
 		if(loginStatus) {
-			favoriteSet(this.context.push, user, this.props.id);
+			favoriteSet(this.props.id, user.id, push);
 		} else {
 			history.pushState(null, '/user');
 		}
