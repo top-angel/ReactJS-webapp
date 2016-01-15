@@ -1,7 +1,8 @@
 import React from 'react';
-import {API_ROOT} from '../constants/constants';
+import api from './api';
 import mixpanelService from './mixpanelService';
 import {getFavoriteSets} from './favoriteSet';
+import {fetchGraphql} from './utilities';
 
 export function startFacebookSDK(push) {
 	window.fbAsyncInit = function() {
@@ -12,7 +13,6 @@ export function startFacebookSDK(push) {
 			xfbml      : true,  // parse social plugins on this page
 			version    : 'v2.1' // use version 2.1
 		});
-
 			// Now that we've initialized the JavaScript SDK, we call
 			// FB.getLoginStatus().  This function gets the state of the
 			// person visiting this page and can return one of three states to
@@ -42,19 +42,16 @@ export function startFacebookSDK(push) {
 function statusChangeCallback(response, push) {
 	console.log('facebook API response', response);
 	if (response.status === 'connected') {
-		// Logged into your app and Facebook.
-		// registerFacebookUser(response.authResponse, push)
+		// Logged into setmine and Facebook.
 		registerFacebookUser(response.authResponse.accessToken, push)
 	} else if (response.status === 'not_authorized') {
-		// The person is logged into Facebook, but not your app.
 		console.log('Logged into Facebook, but you need to authorize this app');
 	} else {
-		// The person is not logged into Facebook, so we're not sure if
-		// they are logged into this app or not.
 		console.debug('Not logged into Facebook');
 	}
 }
 
+// check if user is logged in
 function checkLoginState(push) {
 	FB.getLoginStatus(function(response) {
 		statusChangeCallback(response, push);
@@ -62,15 +59,12 @@ function checkLoginState(push) {
 }
 
 function registerFacebookUser(auth, push) {
-	$.ajax({
-		type: 'POST',
-		url: `${API_ROOT}setmineuser/login/facebook`,
-		data: {
-			facebook_token: auth
-		}
-	}).done(res => {
-		console.log(res)
-		var user = res.payload.setmineuser_login_facebook
+	api.post('setmineuser/login/facebook', {
+		facebook_token: auth
+	}).then(res => {
+		console.log('Successfully logged in to Setmine')
+		var user = res.setmineuser_login_facebook
+		// store setmine user in appState
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
@@ -79,24 +73,22 @@ function registerFacebookUser(auth, push) {
 			}
 		})
 
-		// check if user is logged in
-		console.log('successfully logged in')
-
-		// get favorites
+		// fetch a user's favorites
 		getFavoriteSets(user.id, push)
 
 		//track user after logging in for the first time
-		mixpanel.identify(res.payload.setmineuser_login_facebook.facebook_id);
+		mixpanel.identify(user.facebook_id);
 		mixpanel.people.set_once({
-			"First Name": res.payload.user.first_name,
-			"Last Name": res.payload.user.last_name,
-			"$email": res.payload.user.username,
-			"fb_id": res.payload.user.facebook_id,
+			"First Name": user.first_name,
+			"Last Name": user.last_name,
+			"$email": user.username,
+			"fb_id": user.facebook_id,
 			"date_tracked": new Date()
 		});
-	});
+	})
 }
 
+// starts login process
 export function login(push) {
 	FB.login(checkLoginState(push));
 }

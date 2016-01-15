@@ -1,7 +1,8 @@
 import React from 'react';
 import Loader from 'react-loader';
 import {Link} from 'react-router';
-import {API_ROOT} from '../constants/constants';
+// import {API_ROOT} from '../constants/constants';
+import api from '../services/api';
 
 import SetContainer from './SetContainer';
 import EventContainer from './EventContainer';
@@ -10,7 +11,6 @@ import DetailImageContainer from './DetailImageContainer';
 import LinkButtonContainer from './LinkButtonContainer';
 
 var ArtistDetail = React.createClass({
-
 	contextTypes: {
 		push: React.PropTypes.func
 	},
@@ -20,7 +20,6 @@ var ArtistDetail = React.createClass({
 	},
 
 	getInitialState() {
-		// TODO move artist detail to state instead of appstate
 		return {
 			loaded: false
 		};
@@ -31,40 +30,29 @@ var ArtistDetail = React.createClass({
 		var artist = this.props.params.artist;
 		var query = artist.split('_').join('%20');
 
-		$.ajax({
-			url: `${API_ROOT}artists/search/${query}`,
-			type: 'get'
-		}).done(res => {
-			if(res.status === 'success') {
-				var artist = res.payload.artists_search;
-
-				push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						detailData: artist
-					}
-				});
-
-				this.setState({
-					loaded: true
-				});
-			}
-		});
+		api.get(`artists/search/${query}`).then(res => {
+			push({
+				type: 'SHALLOW_MERGE',
+				data: {
+					detailData: res.artists_search
+				}
+			})
+		}).then(() => {
+			this.setState({ loaded: true })
+		})
 	},
 
 	render() {
 		var {appState} = this.props;
 
 		var artistData = appState.get('detailData');
-		var loginStatus = appState.get('isUserLoggedIn');
-		var user = appState.get('user');
 
 		var setText = artistData.set_count != 1 ? 'sets' : 'set';
 		var eventText = artistData.event_count != 1 ? 'events' : 'event';
 		var artistInfo = `${artistData.set_count} ${setText} | ${artistData.event_count} ${eventText}`;
 
 		var detailInfo = {
-			sets: artistData.sets,
+			sets: R.pluck('id', artistData.sets),
 			title: artistData.artist,
 			buttonText: 'Shuffle',
 			imageURL: artistData.icon_image.imageURL,
@@ -116,10 +104,7 @@ var ArtistDetail = React.createClass({
 					{
 						React.cloneElement(this.props.children, {
 							sets: artistData.sets,
-							events: artistData.upcoming_events,
-							// push: push,
-							// loginStatus: loginStatus,
-							// user: user
+							events: artistData.upcoming_events
 						})
 					}
 				</div>

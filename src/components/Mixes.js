@@ -1,6 +1,6 @@
 import React from 'react';
 import Loader from 'react-loader';
-import {API_ROOT} from '../constants/constants';
+import api from '../services/api';
 
 import MixTile from './MixTile';
 
@@ -22,20 +22,26 @@ var Mixes = React.createClass({
 	},
 
 	getMixes() {
-		$.ajax({
-			url: `${API_ROOT}mixes`,
-			type: 'get',
-			data: {
-				limit: 5000
-			}
-		}).done(res => {
-			if(res.status === 'success') {
-				this.setState({
-					loaded: true,
-					mixes: res.payload.mixes
-				});
-			}
-		});
+		// $.ajax({
+		// 	url: `${API_ROOT}mixes`,
+		// 	type: 'get',
+		// 	data: {
+		// 		limit: 5000
+		// 	}
+		// }).done(res => {
+		// 	if(res.status === 'success') {
+		// 		this.setState({
+		// 			loaded: true,
+		// 			mixes: res.payload.mixes
+		// 		});
+		// 	}
+		// });
+		api.get('mixes?limit=5000').then(res => {
+			this.setState({
+				loaded: true,
+				mixes: res.mixes
+			});
+		})
 	},
 
 	render() {

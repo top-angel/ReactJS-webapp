@@ -5,6 +5,7 @@ import {playSet, updatePlayCount} from '../services/playerService';
 import SetShare from './SetShare';
 
 var SetTile = React.createClass({
+	displayName: 'SetTile',
 
 	contextTypes: {
 		push: React.PropTypes.func,
@@ -27,10 +28,10 @@ var SetTile = React.createClass({
 	},
 
 	openFestivalPage() {
-		if(this.props.isRadiomix == 0) {
-			history.pushState(null, `/festival/${this.props.eventId}`);
-		} else {
+		if(this.props.isRadiomix) {
 			history.pushState(null, `/mix/${this.props.eventId}`);
+		} else {
+			history.pushState(null, `/festival/${this.props.eventId}`);
 		}
 	},
 

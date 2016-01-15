@@ -1,12 +1,12 @@
 import React from 'react';
+import R from 'ramda';
 import Loader from 'react-loader';
-import {API_ROOT} from '../constants/constants';
+import api from '../services/api';
 
 import SetContainer from './SetContainer';
 import DetailImageContainer from './DetailImageContainer';
 
 const MixDetail = React.createClass({
-
 	contextTypes: {
 		push: React.PropTypes.func
 	},
@@ -22,38 +22,28 @@ const MixDetail = React.createClass({
 	},
 
 	getMixData(id) {
-	// TODO use mix id to get mix data test: 69
-		$.ajax({
-			url: `${API_ROOT}'mixes/id/'${id}`,
-			type: 'get',
-		}).done(res => {
+		// test id 69
+		api.get(`mixes/id/${id}`).then(res => {
 			this.context.push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					detailData: res.payload.mixes_id
+					detailData: res.mixes_id
 				}
-			});
-
-			this.setState({
-				loaded: true
-			});
-		});
+			})
+		}).then(() => {
+			this.setState({ loaded: true })
+		})
 	},
 
 	render() {
-		var {appState} = this.props;
-
-		var mix = appState.get('mix');
-		var loginStatus = appState.get('isUserLoggedIn');
-		var user = appState.get('user');
-
+		var mix = this.props.appState.get('detailData');
 		var setText = mix.set_count != 1 ? 'sets' : 'set';
 
 		var detailInfo = {
-			push: push,
 			title: mix.event,
 			imageURL: mix.icon_image.imageURL,
-			info: `${mix.set_count} ${setText}`
+			info: `${mix.set_count} ${setText}`,
+			sets: R.pluck('id', mix.sets)
 		};
 
 		return (

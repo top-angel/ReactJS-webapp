@@ -4,6 +4,7 @@ import {playSet, updatePlayCount} from '../services/playerService';
 import history from '../services/history';
 
 var TrackTile = React.createClass({
+	displayName: 'Track Tile',
 
 	contextTypes: {
 		push: React.PropTypes.func,

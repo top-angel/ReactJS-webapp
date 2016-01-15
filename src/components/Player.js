@@ -18,8 +18,6 @@ const Player = React.createClass({
 
 	componentDidMount() {
 		var sound = this.props.appState.get('sound');
-		console.log(sound);
-
 		if(sound != null) {
 			this.context.push({
 				type: 'SHALLOW_MERGE',

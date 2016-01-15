@@ -1,6 +1,6 @@
 import React from 'react'
 import Loader from 'react-loader'
-import {API_ROOT} from '../constants/constants'
+import api from '../services/api'
 import SetContainer from './SetContainer'
 
 var Popular = React.createClass({
@@ -21,16 +21,11 @@ var Popular = React.createClass({
 	},
 
 	getPopularSets() {
-		$.ajax({
-			url: `${API_ROOT}sets/popular`,
-			type: 'get'
-		}).done(res => {
-			if(res.status === 'success') {
-				this.setState({
-					loaded: true,
-					sets: res.payload.sets_popular
-				})
-			}
+		api.get('sets/popular').then(res => {
+			this.setState({
+				loaded: true,
+				sets: res.sets_popular
+			});
 		})
 	},
 

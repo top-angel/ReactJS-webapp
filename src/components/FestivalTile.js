@@ -4,6 +4,7 @@ import Moment from 'moment'
 import history from '../services/history'
 
 var FestivalTile = React.createClass({
+	displayName: 'Festival Tile',
 	openFestivalPage() {
 		// var routePath = this.props.event.split(' ').join('-')
 		history.pushState(null, '/festival/' + this.props.id)

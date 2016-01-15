@@ -1,13 +1,12 @@
 import React from 'react';
 import R from 'ramda';
-import {API_ROOT} from '../constants/constants';
+import api from '../services/api';
 import Loader from 'react-loader';
 
 import SetContainer from './SetContainer';
 import DetailImageContainer from './DetailImageContainer';
 
 const FestivalDetail = React.createClass({
-
 	contextTypes: {
 		push: React.PropTypes.func
 	},
@@ -22,23 +21,18 @@ const FestivalDetail = React.createClass({
 		this.getFestivalData(this.props.params.festival);
 	},
 
-// test 452 Ultra 2015
 	getFestivalData(id) {
-		$.ajax({
-			url: `${API_ROOT}events/id/${id}`,
-			type: 'get',
-		}).done(res => {
+		// test 452 Ultra 2015
+		api.get(`events/id/${id}`).then(res => {
 			this.context.push({
 				type: 'SHALLOW_MERGE',
 				data: {
-					detailData: res.payload.events_id
+					detailData: res.events_id
 				}
-			});
-
-			this.setState({
-				loaded: true
-			});
-		});
+			})
+		}).then(() => {
+			this.setState({ loaded: true })
+		})
 	},
 
 	render() {

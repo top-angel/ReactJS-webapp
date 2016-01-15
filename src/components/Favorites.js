@@ -1,9 +1,10 @@
 import React from 'react';
 import Loader from 'react-loader';
-import {API_ROOT} from '../constants/constants';
-import SetContainer from './SetContainer';
 import $ from 'jquery';
 import R from 'ramda';
+import {API_ROOT} from '../constants/constants';
+import {getFavoriteSets} from '../services/favoriteSet'
+import SetContainer from './SetContainer';
 
 const Favorites = React.createClass({
 
@@ -13,47 +14,36 @@ const Favorites = React.createClass({
 		loginStatus: React.PropTypes.bool
 	},
 
-	componentWillMount() {
+	componentDidMount() {
+		mixpanel.track("Favorites Page Open");
 		if(this.context.loginStatus) {
-			this.getFavoriteSets(this.context.user.id)
+			this.setState({
+				loaded: true
+			})
 		}
 	},
 
-	componentDidMount() {
-		mixpanel.track("Favorites Page Open");
+	componentWillReceiveProps(nextProps, nextContext) {
+		if(nextContext.loginStatus) {
+			this.setState({
+				loaded: true
+			})
+		}
 	},
 
 	getInitialState() {
 		return {
 			loaded: false
-		};
+		}
 	},
 
 	getFavoriteSets(userId) {
-		$.ajax({
-			type: 'get',
-			url: `${API_ROOT}setmineuser/${userId}/stream`,
-			data: {
-				filter: 'favorites'
-			}
-		}).done(res => {
-			// store user's favorite set ids in appState
-			var favorites = res.payload.setmineuser_stream;
-			var favoriteSetIds = R.pluck('id', favorites);
-			console.log(favoriteSetIds);
-
-			this.context.push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					favorites: favorites,
-					favoriteSetIds: favoriteSetIds
-				}
-			});
-
+		// getFavoriteSets(this.context.user.id, this.context.push)
+		if(this.context.loginStatus) {
 			this.setState({
 				loaded: true
-			});
-		})
+			})
+		}
 	},
 
 	// showFavorites(loginStatus) {

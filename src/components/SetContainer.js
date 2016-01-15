@@ -9,8 +9,7 @@ const SetContainer = React.createClass({
 	contextTypes: {
 		push: React.PropTypes.func,
 		user: React.PropTypes.object,
-		loginStatus: React.PropTypes.bool,
-		favoriteSetIds: React.PropTypes.array
+		loginStatus: React.PropTypes.bool
 	},
 
 	getDefaultProps() {
@@ -21,26 +20,17 @@ const SetContainer = React.createClass({
 	},
 
 // TODO add favorite_set_ids to API
-	shouldComponentUpdate(nextProps, nextState, nextContext) {
+	shouldComponentUpdate(nextProps, nextState) {
 		var oldFav = this.context.favoriteSetIds
 		var newFav = nextContext.favoriteSetIds
-		// var oldFav = this.props.appState.get('favoriteSetIds');
-		// var newFav = nextProps.appState.get('favoriteSetIds');
-		// if(nextProps.sets != this.props.sets) {
-		// 	return true;
-		// } else if(newFav != oldFav) {
-		// 	return true;
-		// } else {
-		// 	return false;
-		// }
+		// var oldFav = this.props.favoriteSetIds
+		// var newFav = nextProps.favoriteSetIds
 
 		switch(true) {
 			case nextProps.sets != this.props.sets:
 				return true;
-				break;
 			case newFav != oldFav:
 				return true;
-				break;
 			default:
 				return false;
 				break;
@@ -49,14 +39,16 @@ const SetContainer = React.createClass({
 
 	render() {
 		var tiles = this.props.sets.map((set, index) => {
-			var favorited = this.context.loginStatus ? checkFavorite(set.id, this.context.user) : false
+			// var favorited = this.context.loginStatus ? checkFavorite(set.id, this.context.user) : false
+			var favorited = this.context.loginStatus ? R.contains(set.id, this.context.favoriteSetIds) : false
 
-			// TODO TEST DIS
-			if(R.keys(set.episode).length != 0) {
+			// TODO doesn't work for user sets
+			if(set.episode != undefined && R.keys(set.episode).length != 0) {
 				var setName = `${set.event.event} - ${set.episode.episode}`;
 			} else {
 				var setName = set.event.event;
 			}
+
 
 			return React.createElement(SetTile, {
 				key: index,

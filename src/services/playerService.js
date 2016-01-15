@@ -3,6 +3,7 @@ import R from 'ramda';
 import SM2 from 'soundmanager2';
 import _ from 'underscore';
 
+import api from './api';
 import {MMSSToMilliseconds} from './convert';
 import {S3_ROOT, API_ROOT} from '../constants/constants';
 
@@ -88,13 +89,6 @@ export function generateSound(loadStart, appState, push) {
 	});
 }
 
-function getSetById(id) {
-	return $.ajax({
-		type: 'get',
-		url: `${API_ROOT}sets/id/${id}`
-	})
-}
-
 export function mixpanelTrackSetPlay(set) {
 	// Log Mixpanel event
 	var setName = set.artist+' - '+set.event;
@@ -114,33 +108,32 @@ export function mixpanelTrackSetPlay(set) {
 	mixpanel.people.append("sets_played_events", set.event);
 }
 
+// fetch set by id and play set
 export function playSet(setId, push, starttime = '00:00') {
-	getSetById(setId).done(res => {
-		if(res.status === 'success') {
-			var set = res.payload.sets_id;
-			var tracks = set.tracks;
+	api.get(`sets/id/${setId}`).then(res => {
+		var set = res.sets_id
+		var tracks = set.tracks
 
-			// format artists string for multiple artists
-			var artist = R.pluck('artist', set.artists).toString().split(',').join(', ')
+		// format artists for multiple artists
+		var artist = R.pluck('artist', set.artists).toString().split(',').join(', ')
 
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					currentSet: {
-						artist: artist,
-						event: set.event.event,
-						id: set.id,
-						setLength: set.set_length,
-						songUrl: set.songURL,
-						artistImage: set.artists[0].icon_image.imageURL,
-						starttime: starttime,
-					},
-					tracklist: tracks,
-					currentTrack: tracks[0].trackname,
-					playing: true
-				}
-			})
-		}
+		push({
+			type: 'SHALLOW_MERGE',
+			data: {
+				currentSet: {
+					artist: artist,
+					event: set.event.event,
+					id: set.id,
+					setLength: set.set_length,
+					songUrl: set.songURL,
+					artistImage: set.artists[0].icon_image.imageURL,
+					starttime: starttime,
+				},
+				tracklist: tracks,
+				currentTrack: tracks[0].trackname,
+				playing: true
+			}
+		})
 	})
 }
 
@@ -150,9 +143,9 @@ export function scrub(position, appState, push) {
 	var currentSet = appState.get('currentSet');
 	var timeElapsed = appState.get('timeElapsed');
 
-	var set_length = sound.durationEstimate;
+	var setLength = sound.durationEstimate;
 	var multiplier = position / 100;// 70 -> 0.7
-	var newPosition = multiplier * set_length;
+	var newPosition = multiplier * setLength;
 
 	sound.setPosition(newPosition);
 
@@ -177,16 +170,12 @@ export function togglePlay(sound) {
 
 // updates set play count in database
 export function updatePlayCount(setId, userId) {
-	$.ajax({
-		type: 'post',
-		url: `${API_ROOT}sets/play`,
-		data: {
-			set_id: setId,
-			user_id: userId || null
-		},
-		success(data) {
-			console.log('play count updated')
-		}
+	api.post('sets/play', {
+		set_id: setId,
+		user_id: userId
+	})
+	.then(res => {
+		console.log('play count updated')
 	})
 }
 

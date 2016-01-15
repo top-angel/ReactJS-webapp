@@ -27,13 +27,13 @@ var Sets = React.createClass({
 				link: '/sets/mixes',
 				icon: 'fa fa-fw fa-headphones',
 				onlyActiveOnIndex: false
-			},
-			{
-				text: 'Activities',
-				link: '/sets/activities',
-				icon: 'fa fa-fw fa-bicycle',
-				onlyActiveOnIndex: false
 			}
+			// {
+			// 	text: 'Activities',
+			// 	link: '/sets/activities',
+			// 	icon: 'fa fa-fw fa-bicycle',
+			// 	onlyActiveOnIndex: false
+			// }
 		];
 		
 		return (

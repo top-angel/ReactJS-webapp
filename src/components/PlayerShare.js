@@ -4,11 +4,10 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { Motion } from 'react-motion';
 
 import history from '../services/history'
-import {checkFavorites} from '../services/favoriteSet'
+import {checkIfFavorited, favoritSet} from '../services/favoriteSet'
 
 
 var PlayerShare = React.createClass({
-
 	contextTypes: {
 		push: React.PropTypes.func,
 		loginStatus: React.PropTypes.bool,
@@ -31,12 +30,12 @@ var PlayerShare = React.createClass({
 
 	favoriteSet: function() {
 		var setId = this.props.appState.get('currentSet').id;
-		var {push, user} = this.context;
+		var {push, user, loginStatus} = this.context;
 
 		if(loginStatus) {
 			favoriteSet(setId, user.id, push);
 		} else {
-			// notification instead of page redirect
+			// TODO show notification instead of page redirect
 			history.pushState(null, '/user');
 		}
 	},
@@ -75,8 +74,8 @@ var PlayerShare = React.createClass({
 		var playURL = 'https://setmine.com/play/'+this.props.appState.get('currentSet').id;
 		var self = this;
 
-		if(loginStatus) {
-			var favorited = checkFavorite(appState.get('currentSet').id, appState.get('favoriteSetIds'));
+		if(this.context.loginStatus) {
+			var favorited = checkIfFavorited(appState.get('currentSet').id, appState.get('favoriteSetIds'));
 		} else {
 			var favorited = false;
 		}

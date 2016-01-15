@@ -1,6 +1,6 @@
 import React from 'react'
 import Loader from 'react-loader'
-import {API_ROOT} from '../constants/constants'
+import api from '../services/api'
 import SetContainer from './SetContainer'
 
 var Recent = React.createClass({
@@ -21,16 +21,11 @@ var Recent = React.createClass({
 	},
 
 	getRecentSets() {
-		$.ajax({
-			url: `${API_ROOT}sets/recent`,
-			type: 'get'
-		}).done(res => {
-			if(res.status === 'success') {
-				this.setState({
-					loaded: true,
-					sets: res.payload.sets_recent
-				})
-			}
+		api.get('sets/recent').then(res => {
+			this.setState({
+				loaded: true,
+				sets: res.sets_recent
+			});
 		})
 	},
 

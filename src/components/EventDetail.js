@@ -1,12 +1,15 @@
 import React from 'react';
 import R from 'ramda';
-import {API_ROOT} from '../constants/constants';
+import api from '../services/api';
 
 import Loader from 'react-loader';
 import EventDetailHeader from './EventDetailHeader'
 import ArtistTileContainer from './ArtistTileContainer';
 
 var EventDetail = React.createClass({
+	contextTypes: {
+		push: React.PropTypes.func
+	},
 
 	getInitialState() {
 		return {
@@ -15,30 +18,20 @@ var EventDetail = React.createClass({
 	},
 
 	componentWillMount() {
-		this.getEventData();
+		this.getEventData(this.props.params.event);
 	},
 
-	getEventData() {
-		var push = this.props.push;
-		var event = this.props.params.event;
-
-		$.ajax({
-			url: `${API_ROOT}events/id/${event}`,
-			type: 'get',
-		}).done(res => {
-			if(res.status === 'success') {
-				push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						detailData: res.payload.events_id
-					}
-				});
-
-				this.setState({
-					loaded: true
-				});
-			}
-		});
+	getEventData(event) {
+		api.get(`events/id/${event}`).then(res => {
+			this.context.push({
+				type: 'SHALLOW_MERGE',
+				data: {
+					detailData: res.events_id
+				}
+			})
+		}).then(() => {
+			this.setState({ loaded: true })
+		})
 	},
 	render() {
 		var appState = this.props.appState;

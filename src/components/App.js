@@ -8,7 +8,8 @@ import {playSet, updatePlayCount} from '../services/playerService';
 import {startFacebookSDK} from '../services/loginService';
 import {getFavorites} from '../services/favoriteSet';
 import detectMobileService from '../services/detectMobileService';
-import {API_ROOT, DEFAULT_IMAGE} from '../constants/constants';
+import {DEFAULT_IMAGE} from '../constants/constants';
+// import api from '../services/api';
 
 import Header from './Header';
 import Player from './Player';
@@ -61,8 +62,12 @@ var evtHandler = GlobalEventHandler(initialAppState);
 var evtTypes = evtHandler.types;
 var push = evtHandler.push;
 
-const App = React.createClass({
+// var push = data => pushFn({
+// 	type: 'SHALLOW_MERGE',
+// 	data: data
+// })
 
+const App = React.createClass({
 	childContextTypes: {
 		push: React.PropTypes.func,
 		user: React.PropTypes.object,
@@ -100,9 +105,10 @@ const App = React.createClass({
 		}
 	},
 
-	componentDidMount() {
-		// check if user is logged in
-		console.log('user logged in: ' + this.state.appState.get('isUserLoggedIn'));
+	componentWillUpdate(nextProps, nextState) {
+		if(nextState.appState.get('playerHidden') === false) {
+			return true
+		}
 	},
 
 	initializeApp() {
@@ -110,14 +116,6 @@ const App = React.createClass({
 		evtHandler.floodGate.subscribe(newState => {
 			self.setState({ appState: newState });
 		});
-	},
-
-	showPlayer() {
-		if(this.state.appState.get('sound') != null) {
-			return <Player appState={this.state.appState}/>
-		} else {
-			return
-		}
 	},
 
 	render() {
@@ -142,8 +140,7 @@ const App = React.createClass({
 						appState: appState
 					})
 				}
-				{/*<Player appState={appState} />*/}
-				{this.showPlayer()}
+				<Player appState={appState} />
 			</div>
 		);
 	}
