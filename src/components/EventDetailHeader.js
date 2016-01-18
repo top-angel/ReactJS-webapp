@@ -1,9 +1,5 @@
 import React, {Component} from 'react'
-import {S3_ROOT_FOR_IMAGES} from '../constants/constants'
-
-var container = {
-	position: 'relative'
-}
+import {S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE} from '../constants/constants'
 
 export default class EventDetailHeader extends React.Component {
 	constructor(props) {
@@ -31,5 +27,5 @@ export default class EventDetailHeader extends React.Component {
 }
 
 EventDetailHeader.defaultProps = {
-	imageURL: ''
+	imageURL: DEFAULT_IMAGE
 }

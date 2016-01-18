@@ -4,7 +4,6 @@ import { Motion } from 'react-motion';
 import { favoriteSet } from '../services/favoriteSet';
 
 const SetShare = React.createClass({
-
 	contextTypes: {
 		push: React.PropTypes.func,
 		user: React.PropTypes.object,

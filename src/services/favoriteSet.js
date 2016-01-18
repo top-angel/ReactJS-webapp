@@ -7,30 +7,16 @@ export function favoriteSet(setId, userId, push) {
 		user_id: userId,
 		set_id: setId
 	}).then(res => {
-		console.log('set favorited', res)
-		getFavoriteSets(userId, push)
-	})
-}
+		// doesn't return from the server yet :(
+		var favoriteSetIds = R.pluck('id', res.favorites.user.favorite_sets)
+		console.log(favoriteSetIds)
 
-// fetches a user's favorite sets
-export function getFavoriteSets(userId, push) {
-	api.get(`setmineuser/${userId}/stream?filter=favorites`).then(res => {
-		var favorites = res.setmineuser_stream;
-		var favoriteSetIds = R.pluck('id', favorites);
-		console.log('Favorites fetched')
-		
 		// store favorites in appState
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
-				favorites: favorites,
 				favoriteSetIds: favoriteSetIds
 			}
 		})
 	})
-}
-
-// checks if a set is favorited
-export function checkIfFavorited(setId, favorites) {
-	return R.contains(setId, favorites);
 }

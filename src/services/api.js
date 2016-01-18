@@ -13,7 +13,7 @@ module.exports = {
 						console.error('API call failed')
 					}
 				})
-				.catch(err => console.error(error))
+				.catch(err => console.error(err))
 		)
 	},
 	post(route, data) {
@@ -35,7 +35,7 @@ module.exports = {
 					console.error('API call failed')
 				}
 			})
-			.catch(err => console.error(error))
+			.catch(err => console.error(err))
 		)
 	},
 	graph(query) {

@@ -39,11 +39,6 @@ export function changeTrack(appState, push, starttime, currentTrack) {
 	});
 }
 
-function errorPromise(jqXHR, textStatus, errorThrown) {
-	console.log('ERROR MAKING AJAX CALL', jqXHR, textStatus, errorThrown);
-	return  Q.reject(errorThrown);
-}
-
 // create SoundManager sound object from a set
 export function generateSound(loadStart, appState, push) {
 	var sound = appState.get('sound');
@@ -64,7 +59,7 @@ export function generateSound(loadStart, appState, push) {
 		onload: function() {
 			var totalTime = sound.durationEstimate;
 		},
-		volume: 0, //comment out for production
+		// volume: 0, //comment out for production
 		whileplaying: function() {
 			var currentTime = sound.position;
 			// UPDATE CURRENT TRACK HERE

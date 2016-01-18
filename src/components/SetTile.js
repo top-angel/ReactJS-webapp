@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_ROOT, S3_ROOT_FOR_IMAGES } from '../constants/constants';
+import { API_ROOT, S3_ROOT_FOR_IMAGES, S3_ROOT } from '../constants/constants';
 import history from '../services/history'
 import {playSet, updatePlayCount} from '../services/playerService';
 import SetShare from './SetShare';

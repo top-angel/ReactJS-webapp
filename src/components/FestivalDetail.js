@@ -2,18 +2,18 @@ import React from 'react';
 import R from 'ramda';
 import api from '../services/api';
 import Loader from 'react-loader';
+import {DEFAULT_IMAGE} from '../constants/constants';
 
 import SetContainer from './SetContainer';
 import DetailImageContainer from './DetailImageContainer';
 
 const FestivalDetail = React.createClass({
-	contextTypes: {
-		push: React.PropTypes.func
-	},
-
 	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			festival: '',
+			sets: [],
+			imageURL: DEFAULT_IMAGE
 		};
 	},
 
@@ -24,28 +24,27 @@ const FestivalDetail = React.createClass({
 	getFestivalData(id) {
 		// test 452 Ultra 2015
 		api.get(`events/id/${id}`).then(res => {
-			this.context.push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					detailData: res.events_id
-				}
-			})
+			var f = res.events_id
+			this.setState({
+				festival: f.event,
+				setCount: f.set_count,
+				sets: f.sets,
+				imageURL: f.banner_image.imageURL
+			});
 		}).then(() => {
 			this.setState({ loaded: true })
 		})
 	},
 
 	render() {
-		var festival = this.props.appState.get('detailData');
-
-		var setText = festival.set_count != 1 ? 'sets' : 'set';
-		var festivalInfo = `${festival.set_count} ${setText}`;
+		var setText = this.state.setCount != 1 ? 'sets' : 'set';
+		var festivalInfo = `${this.state.setCount} ${setText}`;
 
 		var detailInfo = {
-			title: festival.event,
+			title: this.state.festival,
 			info: festivalInfo,
-			imageURL: festival.banner_image.imageURL,
-			sets: R.pluck('id', festival.sets)
+			imageURL: this.state.imageURL,
+			sets: R.pluck('id', this.state.sets)
 		};
 
 		return (
@@ -57,7 +56,7 @@ const FestivalDetail = React.createClass({
 							SETS
 						</div>
 					</div>
-					<SetContainer sets={festival.sets} />
+					<SetContainer sets={this.state.sets} />
 				</div>
 			</Loader>
 		);

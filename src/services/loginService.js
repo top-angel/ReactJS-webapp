@@ -1,8 +1,7 @@
 import React from 'react';
+import R from 'ramda';
 import api from './api';
 import mixpanelService from './mixpanelService';
-import {getFavoriteSets} from './favoriteSet';
-import {fetchGraphql} from './utilities';
 
 export function startFacebookSDK(push) {
 	window.fbAsyncInit = function() {
@@ -64,17 +63,20 @@ function registerFacebookUser(auth, push) {
 	}).then(res => {
 		console.log('Successfully logged in to Setmine')
 		var user = res.setmineuser_login_facebook
+
+		// create array of users favorite setIds
+		var favoriteSetIds = R.pluck('id', user.favorite_sets)
+		console.log(favoriteSetIds)
+
 		// store setmine user in appState
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
 				isUserLoggedIn: true,
-				user: user
+				user: user,
+				favoriteSetIds: favoriteSetIds
 			}
 		})
-
-		// fetch a user's favorites
-		getFavoriteSets(user.id, push)
 
 		//track user after logging in for the first time
 		mixpanel.identify(user.facebook_id);

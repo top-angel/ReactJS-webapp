@@ -824,6 +824,7 @@ header {
 }
 #PlayerTracklist {
 	text-align: center;
+	cursor: pointer;
 	.background(@dark-gray, @white);
 	&:hover {
 		.background(@dark-gray*1.1, white);
@@ -905,8 +906,11 @@ header {
 #PlayerShare {
 	width: @tracklistOffset;
 	@modalHeight: 5vh;
-	.link:hover {
-		color: @blue;
+	.link {
+		cursor: pointer;
+		&:hover {
+			color: @blue;
+		}
 	}
 	.modal {
 		.background(@dark-gray, @white);

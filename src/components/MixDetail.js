@@ -2,18 +2,21 @@ import React from 'react';
 import R from 'ramda';
 import Loader from 'react-loader';
 import api from '../services/api';
+import {DEFAULT_IMAGE} from '../constants/constants';
 
 import SetContainer from './SetContainer';
 import DetailImageContainer from './DetailImageContainer';
 
 const MixDetail = React.createClass({
-	contextTypes: {
-		push: React.PropTypes.func
-	},
-
 	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			mix: '',
+			sets: [],
+			setCount: 0,
+			icon_image: {
+				imageURL: DEFAULT_IMAGE
+			}
 		};
 	},
 
@@ -24,26 +27,26 @@ const MixDetail = React.createClass({
 	getMixData(id) {
 		// test id 69
 		api.get(`mixes/id/${id}`).then(res => {
-			this.context.push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					detailData: res.mixes_id
-				}
-			})
+			var m = res.mixes_id
+			this.setState({
+				mix: m.event,
+				setCount: m.set_count,
+				imageURL: m.icon_image.imageURL,
+				sets: m.sets
+			});
 		}).then(() => {
 			this.setState({ loaded: true })
 		})
 	},
 
 	render() {
-		var mix = this.props.appState.get('detailData');
-		var setText = mix.set_count != 1 ? 'sets' : 'set';
+		var setText = this.state.set_count != 1 ? 'sets' : 'set';
 
 		var detailInfo = {
-			title: mix.event,
-			imageURL: mix.icon_image.imageURL,
-			info: `${mix.set_count} ${setText}`,
-			sets: R.pluck('id', mix.sets)
+			title: this.state.mix,
+			imageURL: this.state.imageURL,
+			info: `${this.state.setCount} ${setText}`,
+			sets: R.pluck('id', this.state.sets)
 		};
 
 		return (
@@ -55,7 +58,7 @@ const MixDetail = React.createClass({
 							SETS
 						</div>
 					</div>
-					<SetContainer sets={mix.sets} />
+					<SetContainer sets={this.state.sets} />
 				</div>
 			</Loader>
 		);

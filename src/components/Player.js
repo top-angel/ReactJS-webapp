@@ -11,7 +11,6 @@ var playingClass = 'fa center fa-pause play-button';
 var pausedClass = 'fa center fa-play play-button';
 
 const Player = React.createClass({
-
 	contextTypes: {
 		push: React.PropTypes.func
 	},

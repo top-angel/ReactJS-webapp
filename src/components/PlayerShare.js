@@ -1,17 +1,18 @@
-import React, {addons} from 'react';
-import {History} from 'react-router';
+import React from 'react';
+import R from 'ramda';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { Motion } from 'react-motion';
 
 import history from '../services/history'
-import {checkIfFavorited, favoritSet} from '../services/favoriteSet'
+import {favoriteSet} from '../services/favoriteSet'
 
 
 var PlayerShare = React.createClass({
 	contextTypes: {
 		push: React.PropTypes.func,
 		loginStatus: React.PropTypes.bool,
-		user: React.PropTypes.object
+		user: React.PropTypes.object,
+		favoriteSetIds: React.PropTypes.array
 	},
 
 	getInitialState() {
@@ -26,6 +27,20 @@ var PlayerShare = React.createClass({
 			open: !this.state.open,
 			copyText: 'Copy to Clipboard'
 		});
+	},
+
+	copyURL() {
+		this.setState({
+			copyText: 'Copied!'
+		});
+	},
+
+	checkIfFavorited(id, favorites) {
+		if(this.context.loginStatus) {
+			return R.contains(id, favorites);
+		} else {
+			return false
+		}
 	},
 
 	favoriteSet: function() {
@@ -63,22 +78,13 @@ var PlayerShare = React.createClass({
 		window.open('https://twitter.com/intent/tweet?' + parameters, '_blank', 'height=420, width=550');
 	},
 
-	copyURL() {
-		this.setState({
-			copyText: 'Copied!'
-		});
-	},
-
 	render() {
 		var appState = this.props.appState;
 		var playURL = 'https://setmine.com/play/'+this.props.appState.get('currentSet').id;
 		var self = this;
 
-		if(this.context.loginStatus) {
-			var favorited = checkIfFavorited(appState.get('currentSet').id, appState.get('favoriteSetIds'));
-		} else {
-			var favorited = false;
-		}
+		// check if playing set is favorited
+		var favorited = this.checkIfFavorited(appState.get('currentSet').id, this.context.favoriteSetIds)
 
 		var favoriteClass = favorited ? 'link fa fa-fw center fa-star' : 'link fa fa-fw center fa-star-o';
 

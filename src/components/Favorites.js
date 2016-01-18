@@ -1,13 +1,12 @@
 import React from 'react';
-import Loader from 'react-loader';
-import $ from 'jquery';
 import R from 'ramda';
-import {API_ROOT} from '../constants/constants';
+import Loader from 'react-loader';
+
 import {getFavoriteSets} from '../services/favoriteSet'
+import api from '../services/api'
 import SetContainer from './SetContainer';
 
 const Favorites = React.createClass({
-
 	contextTypes: {
 		push: React.PropTypes.func,
 		user: React.PropTypes.object,
@@ -17,33 +16,30 @@ const Favorites = React.createClass({
 	componentDidMount() {
 		mixpanel.track("Favorites Page Open");
 		if(this.context.loginStatus) {
-			this.setState({
-				loaded: true
-			})
+			this.getFavoriteSets(this.context.user.id)
 		}
 	},
 
 	componentWillReceiveProps(nextProps, nextContext) {
 		if(nextContext.loginStatus) {
-			this.setState({
-				loaded: true
-			})
+			this.getFavoriteSets(nextContext.user.id)
 		}
 	},
 
 	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			favorites: []
 		}
 	},
 
 	getFavoriteSets(userId) {
-		// getFavoriteSets(this.context.user.id, this.context.push)
-		if(this.context.loginStatus) {
+		api.get(`setmineuser/${userId}/stream?filter=favorites`).then(res =>{
 			this.setState({
+				favorites: res.setmineuser_stream,
 				loaded: true
-			})
-		}
+			});
+		})
 	},
 
 	// showFavorites(loginStatus) {
@@ -59,7 +55,7 @@ const Favorites = React.createClass({
 	// },
 
 	render() {
-		var favorites = this.props.appState.get('favorites')
+		var favorites = this.state.favorites;
 		return (
 			<Loader loaded={this.state.loaded}>
 				<SetContainer sets={favorites} />
