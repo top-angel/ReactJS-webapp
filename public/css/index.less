@@ -18,6 +18,7 @@ body {
 	width: 100vw;
 	overflow-x:hidden;
 	font-size: @defaultFontSize;
+	background: @white;
 	font-family: Avenir Light;
 	-webkit-text-size-adjust: 100%;
 	.small({
@@ -142,6 +143,7 @@ a {
 	.background(@white, white);
 	text-align: center;
 	position: relative;
+	margin-bottom: @playerHeight;
 	top: @headerHeight;
 	h1 {
 		margin-top: 10vh;
@@ -242,7 +244,8 @@ a {
 	.background(@light-gray, @gray);
 	overflow-x: scroll;
 	.container {
-		width: 1500%;
+		// TODO find way to not hardcode
+		width: 1550%;
 		height: 100%;
 	}
 	.small({
@@ -405,7 +408,9 @@ header {
 }
 
 #HomeView {
+	position: relative;
 	height: @pageHeightWithoutPlayer;
+	top: @headerHeight;
 	color: @dark-gray;
 	.loadedContent {
 		.flex-row;
@@ -819,6 +824,7 @@ header {
 }
 #PlayerTracklist {
 	text-align: center;
+	cursor: pointer;
 	.background(@dark-gray, @white);
 	&:hover {
 		.background(@dark-gray*1.1, white);
@@ -900,8 +906,11 @@ header {
 #PlayerShare {
 	width: @tracklistOffset;
 	@modalHeight: 5vh;
-	.link:hover {
-		color: @blue;
+	.link {
+		cursor: pointer;
+		&:hover {
+			color: @blue;
+		}
 	}
 	.modal {
 		.background(@dark-gray, @white);

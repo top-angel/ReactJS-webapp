@@ -3,11 +3,10 @@ import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
 import history from '../services/history';
 
 var MixTile = React.createClass({
-
+	displayName: 'Mix Tile',
 	openMixPage() {
 		history.pushState(null, '/mix/' + this.props.id);
 	},
-
 	render() {
 		return (
 			<div className='mix-tile flex-column click'onClick={this.openMixPage}>
@@ -16,7 +15,6 @@ var MixTile = React.createClass({
 			</div>
 		);
 	}
-
 });
 
 module.exports = MixTile;

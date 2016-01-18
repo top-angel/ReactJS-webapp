@@ -1,29 +1,22 @@
-import React from 'react';
 import R from 'ramda';
-import {API_ROOT} from '../constants/constants';
+import api from './api';
 
-export function favoriteSet(push, user, setId) {
-	$.ajax({
-		type: 'POST',
-		url: `${API_ROOT}setmineuser/favorites`,
-		data: {
-			'userData': {
-				'userID': user.id,
-				'setId': setId
-			}
-		}
-	}).done((res) => {
-		// TODO you might need to change this
+// adds a set to a user's favorites
+export function favoriteSet(setId, userId, push) {
+	api.post('setmineuser/favorites', {
+		user_id: userId,
+		set_id: setId
+	}).then(res => {
+		// doesn't return from the server yet :(
+		var favoriteSetIds = R.pluck('id', res.favorites.user.favorite_sets)
+		console.log(favoriteSetIds)
+
+		// store favorites in appState
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
-				user: res.payload.user
+				favoriteSetIds: favoriteSetIds
 			}
-		});
-	});
-}
-
-export function checkFavorite(set, favorites) {
-	var setString = R.toString(set);
-	return R.contains(setString, favorites);
+		})
+	})
 }

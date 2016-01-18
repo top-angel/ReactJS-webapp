@@ -1,9 +1,14 @@
 import React from 'react';
 import Loader from 'react-loader';
-import {API_ROOT} from '../constants/constants';
+import api from '../services/api';
 import EventContainer from './EventContainer';
 
 var NewEvents = React.createClass({
+	displayName: 'Recommended Events',
+	contextTypes: {
+		user: React.PropTypes.object,
+		push: React.PropTypes.func
+	},
 
 	getInitialState() {
 		return {
@@ -12,52 +17,32 @@ var NewEvents = React.createClass({
 		};
 	},
 
-	componentWillMount() {
-		this.getNewEvents();
+	componentDidMount() {
 		mixpanel.track("New Events Page Open");
 	},
 
+	componentWillMount() {
+		this.getNewEvents();
+	},
+
 	getNewEvents() {
-		var userId = this.props.appState.get('user').id;
-		var push = this.props.push;
-
-		$.ajax({
-			url: `${API_ROOT}setmineuser/${userId}/stream`,
-			type: 'upcoming',
-			data: {
-				filter: 'events'
-			}
-		}).done(res => {
-			// push({
-			// 	type: 'SHALLOW_MERGE',
-			// 	data: {
-			// 		newEvents: res.payload.setmineuser_stream
-			// 	}
-			// });
-
+		var userId = this.context.user.id;
+		api.get(`setmineuser/${userId}/stream?filter=events`).then(res => {
 			this.setState({
-				newEvents: res.payload.setmineuser_stream,
+				newEvents: res.setmineuser_stream,
 				loaded: true
-			});
-		});
+			})
+		})
 	},
 
 	render() {
-		// var newEvents = this.props.appState.get('newEvents');
-		var newEvents = this.state.newEvents;
-		var containerClass = 'flex-row scrollable tile-container';
-		
 		return (
 			<Loader loaded={this.state.loaded}>
-				<EventContainer
-					containerClass={containerClass}
-					events={newEvents}
-					push={this.props.push}
-				/>
+				<EventContainer events={this.state.newEvents} />
 			</Loader>
 		);
 	}
 
 });
 
-module.exports = NewEvents;
+export default NewEvents;

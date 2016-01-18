@@ -11,15 +11,12 @@ var playingClass = 'fa center fa-pause play-button';
 var pausedClass = 'fa center fa-play play-button';
 
 const Player = React.createClass({
-
 	contextTypes: {
 		push: React.PropTypes.func
 	},
 
 	componentDidMount() {
 		var sound = this.props.appState.get('sound');
-		console.log(sound);
-
 		if(sound != null) {
 			this.context.push({
 				type: 'SHALLOW_MERGE',
@@ -37,8 +34,7 @@ const Player = React.createClass({
 		if(nextProps.appState.get('currentSet') != appState.get('currentSet')) {
 			var starttime = nextProps.appState.get('currentSet').starttime;
 
-			generateSound(starttime, nextProps.appState, push)
-			.then(function(smObj) {
+			generateSound(starttime, nextProps.appState, push).then(function(smObj) {
 				//play a new set
 				push({
 					type: 'SHALLOW_MERGE',

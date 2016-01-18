@@ -1,39 +1,39 @@
 import React from 'react';
 import R from 'ramda';
-import {checkFavorite} from '../services/favoriteSet';
-
 import SetTile from './SetTile';
 
 const SetContainer = React.createClass({
+	contextTypes: {
+		push: React.PropTypes.func,
+		user: React.PropTypes.object,
+		loginStatus: React.PropTypes.bool,
+		favoriteSetIds: React.PropTypes.array
+	},
+
+	checkIfFavorited(id, favorites) {
+		if(this.context.loginStatus) {
+			return R.contains(id, favorites);
+		} else {
+			return false
+		}
+	},
 
 	getDefaultProps() {
 		return {
 			className: 'flex-row tile-container scrollable',
-			sets: [],
-			user: {
-				favorite_set_ids: []
-			}
+			sets: []
 		};
 	},
 
-// TODO add favorite_set_ids to API
-	shouldComponentUpdate(nextProps, nextState) {
-		var oldFav = this.props.user.favorite_set_ids;
-		var newFav = nextProps.user.favorite_set_ids;
-		// if(nextProps.sets != this.props.sets) {
-		// 	return true;
-		// } else if(newFav != oldFav) {
-		// 	return true;
-		// } else {
-		// 	return false;
-		// }
+	shouldComponentUpdate(nextProps, nextState, nextContext) {
+		var oldFav = this.context.favoriteSetIds
+		var newFav = nextContext.favoriteSetIds
+
 		switch(true) {
 			case nextProps.sets != this.props.sets:
 				return true;
-				break;
 			case newFav != oldFav:
 				return true;
-				break;
 			default:
 				return false;
 				break;
@@ -41,17 +41,17 @@ const SetContainer = React.createClass({
 	},
 
 	render() {
-		var sets = this.props.sets
-		var tiles = sets.map((set, index) => {
-			var favorited = this.props.loginStatus ? checkFavorite(set.id, this.props.user) : false
+		var tiles = this.props.sets.map((set, index) => {
+			// check if each set is favorited
+			var favorited = this.checkIfFavorited(set.id, this.context.favoriteSetIds)
 
-		// TODO TEST DIS
-			if(R.keys(set.episode).length != 0) {
+			// TODO doesn't work for user sets
+			if(set.episode != undefined && R.keys(set.episode).length != 0) {
 				var setName = `${set.event.event} - ${set.episode.episode}`;
 			} else {
 				var setName = set.event.event;
 			}
-
+			
 			return React.createElement(SetTile, {
 				key: index,
 				id: set.id,

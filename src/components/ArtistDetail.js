@@ -1,7 +1,9 @@
 import React from 'react';
 import Loader from 'react-loader';
 import {Link} from 'react-router';
-import {API_ROOT} from '../constants/constants';
+import R from 'ramda';
+import api from '../services/api';
+import {DEFAULT_IMAGE} from '../constants/constants';
 
 import SetContainer from './SetContainer';
 import EventContainer from './EventContainer';
@@ -10,87 +12,81 @@ import DetailImageContainer from './DetailImageContainer';
 import LinkButtonContainer from './LinkButtonContainer';
 
 var ArtistDetail = React.createClass({
-
-	contextTypes: {
-		push: React.PropTypes.func
-	},
-
 	componentWillMount() {
 		this.getArtistData();
 	},
 
 	getInitialState() {
-		// TODO move artist detail to state instead of appstate
 		return {
-			loaded: false
+			loaded: false,
+			sets: [],
+			upcomingEvents: [],
+			artistImage: DEFAULT_IMAGE,
+			fb_link: null,
+			twitter_link: null,
+			instagram_link: null,
+			soundcloud_link: null,
+			youtube_link: null
 		};
 	},
 
 	getArtistData() {
-		var push = this.context.push;
 		var artist = this.props.params.artist;
 		var query = artist.split('_').join('%20');
 
-		$.ajax({
-			url: `${API_ROOT}artists/search/${query}`,
-			type: 'get'
-		}).done(res => {
-			if(res.status === 'success') {
-				var artist = res.payload.artists_search;
-
-				push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						detailData: artist
-					}
-				});
-
-				this.setState({
-					loaded: true
-				});
-			}
-		});
+		api.get(`artists/search/${query}`).then(res => {
+			var artist = res.artists_search
+			this.setState({
+				artist: artist.artist,
+				sets: artist.sets,
+				upcomingEvents: artist.upcoming_events,
+				artistImage: artist.icon_image.imageURL,
+				fb_link: artist.fb_link,
+				twitter_link: artist.twitter_link,
+				instagram_link: artist.instagram_link,
+				soundcloud_link: artist.soundcloud_link,
+				youtube_link: artist.youtube_link,
+				setCount: artist.set_count,
+				eventCount: artist.event_count
+			})
+		}).then(() => {
+			this.setState({ loaded: true })
+		})
 	},
 
 	render() {
-		var {appState} = this.props;
-
-		var artistData = appState.get('detailData');
-		var loginStatus = appState.get('isUserLoggedIn');
-		var user = appState.get('user');
-
-		var setText = artistData.set_count != 1 ? 'sets' : 'set';
-		var eventText = artistData.event_count != 1 ? 'events' : 'event';
-		var artistInfo = `${artistData.set_count} ${setText} | ${artistData.event_count} ${eventText}`;
+		var setText = this.state.setCount != 1 ? 'sets' : 'set';
+		var eventText = this.state.eventCount != 1 ? 'events' : 'event';
+		var artistInfo = `${this.state.setCount} ${setText} | ${this.state.eventCount} ${eventText}`;
 
 		var detailInfo = {
-			sets: artistData.sets,
-			title: artistData.artist,
+			sets: R.pluck('id', this.state.sets),
+			title: this.state.artist,
 			buttonText: 'Shuffle',
-			imageURL: artistData.icon_image.imageURL,
+			imageURL: this.state.artistImage,
 			info: artistInfo
 		};
 
 		var links = [
 			{
 				type: 'facebook',
-				url: artistData.fb_link
+				url: this.state.fb_link
 			},
 			{
 				type: 'twitter',
-				url: artistData.twitter_link
+				url: this.state.twitter_link
 			},
 			{
 				type: 'instagram',
-				url: artistData.instagram_link
+				url: this.state.instagram_link
 			},
 			{
 				type: 'soundcloud',
-				url: artistData.soundcloud_link
+				url: this.state.soundcloud_link
 			},
 			{
 				type: 'youtube',
-				url: artistData.youtube_link
+				url: this.state.youtube_link
 			}
 		];
 
@@ -115,11 +111,8 @@ var ArtistDetail = React.createClass({
 					</div>
 					{
 						React.cloneElement(this.props.children, {
-							sets: artistData.sets,
-							events: artistData.upcoming_events,
-							// push: push,
-							// loginStatus: loginStatus,
-							// user: user
+							sets: this.state.sets,
+							events: this.state.upcomingEvents
 						})
 					}
 				</div>

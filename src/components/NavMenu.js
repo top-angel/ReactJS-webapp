@@ -2,13 +2,11 @@ import React from 'react';
 import {Link} from 'react-router';
 
 var NavMenu = React.createClass({
-
 	getDefaultProps() {
 		return {
 			navItems: []
 		};
 	},
-
 	render() {
 		var links = this.props.navItems.map((nav, index) => {
 			return(
@@ -34,7 +32,6 @@ var NavMenu = React.createClass({
 			</nav>
 		);
 	}
-
 });
 
 export default NavMenu;

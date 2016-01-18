@@ -1,6 +1,6 @@
 import React from 'react';
 import {changeTrack} from '../services/playerService';
-import convert from '../services/convert';
+import {MMSSToMilliseconds} from '../services/convert';
 
 var Track = React.createClass({
 
@@ -17,7 +17,7 @@ var Track = React.createClass({
 
 	changeTrack() {
 		var {appState, trackname, starttime, className} = this.props;
-		var starttime = convert.MMSSToMilliseconds(starttime);
+		var starttime = MMSSToMilliseconds(starttime);
 		changeTrack(appState, this.context.push, starttime, trackname);
 	},
 

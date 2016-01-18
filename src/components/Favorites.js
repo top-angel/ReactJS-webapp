@@ -1,60 +1,64 @@
 import React from 'react';
+import R from 'ramda';
 import Loader from 'react-loader';
-import {API_ROOT} from '../constants/constants';
+
+import {getFavoriteSets} from '../services/favoriteSet'
+import api from '../services/api'
 import SetContainer from './SetContainer';
-import $ from 'jquery';
 
 const Favorites = React.createClass({
-
-	componentWillMount() {
-		var id = this.props.appState.get('user').id
-		this.getFavoriteSets(id)
+	contextTypes: {
+		push: React.PropTypes.func,
+		user: React.PropTypes.object,
+		loginStatus: React.PropTypes.bool
 	},
 
 	componentDidMount() {
 		mixpanel.track("Favorites Page Open");
+		if(this.context.loginStatus) {
+			this.getFavoriteSets(this.context.user.id)
+		}
+	},
+
+	componentWillReceiveProps(nextProps, nextContext) {
+		if(nextContext.loginStatus) {
+			this.getFavoriteSets(nextContext.user.id)
+		}
 	},
 
 	getInitialState() {
 		return {
-			loaded: false
-		};
+			loaded: false,
+			favorites: []
+		}
 	},
 
 	getFavoriteSets(userId) {
-		$.ajax({
-			type: 'get',
-			url: `${API_ROOT}setmineuser/${userId}/stream`,
-			data: {
-				filter: 'favorites'
-			}
-		}).done(res => {
-			this.props.push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					favorites: res.payload.setmineuser_stream
-				}
-			});
-
+		api.get(`setmineuser/${userId}/stream?filter=favorites`).then(res =>{
 			this.setState({
+				favorites: res.setmineuser_stream,
 				loaded: true
 			});
 		})
 	},
 
-	render() {
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
-		var user = this.props.appState.get('user');
-		var favorites = this.props.appState.get('favorites')
+	// showFavorites(loginStatus) {
+	// 	if(loginStatus) {
+	// 		return (
+	// 			<Loader loaded={this.state.loaded}>
+	// 				<SetContainer sets={this.props.appState.get('favorites')})} />
+	// 			</Loader>
+	// 		);
+	// 	} else {
+	// 		return
+	// 	}
+	// },
 
+	render() {
+		var favorites = this.state.favorites;
 		return (
 			<Loader loaded={this.state.loaded}>
-				<SetContainer
-					sets={favorites}
-					push={this.props.push}
-					loginStatus={loginStatus}
-					user={user}
-				/>
+				<SetContainer sets={favorites} />
 			</Loader>
 		);
 	}

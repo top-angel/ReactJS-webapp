@@ -1,6 +1,7 @@
 import React from 'react';
 import Loader from 'react-loader';
 import {API_ROOT} from '../constants/constants';
+import api from '../services/api'
 
 import FestivalTile from './FestivalTile';
 
@@ -22,17 +23,12 @@ var Festivals = React.createClass({
 	},
 
 	getFestivals() {
-		$.ajax({
-			url: `${API_ROOT}events/festivals`,
-			type: 'get'
-		}).done(res => {
-			if(res.status === 'success') {
-				this.setState({
-					loaded: true,
-					festivals: res.payload.events_festivals
-				});
-			}
-		});
+		api.get('events/festivals').then(res => {
+			this.setState({
+				loaded: true,
+				festivals: res.events_festivals
+			});
+		})
 	},
 
 	render() {

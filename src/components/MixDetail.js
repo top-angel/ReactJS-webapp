@@ -1,19 +1,22 @@
 import React from 'react';
+import R from 'ramda';
 import Loader from 'react-loader';
-import {API_ROOT} from '../constants/constants';
+import api from '../services/api';
+import {DEFAULT_IMAGE} from '../constants/constants';
 
 import SetContainer from './SetContainer';
 import DetailImageContainer from './DetailImageContainer';
 
 const MixDetail = React.createClass({
-
-	contextTypes: {
-		push: React.PropTypes.func
-	},
-
 	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			mix: '',
+			sets: [],
+			setCount: 0,
+			icon_image: {
+				imageURL: DEFAULT_IMAGE
+			}
 		};
 	},
 
@@ -22,38 +25,28 @@ const MixDetail = React.createClass({
 	},
 
 	getMixData(id) {
-	// TODO use mix id to get mix data test: 69
-		$.ajax({
-			url: `${API_ROOT}'mixes/id/'${id}`,
-			type: 'get',
-		}).done(res => {
-			this.context.push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					detailData: res.payload.mixes_id
-				}
-			});
-
+		// test id 69
+		api.get(`mixes/id/${id}`).then(res => {
+			var m = res.mixes_id
 			this.setState({
-				loaded: true
+				mix: m.event,
+				setCount: m.set_count,
+				imageURL: m.icon_image.imageURL,
+				sets: m.sets
 			});
-		});
+		}).then(() => {
+			this.setState({ loaded: true })
+		})
 	},
 
 	render() {
-		var {appState} = this.props;
-
-		var mix = appState.get('mix');
-		var loginStatus = appState.get('isUserLoggedIn');
-		var user = appState.get('user');
-
-		var setText = mix.set_count != 1 ? 'sets' : 'set';
+		var setText = this.state.set_count != 1 ? 'sets' : 'set';
 
 		var detailInfo = {
-			push: push,
-			title: mix.event,
-			imageURL: mix.icon_image.imageURL,
-			info: `${mix.set_count} ${setText}`
+			title: this.state.mix,
+			imageURL: this.state.imageURL,
+			info: `${this.state.setCount} ${setText}`,
+			sets: R.pluck('id', this.state.sets)
 		};
 
 		return (
@@ -65,7 +58,7 @@ const MixDetail = React.createClass({
 							SETS
 						</div>
 					</div>
-					<SetContainer sets={mix.sets} />
+					<SetContainer sets={this.state.sets} />
 				</div>
 			</Loader>
 		);

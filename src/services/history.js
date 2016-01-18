@@ -1,4 +1,6 @@
 // import createBrowserHistory from 'history/lib/createBrowserHistory'
-// var history = createBrowserHistory()
+// export default createBrowserHistory()
+
+// use in development ONLY
 import createHashHistory from 'history/lib/createHashHistory'
 export default createHashHistory()

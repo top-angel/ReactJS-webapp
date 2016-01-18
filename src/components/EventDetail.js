@@ -1,71 +1,61 @@
 import React from 'react';
 import R from 'ramda';
-import {API_ROOT} from '../constants/constants';
+import api from '../services/api';
+import {DEFAULT_IMAGE} from '../constants/constants';
+
 
 import Loader from 'react-loader';
 import EventDetailHeader from './EventDetailHeader'
 import ArtistTileContainer from './ArtistTileContainer';
 
 var EventDetail = React.createClass({
-
 	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			event: '',
+			date: '',
+			ticketLink: null,
+			lineup: [],
+			imageURL: DEFAULT_IMAGE
 		};
 	},
 
 	componentWillMount() {
-		this.getEventData();
+		this.getEventData(this.props.params.event);
 	},
 
-	getEventData() {
-		var push = this.props.push;
-		var event = this.props.params.event;
-
-		$.ajax({
-			url: `${API_ROOT}events/id/${event}`,
-			type: 'get',
-		}).done(res => {
-			if(res.status === 'success') {
-				push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						detailData: res.payload.events_id
-					}
-				});
-
-				this.setState({
-					loaded: true
-				});
-			}
-		});
+	getEventData(event) {
+		api.get(`events/id/${event}`).then(res => {
+			var e = res.events_id
+			this.setState({
+				event: e.event,
+				date: e.formatted_date,
+				ticketLink: e.ticket_link,
+				imageURL: e.banner_image.imageURL,
+				lineup: e.lineup
+			})
+		}).then(() => {
+			this.setState({ loaded: true })
+		})
 	},
 	render() {
-		var appState = this.props.appState;
-		var detailData = appState.get('detailData');
-
-		var detailInfo = {
-			date: detailData.formatted_date,
-			title: detailData.event,
-			ticketLink: detailData.ticket_link,
-			imageURL: detailData.banner_image.imageURL
-		};
-
-		var lineup = {
-			artists: detailData.lineup,
-			push: this.props.push
+		var header = {
+			date: this.state.date,
+			title: this.state.event,
+			ticketLink: this.state.ticket_link,
+			imageURL: this.state.imageURL
 		};
 
 		return (
 			<Loader loaded={this.state.loaded}>
 				<div id='detail' className='detail-page'>
-					<EventDetailHeader {...detailInfo}/>
+					<EventDetailHeader {...header}/>
 					<div className='flex-row links-container'>
 						<div className='center flex-fixed'>
 							LINEUP
 						</div>
 					</div>
-					<ArtistTileContainer {...lineup} />
+					<ArtistTileContainer artists={this.state.lineup} />
 				</div>
 			</Loader>
 		);

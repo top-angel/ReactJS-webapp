@@ -4,7 +4,7 @@ import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
 import history from '../services/history';
 
 var EventTile = React.createClass({
-
+	displayName: 'Event Tile',
 	contextTypes: {
 		push: React.PropTypes.func
 	},

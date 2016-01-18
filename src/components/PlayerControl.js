@@ -3,12 +3,12 @@ import {togglePlay} from '../services/playerService';
 import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
 
 const PlayerControl = React.createClass({
-
 	contextTypes: {
 		push: React.PropTypes.func
 	},
 
 	componentDidMount() {
+		// TODO do this without jquery
 		$(document.body).on('keypress', (e) => {
 			var search = document.getElementById('search');
 			var key = e.charCode;

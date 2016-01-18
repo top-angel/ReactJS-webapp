@@ -1,3 +1,4 @@
+var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 
@@ -18,10 +19,16 @@ module.exports = {
 		extensions: ['', '.jsx', '.es6', '.js', '.scss'],
 		moduleDirectories: ['node_modules']
 	},
-	plugins: [new HtmlWebpackPlugin({
-		template: 'src/index-dev.html',
-		inject: 'body'
-	})],
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: 'src/index-dev.html',
+			inject: 'body'
+		}),
+		new webpack.ProvidePlugin({
+			'Promise': 'es6-promise',
+			'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+		}),
+	],
 	devtool: 'cheap-source-map',
 	module: {
 		loaders: [

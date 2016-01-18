@@ -2,7 +2,6 @@ import React from 'react';
 import EventTile from './EventTile';
 
 const EventContainer = React.createClass({
-
 	checkIfEmpty(events) {
 		if(events.length == 0) {
 			return (
@@ -26,7 +25,6 @@ const EventContainer = React.createClass({
 	},
 
 	render() {
-		// var {events, push} = this.props;
 		var events = this.props.events
 
 		if(events.length == 0) {

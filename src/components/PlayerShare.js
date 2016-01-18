@@ -1,16 +1,18 @@
-import React, {addons} from 'react';
-import {History} from 'react-router';
+import React from 'react';
+import R from 'ramda';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { Motion } from 'react-motion';
 
 import history from '../services/history'
-import favoriteSet from '../services/favoriteSet'
+import {favoriteSet} from '../services/favoriteSet'
 
 
 var PlayerShare = React.createClass({
-
 	contextTypes: {
-		push: React.PropTypes.func
+		push: React.PropTypes.func,
+		loginStatus: React.PropTypes.bool,
+		user: React.PropTypes.object,
+		favoriteSetIds: React.PropTypes.array
 	},
 
 	getInitialState() {
@@ -27,14 +29,28 @@ var PlayerShare = React.createClass({
 		});
 	},
 
+	copyURL() {
+		this.setState({
+			copyText: 'Copied!'
+		});
+	},
+
+	checkIfFavorited(id, favorites) {
+		if(this.context.loginStatus) {
+			return R.contains(id, favorites);
+		} else {
+			return false
+		}
+	},
+
 	favoriteSet: function() {
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
-		var user = this.props.appState.get('user');
-		var id = this.props.appState.get('currentSet').id;
+		var setId = this.props.appState.get('currentSet').id;
+		var {push, user, loginStatus} = this.context;
 
 		if(loginStatus) {
-			favoriteSet.favoriteSet(this.context.push, user, id);
+			favoriteSet(setId, user.id, push);
 		} else {
+			// TODO show notification instead of page redirect
 			history.pushState(null, '/user');
 		}
 	},
@@ -62,23 +78,13 @@ var PlayerShare = React.createClass({
 		window.open('https://twitter.com/intent/tweet?' + parameters, '_blank', 'height=420, width=550');
 	},
 
-	copyURL() {
-		this.setState({
-			copyText: 'Copied!'
-		});
-	},
-
 	render() {
 		var appState = this.props.appState;
-		var loginStatus = appState.get('isUserLoggedIn');
 		var playURL = 'https://setmine.com/play/'+this.props.appState.get('currentSet').id;
 		var self = this;
 
-		if(loginStatus) {
-			var favorited = favoriteSet.checkFavorite(appState.get('currentSet').id, appState.get('user').favorite_set_ids);
-		} else {
-			var favorited = false;
-		}
+		// check if playing set is favorited
+		var favorited = this.checkIfFavorited(appState.get('currentSet').id, this.context.favoriteSetIds)
 
 		var favoriteClass = favorited ? 'link fa fa-fw center fa-star' : 'link fa fa-fw center fa-star-o';
 
@@ -116,4 +122,4 @@ var PlayerShare = React.createClass({
 
 });
 
-module.exports = PlayerShare;
+export default PlayerShare;

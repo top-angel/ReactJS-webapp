@@ -1,9 +1,8 @@
 import React from 'react';
-import {API_ROOT, S3_ROOT_FOR_IMAGES} from '../constants/constants';
+import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
 import {playSet, updatePlayCount} from '../services/playerService';
 
 var DetailImageContainer = React.createClass({
-
 	contextTypes: {
 		push: React.PropTypes.func,
 		user: React.PropTypes.object
