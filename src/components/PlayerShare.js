@@ -4,7 +4,7 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { Motion } from 'react-motion';
 
 import history from '../services/history'
-import {favoriteSet} from '../services/favoriteSet'
+import {favoriteSet, checkIfFavorited} from '../services/favoriteSet'
 
 
 var PlayerShare = React.createClass({
@@ -84,7 +84,8 @@ var PlayerShare = React.createClass({
 		var self = this;
 
 		// check if playing set is favorited
-		var favorited = this.checkIfFavorited(appState.get('currentSet').id, this.context.favoriteSetIds)
+		// var favorited = this.checkIfFavorited(appState.get('currentSet').id, this.context.favoriteSetIds)
+		var favorited = checkIfFavorited(this.context.loginStatus, appState.get('currentSet').id, this.context.favoriteSetIds)
 
 		var favoriteClass = favorited ? 'link fa fa-fw center fa-star' : 'link fa fa-fw center fa-star-o';
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE} from '../constants/constants'
 
-export default class EventDetailHeader extends React.Component {
+export default class EventDetailHeader extends Component {
 	constructor(props) {
 		super(props)
 		this.openTicketLink = this.openTicketLink.bind(this)
@@ -20,7 +20,7 @@ export default class EventDetailHeader extends React.Component {
 			<div className='detail-header flex-column' style={image}>
 				<h1 className='center'>{this.props.title}</h1>
 				<h3 className='center'>{this.props.date}</h3>
-				<a id='detail-button'>TICKETS</a>
+				<a id='detail-button' target='_blank' href={this.props.ticketLink}>TICKETS</a>
 			</div>
 		)
 	}

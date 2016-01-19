@@ -39,7 +39,6 @@ export function startFacebookSDK(push) {
 }
 
 function statusChangeCallback(response, push) {
-	console.log('facebook API response', response);
 	if (response.status === 'connected') {
 		// Logged into setmine and Facebook.
 		registerFacebookUser(response.authResponse.accessToken, push)
@@ -66,7 +65,6 @@ function registerFacebookUser(auth, push) {
 
 		// create array of users favorite setIds
 		var favoriteSetIds = R.pluck('id', user.favorite_sets)
-		console.log(favoriteSetIds)
 
 		// store setmine user in appState
 		push({

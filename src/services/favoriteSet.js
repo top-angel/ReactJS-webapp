@@ -9,7 +9,6 @@ export function favoriteSet(setId, userId, push) {
 	}).then(res => {
 		// doesn't return from the server yet :(
 		var favoriteSetIds = R.pluck('id', res.favorites.user.favorite_sets)
-		console.log(favoriteSetIds)
 
 		// store favorites in appState
 		push({
@@ -19,4 +18,13 @@ export function favoriteSet(setId, userId, push) {
 			}
 		})
 	})
+}
+
+// checks if a set is favorited
+export function checkIfFavorited(loginStatus, id, favorites) {
+	if(loginStatus) {
+		return R.contains(id, favorites);
+	} else {
+		return false
+	}
 }

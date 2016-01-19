@@ -1,7 +1,6 @@
 var express = require('express');
 var path = require('path');
 var httpProxy = require('http-proxy');
-// var jsdom = require('jsdom');
 var fs = require('fs');
 
 var proxy = httpProxy.createProxyServer();

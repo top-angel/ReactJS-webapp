@@ -1,18 +1,16 @@
 import React from 'react';
-import {API_ROOT, S3_ROOT_FOR_IMAGES} from '../constants/constants';
-import {playSet, updatePlayCount} from '../services/playerService';
+import { S3_ROOT_FOR_IMAGES } from '../constants/constants';
+import { playSet, updatePlayCount } from '../services/playerService';
 import history from '../services/history';
 
 var TrackTile = React.createClass({
 	displayName: 'Track Tile',
-
 	contextTypes: {
 		push: React.PropTypes.func,
 		user: React.PropTypes.object
 	},
 
-	openArtistPage(e) {
-		e.stopPropagation();
+	openArtistPage() {
 		var routePath = this.props.artist.split(' ').join('_');
 		history.pushState(null, `/artist/${routePath}`);
 		mixpanel.track("Artist Clicked", {
@@ -20,11 +18,10 @@ var TrackTile = React.createClass({
 		});
 	},
 
-	openFestivalPage(e) {
+	openFestivalPage() {
 		if(this.props.is_radiomix == 0) {
 			history.pushState(null, `/festival/${this.props.id}`);
 		} else {
-			var routeId = this.props.id;
 			history.pushState(null, `/mix/${this.props.id}`);
 		}
 	},

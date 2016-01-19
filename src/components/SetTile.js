@@ -1,12 +1,11 @@
 import React from 'react';
-import { API_ROOT, S3_ROOT_FOR_IMAGES, S3_ROOT } from '../constants/constants';
+import { API_ROOT, S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE } from '../constants/constants';
 import history from '../services/history'
 import {playSet, updatePlayCount} from '../services/playerService';
 import SetShare from './SetShare';
 
 var SetTile = React.createClass({
 	displayName: 'SetTile',
-
 	contextTypes: {
 		push: React.PropTypes.func,
 		user: React.PropTypes.object,
@@ -15,7 +14,8 @@ var SetTile = React.createClass({
 
 	getDefaultProps() {
 		return {
-			favorited: false
+			favorited: false,
+			artistImage: DEFAULT_IMAGE
 		};
 	},
 

@@ -9,7 +9,8 @@ var EventTile = React.createClass({
 		push: React.PropTypes.func
 	},
 
-	openEventPage() {
+	openEventPage(e) {
+		e.stopPropagation()
 		history.pushState(null, '/event/' + this.props.id);
 	},
 
@@ -22,14 +23,14 @@ var EventTile = React.createClass({
 
 		return (
 			<div className='flex-column event-tile' style={image}>
-				<div className='event-date-container flex-5x flex-column click' onClick={this.openEventPage} >
+				<div className='event-date-container flex-5x flex-column click'>
 					<h2>{month}</h2>
 					<div className='divider'/>
 					<h2>{day}</h2>
 				</div>
 				<div className='divider'/>
 				<div className='detail flex-row flex'>
-					<a href={this.props.ticket_link} className='flex-container flex click ticket-link tile-button'>
+					<a target='_blank' href={this.props.ticket_link} className='flex-container flex click ticket-link tile-button'>
 						<i className='fa fa-fw fa-ticket center'/>
 					</a>
 					<div className='flex-3x flex-column event-info'>

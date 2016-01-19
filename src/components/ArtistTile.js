@@ -1,5 +1,5 @@
 import React from 'react';
-import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
+import {S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE} from '../constants/constants';
 import history from '../services/history'
 
 var ArtistTile = React.createClass({

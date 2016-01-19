@@ -1,5 +1,7 @@
 import React from 'react';
 import R from 'ramda';
+import {checkIfFavorited} from '../services/favoriteSet';
+
 import SetTile from './SetTile';
 
 const SetContainer = React.createClass({
@@ -43,7 +45,8 @@ const SetContainer = React.createClass({
 	render() {
 		var tiles = this.props.sets.map((set, index) => {
 			// check if each set is favorited
-			var favorited = this.checkIfFavorited(set.id, this.context.favoriteSetIds)
+			// var favorited = this.checkIfFavorited(set.id, this.context.favoriteSetIds)
+			var favorited = checkIfFavorited(this.context.loginStatus, set.id, this.context.favoriteSetIds)
 
 			// TODO doesn't work for user sets
 			if(set.episode != undefined && R.keys(set.episode).length != 0) {

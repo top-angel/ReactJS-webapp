@@ -42,7 +42,7 @@ var EventDetail = React.createClass({
 		var header = {
 			date: this.state.date,
 			title: this.state.event,
-			ticketLink: this.state.ticket_link,
+			ticketLink: this.state.ticketLink,
 			imageURL: this.state.imageURL
 		};
 
