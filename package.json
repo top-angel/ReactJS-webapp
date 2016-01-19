@@ -1,11 +1,18 @@
 {
   "name": "setmine-web",
-  "version": "0.0.0",
+  "version": "6.0.0",
+  "author": "Setmusic LLC",
   "private": true,
+  "description": "SetmineWeb - A Node.js/React.js project",
+  "main": "server.js",
+  "repositories": {
+    "type": "private",
+    "url": "https://github.com/otech47/setmine-web"
+  },
   "scripts": {
     "start": "forever stopall; forever start server.js;",
     "stop": "forever stopall;",
-    "deploy": "webpack -p --config webpack.config.production.js;"
+    "deploy": "webpack -p --config webpack.config.production.js; npm start"
   },
   "dependencies": {
     "babel-core": "^6.2.1",
@@ -44,7 +51,6 @@
     "webpack-dev-server": "^1.10.1"
   },
   "devDependencies": {
-    "http-proxy": "^1.11.2",
     "json-loader": "^0.5.3",
     "react": "^0.14.3",
     "react-tools": "^0.13.3",

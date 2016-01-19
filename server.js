@@ -1,15 +1,16 @@
 var express = require('express');
 var path = require('path');
-var httpProxy = require('http-proxy');
+var port = process.env.PORT || 8080;
 var fs = require('fs');
-
-var proxy = httpProxy.createProxyServer();
 var app = express();
 
+<<<<<<< Updated upstream
 var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? 80 : process.env.PORT;
 var publicPath = path.resolve(__dirname, 'public');
 
+=======
+>>>>>>> Stashed changes
 app.use(function( req, res, next ) {
     for(var prop in req.query) {
         res.redirect('https://www.setmine.com/' + prop);
@@ -18,12 +19,7 @@ app.use(function( req, res, next ) {
     next();
 });
 
-app.use(express.static(publicPath));
-
-proxy.on('error', function(e) {
-    console.log('Could not connect to proxy, please try again...');
-});
-
+app.use(express.static(__dirname + '/public'));
 
 app.get('*', function( req, res, next ) {
 
