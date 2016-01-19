@@ -6,6 +6,8 @@ var app = express();
 var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? 80 : 3000;
 
+app.use(express.static(__dirname + '/public'));
+
 app.use(function( req, res, next ) {
     for(var prop in req.query) {
         res.redirect('https://www.setmine.com/' + prop);
@@ -13,8 +15,6 @@ app.use(function( req, res, next ) {
     }
     next();
 });
-
-app.use(express.static(__dirname + '/public'));
 
 app.get('*', function( req, res, next ) {
 
