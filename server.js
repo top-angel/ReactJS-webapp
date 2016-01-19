@@ -20,18 +20,6 @@ app.use(function( req, res, next ) {
 
 app.use(express.static(publicPath));
 
-if (!isProduction) {
-    var bundle = require('./server/bundle.js');
-    bundle();
-
-    app.all('/build/*', function (req, res) {
-        proxy.web(req, res, {
-            target: 'http://localhost:8080'
-        });
-    });
-
-}
-
 proxy.on('error', function(e) {
     console.log('Could not connect to proxy, please try again...');
 });
