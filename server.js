@@ -4,7 +4,7 @@ var fs = require('fs');
 var app = express();
 
 var isProduction = process.env.NODE_ENV === 'production';
-var port = isProduction ? 80 : 3000;
+var port = isProduction ? 3000 : 8080;
 
 app.use(express.static(__dirname + '/public'));
 
