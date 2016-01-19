@@ -12,6 +12,7 @@
   "scripts": {
     "start": "forever stopall; NODE_ENV=production forever start server.js;",
     "stop": "forever stopall;",
+    "test": "forever stopall; forever start server.js",
     "deploy": "webpack -p --config webpack.config.production.js;"
   },
   "dependencies": {
