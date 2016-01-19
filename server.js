@@ -1,8 +1,10 @@
 var express = require('express');
 var path = require('path');
-var port = process.env.PORT || 8080;
 var fs = require('fs');
 var app = express();
+
+var isProduction = process.env.NODE_ENV === 'production';
+var port = isProduction ? 80 : 3000;
 
 app.use(function( req, res, next ) {
     for(var prop in req.query) {
