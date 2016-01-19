@@ -1,8 +1,11 @@
 import React from 'react';
-import $ from 'jquery';
+import {fadeTransition} from '../services/animations'
 
 var LandingApp = React.createClass({
-	componentDidMount: function() {
+
+	componentDidMount() {
+		$.scrollTo(0,0);
+
 		var activeSlide = 'fa fa-fw fa-circle click';
 		var inactiveSlide = 'fa fa-fw fa-circle-o click';
 		var slides = $('.slide'),
@@ -37,10 +40,15 @@ var LandingApp = React.createClass({
 		//initialize slider on load
 		moveTo('next');
 	},
-	render: function() {
+
+	componentWillUnmount() {
+		clearTimeout();
+	},
+
+	render() {
 		return (
-			<div className='flex-column overlay-container' id='LandingApp'>
-				<div className='flex-row overlay-container slide slide-1 animated fadeIn'>
+			<div className='flex-column' id='LandingApp'>
+				<div className='flex-row slide slide-1 animated fadeIn'>
 					<div className='flex-column flex-fixed text-container'>
 						<h1 className='wow bounceInLeft'>
 							Say goodbye to missing a live performance
@@ -57,7 +65,7 @@ var LandingApp = React.createClass({
 					</div>
 				</div>
 
-				<div className='flex-row overlay-container slide slide-2 hidden'>
+				<div className='flex-row slide slide-2 hidden'>
 					<div className='flex-column flex-fixed text-container animated fadeIn'>
 					   <h1 className='animated bounceInLeft'>
 					   		Discover upcoming events near you
@@ -74,7 +82,7 @@ var LandingApp = React.createClass({
 					</div>
 				</div>
 				
-	          <div className='flex-row overlay-container slide slide-3 animated fadeIn hidden'>
+	          <div className='flex-row slide slide-3 animated fadeIn hidden'>
 					<div className='flex-column flex-fixed text-container'>
 						<h1 className='animated bounceInLeft'>
 							Your favorite music on demand

@@ -1,14 +1,14 @@
 import React from 'react';
 import constants from '../constants/constants';
-import playerService from '../services/playerService.js';
-import {History} from 'react-router';
+import {updateCurrentTrack} from '../services/playerService.js';
 import { Motion, spring, presets } from 'react-motion';
 import Track from './Track';
 
 var PlayerTracklist = React.createClass({
 
-	displayName: 'PlayerTrackInfo',
-	mixins: [History],
+	contextTypes: {
+		push: React.PropTypes.func
+	},
 
 	getInitialState() {
 		return {
@@ -23,38 +23,28 @@ var PlayerTracklist = React.createClass({
 	},
 
 	updateCurrentTrack() {
-		var appState = this.props.appState;
-		var push = this.props.push;
-		playerService.updateCurrentTrack(appState, push)
+		updateCurrentTrack(this.props.appState, this.context.push)
 	},
 
 	render() {
 		var appState = this.props.appState;
-		var push = this.props.push;
 		var self = this;
 
 		var tracklist = appState.get('tracklist');
 		var currentTrack = appState.get('currentTrack');
 		var loginStatus = appState.get('isUserLoggedIn');
 
-		var tracks = tracklist.map(function(track, index) {
+		var tracks = tracklist.map((track, index) => {
 			//update tracklist to show current track
-			if(track.trackname == currentTrack) {
-				var trackStyle = 'flex track active'
-			} else {
-				var trackStyle = 'flex track'
-			}
+			var trackStyle = track.trackname == currentTrack ? 'flex track active' : 'flex track'
 
-			var props = {
+			return React.createElement(Track, {
 				className: trackStyle,
 				key: index,
 				trackname: track.trackname,
 				starttime: track.starttime,
-				appState: appState,
-				push: push
-			};
-
-			return <Track {...props} />
+				appState: appState
+			})
 		});
 
 		return (
@@ -67,7 +57,7 @@ var PlayerTracklist = React.createClass({
 				}}>
 					{
 						({yshift, opacity}) =>
-						<div className='tracklist' onMouseLeave={() => {self.animate()}}style={{
+						<div className='tracklist' onMouseLeave={() => self.animate()} style={{
 							bottom: `${yshift}vh`
 						}}>
 							{tracks}
@@ -83,4 +73,4 @@ var PlayerTracklist = React.createClass({
 
 });
 
-module.exports = PlayerTracklist;
+export default PlayerTracklist;

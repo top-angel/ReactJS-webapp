@@ -22,7 +22,7 @@ var LandingHome = React.createClass({
 	
 	render() {
 		return (
-			<div className='flex-column flex-container' id='LandingHome'>
+			<div className='flex-column' id='LandingHome'>
 				<h1 className='center wow zoomIn'>Setmine</h1>
 				<h2 className='center wow zoomIn'>Relive your favorite sets</h2>
 				<div className='center'>
@@ -30,11 +30,11 @@ var LandingHome = React.createClass({
 				    <a href='http://bit.ly/SetmineAndroid' onClick={this.trackAndroid} className='fa fa-android fa-fw fa-4x wow fadeInRight click'/>
 				</div>
 				<Link to='/sets' className='header-small center click wow fadeInUp' id='listen-now'>Listen Now</Link>
-				<i className='fa fa-chevron-down center click wow slideInUp' onClick={this.scroll}/>
+				<i className='fa fa-chevron-down center click wow slideInUp' onClick={this.scroll} />
           </div>
 		);
 	}
 
 });
 
-module.exports = LandingHome;
+export default LandingHome;

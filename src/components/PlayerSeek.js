@@ -1,13 +1,15 @@
 import React from 'react';
-import playerService from '../services/playerService.js';
-import convert from '../services/convert';
+import {scrub} from '../services/playerService';
+import {MMSSToMilliseconds} from '../services/convert';
 
 var PlayerSeek = React.createClass({
 
-	displayName: 'PlayerSeek',
+	contextTypes: {
+		push: React.PropTypes.func
+	},
 
-	scrub: function(e) {
-		var push = this.props.push;
+	scrub(e) {
+		var push = this.context.push;
 		var appState = this.props.appState;
 		var offset = document.getElementById('PlayButton').offsetWidth;
 		var containerWidth = document.getElementById('progress').offsetWidth;
@@ -15,16 +17,16 @@ var PlayerSeek = React.createClass({
 		var errorFactor = 1.0575; //compensates for soundmanger innacuracy
 		var containerPosition = (((e.pageX - offset)*errorFactor)/ $(window).width()) * 100;
 
-		playerService.scrub(containerPosition, appState, push);
+		scrub(containerPosition, appState, push);
 	},
 
-	render: function() {
+	render() {
 		var appState = this.props.appState;
 		var currentSet = appState.get('currentSet');
 		var timeElapsed = appState.get('timeElapsed');
 
-		var set_length = convert.MMSSToMilliseconds(currentSet.set_length);
-		var percent = (timeElapsed / set_length) * 100;
+		var setLength = MMSSToMilliseconds(currentSet.setLength);
+		var percent = (timeElapsed / setLength) * 100;
 
 		var progressStyle = {
 			width: percent + '%'
@@ -49,4 +51,4 @@ var PlayerSeek = React.createClass({
 	}
 })
 
-module.exports = PlayerSeek;
+export default PlayerSeek;

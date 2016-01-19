@@ -1,73 +1,98 @@
 import React from 'react';
-import constants from '../constants/constants';
+import R from 'ramda';
 import Loader from 'react-loader';
 
-import AlphabetScroller from './AlphabetScroller';
+import {API_ROOT, colors} from '../constants/constants';
 import ArtistTile from './ArtistTile';
+import Footer from './Footer';
 
-var TITLE = 'Artists';
-var TYPE = 'artist';
+var artistPage = {
+	background: colors.white,
+	position: 'relative',
+	top: '8vh'
+}
+
 var Artists = React.createClass({
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			artists: []
 		};
 	},
-	componentWillMount: function() {
-		this.getArtists();
-	},
-	getArtists: function() {
-		var push = this.props.push;
-		var _this = this;
-		var results,
-			artistUrl = constants.API_ROOT + 'artist';
 
-		$.ajax({
-			url: artistUrl,
-			type: 'get'
-		})
-		.done(function(response) {
-			results = response.payload.artist;
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					artistBrowseData: results
-				}
-			});
-
-			_this.setState({
-				loaded: true
-			});
+	componentWillMount() {
+		this.getArtists().done(res => {
+			if(res.status === 'success') {
+				var artists = this.filterArtists(res.payload.artists);
+				this.setState({
+					loaded: true,
+					artists: artists
+				});
+			}
 		});
 	},
-	render: function() {
-		var appState = this.props.appState.get('artistBrowseData');
-		var push = this.props.push;
-		var containerClass = 'flex-row flex view overlay-container scrollable';
 
-		var tiles = appState.map(function(artist, index) {
+	updateArtists(res) {
+		if(res.status === 'success') {
+			var artists = this.filterArtists(res.payload.artists);
+			this.setState({
+				loaded: true,
+				artists: artists
+			});
+		}
+	},
+
+	filterArtists(array) {
+		var hasSets = set => {
+			return set.set_count != 0;
+		};
+		return R.filter(hasSets, array);
+	},
+
+	getArtists() {
+		var artistUrl = `${API_ROOT}artists`;
+		return (
+			$.ajax({
+				url: artistUrl,
+				type: 'get',
+				data: {
+					limit: 5000,
+					property: 'artist',
+					order: 'ASC',
+				}
+			})
+		);
+	},
+
+	render() {
+		var push = this.props.push;
+		var tiles = this.state.artists.map((artist, index) => {
 			var props = {
 				artist: artist.artist,
 				key: index,
 				id: artist.id,
 				push: push,
-				imageURL: artist.imageURL,
-				firstLetter: artist.artist[0]
+				imageURL: artist.icon_image.imageURL_small,
+				set_count: artist.set_count,
+				event_count: artist.event_count
 			};
 
 			return <ArtistTile {...props} />
 		});
 
 		return (
-			<Loader loaded={this.state.loaded}>
-				<div className={containerClass}>
-					{tiles}
-				</div>
-			</Loader>
+			<div style={artistPage}>
+				<Loader loaded={this.state.loaded}>
+					<div className='flex-row flex scrollable'>
+						{tiles}
+					</div>
+				</Loader>
+				<Footer />
+			</div>
 		);
 	}
 
 });
 
-module.exports = Artists;
+module.exports = Artists

@@ -1,81 +1,61 @@
 import React from 'react';
 import R from 'ramda';
-import constants from '../constants/constants';
+import api from '../services/api';
+import {DEFAULT_IMAGE} from '../constants/constants';
+
 
 import Loader from 'react-loader';
-import DetailImageContainer from './DetailImageContainer';
+import EventDetailHeader from './EventDetailHeader'
 import ArtistTileContainer from './ArtistTileContainer';
 
 var EventDetail = React.createClass({
-
-	displayName: 'EventDetail',
-	getInitialState: function() {
+	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			event: '',
+			date: '',
+			ticketLink: null,
+			lineup: [],
+			imageURL: DEFAULT_IMAGE
 		};
 	},
 
-	componentWillMount: function() {
-		this.getEventData();
+	componentWillMount() {
+		this.getEventData(this.props.params.event);
 	},
 
-	getEventData: function() {
-		var _this = this;
-		var push = this.props.push;
-		var event = this.props.params.event;
-
-		var eventData,
-			eventUrl = constants.API_ROOT + 'upcoming/id/' + event;
-
-		$.ajax({
-			url: eventUrl,
-			type: 'get',
+	getEventData(event) {
+		api.get(`events/id/${event}`).then(res => {
+			var e = res.events_id
+			this.setState({
+				event: e.event,
+				date: e.formatted_date,
+				ticketLink: e.ticket_link,
+				imageURL: e.banner_image.imageURL,
+				lineup: e.lineup
+			})
+		}).then(() => {
+			this.setState({ loaded: true })
 		})
-		.done(function(response) {
-			eventData = response.payload.upcoming;
-
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					detailId: eventData.id,
-					detailData: eventData
-				}
-			});
-
-			_this.setState({
-				loaded: true
-			});
-		});
 	},
-	render: function() {
-		var appState = this.props.appState;
-		var detailData = appState.get('detailData');
-
-		var detailInfo = {
-			push: this.props.push,
-			info: detailData.formattedDate,
-			data: detailData,
-			title: detailData.event,
-			ticketLink: detailData.ticket_link,
-			buttonText: 'Tickets',
-			pageType: 'upcoming'
-		};
-
-		var lineup = {
-			artists: detailData.lineup,
-			push: this.props.push
+	render() {
+		var header = {
+			date: this.state.date,
+			title: this.state.event,
+			ticketLink: this.state.ticketLink,
+			imageURL: this.state.imageURL
 		};
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div id='detail' className='view detail-page'>
-					<DetailImageContainer {...detailInfo}/>
-					<div className="flex-row links-container">
+				<div id='detail' className='detail-page'>
+					<EventDetailHeader {...header}/>
+					<div className='flex-row links-container'>
 						<div className='center flex-fixed'>
 							LINEUP
 						</div>
 					</div>
-					<ArtistTileContainer {...lineup} />
+					<ArtistTileContainer artists={this.state.lineup} />
 				</div>
 			</Loader>
 		);
@@ -83,4 +63,4 @@ var EventDetail = React.createClass({
 
 });
 
-module.exports = EventDetail;
+export default EventDetail;

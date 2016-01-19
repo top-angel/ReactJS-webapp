@@ -1,18 +1,17 @@
 import Q from 'q';
 import R from 'ramda';
-import $ from 'jquery';
 import SM2 from 'soundmanager2';
 import _ from 'underscore';
 
-import convert from './convert';
-import constants from '../constants/constants';
+import api from './api';
+import {MMSSToMilliseconds} from './convert';
+import {S3_ROOT, API_ROOT} from '../constants/constants';
 
 var soundManager = SM2.soundManager;
 
 // This will resolve when soundManager loads
 var smDeferred = Q.defer();
 var smPromise = smDeferred.promise;
-
 
 soundManager.setup({
 	url: '/swf/soundmanager2.swf',
@@ -27,47 +26,35 @@ soundManager.setup({
 });
 
 //change track by selecting from tracklist
-function changeTrack(appState, push, starttime, currentTrack) {
+export function changeTrack(appState, push, starttime, currentTrack) {
 	var sound = appState.get('sound');
 	sound.setPosition(starttime);
 
-	// push({
-	// 	type: 'SHALLOW_MERGE',
-	// 	data: {
-	// 		currentTrack: currentTrack,
-	// 		timeElapsed: starttime
-	// 	}
-	// });
-	_.debounce(push({
+	push({
 		type: 'SHALLOW_MERGE',
 		data: {
 			currentTrack: currentTrack,
 			timeElapsed: starttime
 		}
-	}), 500);
+	});
 }
 
-function errorPromise(jqXHR, textStatus, errorThrown) {
-	console.log('ERROR MAKING AJAX CALL', jqXHR, textStatus, errorThrown);
-	return  Q.reject(errorThrown);
-}
-
-function generateSound(loadStart, appState, push) {
-
+// create SoundManager sound object from a set
+export function generateSound(loadStart, appState, push) {
 	var sound = appState.get('sound');
 	var currentSet = appState.get('currentSet');
-	loadStart = convert.MMSSToMilliseconds(loadStart);
+	loadStart = MMSSToMilliseconds(loadStart);
 
 	//// XXX TODO MOVE THIS
 	if(sound != null) {
 		soundManager.destroySound('currentSound');
 	}
 
-	var songURL = constants.S3_ROOT + currentSet.songURL;
+	var songUrl = S3_ROOT + currentSet.songUrl;
 
 	var soundConf = {
 		id: 'currentSound',
-		url: songURL,
+		url: songUrl,
 		load: loadStart,
 		onload: function() {
 			var totalTime = sound.durationEstimate;
@@ -75,16 +62,17 @@ function generateSound(loadStart, appState, push) {
 		// volume: 0, //comment out for production
 		whileplaying: function() {
 			var currentTime = sound.position;
-			//UPDATE CURRENT TRACK HERE
+			// UPDATE CURRENT TRACK HERE
 			var tracklist = appState.get('tracklist');
-			var currentTrack = updateCurrentTrack(sound, tracklist, push);
-			
-			push({
+			// var currentTrack = updateCurrentTrack(sound, tracklist, push);
+			var currentTrack = _.debounce(updateCurrentTrack(sound, tracklist, push), 1000);
+
+			_.debounce(push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					timeElapsed: currentTime
 				}
-			});
+			}), 1000);
 		}
 	};
 
@@ -96,17 +84,63 @@ function generateSound(loadStart, appState, push) {
 	});
 }
 
+export function mixpanelTrackSetPlay(set) {
+	// Log Mixpanel event
+	var setName = set.artist+' - '+set.event;
+
+	mixpanel.track("Set Play", {
+		"set_id": set.id,
+		"set_name": setName,
+		"set_artist": set.artist,
+		"set_event": set.event
+	});
+
+	// mixpanel user tracking
+	mixpanel.people.increment("play_count");
+	mixpanel.people.append("sets_played_ids", set.set_id);
+	mixpanel.people.append("sets_played_names", setName);
+	mixpanel.people.append("sets_played_artists", set.artist);
+	mixpanel.people.append("sets_played_events", set.event);
+}
+
+// fetch set by id and play set
+export function playSet(setId, push, starttime = '00:00') {
+	api.get(`sets/id/${setId}`).then(res => {
+		var set = res.sets_id
+		var tracks = set.tracks
+
+		// format artists for multiple artists
+		var artist = R.pluck('artist', set.artists).toString().split(',').join(', ')
+
+		push({
+			type: 'SHALLOW_MERGE',
+			data: {
+				currentSet: {
+					artist: artist,
+					event: set.event.event,
+					id: set.id,
+					setLength: set.set_length,
+					songUrl: set.songURL,
+					artistImage: set.artists[0].icon_image.imageURL,
+					starttime: starttime,
+				},
+				tracklist: tracks,
+				currentTrack: tracks[0].trackname,
+				playing: true
+			}
+		})
+	})
+}
+
 //scrub to a new position after clicking progress bar
-function scrub(position, appState, push) {
+export function scrub(position, appState, push) {
 	var sound = appState.get('sound');
 	var currentSet = appState.get('currentSet');
 	var timeElapsed = appState.get('timeElapsed');
 
-	// var set_length = convert.MMSSToMilliseconds(currentSet.set_length);
-	var set_length = sound.durationEstimate;
-
+	var setLength = sound.durationEstimate;
 	var multiplier = position / 100;// 70 -> 0.7
-	var newPosition = multiplier * set_length;
+	var newPosition = multiplier * setLength;
 
 	sound.setPosition(newPosition);
 
@@ -118,21 +152,34 @@ function scrub(position, appState, push) {
 	});
 }
 
-function togglePlay(sound) {
-
+// play/pause a set
+export function togglePlay(sound) {
 	if(sound.paused) {
+		console.log('playing')
 		sound.play();
 	} else {
+		console.log('paused')
 		sound.pause();
 	}
 }
 
-// automatically update tracklist while playing
-function updateCurrentTrack(sound, tracklist, push) {
+// updates set play count in database
+export function updatePlayCount(setId, userId) {
+	api.post('sets/play', {
+		set_id: setId,
+		user_id: userId
+	})
+	.then(res => {
+		console.log('play count updated')
+	})
+}
+
+// automatically updates tracklist while playing
+export function updateCurrentTrack(sound, tracklist, push) {
 	var currentPosition = sound.position;
 
-	var currentTrack = tracklist.filter(function(track, index) {
-		var starttime = convert.MMSSToMilliseconds(track.starttime);
+	var currentTrack = tracklist.filter((track, index) => {
+		var starttime = MMSSToMilliseconds(track.starttime);
 
 		if(starttime <= currentPosition) {
 			var playing = track.trackname;
@@ -147,11 +194,3 @@ function updateCurrentTrack(sound, tracklist, push) {
 		}
 	})
 }
-
-module.exports = {
-	generateSound: generateSound,
-	togglePlay: togglePlay,
-	changeTrack: changeTrack,
-	updateCurrentTrack: updateCurrentTrack,
-	scrub: scrub
-};

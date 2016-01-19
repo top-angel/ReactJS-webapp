@@ -3,30 +3,32 @@ import $ from 'jquery';
 
 var AlphabetScroller = React.createClass({
 
-	componentDidMount: function() {
-		$('#AlphabetScroller div').on('click', function(event) {
-			event.stopPropagation();
-			var letter = event.target.innerText;
-			console.log(letter);
+	// componentDidMount() {
+	// 	$('#AlphabetScroller div').on('click', function(event) {
+	// 		event.stopPropagation();
+	// 		var letter = event.target.innerText;
+	// 		console.log(letter);
 
-			var artist = $('.artist-tile').attr('firstLetter');
-			var target = $(".artist-tile[attribute^='"+letter+"']");
+	// 		var artist = $('.artist-tile').attr('firstLetter');
+	// 		var target = $(".artist-tile[attribute^='"+letter+"']");
 
-			console.log(target.scrollTop());
+	// 		console.log(target.scrollTop());
 
-			window.scrollTo(0, target.scrollTop());
-		});
-	},
-	createAlphabet: function(start, stop) {
+	// 		window.scrollTo(0, target.scrollTop());
+	// 	});
+	// },
+
+	createAlphabet(start, stop) {
 		var alphabet = [];
 		for (var i=start.charCodeAt(0),end=stop.charCodeAt(0); i <= end; ++i){
 			alphabet.push(String.fromCharCode(i));
 		}
 		return alphabet;
 	},
-	render: function() {
+
+	render() {
 		var alphabet = this.createAlphabet('A', 'Z');
-		var letters = alphabet.map(function(letter, index) {
+		var letters = alphabet.map((letter, index) => {
 			return <div className='flex-fixed' key={index}>{letter}</div>
 		})
 

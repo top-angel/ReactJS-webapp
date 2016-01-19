@@ -1,18 +1,23 @@
 import React from 'react';
-
+import ArtistTileContainer from './ArtistTileContainer';
 import SetContainer from './SetContainer';
 import EventContainer from './EventContainer';
 import TrackContainer from './TrackContainer';
 
 var SearchResultsView = React.createClass({
 
+	contextTypes: {
+		push: React.PropTypes.func
+	},
+
 	getInitialState() {
 		return {
-			active: 'sets'
+			active: 'artists'
 		};
 	},
 
-	componentDidMount: function() {
+// TODO make this without jquery
+	componentDidMount() {
 		var self = this;
 		$('.results-filter').click(function(e){
 			var scrollOffset = -$('header').height()*0.875*2;
@@ -39,16 +44,30 @@ var SearchResultsView = React.createClass({
 				$(window).scrollTo($('.header-small.tracks'), 200, {
 					offset: scrollOffset
 				});
+			} else if($(this).is('.artists')) {
+				self.setState({
+					active: 'artists'
+				});
+				$(window).scrollTo($('.header-small.artists'), 200, {
+					offset: scrollOffset
+				});
 			}
+			// switch(true) {
+			// 	case $(this).is('.artists'):
+			// 		break;
+			// 	case $(this).is('.sets'):
+			// 		break;
+			// 	case $(this).is('.events'):
+			// 		break;
+			// 	case $(this).is('.tracks'):
+			// 		break;
+			// }
 		});
-
-		//TODO clear search results view on search click/empty input bar
-		//line 2173 in master-original
 	},
 
 	componentWillUnmount() {
 		$('#search').val('');
-		this.props.push({
+		this.context.push({
 			type: 'SHALLOW_MERGE',
 			data: {
 				searchResults: {
@@ -65,6 +84,7 @@ var SearchResultsView = React.createClass({
 		var loginStatus = this.props.appState.get('isUserLoggedIn');
 		var user = this.props.appState.get('user');
 
+
 		var setClass = 'flex-row results sets';
 		var eventClass = 'flex-row results events';
 		var trackClass = 'flex-row results tracks';
@@ -72,6 +92,9 @@ var SearchResultsView = React.createClass({
 		return (
 			<div id='SearchResultsView' className='view overlay-container'>
 				<div className='flex-row view-title-container search'>
+					<div className={this.state.active == 'artists' ? 'view-title artists results-filter flex flex-container active':'view-title artists results-filter flex flex-container'}  data-type='artists'>
+						<div className='center'>ARTISTS</div>
+					</div>
 					<div className={this.state.active == 'sets' ? 'view-title sets results-filter flex flex-container active':'view-title sets results-filter flex flex-container'}  data-type='sets'>
 						<div className='center'>SETS</div>
 					</div>
@@ -83,30 +106,31 @@ var SearchResultsView = React.createClass({
 					</div>
 				</div>
 				<div className='results-container flex-column'>
+					<div className='header-small artists'>ARTISTS</div>
+					<ArtistTileContainer
+						artists={searchResults.artists}
+						push={this.props.push} />
 					<div className='header-small sets'>SETS</div>
 					<SetContainer
 						sets={searchResults.sets}
 						push={this.props.push}
 						loginStatus={loginStatus}
 						user={user}
-						containerClass={setClass}
-					/>
+						className={setClass} />
 					<div className='header-small events'>EVENTS</div>
 					<EventContainer
 						events={searchResults.upcomingEvents}
 						push={this.props.push}
-						containerClass={eventClass}
-					/>
+						className={eventClass} />
 					<div className='header-small tracks'>TRACKS</div>
 					<TrackContainer
 						tracks={searchResults.tracks}
 						push={this.props.push}
-						containerClass={trackClass}
-					/>
+						className={trackClass} />
 				</div>
 			</div>
 		);
 	}
 });
 
-module.exports = SearchResultsView;
+export default SearchResultsView;

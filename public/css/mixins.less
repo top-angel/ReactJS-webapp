@@ -111,6 +111,8 @@
         height: 100%;
         width: 100%;
         position: absolute;
+        left: 0;
+        top: 0;
         z-index: -1;
     }
 }
@@ -263,7 +265,7 @@
     min-width: @width!important;
     min-height: @height!important;
 }
-.size(@width, @height) {
+.size(@width, @height: @width) {
     width: @width!important;
     height: @height!important;
 }

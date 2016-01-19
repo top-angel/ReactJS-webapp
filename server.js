@@ -1,7 +1,6 @@
 var express = require('express');
 var path = require('path');
 var httpProxy = require('http-proxy');
-// var jsdom = require('jsdom');
 var fs = require('fs');
 
 var proxy = httpProxy.createProxyServer();
@@ -42,7 +41,7 @@ app.get('*', function( req, res, next ) {
 
     // For facebook metatags, HTML is read first then the og url is inserted before sending it as the response
 
-    fs.readFile(__dirname + '/public/index.html', 'utf8', function(err, text){
+    fs.readFile(__dirname + '/public/index.html', 'utf8', function(err, text) {
         console.log(text.indexOf('</head>'));
         var ogurl = '<meta property=\"og:url\" content=\"https://setmine.com/metadata/' + encodeURIComponent(req.path.substring(1)) + '\">';
         var textWithOGUrl = text.replace('</head>',  ogurl + '</head>');

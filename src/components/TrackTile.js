@@ -1,130 +1,72 @@
 import React from 'react';
-import {History} from 'react-router';
-import constants from '../constants/constants';
-import convert from '../services/convert';
+import { S3_ROOT_FOR_IMAGES } from '../constants/constants';
+import { playSet, updatePlayCount } from '../services/playerService';
+import history from '../services/history';
 
 var TrackTile = React.createClass({
-
-	displayName: 'TrackTile',
-	mixins: [History],
-
-	getTracklist: function() {
-		var trackListUrl = constants.API_ROOT + 'tracklist/' + this.props.id;
-
-		return $.ajax({
-			url: trackListUrl,
-			type: 'get'
-		});
+	displayName: 'Track Tile',
+	contextTypes: {
+		push: React.PropTypes.func,
+		user: React.PropTypes.object
 	},
 
-	openArtistPage: function(e) {
-		e.stopPropagation();
+	openArtistPage() {
 		var routePath = this.props.artist.split(' ').join('_');
-		this.history.pushState(null, `/artist/${routePath}`);
+		history.pushState(null, `/artist/${routePath}`);
 		mixpanel.track("Artist Clicked", {
 			"Artist": this.props.artist
 		});
 	},
 
-	openFestivalPage: function(e) {
-		e.stopPropagation();
-		var routePath = this.props.event.split(' ').join('-');
-
+	openFestivalPage() {
 		if(this.props.is_radiomix == 0) {
-			//go to festival page
-			this.history.pushState(null, `/festival/${routePath}`);
+			history.pushState(null, `/festival/${this.props.id}`);
 		} else {
-			var routeId = this.props.id;
-			this.history.pushState(null, `/mix/${routeId}`);
+			history.pushState(null, `/mix/${this.props.id}`);
 		}
 	},
 
-	playSet: function() {
-		var push = this.props.push;
-		var self = this;
-
-		this.getTracklist().done(function(res) {
-			var tracklist = res.payload.tracks;
-			var set = {
-				artist: self.props.artist,
-				event: self.props.event,
-				id: self.props.id,
-				set_length: self.props.set_length,
-				songURL: self.props.songURL,
-				artistimageURL: self.props.artistimageURL,
-				starttime: self.props.starttime
-			};
-
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					currentSet: set,
-					tracklist: tracklist,
-					currentTrack: self.props.trackname
-				}
-			});
-
-			// self.history.pushState(null, '/play/' + self.props.id);
-			self.updatePlayCount(self.props.id);
-			self.trackPlay();
-		});
-	},
-
-	updatePlayCount: function(id) {
-		$.ajax({
-			type: 'POST',
-			url: constants.API_ROOT + 'playCount',
-			data: {
-				id: id
-			},
-			success: function(data) {
-				console.log('play count updated');
-			}
-		});
+	playSet() {
+		playSet(this.props.id, this.context.push, this.props.starttime)
+		updatePlayCount(this.props.id, this.context.user.id)
+		this.trackPlay()
 	},
 
 	trackPlay() {
 		mixpanel.track("Track Played", {
-			"Track Artist": this.props.artistname,
-			"Track Name": this.props.trackname,
+			"Track Artist": this.props.artist_name,
+			"Track Name": this.props.track_name,
 			"Set Artist": this.props.artist,
 			"Event": this.props.event
 		});
 	},
 
-	render: function() {
+	render() {
 		var image = {
-			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES + this.props.main_eventimageURL + "')"
+			backgroundImage: `url('${S3_ROOT_FOR_IMAGES+this.props.banner_image}')`,
+			backgroundSize: '100% 100%'
 		};
-		var artistImage = this.props.artistimageURL;
-		var songname = this.props.songname;
-		var artistname = this.props.artistname;
-		var track = songname + ' - ' + artistname;
-		var time = this.props.starttime + ' | ' + this.props.set_length;
+		var time = `${this.props.starttime} | ${this.props.set_length}`;
 
 		return (
-			<div className="track-tile flex-column overlay-container click" style={image} onClick={this.playSet} >
-
+			<div className='track-tile flex-column click' style={image} onClick={this.playSet} >
 			    <div className='flex-row track'>
-			    	<img src={constants.S3_ROOT_FOR_IMAGES + 'small_' +artistImage} />
+			    	<img src={S3_ROOT_FOR_IMAGES+this.props.artist_image} />
 			    	<p className='text'>
-				    	{track}
+				    	{this.props.trackname}
 				    	<br/>
 				    	{time}
 			    	</p>
 			    </div>
-
 			    <i className='fa fa-play'/>
-
 			    <div className='set flex-column'>
 					<span className='artist' onClick={this.openArtistPage}>{this.props.artist}</span>
 					<span className='event' onClick={this.openFestivalPage}>{this.props.event}</span>
 				</div>
-
 			</div>
 		);
 	}
 
 });
 
-module.exports = TrackTile;
+export default TrackTile;

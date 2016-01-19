@@ -1,12 +1,8 @@
 import React from 'react';
-import {History} from 'react-router';
 import NavMenu from './NavMenu';
 
-var SetsView = React.createClass({
-
-	displayName: 'Sets Page',
-
-	render: function() {
+var Sets = React.createClass({
+	render() {
 		var navItems = [
 			{
 				text: 'Recent',
@@ -31,13 +27,13 @@ var SetsView = React.createClass({
 				link: '/sets/mixes',
 				icon: 'fa fa-fw fa-headphones',
 				onlyActiveOnIndex: false
-			},
-			{
-				text: 'Activities',
-				link: '/sets/activities',
-				icon: 'fa fa-fw fa-bicycle',
-				onlyActiveOnIndex: false
 			}
+			// {
+			// 	text: 'Activities',
+			// 	link: '/sets/activities',
+			// 	icon: 'fa fa-fw fa-bicycle',
+			// 	onlyActiveOnIndex: false
+			// }
 		];
 		
 		return (
@@ -45,14 +41,12 @@ var SetsView = React.createClass({
 				<NavMenu navItems={navItems}/>
 				{
 					React.cloneElement(this.props.children, {
-						appState: this.props.appState,
-						push: this.props.push
+						appState: this.props.appState
 					})
 				}
 			</div>
 		);
 	}
-
 });
 
-module.exports = SetsView;
+export default Sets;

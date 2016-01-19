@@ -1,75 +1,52 @@
 import React from 'react';
 import Loader from 'react-loader';
-import constants from '../constants/constants';
+import {API_ROOT} from '../constants/constants';
+import api from '../services/api'
 
 import FestivalTile from './FestivalTile';
 
-var TITLE = 'Festivals';
-var TYPE = 'event';
 var Festivals = React.createClass({
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			festivals: []
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount() {
 		this.getFestivals();
 	},
 
-	componentDidMount: function() {
+	componentDidMount() {
 		mixpanel.track("Festivals Page Open");
 	},
 
-	getFestivals: function() {
-		var _this = this;
-		var push = this.props.push;
-		var results,
-			festivalUrl = constants.API_ROOT + 'festival';
-
-		$.ajax({
-			url: festivalUrl,
-			type: 'get'
+	getFestivals() {
+		api.get('events/festivals').then(res => {
+			this.setState({
+				loaded: true,
+				festivals: res.events_festivals
+			});
 		})
-		.done(function(response) {
-			results = response.payload.festival;
-			
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					festivalBrowseData: results
-				}
-			});
-
-			_this.setState({
-				loaded: true
-			});
-		});
 	},
 
-	render: function() {
-		var appState = this.props.appState.get('festivalBrowseData');
-		var push = this.props.push;
-		var containerClass = 'flex-row scrollable tile-container';
-
-		var tiles = appState.map(function(festival, index) {
-			var props = {
-				push: push,
+	render() {
+		var festivalTiles = this.state.festivals.map((festival, index) => {
+			return React.createElement(FestivalTile, {
 				key: index,
 				id: festival.id,
-				main_imageURL: festival.main_imageURL,
-				set_count: festival.set_count,
-				event: festival.event
-			};
-
-			return <FestivalTile {...props} />
+				festival: festival.event,
+				bannerImage: festival.banner_image.imageURL,
+				setCount: festival.set_count,
+				formattedDate: festival.formatted_date
+			})
 		});
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div className={containerClass}>
-					{tiles}
+				<div className='flex-row scrollable tile-container'>
+					{festivalTiles}
 				</div>
 			</Loader>
 		);
@@ -77,4 +54,4 @@ var Festivals = React.createClass({
 
 });
 
-module.exports = Festivals;
+export default Festivals

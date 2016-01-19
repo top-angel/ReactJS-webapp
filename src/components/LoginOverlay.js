@@ -1,18 +1,18 @@
 import React from 'react';
 import constants from '../constants/constants';
-import loginService from '../services/loginService.js';
-import {History} from 'react-router';
+import {login} from '../services/loginService.js';
 
 var LoginOverlay = React.createClass({
 
-	mixins: [History],
-
-	login() {
-		loginService.login(this.props.push);
+	contextTypes: {
+		push: React.PropTypes.func
 	},
 
-	render: function() {
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
+	login() {
+		login(this.context.push);
+	},
+
+	render() {
 		return (
 			<div id='LoginOverlay' className='flex-column' >
 				<div className='content flex-column center'>
@@ -41,4 +41,4 @@ var LoginOverlay = React.createClass({
 
 });
 
-module.exports = LoginOverlay;
+export default LoginOverlay;
