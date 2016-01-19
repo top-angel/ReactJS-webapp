@@ -23,7 +23,7 @@ var EventTile = React.createClass({
 
 		return (
 			<div className='flex-column event-tile' style={image}>
-				<div className='event-date-container flex-5x flex-column click'>
+				<div className='event-date-container flex-5x flex-column'>
 					<h2>{month}</h2>
 					<div className='divider'/>
 					<h2>{day}</h2>
