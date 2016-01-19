@@ -1,8 +1,12 @@
 var express = require('express');
 var path = require('path');
-var port = process.env.PORT || 8080;
 var fs = require('fs');
 var app = express();
+
+var isProduction = process.env.NODE_ENV === 'production';
+var port = isProduction ? 80 : 3000;
+
+app.use(express.static(__dirname + '/public'));
 
 app.use(function( req, res, next ) {
     for(var prop in req.query) {
@@ -11,8 +15,6 @@ app.use(function( req, res, next ) {
     }
     next();
 });
-
-app.use(express.static(__dirname + '/public'));
 
 app.get('*', function( req, res, next ) {
 
