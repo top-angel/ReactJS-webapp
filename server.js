@@ -4,13 +4,6 @@ var port = process.env.PORT || 8080;
 var fs = require('fs');
 var app = express();
 
-<<<<<<< Updated upstream
-var isProduction = process.env.NODE_ENV === 'production';
-var port = isProduction ? 80 : process.env.PORT;
-var publicPath = path.resolve(__dirname, 'public');
-
-=======
->>>>>>> Stashed changes
 app.use(function( req, res, next ) {
     for(var prop in req.query) {
         res.redirect('https://www.setmine.com/' + prop);
