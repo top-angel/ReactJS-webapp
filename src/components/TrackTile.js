@@ -12,14 +12,16 @@ class TrackTile extends BaseComponent {
 		super(props)
 		this.autoBind('openArtistPage', 'openFestivalPage', 'playSet', 'trackPlay')
 	}
-	openArtistPage() {
+	openArtistPage(e) {
+		e.stopPropagation()
 		var routePath = this.props.artist.split(' ').join('_')
 		history.pushState(null, `/artist/${routePath}`)
 		mixpanel.track("Artist Clicked", {
 			"Artist": this.props.artist
 		})
 	}
-	openFestivalPage() {
+	openFestivalPage(e) {
+		e.stopPropagation()
 		if(this.props.is_radiomix == 0) {
 			history.pushState(null, `/festival/${this.props.id}`)
 		} else {
@@ -47,19 +49,19 @@ class TrackTile extends BaseComponent {
 		var time = `${this.props.starttime} | ${this.props.set_length}`
 
 		return (
-			<div className='track-tile flex-column click' style={image} onClick={this.playSet} >
-			    <div className='flex-row track'>
+			<div styleName='track-tile' className='flex-column click' style={image} onClick={this.playSet} >
+			    <div styleName='track' className='flex-row'>
 			    	<img src={S3_ROOT_FOR_IMAGES+this.props.artist_image} />
-			    	<p className='text'>
+			    	<p>
 				    	{this.props.trackname}
 				    	<br/>
 				    	{time}
 			    	</p>
 			    </div>
-			    <i className='fa fa-play'/>
-			    <div className='set flex-column'>
-					<span className='artist' onClick={this.openArtistPage}>{this.props.artist}</span>
-					<span className='event' onClick={this.openFestivalPage}>{this.props.event}</span>
+			    <i styleName='play' className='fa fa-play'/>
+			    <div styleName='set' className='flex-column'>
+					<span styleName='artist' onClick={this.openArtistPage}>{this.props.artist}</span>
+					<span styleName='event' onClick={this.openFestivalPage}>{this.props.event}</span>
 				</div>
 			</div>
 		)

@@ -9,7 +9,8 @@ import {startFacebookSDK} from '../services/loginService';
 import {getFavorites} from '../services/favoriteSet';
 import detectMobileService from '../services/detectMobileService';
 import {DEFAULT_IMAGE} from '../constants/constants';
-// import api from '../services/api';
+
+// import styles from '../../public/globals.css'
 
 import Header from './Header';
 import Player from './Player';

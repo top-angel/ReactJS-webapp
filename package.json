@@ -13,7 +13,8 @@
     "start": "forever stopall; forever start server.js;",
     "stop": "forever stopall;",
     "deploy": "webpack -p --config webpack.config.production.js; npm start",
-    "test": "webpack-dev-server --progress --colors"
+    "test": "webpack-dev-server --progress --colors",
+    "link": "eslint src"
   },
   "dependencies": {
     "babel-core": "^6.2.1",
