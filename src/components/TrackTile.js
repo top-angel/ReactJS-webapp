@@ -10,7 +10,8 @@ var TrackTile = React.createClass({
 		user: React.PropTypes.object
 	},
 
-	openArtistPage() {
+	openArtistPage(e) {
+		e.stopPropagation();
 		var routePath = this.props.artist.split(' ').join('_');
 		history.pushState(null, `/artist/${routePath}`);
 		mixpanel.track("Artist Clicked", {
@@ -18,7 +19,8 @@ var TrackTile = React.createClass({
 		});
 	},
 
-	openFestivalPage() {
+	openFestivalPage(e) {
+		e.stopPropagation();
 		if(this.props.is_radiomix == 0) {
 			history.pushState(null, `/festival/${this.props.id}`);
 		} else {
