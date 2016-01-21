@@ -1,36 +1,30 @@
-import React from 'react';
 import R from 'ramda';
-import constants from '../constants/constants';
-import mixpanelService from '../services/mixpanelService.js';
+import api from './api';
 
-function favoriteSet(push, user, id) {
-	var favoriteUrl = constants.API_ROOT + 'user/updateFavoriteSets';
-	$.ajax({
-		type: 'POST',
-		url: favoriteUrl,
-		data: {
-			'userData': {
-				'userID': user.id,
-				'setId': id
-			}
-		}
-	})
-	.done(function(res) {
+// adds a set to a user's favorites
+export function favoriteSet(setId, userId, push) {
+	api.post('setmineuser/favorites', {
+		user_id: userId,
+		set_id: setId
+	}).then(res => {
+		// doesn't return from the server yet :(
+		var favoriteSetIds = R.pluck('id', res.favorites.user.favorite_sets)
+
+		// store favorites in appState
 		push({
 			type: 'SHALLOW_MERGE',
 			data: {
-				user: res.payload.user
+				favoriteSetIds: favoriteSetIds
 			}
-		});
-	});
+		})
+	})
 }
 
-function checkFavorite(set, favorites) {
-	var setString = R.toString(set);
-	return R.contains(setString, favorites);
+// checks if a set is favorited
+export function checkIfFavorited(loginStatus, id, favorites) {
+	if(loginStatus) {
+		return R.contains(id, favorites);
+	} else {
+		return false
+	}
 }
-
-module.exports = {
-	checkFavorite: checkFavorite,
-	favoriteSet: favoriteSet
-};

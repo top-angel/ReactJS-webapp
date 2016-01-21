@@ -3,12 +3,9 @@ import TrackTile from './TrackTile';
 
 var TrackContainer = React.createClass({
 
-	displayName: 'TrackContainer',
-
 	getDefaultProps() {
 		return {
-			containerId: 'TrackContainer',
-			containerClass: 'flex-row tile-container',
+			className: 'flex-row tile-container',
 			tracks: []
 		};
 	},
@@ -18,33 +15,28 @@ var TrackContainer = React.createClass({
 	},
 
 	render() {
-		var data = this.props.tracks;
-		var push = this.props.push;
-
-		var tiles = data.map(function(track, index) {
-			var props = {
-				songname: track.songname,
-				artistname: track.artistname,
-				trackname: track.trackname,
+		var { tracks, push } = this.props;
+		var tiles = tracks.map((track, index) => {
+			return React.createElement(TrackTile, {
+				key: index,
+				songname: track.song_name,
+				artistname: track.artist_name,
+				trackname: track.track_name,
 				id: track.id,
 				songURL: track.songURL,
 				starttime: track.starttime,
 				set_length: track.set_length,
-				event: track.event,
-				artist: track.artist,
+				event: track.event.event,
+				artist: track.artists[0].artist,
 				is_radiomix: track.is_radiomix,
 				event_id: track.event_id,
-				main_eventimageURL: track.main_eventimageURL,
-				artistimageURL: track.artistimageURL,
-				push: push,
-				key: index
-			};
-
-			return <TrackTile {...props} />
+				banner_image: track.event.banner_image.imageURL,
+				artist_image: track.artists[0].icon_image.imageURL_small
+			})
 		});
 
 		return (
-			<div className={this.props.containerClass} id={this.props.containerId}>
+			<div className={this.props.className}>
 				{tiles}
 			</div>
 		);
@@ -52,4 +44,4 @@ var TrackContainer = React.createClass({
 
 });
 
-module.exports = TrackContainer;
+export default TrackContainer;

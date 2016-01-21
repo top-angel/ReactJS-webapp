@@ -10,20 +10,14 @@ var ArtistTileContainer = React.createClass({
 	},
 
 	render: function() {
-		var artists = this.props.artists;
-		var push = this.props.push;
-
-		var tiles = artists.map(artist => {
-			var props = {
+		var tiles = this.props.artists.map(artist => {
+			return React.createElement(ArtistTile, {
 				artist: artist.artist,
 				key: artist.id,
-				push: push,
-				imageURL: artist.imageURL,
+				imageURL: artist.icon_image.imageURL,
 				set_count: artist.set_count,
 				event_count: artist.event_count
-			};
-
-			return <ArtistTile {...props} />;
+			})
 		});
 
 		return (
@@ -35,4 +29,4 @@ var ArtistTileContainer = React.createClass({
 
 });
 
-module.exports = ArtistTileContainer;
+export default ArtistTileContainer;

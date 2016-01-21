@@ -10,6 +10,8 @@
     "modules": true,
   },
 
+  "parser": "babel-eslint",
+
   "rules": {
     "semi": [2, "always"],
     "quotes": [1, "single"],
@@ -45,6 +47,7 @@
   },
 
   "plugins": [
-    "react"
+    "react",
+    "babel"
   ]
 }

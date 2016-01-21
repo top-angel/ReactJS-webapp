@@ -1,7 +1,5 @@
 import React from 'react';
-// import playerService from '../services/playerService.js';
-import {generateSound, togglePlay} from '../services/playerService';
-import constants from '../constants/constants';
+import {generateSound, mixpanelTrackSetPlay} from '../services/playerService';
 
 import PlayerControl from './PlayerControl';
 import PlayerSeek from './PlayerSeek';
@@ -12,17 +10,15 @@ import PlayerShare from './PlayerShare';
 var playingClass = 'fa center fa-pause play-button';
 var pausedClass = 'fa center fa-play play-button';
 
-var Player = React.createClass({
-	
-	displayName: 'Player',
+const Player = React.createClass({
+	contextTypes: {
+		push: React.PropTypes.func
+	},
 
-	componentDidMount: function() {
-		var push = this.props.push;
+	componentDidMount() {
 		var sound = this.props.appState.get('sound');
-		var _this = this;
-
 		if(sound != null) {
-			push({
+			this.context.push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					playerHidden: false
@@ -31,15 +27,14 @@ var Player = React.createClass({
 		}
 	},
 
-	componentWillReceiveProps: function(nextProps) {
-		var push = this.props.push;
-		var self = this;
+	componentWillReceiveProps(nextProps) {
+		var appState = this.props.appState;
+		var push = this.context.push;
 
-		if(nextProps.appState.get('currentSet') != this.props.appState.get('currentSet')) {
+		if(nextProps.appState.get('currentSet') != appState.get('currentSet')) {
 			var starttime = nextProps.appState.get('currentSet').starttime;
 
-			generateSound(starttime, nextProps.appState, push)
-			.then(function(smObj) {
+			generateSound(starttime, nextProps.appState, push).then(function(smObj) {
 				//play a new set
 				push({
 					type: 'SHALLOW_MERGE',
@@ -52,56 +47,25 @@ var Player = React.createClass({
 
 				// Log Mixpanel event
 				var selectedSet = nextProps.appState.get('currentSet');
-				var setName = selectedSet.artist+' - '+selectedSet.event;
-
-				mixpanel.track("Set Play", {
-					"set_id": selectedSet.id,
-					"set_name": setName,
-					"set_artist": selectedSet.artist,
-					"set_event": selectedSet.event
-				});
-
-				// mixpanel user tracking
-				mixpanel.people.increment("play_count");
-				mixpanel.people.append("sets_played_ids", setProperties.set_id);
-				mixpanel.people.append("sets_played_names", setProperties.set_name);
-				mixpanel.people.append("sets_played_artists", setProperties.set_artist);
-				mixpanel.people.append("sets_played_events", setProperties.set_event);
+				mixpanelTrackSetPlay(selectedSet);
 			});
 		} 
 	},
 
-	togglePlay: function() {
-		var sound = this.props.appState.get('sound');
-		togglePlay(sound);
-	},
-
-	render: function() {
-		var push = this.props.push;
+	render() {
 		var appState = this.props.appState;
 		var currentSet = appState.get('currentSet');
-		var playerHidden = appState.get('playerHidden');
-
-		var props = {
-			appState: appState,
-			push: push
-		};
-
-		if(playerHidden) {
-			var playerClass = 'flex-row hidden';
-		} else {
-			var playerClass = 'flex-row';
-		}
+		var hidePlayer = appState.get('playerHidden') ? 'hidden' : '';
 
 		return (
-			<div className={playerClass} id='Player'>
-				<PlayerControl appState={appState} push={push} />
+			<div className={`flex-row ${hidePlayer}`} id='Player'>
+				<PlayerControl appState={appState} />
 				<div className='flex-column flex'>
-					<PlayerSeek appState={appState} push={push} />
+					<PlayerSeek appState={appState} />
 					<div className='flex flex-row'>
-						<PlayerSetInfo appState={appState} push={push} />
-						<PlayerTracklist {...props} />
-						<PlayerShare appState={appState} push={push} />
+						<PlayerSetInfo appState={appState} />
+						<PlayerTracklist appState={appState} />
+						<PlayerShare appState={appState} />
 					</div>
 				</div>
 			</div>
@@ -109,4 +73,4 @@ var Player = React.createClass({
 	}
 });
 
-module.exports = Player;
+export default Player;

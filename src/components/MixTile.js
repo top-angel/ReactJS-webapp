@@ -1,26 +1,20 @@
 import React from 'react';
-import constants from '../constants/constants';
-import {History} from 'react-router';
+import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
+import history from '../services/history';
 
 var MixTile = React.createClass({
-
-	mixins: [History],
-	openMixPage: function() {
-		var routePath = this.props.event.split(' ').join('-');
-
-		this.history.pushState(null, '/mix/' + routePath);
+	displayName: 'Mix Tile',
+	openMixPage() {
+		history.pushState(null, '/mix/' + this.props.id);
 	},
-	render: function() {
-		var image = constants.S3_ROOT_FOR_IMAGES + this.props.imageURL;
-
+	render() {
 		return (
-			<div className='mix-tile flex-column overlay-container click'onClick={this.openMixPage}>
-				<img src={constants.S3_ROOT_FOR_IMAGES + 'small_' + this.props.imageURL}/>
+			<div className='mix-tile flex-column click'onClick={this.openMixPage}>
+				<img src={S3_ROOT_FOR_IMAGES + this.props.iconImage}/>
 				<span className='mix center'>{this.props.event}</span>
 			</div>
 		);
 	}
-
 });
 
 module.exports = MixTile;

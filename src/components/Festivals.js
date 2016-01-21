@@ -1,17 +1,16 @@
 import React from 'react';
 import Loader from 'react-loader';
 import {API_ROOT} from '../constants/constants';
+import api from '../services/api'
 
 import FestivalTile from './FestivalTile';
-
-var TITLE = 'Festivals';
-var TYPE = 'event';
 
 var Festivals = React.createClass({
 
 	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			festivals: []
 		};
 	},
 
@@ -24,55 +23,30 @@ var Festivals = React.createClass({
 	},
 
 	getFestivals() {
-		var push = this.props.push;
-		var results,
-			festivalUrl = API_ROOT + 'festival';
-
-		$.ajax({
-			url: festivalUrl,
-			type: 'get'
+		api.get('events/festivals').then(res => {
+			this.setState({
+				loaded: true,
+				festivals: res.events_festivals
+			});
 		})
-		.done(res => {
-			if(res.status === 'success') {
-				results = res.payload.festival;
-				
-				push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						festivalBrowseData: results
-					}
-				});
-
-				this.setState({
-					loaded: true
-				});
-			}
-		});
 	},
 
 	render() {
-		var appState = this.props.appState.get('festivalBrowseData');
-		var push = this.props.push;
-		var containerClass = 'flex-row scrollable tile-container';
-
-		var tiles = appState.map((festival, index) => {
-			var props = {
-				push: push,
+		var festivalTiles = this.state.festivals.map((festival, index) => {
+			return React.createElement(FestivalTile, {
 				key: index,
 				id: festival.id,
-				main_imageURL: festival.main_imageURL,
-				set_count: festival.set_count,
-				event: festival.event,
-				start_date: festival.start_date
-			};
-
-			return <FestivalTile {...props} />
+				festival: festival.event,
+				bannerImage: festival.banner_image.imageURL,
+				setCount: festival.set_count,
+				formattedDate: festival.formatted_date
+			})
 		});
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div className={containerClass}>
-					{tiles}
+				<div className='flex-row scrollable tile-container'>
+					{festivalTiles}
 				</div>
 			</Loader>
 		);
@@ -80,4 +54,4 @@ var Festivals = React.createClass({
 
 });
 
-module.exports = Festivals;
+export default Festivals

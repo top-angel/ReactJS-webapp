@@ -18,6 +18,7 @@ body {
 	width: 100vw;
 	overflow-x:hidden;
 	font-size: @defaultFontSize;
+	background: @white;
 	font-family: Avenir Light;
 	-webkit-text-size-adjust: 100%;
 	.small({
@@ -136,16 +137,18 @@ a {
 	font-family: @regular;
 }
 #detail-button {
-	#listen-now;
 	.border-radius(30px);
 }
 .detail-page {
 	.background(@white, white);
 	text-align: center;
+	position: relative;
+	margin-bottom: @playerHeight;
+	top: @headerHeight;
 	h1 {
 		margin-top: 10vh;
 	}
-	>.image-container {
+	>.detail-header {
 		height: 45vh;
 		background-size: 100%;
 		background-position-y: 40%;
@@ -241,7 +244,8 @@ a {
 	.background(@light-gray, @gray);
 	overflow-x: scroll;
 	.container {
-		width: 625%;
+		// TODO find way to not hardcode
+		width: 1575%;
 		height: 100%;
 	}
 	.small({
@@ -267,40 +271,27 @@ a {
 	.transition(0.2s);
 	.createOverlay(0.2, @dark-gray);
 	.transition(@panel-transition-duration);
+	.featured-info {
+	    position: absolute;
+	    left: 1rem;
+	    bottom: 1rem;
+	    .animation(0.3s);
+	}
 	&:hover {
 		.createOverlay(0.8, @dark-gray);
 		.featured-info {
 			visibility: visible;
 		}
 	}
-	.event-name {
-		font-family: @regular;
-	}
-	.event-type {
-		visibility: visible!important;
-	}
 	.small({
 		width: 50vw;
 		font-size: 1.3rem;
 		.createOverlay(0.4, @dark-gray);
-		.featured-info {
-			visibility: visible;
-			.event-name {
-				font-size: 1.75rem;
-			}
-		}	
 	});
 	.medium({
-		width: 100vw/3;
+		width: @windowWidth/3;
 		font-size: 1.2rem;
 	});
-}
-.featured-info {
-    position: absolute;
-    left: 6%;
-    bottom: 8%;
-    visibility: hidden;
-    .animation(@panel-transition-duration);
 }
 
 .festival-tile {
@@ -417,7 +408,9 @@ header {
 }
 
 #HomeView {
+	position: relative;
 	height: @pageHeightWithoutPlayer;
+	top: @headerHeight;
 	color: @dark-gray;
 	.loadedContent {
 		.flex-row;
@@ -633,20 +626,20 @@ header {
 	}
 }
 
-#listen-now {
+#listen-now, #detail-button {
 	border: solid 1px;
-	padding: 1vh 2vw;
-	width: 40%;
+	padding: .5rem 2rem;
+	width: 8rem;
+	margin: 2rem auto 4rem;
+	.click;
 	&:hover {
 		background-color: fade(@blue, 10%);
 	}
 	&:active {
 		background-color:@blue;
 	}
-	.desktop({
-		width: initial;
-	});
 }
+#listen-now {width:12rem}
 
 #LocationModule {
 	.background(@light-gray, @gray*0.9);
@@ -691,7 +684,7 @@ header {
 	background-color: fade(@dark-gray, 75%);
 	display: flex;
 	position: absolute;
-	z-index: 1000;
+	z-index: 99;
 	width: 100%!important;
 	height: 100%;
 	font-size: 1rem;
@@ -831,6 +824,7 @@ header {
 }
 #PlayerTracklist {
 	text-align: center;
+	cursor: pointer;
 	.background(@dark-gray, @white);
 	&:hover {
 		.background(@dark-gray*1.1, white);
@@ -912,8 +906,11 @@ header {
 #PlayerShare {
 	width: @tracklistOffset;
 	@modalHeight: 5vh;
-	.link:hover {
-		color: @blue;
+	.link {
+		cursor: pointer;
+		&:hover {
+			color: @blue;
+		}
 	}
 	.modal {
 		.background(@dark-gray, @white);
@@ -963,12 +960,9 @@ header {
 	width:0;
 }
 
-.search-bar	{
-	margin-right: 1vw;
-}
-
 #SearchResultsView {
 	color: @dark-gray;
+	min-height: @windowHeight - @headerHeight;
 	.header-small {
 		margin: 1vh 0;
 		padding: 5px 1vw;
@@ -1040,9 +1034,9 @@ header {
 		}
 	}
 	.modal {
-		@modalHeight: 3vh;
+		@modalHeight: 1.5rem;
 		.background(@light-gray, @dark-gray);
-		.size(12vw, @modalHeight);
+		.size(8rem, @modalHeight);
 		position: absolute;
 		bottom: 55%;
 		right: 20%
@@ -1112,7 +1106,8 @@ header {
     min-height: 50vh;
     width: 100%;
     background-color: @white;
-    padding-bottom: @playerHeight;
+    // margin-bottom: @playerHeight;
+    position: relative;
 }
 
 .track-tile {

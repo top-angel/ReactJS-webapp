@@ -1,71 +1,44 @@
-import React from 'react';
-import Loader from 'react-loader';
-import constants from '../constants/constants';
-import SetContainer from './SetContainer';
+import React from 'react'
+import Loader from 'react-loader'
+import api from '../services/api'
+import SetContainer from './SetContainer'
 
-var TITLE = 'Popular';
-var TYPE = 'set';
 var Popular = React.createClass({
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
-			loaded: false
-		};
+			loaded: false,
+			sets: []
+		}
 	},
 
-	componentWillMount: function() {
-		this.getPopularSets();
+	componentWillMount() {
+		this.getPopularSets()
 	},
 
-	componentDidMount: function() {
-		mixpanel.track("Popular Sets Page Open");
+	componentDidMount() {
+		mixpanel.track("Popular Sets Page Open")
 	},
 
-	getPopularSets: function() {
-		var _this = this;
-		var push = this.props.push;
-		var results,
-			popularUrl = constants.API_ROOT + 'popular';
-
-		$.ajax({
-			url: popularUrl,
-			type: 'get'
+	getPopularSets() {
+		api.get('sets/popular').then(res => {
+			this.setState({
+				loaded: true,
+				sets: res.sets_popular
+			});
 		})
-		.done(function(response) {
-			results = response.payload.popular;
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					popularBrowseData: results
-				}
-			});
-
-			_this.setState({
-				loaded: true
-			});
-		});
 	},
 
-	render: function() {
-		var data = this.props.appState.get('popularBrowseData');
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
-		var user = this.props.appState.get('user');
-		var containerClass = 'flex-row scrollable';
-		var push = this.props.push;
-		
+	render() {
 		return (
 			<Loader loaded={this.state.loaded}>
-				<SetContainer
-					push={push}
-					sets={data}
-					containerClass={containerClass}
-					loginStatus={loginStatus}
-					user={user}
-				/>
+				<SetContainer 
+					className='flex-row scrollable'
+					sets={this.state.sets} />
 			</Loader>
-		);
+		)
 	}
 
-});
+})
 
-module.exports = Popular;
+export default Popular

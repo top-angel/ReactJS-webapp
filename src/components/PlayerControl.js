@@ -1,32 +1,27 @@
 import React from 'react';
-import playerService from '../services/playerService.js';
-import constants from '../constants/constants';
+import {togglePlay} from '../services/playerService';
+import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
 
-var PlayerControl = React.createClass({
-
-	displayName: 'PlayButton',
-	getDefaultProps() {
-		return {
-			appState: {}
-		};
+const PlayerControl = React.createClass({
+	contextTypes: {
+		push: React.PropTypes.func
 	},
 
 	componentDidMount() {
-		var self = this;
-
-		$(document.body).on('keypress', function(e) {
+		// TODO do this without jquery
+		$(document.body).on('keypress', (e) => {
 			var search = document.getElementById('search');
 			var key = e.charCode;
 
 			switch(true) {
 				case(key == 32 && search != document.activeElement):
 					e.preventDefault();
-					self.togglePlay();
+					this.togglePlay();
 					break;
 				case(key >= 97 && key <= 122 && document.location.pathname != '/events'):
 					search.focus();
 					break;
-				case(key >= 65 && key <=90 &&document.location.pathname != '/events'):
+				case(key >= 65 && key <= 90 && document.location.pathname != '/events'):
 					search.focus();
 					break;
 			}
@@ -36,10 +31,9 @@ var PlayerControl = React.createClass({
 	togglePlay() {
 		var sound = this.props.appState.get('sound');
 		var playing = this.props.appState.get('playing');
-		var push = this.props.push;
 
-		playerService.togglePlay(sound);
-		push({
+		togglePlay(sound);
+		this.context.push({
 			type: 'SHALLOW_MERGE',
 			data: {
 				playing: !playing
@@ -52,23 +46,22 @@ var PlayerControl = React.createClass({
 		var playing = this.props.appState.get('playing');
 
 		if(!!playing) {
-			var playingClass = 'fa center fa-pause';
+			var playButtonIcon = 'fa center fa-pause';
 		} else {
-			var playingClass = 'fa center fa-play';
+			var playButtonIcon = 'fa center fa-play';
 		}
 
 		var image = {
-			backgroundImage: "url('"+constants.S3_ROOT_FOR_IMAGES+'small_'+currentSet.artistimageURL+"')",
+			backgroundImage: `url('${S3_ROOT_FOR_IMAGES+currentSet.artistImage}')`,
 			backgroundSize: '100% 100%'
 		};
 
 		return (
 			<div className='click flex-container' id='PlayButton' onMouseUp={this.togglePlay} style={image}>
-				<i className={playingClass}/>
-				<img className='hidden' src={constants.S3_ROOT_FOR_IMAGES+'small_'+currentSet.artistimageURL} />
+				<i className={playButtonIcon}/>
 			</div>
 		);
 	}
 });
 
-module.exports = PlayerControl;
+export default PlayerControl;

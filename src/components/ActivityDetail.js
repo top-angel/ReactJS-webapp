@@ -8,31 +8,32 @@ import DetailImageContainer from './DetailImageContainer';
 var ActivityDetail = React.createClass({
 
 	displayName: 'activityDetail',
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			loaded: false
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount() {
 		this.getactivityData();
 	},
 
-	getactivityData: function() {
-		var _this = this;
+	getactivityData() {
 		var push = this.props.push;
 		var activity = this.props.params.activity;
 
 		var activityData,
-			activityUrl = constants.API_ROOT + 'activity/?activityId=' + activity;
+			activityUrl = 'https://setmine.com/api/v/8/activity/';
 
 		$.ajax({
 			url: activityUrl,
 			type: 'get',
+			data: {
+				activityId: activity
+			}
 		})
-		.done(function(response) {
-			activityData = response.payload.activity;
-
+		.done(res => {
+			activityData = res.payload.activity;
 			push({
 				type: 'SHALLOW_MERGE',
 				data: {
@@ -41,20 +42,21 @@ var ActivityDetail = React.createClass({
 				}
 			});
 
-			_this.setState({
+			this.setState({
 				loaded: true
 			});
 		});
 	},
 
-	render: function() {
+	render() {
 		var appState = this.props.appState;
 		var push = this.props.push;
 
 		var data = appState.get('detailData');
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
-		var user = this.props.appState.get('user');
-		var setText = data.sets.length > 1 ? ' sets' : ' set';
+		console.log(data);
+		var loginStatus = appState.get('isUserLoggedIn');
+		var user = appState.get('user');
+		var setText = data.sets.length != 1 ? ' sets' : ' set';
 
 		var detailInfo = {
 			appState: appState,
@@ -63,7 +65,7 @@ var ActivityDetail = React.createClass({
 			buttonText: 'Recommend',
 			pageType: 'activity',
 			imageURL: data.banner_imageURL,
-			info: data.sets.length+ setText
+			info: data.sets.length + setText
 		};
 
 		var setProps = {

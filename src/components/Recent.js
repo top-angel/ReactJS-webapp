@@ -1,70 +1,42 @@
-import React from 'react';
-import Loader from 'react-loader';
-import constants from '../constants/constants';
-import SetContainer from './SetContainer';
-
-var TITLE = 'Recent';
-var TYPE = 'set';
+import React from 'react'
+import Loader from 'react-loader'
+import api from '../services/api'
+import SetContainer from './SetContainer'
 
 var Recent = React.createClass({
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
-			loaded: false
-		};
+			loaded: false,
+			sets: []
+		}
 	},
 
-	componentWillMount: function() {
-		this.getRecentSets();
+	componentWillMount() {
+		this.getRecentSets()
 	},
 
-	componentDidMount: function() {
-		mixpanel.track("Sets Page Open");
+	componentDidMount() {
+		mixpanel.track("Sets Page Open")
 	},
 
-	getRecentSets: function() {
-		var _this = this;
-		var push = this.props.push;
-		var recentSets,
-			recentUrl = constants.API_ROOT + 'recent';
-
-		$.ajax({
-			url: recentUrl,
-			type: 'get'
+	getRecentSets() {
+		api.get('sets/recent').then(res => {
+			this.setState({
+				loaded: true,
+				sets: res.sets_recent
+			});
 		})
-		.done(function(response) {
-			recentSets = response.payload.recent;
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					recentBrowseData: recentSets
-				}
-			});
-
-			_this.setState({
-				loaded: true
-			});
-		});
 	},
-	render: function() {
-		var sets = this.props.appState.get('recentBrowseData');
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
-		var user = this.props.appState.get('user');
-		var containerClass = 'flex-row scrollable tile-container';
-		
+
+	render() {
 		return (
 			<Loader loaded={this.state.loaded}>
-				<SetContainer
-					push={this.props.push}
-					sets={sets}
-					containerClass={containerClass}
-					loginStatus={loginStatus}
-					user={user}
-				/>
+				<SetContainer sets={this.state.sets} />
 			</Loader>
-		);
+		)
 	}
 
-});
+})
 
-module.exports = Recent;
+export default Recent

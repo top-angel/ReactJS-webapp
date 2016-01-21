@@ -3,32 +3,25 @@ import {Link} from 'react-router';
 
 var Footer = React.createClass({
 
-	scrollToTop: function() {
-		$(window).scrollTo(0,200);
-	},
-	trackiOS: function() {
+	trackiOS() {
 		mixpanel.track("iOS App Link Clicked");
 	},
-	trackAndroid: function() {
+	trackAndroid() {
 		mixpanel.track("Android App Link Clicked");
 	},
 
-	render: function() {
+	render() {
 		return (
 			<footer>
 				<div className='flex-column links'>
 					<a className='click hidden' id='contact'>
 						Contact Us
 					</a>
-					<Link to='/about'>
-						<a className='click' href='https://www.setmine.com/about'>
-							About
-						</a>
+					<Link to='/about' className='click'>
+						About
 					</Link>
-					<Link to='/legal'>
-						<a className='click' id='dmca'>
-							DMCA Notice
-						</a>
+					<Link to='/legal' className='click' id='dmca'>
+						DMCA Notice
 					</Link>
 					<a href='http://bit.ly/SetmineiOS' onClick={this.trackiOS} title='view on App Store' className='click'>
 						iOS
@@ -36,15 +29,13 @@ var Footer = React.createClass({
 					<a href='http://bit.ly/SetmineAndroid' onClick={this.trackAndroid} title='view on Google Play'className='click'>
 						Android
 					</a>
-					<Link to='/setstory'>
-						<a className='click'>
-							Setstory 
-						</a>
+					<Link to='/setstory' className='click'>
+						Setstory
 					</Link>
 					<div className='copyright'>
-		             	<i className='fa fa-copyright'/> 
-		             	{' Setmusic LLC. 2015'}
-	             	</div>
+						<i className='fa fa-copyright'/> 
+						{' Setmusic LLC. 2015'}
+					</div>
 	          </div>
 				<div className='flex-column social'>
 					<h4 className='flex-row'>
@@ -78,7 +69,7 @@ var Footer = React.createClass({
 					<a className='center' href='https://teamtreehouse.com'><img src='/images/treehouse.png' /></a>
 					<a className='center' href='https://mixpanel.com/f/partner'><img src='//cdn.mxpnl.com/site_media/images/partner/badge_light.png' alt='Mobile Analytics' /></a>
 				</div>
-	        </footer>
+			</footer>
 		);
 	}
 });
