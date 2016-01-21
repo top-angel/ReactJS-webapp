@@ -37,13 +37,18 @@
 		width: 47%;
 	}, 620px, 1050px);
 }
-.link:hover {
-	color:@blue;
+.link {
+	&:hover {
+		color:@blue;
+		.transition(0.2s, ease-in, color);
+	}
 }
-.play:hover {
-	background-color: fade(@dark-gray, 100%);
+.play {
+	cursor: pointer;
+	&:hover {
+		background-color: fade(@dark-gray, 100%);
+	}
 }
-
 .detail {
 	.background(fade(@dark-gray, 90%), white);
 	position: relative;

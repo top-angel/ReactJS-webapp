@@ -49,7 +49,7 @@ class TrackTile extends BaseComponent {
 		var time = `${this.props.starttime} | ${this.props.set_length}`
 
 		return (
-			<div styleName='track-tile' className='flex-column click' style={image} onClick={this.playSet} >
+			<div styleName='track-tile' className='flex-column' style={image} onClick={this.playSet} >
 			    <div styleName='track' className='flex-row'>
 			    	<img src={S3_ROOT_FOR_IMAGES+this.props.artist_image} />
 			    	<p>

@@ -2,6 +2,7 @@ import React from 'react';
 import Immutable from 'immutable';
 import DocMeta from 'react-doc-meta';
 import R from 'ramda';
+import InjectTapEventPlugin from 'react-tap-event-plugin'
 
 import GlobalEventHandler from '../services/globalEventHandler';
 import {playSet, updatePlayCount} from '../services/playerService';
@@ -10,7 +11,11 @@ import {getFavorites} from '../services/favoriteSet';
 import detectMobileService from '../services/detectMobileService';
 import {DEFAULT_IMAGE} from '../constants/constants';
 
+// TODO move index.less from index.html to here
 // import styles from '../../public/globals.css'
+
+// fix mobile touch events not registering
+InjectTapEventPlugin()
 
 import Header from './Header';
 import Player from './Player';

@@ -1,19 +1,8 @@
-import React from 'react';
-import {API_ROOT} from '../constants/constants';
-import EventContainer from './EventContainer';
+import React from 'react'
+import EventContainer from './EventContainer'
 
-const ClosestEvents = React.createClass({
-	displayName: 'Events Around Me',
-	render() {
-		var props = {
-			events: this.props.appState.get('closestEvents'),
-			push: this.props.push
-		};
+const ClosestEvents = ( props ) => {
+	return <EventContainer events={props.appState.get('closestEvents')} />
+}
 
-		return (
-			<EventContainer {...props} />
-		);
-	}
-});
-
-export default ClosestEvents;
+export default ClosestEvents

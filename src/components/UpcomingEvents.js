@@ -1,62 +1,32 @@
-import React from 'react';
-import {API_ROOT} from '../constants/constants';
-import Loader from 'react-loader';
-import EventContainer from './EventContainer';
+import React from 'react'
+import BaseComponent from './BaseComponent'
+import api from '../services/api'
+import Loader from 'react-loader'
+import EventContainer from './EventContainer'
 
-var UpcomingEvents = React.createClass({
-
-	getInitialState() {
-		return {
+export default class UpcomingEvents extends BaseComponent {
+	constructor(props) {
+		super(props)
+		this.autoBind('getUpcomingEvents')
+		this.state = {
 			loaded: false,
 			upcomingEvents: []
-		};
-	},
-
-	componentWillMount() {
-		this.getUpcomingEvents();
-	},
-
+		}
+		this.getUpcomingEvents()
+	}
 	getUpcomingEvents() {
-		var push = this.props.push;
-		$.ajax({
-			type: 'get',
-			url: `${API_ROOT}events/upcoming`,
-			data: {
-				property: 'start_date',
-				order: 'ASC'
-			}
+		api.get('events/upcoming?property=start_date&order=ASC').then(res => {
+			this.setState({
+				loaded: true,
+				upcomingEvents: res.upcoming
+			})
 		})
-		.done(res => {
-			if(res.status === 'success') {
-				// push({
-				// 	type: 'SHALLOW_MERGE',
-				// 	data: {
-				// 		upcomingEvents: res.payload.upcoming
-				// 	}
-				// });
-				this.setState({
-					loaded: true,
-					upcomingEvents: res.payload.upcoming
-				});
-			}
-		});
-	},
-
+	}
 	render() {
-		var props = {
-			push: this.props.push,
-			// events: this.props.appState.get('upcomingEvents'),
-			events: this.state.upcomingEvents,
-			containerClass: 'flex-row tile-container'
-		};
-
 		return (
 			<Loader loaded={this.state.loaded}>
-				<EventContainer {...props} />
+				<EventContainer events={this.state.upcomingEvents} />
 			</Loader>	
-		);
+		)
 	}
-
-});
-
-export default UpcomingEvents;
+}

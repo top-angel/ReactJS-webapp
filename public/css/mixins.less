@@ -29,13 +29,6 @@
     background-color:@color;
     color:@textColor;
 }
-.blur {
-    background-size: cover;
-    left: -25px;
-    right: -25px;
-    top: -25px;
-    bottom: -25px;
-}
 .border-radius(@radius) {
   -webkit-border-radius: @radius;
     -moz-border-radius: @radius;
@@ -70,12 +63,6 @@
     cursor:pointer;
     .transition(0.1s, ease-in, color);
 }
-.createBlur(@image, @length) {
-    filter: blur(@length);
-    -webkit-filter: blur(@length);
-    background: @image;
-    position: absolute;
-}
 .createDivider(@width, @height:initial, @color) {
     height: @height;
     width: @width;
@@ -108,24 +95,24 @@
 .hidden  {
     display:none!important;
 }
-.header  {
-    font-size:4rem;
-    font-weight: 400;
-    font-family: Avenir Regular;
-    letter-spacing: 0.5rem;
-}
-.header-medium {
-    font-size:3rem;
-    font-weight:400;
-    font-family: Avenir Regular;
-    letter-spacing: 0.2rem;
-}
-.header-small  {
-    font-size:1.25rem;
-    font-weight: 300;
-    font-family: Avenir Regular;
-    letter-spacing: 0.1rem;
-}
+// .header  {
+//     font-size:4rem;
+//     font-weight: 400;
+//     font-family: Avenir Regular;
+//     letter-spacing: 0.5rem;
+// }
+// .header-medium {
+//     font-size:3rem;
+//     font-weight:400;
+//     font-family: Avenir Regular;
+//     letter-spacing: 0.2rem;
+// }
+// .header-small  {
+//     font-size:1.25rem;
+//     font-weight: 300;
+//     font-family: Avenir Regular;
+//     letter-spacing: 0.1rem;
+// }
 .heading(@background, @color) {
     .background(@background, @color);
     .flex-container;
@@ -139,6 +126,7 @@
 }
 .hover(@color, @multiplier: 0.8) {
     color: @color;
+    .transition(0.2s, ease-in, color);
     &:hover {
       color: @color*@multiplier;
     }

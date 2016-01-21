@@ -1,36 +1,32 @@
-import React from 'react';
-import Loader from 'react-loader';
-import {API_ROOT} from '../constants/constants';
+import React from 'react'
+import Loader from 'react-loader'
+import {API_ROOT} from '../constants/constants'
 import api from '../services/api'
 
-import FestivalTile from './FestivalTile';
+import FestivalTile from './FestivalTile'
+import BaseComponent from './BaseComponent'
 
-var Festivals = React.createClass({
-
-	getInitialState() {
-		return {
+export default class Festivals extends BaseComponent {
+	constructor(props) {
+		super(props)
+		this.autoBind('getFestivals')
+		this.state = {
 			loaded: false,
 			festivals: []
-		};
-	},
-
-	componentWillMount() {
-		this.getFestivals();
-	},
-
+		}
+		this.getFestivals()
+	}
 	componentDidMount() {
-		mixpanel.track("Festivals Page Open");
-	},
-
+		mixpanel.track("Festivals Page Open")
+	}
 	getFestivals() {
 		api.get('events/festivals').then(res => {
 			this.setState({
 				loaded: true,
 				festivals: res.events_festivals
-			});
+			})
 		})
-	},
-
+	}
 	render() {
 		var festivalTiles = this.state.festivals.map((festival, index) => {
 			return React.createElement(FestivalTile, {
@@ -41,7 +37,7 @@ var Festivals = React.createClass({
 				setCount: festival.set_count,
 				formattedDate: festival.formatted_date
 			})
-		});
+		})
 
 		return (
 			<Loader loaded={this.state.loaded}>
@@ -49,9 +45,6 @@ var Festivals = React.createClass({
 					{festivalTiles}
 				</div>
 			</Loader>
-		);
+		)
 	}
-
-});
-
-export default Festivals
+}

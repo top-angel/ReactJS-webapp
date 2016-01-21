@@ -12,9 +12,9 @@
   "scripts": {
     "start": "forever stopall; forever start server.js;",
     "stop": "forever stopall;",
-    "deploy": "webpack -p --config webpack.config.production.js; npm start",
+    "deploy": "webpack -p --config webpack.config.production.js",
     "test": "webpack-dev-server --progress --colors",
-    "link": "eslint src"
+    "lint": "eslint src"
   },
   "dependencies": {
     "babel-core": "^6.2.1",
@@ -43,6 +43,7 @@
     "react-geosuggest": "^1.13.0",
     "react-loader": "^2.0.0",
     "react-motion": "^0.3.1",
+    "react-tap-event-plugin": "^0.2.1",
     "rx": "^3.1.0",
     "serve-favicon": "~2.3.0",
     "soundmanager2": "^2.97.20150601-a",

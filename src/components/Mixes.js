@@ -1,49 +1,31 @@
-import React from 'react';
-import Loader from 'react-loader';
-import api from '../services/api';
+import React from 'react'
+import BaseComponent from './BaseComponent'
+import Loader from 'react-loader'
+import api from '../services/api'
 
-import MixTile from './MixTile';
+import MixTile from './MixTile'
 
-var Mixes = React.createClass({
-
-	getInitialState() {
-		return {
+export default class Mixes extends BaseComponent {
+	constructor(props) {
+		super(props)
+		this.autoBind('getMixes')
+		this.state = {
 			loaded: false,
 			mixes: []
-		};
-	},
-
-	componentWillMount() {
-		this.getMixes();
-	},
-
+		}
+		this.getMixes()
+	}
 	componentDidMount() {
-		mixpanel.track("Mixes Page Open");
-	},
-
+		mixpanel.track("Mixes Page Open")
+	}
 	getMixes() {
-		// $.ajax({
-		// 	url: `${API_ROOT}mixes`,
-		// 	type: 'get',
-		// 	data: {
-		// 		limit: 5000
-		// 	}
-		// }).done(res => {
-		// 	if(res.status === 'success') {
-		// 		this.setState({
-		// 			loaded: true,
-		// 			mixes: res.payload.mixes
-		// 		});
-		// 	}
-		// });
 		api.get('mixes?limit=5000').then(res => {
 			this.setState({
 				loaded: true,
 				mixes: res.mixes
-			});
+			})
 		})
-	},
-
+	}
 	render() {
 		var mixTiles = this.state.mixes.map((mix, index) => {
 			return React.createElement(MixTile, {
@@ -52,7 +34,7 @@ var Mixes = React.createClass({
 				event: mix.event,
 				iconImage: mix.icon_image.imageURL_small
 			})
-		});
+		})
 
 		return (
 			<Loader loaded={this.state.loaded}>
@@ -60,9 +42,6 @@ var Mixes = React.createClass({
 					{mixTiles} 
 				</div>
 			</Loader>
-		);
+		)
 	}
-
-});
-
-export default Mixes
+}
