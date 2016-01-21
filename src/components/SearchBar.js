@@ -1,24 +1,13 @@
 import React from 'react';
-import {History, Link} from 'react-router';
-import constants from '../constants/constants';
+import {Link} from 'react-router';
+import {API_ROOT} from '../constants/constants';
+import history from '../services/history';
 import _ from 'underscore';
 
 var SearchBar = React.createClass({
 
-	mixins: [History],
-
-	componentWillUnmount() {
-		this.props.push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				searchResults: {
-					sets: [],
-					upcomingEvents: [],
-					tracks: [],
-					artists: []
-				}
-			}
-		});
+	contextTypes: {
+		push: React.PropTypes.func
 	},
 
 	handleKeypress(e) {
@@ -29,36 +18,28 @@ var SearchBar = React.createClass({
 	},
 
 	search(query) {
-		var self = this;
-		var push = this.props.push;
-		var activeSearchAjax = null;
-		var results, 
-			searchUrl = constants.API_ROOT + 'search/' + query;
+		var searchUrl = `${API_ROOT}search/${query}`;
 
 		$.ajax({
 			url: searchUrl,
 			type: 'get'
-		})
-		.done(response => {
-			results = response.payload.search;
-			var artists = results.artists;
-			var sets = results.sets;
-			var events = results.upcomingEvents;
-			var tracks = results.tracks;
-
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					searchResults: {
-						sets: sets,
-						upcomingEvents: events,
-						tracks: tracks,
-						artists: artists
+		}).done(res => {
+			if(res.status === 'success') {
+				var {artists, sets, events, tracks} = res.payload.search;
+				this.context.push({
+					type: 'SHALLOW_MERGE',
+					data: {
+						searchResults: {
+							sets: sets,
+							upcomingEvents: events,
+							tracks: tracks,
+							artists: artists
+						}
 					}
-				}
-			});
+				});
 
-			self.history.pushState(null, '/search');
+				history.pushState(null, '/search');
+			}
 		});
 	},
 	
@@ -77,4 +58,4 @@ var SearchBar = React.createClass({
 });
 
 
-module.exports = SearchBar;
+export default SearchBar;

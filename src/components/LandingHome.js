@@ -37,4 +37,4 @@ var LandingHome = React.createClass({
 
 });
 
-module.exports = LandingHome;
+export default LandingHome;

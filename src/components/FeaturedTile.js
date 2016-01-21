@@ -1,54 +1,38 @@
-import React from 'react';
-import constants from '../constants/constants';
-import {History} from 'react-router';
+import React from 'react'
+import {S3_ROOT_FOR_IMAGES} from '../constants/constants'
+import {Motion, spring, presets} from 'react-motion'
+import history from '../services/history'
 
 var FeaturedTile = React.createClass({
-
-	mixins: [History],
-	componentDidMount: function() {
-		$('.featured-tile').hover(function() {
-			$('.featured-info', $(this)).addClass('slideInUp')
-		}, function() {
-			$('.featured-info').removeClass('slideInUp');
-		});
-	},
-
-	openDetailPage: function() {
-		var routePath = this.props.event.split(' ').join('-');
-
-		if(this.props.type == 'upcoming') {
-			this.history.pushState(null, '/event/' + this.props.id);
-		} else {
-			this.history.pushState(null, '/festival/' + routePath);
-		}
-		this.trackClick();
+	
+	openDetailPage() {
+		history.pushState(null, `/festival/${this.props.id}`)
+		this.trackClick()
 	},
 
 	trackClick() {
-		mixpanel.track("Featured Event Clicked", {
-			"event": this.props.event
-		});
+		mixpanel.track('Featured Event Clicked', {
+			'event': this.props.event
+		})
 	},
 
-	render: function() {
+	render() {
 		var image = {
-			backgroundImage: "url(" + constants.S3_ROOT_FOR_IMAGES + this.props.main_imageURL+")"
-		};
+			backgroundImage: `url(${S3_ROOT_FOR_IMAGES + this.props.banner_image})`
+		}
 
 		return (
-			<div 
-			className="featured-tile flex-column overlay-container click" 
-			style={image} 
-			onClick={this.openDetailPage} >
-			    <div className="flex-column featured-info animated">
-			        <div className="event-name">{this.props.event}</div>
-			        <div className="event-date">{this.props.formattedDate}</div>
-			        <div className="event-type">{this.props.type}</div>
-			    </div>
+			<div className='featured-tile flex-column overlay-container click' 
+				style={image} 
+				onClick={this.openDetailPage} >
+				<div className='featured-info flex-column animated'>
+					<h3 style={{margin: 0}}>{this.props.event}</h3>
+					{this.props.formattedDate}
+					{`${this.props.set_count} sets`}
+				</div>
 			</div>
-		);
+		)
 	}
+})
 
-});
-
-module.exports = FeaturedTile
+export default FeaturedTile

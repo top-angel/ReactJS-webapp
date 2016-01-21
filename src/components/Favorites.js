@@ -1,37 +1,68 @@
 import React from 'react';
+import R from 'ramda';
 import Loader from 'react-loader';
-import constants from '../constants/constants';
+
+import {getFavoriteSets} from '../services/favoriteSet'
+import api from '../services/api'
 import SetContainer from './SetContainer';
 
-var Favorites = React.createClass({
-
-	getInitialState: function() {
-		return {
-			loaded: true
-		};
+const Favorites = React.createClass({
+	contextTypes: {
+		push: React.PropTypes.func,
+		user: React.PropTypes.object,
+		loginStatus: React.PropTypes.bool
 	},
 
-	componentDidMount: function() {
+	componentDidMount() {
 		mixpanel.track("Favorites Page Open");
+		if(this.context.loginStatus) {
+			this.getFavoriteSets(this.context.user.id)
+		}
 	},
 
-	render: function() {
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
-		var user = this.props.appState.get('user');
-		var favorites = user.favorite_sets;
+	componentWillReceiveProps(nextProps, nextContext) {
+		if(nextContext.loginStatus) {
+			this.getFavoriteSets(nextContext.user.id)
+		}
+	},
 
+	getInitialState() {
+		return {
+			loaded: false,
+			favorites: []
+		}
+	},
+
+	getFavoriteSets(userId) {
+		api.get(`setmineuser/${userId}/stream?filter=favorites`).then(res =>{
+			this.setState({
+				favorites: res.setmineuser_stream,
+				loaded: true
+			});
+		})
+	},
+
+	// showFavorites(loginStatus) {
+	// 	if(loginStatus) {
+	// 		return (
+	// 			<Loader loaded={this.state.loaded}>
+	// 				<SetContainer sets={this.props.appState.get('favorites')})} />
+	// 			</Loader>
+	// 		);
+	// 	} else {
+	// 		return
+	// 	}
+	// },
+
+	render() {
+		var favorites = this.state.favorites;
 		return (
 			<Loader loaded={this.state.loaded}>
-				<SetContainer
-					sets={favorites}
-					push={this.props.push}
-					loginStatus={loginStatus}
-					user={user}
-				/>
+				<SetContainer sets={favorites} />
 			</Loader>
 		);
 	}
 
 });
 
-module.exports = Favorites;
+export default Favorites

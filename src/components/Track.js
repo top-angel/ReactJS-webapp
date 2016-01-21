@@ -1,36 +1,37 @@
 import React from 'react';
-import {changeTrack} from '../services/playerService.js';
-import convert from '../services/convert';
+import {changeTrack} from '../services/playerService';
+import {MMSSToMilliseconds} from '../services/convert';
 
 var Track = React.createClass({
 
-	displayName: 'Track',
-	getDefaultProps: function() {
+	contextTypes: {
+		push: React.PropTypes.func
+	},
+
+	getDefaultProps() {
 		return {
 			className: 'track flex',
 			starttime: 0,
 		};
 	},
 
-	changeTrack: function() {
-		var appState = this.props.appState;
-		var push = this.props.push;
-		var currentTrack = this.props.trackname;
-
-		var starttime = convert.MMSSToMilliseconds(this.props.starttime);
-		console.log(starttime);
-		changeTrack(appState, push, starttime, currentTrack);
+	changeTrack() {
+		var {appState, trackname, starttime, className} = this.props;
+		var starttime = MMSSToMilliseconds(starttime);
+		changeTrack(appState, this.context.push, starttime, trackname);
 	},
 
-	render: function() {
+	render() {
+		var {trackname, starttime, className} = this.props;
+
 		return (
-			<div className={this.props.className} onClick={this.changeTrack} >
-				<span className='starttime'>{this.props.starttime}</span>
-				<span className='trackname'>{this.props.trackname}</span>
+			<div className={className} onClick={this.changeTrack} >
+				<span className='starttime'>{starttime}</span>
+				<span className='trackname'>{trackname}</span>
 			</div>
 		);
 	}
 
 });
 
-module.exports = Track;
+export default Track;

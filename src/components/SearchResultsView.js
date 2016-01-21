@@ -6,6 +6,10 @@ import TrackContainer from './TrackContainer';
 
 var SearchResultsView = React.createClass({
 
+	contextTypes: {
+		push: React.PropTypes.func
+	},
+
 	getInitialState() {
 		return {
 			active: 'artists'
@@ -13,7 +17,7 @@ var SearchResultsView = React.createClass({
 	},
 
 // TODO make this without jquery
-	componentDidMount: function() {
+	componentDidMount() {
 		var self = this;
 		$('.results-filter').click(function(e){
 			var scrollOffset = -$('header').height()*0.875*2;
@@ -63,7 +67,7 @@ var SearchResultsView = React.createClass({
 
 	componentWillUnmount() {
 		$('#search').val('');
-		this.props.push({
+		this.context.push({
 			type: 'SHALLOW_MERGE',
 			data: {
 				searchResults: {
@@ -79,6 +83,7 @@ var SearchResultsView = React.createClass({
 		var searchResults = this.props.appState.get('searchResults');
 		var loginStatus = this.props.appState.get('isUserLoggedIn');
 		var user = this.props.appState.get('user');
+
 
 		var setClass = 'flex-row results sets';
 		var eventClass = 'flex-row results events';
@@ -111,21 +116,21 @@ var SearchResultsView = React.createClass({
 						push={this.props.push}
 						loginStatus={loginStatus}
 						user={user}
-						containerClass={setClass} />
+						className={setClass} />
 					<div className='header-small events'>EVENTS</div>
 					<EventContainer
 						events={searchResults.upcomingEvents}
 						push={this.props.push}
-						containerClass={eventClass} />
+						className={eventClass} />
 					<div className='header-small tracks'>TRACKS</div>
 					<TrackContainer
 						tracks={searchResults.tracks}
 						push={this.props.push}
-						containerClass={trackClass} />
+						className={trackClass} />
 				</div>
 			</div>
 		);
 	}
 });
 
-module.exports = SearchResultsView;
+export default SearchResultsView;

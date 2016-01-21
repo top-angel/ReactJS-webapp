@@ -1,9 +1,11 @@
 import React from 'react';
-import $ from 'jquery';
+import {fadeTransition} from '../services/animations'
 
 var LandingApp = React.createClass({
 
 	componentDidMount() {
+		$.scrollTo(0,0);
+
 		var activeSlide = 'fa fa-fw fa-circle click';
 		var inactiveSlide = 'fa fa-fw fa-circle-o click';
 		var slides = $('.slide'),
@@ -63,7 +65,7 @@ var LandingApp = React.createClass({
 					</div>
 				</div>
 
-				<div className='flex-row overlay-container slide slide-2 hidden'>
+				<div className='flex-row slide slide-2 hidden'>
 					<div className='flex-column flex-fixed text-container animated fadeIn'>
 					   <h1 className='animated bounceInLeft'>
 					   		Discover upcoming events near you
@@ -80,7 +82,7 @@ var LandingApp = React.createClass({
 					</div>
 				</div>
 				
-	          <div className='flex-row overlay-container slide slide-3 animated fadeIn hidden'>
+	          <div className='flex-row slide slide-3 animated fadeIn hidden'>
 					<div className='flex-column flex-fixed text-container'>
 						<h1 className='animated bounceInLeft'>
 							Your favorite music on demand

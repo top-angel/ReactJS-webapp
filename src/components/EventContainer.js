@@ -1,13 +1,21 @@
 import React from 'react';
 import EventTile from './EventTile';
 
-var EventContainer = React.createClass({
+const EventContainer = React.createClass({
+	checkIfEmpty(events) {
+		if(events.length == 0) {
+			return (
+				<div className='flex-column error'>
+					<h2>No Upcoming Events Found.</h2>
+					<h4>Check back soon. We're Adding more every day!</h4>
+				</div>
+			)
+		}
+	},
 
 	getDefaultProps() {
 		return {
-			containerClass: 'flex-row tile-container',
-			errorClass: 'flex-column error',
-			id: null,
+			className: 'flex-row tile-container',
 			events: []
 		};
 	},
@@ -17,35 +25,31 @@ var EventContainer = React.createClass({
 	},
 
 	render() {
-		var events = this.props.events;
-		var push = this.props.push;
+		var events = this.props.events
 
 		if(events.length == 0) {
 			var tiles = (
-				<div className={this.props.errorClass}>
+				<div className='flex-column error'>
 					<h2>No Upcoming Events Found.</h2>
 					<h4>Check back soon. We're Adding more every day!</h4>
 				</div>
 			);
 		} else {
-			var tiles = events.map(function(event, index) {
-				var props = {
+			var tiles = events.map((event, index) => {
+				return React.createElement(EventTile, {
 					key: index,
 					id: event.id,
-					push: push,
 					event: event.event,
 					start_date: event.start_date,
-					main_imageURL: event.main_imageURL,
+					banner_image: event.banner_image.imageURL,
 					ticket_link: event.ticket_link,
-					venue: event.venue
-				};
-
-				return <EventTile {...props} /> ;
+					venue: event.venue.venue
+				});
 			});
 		}
 
 		return (
-			<div className={this.props.containerClass || this.props.errorClass}>
+			<div className={this.props.className}>
 				{tiles}
 			</div>
 		);
@@ -53,4 +57,4 @@ var EventContainer = React.createClass({
 
 });
 
-module.exports = EventContainer;
+export default EventContainer;

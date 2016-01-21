@@ -1,89 +1,64 @@
 import React from 'react';
+import R from 'ramda';
 import Loader from 'react-loader';
-import constants from '../constants/constants';
+import api from '../services/api';
+import {DEFAULT_IMAGE} from '../constants/constants';
 
 import SetContainer from './SetContainer';
 import DetailImageContainer from './DetailImageContainer';
 
-var MixDetail = React.createClass({
-
-	displayName: 'MixDetail',
-	getInitialState: function() {
+const MixDetail = React.createClass({
+	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			mix: '',
+			sets: [],
+			setCount: 0,
+			icon_image: {
+				imageURL: DEFAULT_IMAGE
+			}
 		};
 	},
 
-	componentWillMount: function() {
-		this.getMixData();
+	componentWillMount() {
+		this.getMixData(this.props.params.mix);
 	},
 
-	getMixData: function() {
-		var _this = this;
-		var push = this.props.push;
-		var mix = this.props.params.mix;
-		var query = mix.split('-').join('%20');
-
-
-		var mixData,
-			mixUrl = constants.API_ROOT + 'mix/search/' + query;
-
-		$.ajax({
-			url: mixUrl,
-			type: 'get',
+	getMixData(id) {
+		// test id 69
+		api.get(`mixes/id/${id}`).then(res => {
+			var m = res.mixes_id
+			this.setState({
+				mix: m.event,
+				setCount: m.set_count,
+				imageURL: m.icon_image.imageURL,
+				sets: m.sets
+			});
+		}).then(() => {
+			this.setState({ loaded: true })
 		})
-		.done(function(response) {
-			mixData = response.payload.mix;
-
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					detailId: mixData.id,
-					detailData: mixData
-				}
-			});
-
-			_this.setState({
-				loaded: true
-			});
-		});
 	},
 
-	render: function() {
-		var push = this.props.push;
-		var appState = this.props.appState;
-
-		var data = appState.get('detailData');
-		var loginStatus = this.props.appState.get('isUserLoggedIn');
-		var user = this.props.appState.get('user');
-		var setText = data.sets.length > 1 ? ' sets' : ' set';
+	render() {
+		var setText = this.state.set_count != 1 ? 'sets' : 'set';
 
 		var detailInfo = {
-			appState: appState,
-			push: push,
-			title: data.event,
-			buttonText: 'Shuffle',
-			imageURL: data.imageURL,
-			info: data.sets.length + setText
-		};
-		
-		var setProps = {
-			sets: data.sets,
-			push: push,
-			loginStatus: loginStatus,
-			user: user
+			title: this.state.mix,
+			imageURL: this.state.imageURL,
+			info: `${this.state.setCount} ${setText}`,
+			sets: R.pluck('id', this.state.sets)
 		};
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div id='detail' className='view detail-page'>
+				<div id='detail' className='detail-page'>
 					<DetailImageContainer {...detailInfo}/>
-					<div className="flex-row links-container">
+					<div className='flex-row links-container'>
 						<div className='center flex-fixed'>
 							SETS
 						</div>
 					</div>
-					<SetContainer {...setProps} />
+					<SetContainer sets={this.state.sets} />
 				</div>
 			</Loader>
 		);
@@ -91,4 +66,4 @@ var MixDetail = React.createClass({
 
 });
 
-module.exports = MixDetail;
+export default MixDetail;

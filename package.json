@@ -1,11 +1,18 @@
 {
   "name": "setmine-web",
-  "version": "0.0.0",
+  "version": "6.0.0",
+  "author": "Setmusic LLC",
   "private": true,
+  "description": "SetmineWeb - A Node.js/React.js project",
+  "main": "server.js",
+  "repositories": {
+    "type": "private",
+    "url": "https://github.com/otech47/setmine-web"
+  },
   "scripts": {
-    "start": "forever stopall; NODE_ENV=production forever start server.js;",
+    "start": "forever stopall; forever start server.js;",
     "stop": "forever stopall;",
-    "deploy": "NODE_ENV=production webpack -p --config webpack.config.production.js; npm start;"
+    "deploy": "webpack -p --config webpack.config.production.js;"
   },
   "dependencies": {
     "babel-core": "^6.2.1",
@@ -14,15 +21,12 @@
     "babel-preset-react": "^6.1.18",
     "body-parser": "~1.13.2",
     "cookie-parser": "~1.3.5",
-    "css-loader": "^0.16.0",
     "debug": "~2.2.0",
-    "ejs": "~2.3.3",
+    "es6-promise": "^3.0.2",
     "eslint-plugin-react": "^3.2.3",
     "express": "~4.13.1",
     "forever": "^0.15.1",
-    "grunt": "^0.4.5",
-    "grunt-webpack": "^1.0.8",
-    "history": "^1.13.0",
+    "history": "~1.13.0",
     "html-webpack-plugin": "^1.6.1",
     "immutable": "^3.7.4",
     "jquery": "^2.1.4",
@@ -32,15 +36,13 @@
     "morgan": "~1.6.1",
     "node-jsx": "^0.13.3",
     "node-libs-browser": "^0.5.2",
-    "node-sass": "^3.2.0",
     "q": "^1.4.1",
     "radium": "^0.14.3",
     "ramda": "^0.17.1",
-    "react-doc-meta": "^0.2.0",
-    "react-geosuggest": "^1.8.0",
-    "react-loader": "^1.4.0",
-    "react-motion": "^0.3.0",
-    "react-router": "^1.0.0-rc1",
+    "react-copy-to-clipboard": "^3.0.4",
+    "react-geosuggest": "^1.13.0",
+    "react-loader": "^2.0.0",
+    "react-motion": "^0.3.1",
     "rx": "^3.1.0",
     "serve-favicon": "~2.3.0",
     "soundmanager2": "^2.97.20150601-a",
@@ -50,14 +52,9 @@
     "webpack-dev-server": "^1.10.1"
   },
   "devDependencies": {
-    "browserify": "^11.0.1",
-    "flux": "^2.0.3",
-    "http-proxy": "^1.11.2",
     "json-loader": "^0.5.3",
-    "react": "^0.13.3",
+    "react": "^0.14.3",
     "react-tools": "^0.13.3",
-    "reactify": "^1.1.1",
-    "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.3.1"
+    "vinyl-source-stream": "^1.1.0"
   }
 }

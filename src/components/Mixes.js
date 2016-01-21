@@ -1,75 +1,63 @@
 import React from 'react';
 import Loader from 'react-loader';
-import constants from '../constants/constants';
-import MixTile from './MixTile';
+import api from '../services/api';
 
-var TITLE = 'Mixes';
-var TYPE = 'mix';
+import MixTile from './MixTile';
 
 var Mixes = React.createClass({
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
-			loaded: false
+			loaded: false,
+			mixes: []
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount() {
 		this.getMixes();
 	},
 
-	componentDidMount: function() {
+	componentDidMount() {
 		mixpanel.track("Mixes Page Open");
 	},
 
-	getMixes: function() {
-		var _this = this;
-		var push = this.props.push;
-		var results,
-			mixUrl = constants.API_ROOT + 'mix';
-
-		$.ajax({
-			url: mixUrl,
-			type: 'get'
+	getMixes() {
+		// $.ajax({
+		// 	url: `${API_ROOT}mixes`,
+		// 	type: 'get',
+		// 	data: {
+		// 		limit: 5000
+		// 	}
+		// }).done(res => {
+		// 	if(res.status === 'success') {
+		// 		this.setState({
+		// 			loaded: true,
+		// 			mixes: res.payload.mixes
+		// 		});
+		// 	}
+		// });
+		api.get('mixes?limit=5000').then(res => {
+			this.setState({
+				loaded: true,
+				mixes: res.mixes
+			});
 		})
-		.done(function(response) {
-			results = response.payload.mix;
-
-			push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					mixBrowseData: results
-				}
-			});
-
-			_this.setState({
-				loaded: true
-			});
-		});
 	},
 
-	render: function() {
-		var push = this.props.push;
-		var appState = this.props.appState.get('mixBrowseData');
-		var browseClass='flex-row scrollable tile-container';
-
-		var tiles = appState.map(function(mix, index) {
-
-			var props = {
+	render() {
+		var mixTiles = this.state.mixes.map((mix, index) => {
+			return React.createElement(MixTile, {
 				key: index,
 				id: mix.id,
-				push: push,
 				event: mix.event,
-				imageURL: mix.imageURL
-			};
-
-			return <MixTile {...props} />
+				iconImage: mix.icon_image.imageURL_small
+			})
 		});
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div className={browseClass}>
-					{tiles}
+				<div className='flex-row scrollable tile-container'>
+					{mixTiles} 
 				</div>
 			</Loader>
 		);
@@ -77,4 +65,4 @@ var Mixes = React.createClass({
 
 });
 
-module.exports = Mixes;
+export default Mixes
