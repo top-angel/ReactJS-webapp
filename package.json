@@ -12,7 +12,8 @@
   "scripts": {
     "start": "forever stopall; forever start server.js;",
     "stop": "forever stopall;",
-    "deploy": "webpack -p --config webpack.config.production.js; npm start"
+    "deploy": "webpack -p --config webpack.config.production.js; npm start",
+    "test": "webpack-dev-server --progress --colors"
   },
   "dependencies": {
     "babel-core": "^6.2.1",
@@ -36,7 +37,6 @@
     "node-jsx": "^0.13.3",
     "node-libs-browser": "^0.5.2",
     "q": "^1.4.1",
-    "radium": "^0.14.3",
     "ramda": "^0.17.1",
     "react-copy-to-clipboard": "^3.0.4",
     "react-geosuggest": "^1.13.0",

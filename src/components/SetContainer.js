@@ -1,58 +1,46 @@
-import React from 'react';
-import R from 'ramda';
-import {checkIfFavorited} from '../services/favoriteSet';
+import React from 'react'
+import R from 'ramda'
+import {checkIfFavorited} from '../services/favoriteSet'
 
-import SetTile from './SetTile';
+import BaseComponent from './BaseComponent'
+import SetTile from './SetTile'
 
-const SetContainer = React.createClass({
-	contextTypes: {
-		push: React.PropTypes.func,
-		user: React.PropTypes.object,
-		loginStatus: React.PropTypes.bool,
-		favoriteSetIds: React.PropTypes.array
-	},
-
+export default class SetContainer extends BaseComponent {
+	constructor(props) {
+		super(props)
+		this.autoBind('checkIfFavorited')
+	}
 	checkIfFavorited(id, favorites) {
 		if(this.context.loginStatus) {
-			return R.contains(id, favorites);
+			return R.contains(id, favorites)
 		} else {
 			return false
 		}
-	},
-
-	getDefaultProps() {
-		return {
-			className: 'flex-row tile-container scrollable',
-			sets: []
-		};
-	},
-
+	}
 	shouldComponentUpdate(nextProps, nextState, nextContext) {
 		var oldFav = this.context.favoriteSetIds
 		var newFav = nextContext.favoriteSetIds
-
+		// only update if fetching new sets from api or user favorites a set
 		switch(true) {
 			case nextProps.sets != this.props.sets:
-				return true;
+				return true
 			case newFav != oldFav:
-				return true;
+				return true
 			default:
-				return false;
-				break;
+				return false
+				break
 		}
-	},
-
+	}
 	render() {
 		var tiles = this.props.sets.map((set, index) => {
 			// check if each set is favorited
-			// var favorited = this.checkIfFavorited(set.id, this.context.favoriteSetIds)
 			var favorited = checkIfFavorited(this.context.loginStatus, set.id, this.context.favoriteSetIds)
 
-			// TODO doesn't work for user sets
+			// show episode on set tiles
 			if(set.episode != undefined && R.keys(set.episode).length != 0) {
-				var setName = `${set.event.event} - ${set.episode.episode}`;
+				var setName = `${set.event.event} - ${set.episode.episode}`
 			} else {
-				var setName = set.event.event;
+				var setName = set.event.event
 			}
 			
 			return React.createElement(SetTile, {
@@ -70,15 +58,24 @@ const SetContainer = React.createClass({
 				bannerImage: set.event.banner_image.imageURL,
 				favorited: favorited
 			})
-		});
+		})
 
 		return (
 			<div className={this.props.className}>
 				{tiles}
 			</div>
-		);
+		)
 	}
+}
 
-});
+SetContainer.contextTypes = {
+	push: React.PropTypes.func,
+	user: React.PropTypes.object,
+	loginStatus: React.PropTypes.bool,
+	favoriteSetIds: React.PropTypes.array
+}
 
-export default SetContainer;
+SetContainer.defaultProps = {
+	className: 'flex-row tile-container scrollable',
+	sets: []
+}

@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var path = require('path');
 
 var buildPath = path.resolve(__dirname, 'public');
@@ -28,6 +29,9 @@ module.exports = {
 			'Promise': 'es6-promise',
 			'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
 		}),
+		new ExtractTextPlugin('app.css', {
+			allChunks: true
+		})
 	],
 	devtool: 'cheap-source-map',
 	module: {
@@ -39,6 +43,10 @@ module.exports = {
 				query: {
 					presets: ['es2015', 'react']
 				}
+			},
+			{
+				test: /\.css$/,
+				loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
 			}
 		]
 	}
