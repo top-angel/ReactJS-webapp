@@ -54,7 +54,9 @@ const SetContainer = React.createClass({
 			} else {
 				var setName = set.event.event;
 			}
-			
+
+            var bannerImage = (set.icon_image && set.icon_image.imageURL) ? set.icon_image.imageURL : set.event.banner_image.imageURL;
+
 			return React.createElement(SetTile, {
 				key: index,
 				id: set.id,
@@ -67,7 +69,7 @@ const SetContainer = React.createClass({
 				artistImage: set.artists[0].icon_image.imageURL_small,
 				popularity: set.popularity,
 				songUrl: set.songURL,
-				bannerImage: set.event.banner_image.imageURL,
+				bannerImage: bannerImage,
 				favorited: favorited
 			})
 		});
