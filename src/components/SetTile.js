@@ -52,9 +52,9 @@ class SetTile extends BaseComponent {
 					</div>
 					<div styleName='horizontal-divider'/>
 					<div className='flex-row flex-fixed'>
-						<div styleName='play' className='flex-fixed flex-container'
-							onClick={this.playSet}>
-							<i className='fa fa-play center'>{'  '+this.props.popularity}</i>
+						<div styleName='play' className='flex-fixed flex-container' onClick={this.playSet}>
+							{/*<i className='fa fa-play center'>{'  '+this.props.popularity}</i>*/}
+							<i className='ti-control-play center'>{'  '+this.props.popularity}</i>
 						</div>
 						<div styleName='vertical-divider'/>
 						<div className='flex-fixed flex-container'>

@@ -37,11 +37,7 @@ export default class SetContainer extends BaseComponent {
 			var favorited = checkIfFavorited(this.context.loginStatus, set.id, this.context.favoriteSetIds)
 
 			// show episode on set tiles
-			if(set.episode != undefined && R.keys(set.episode).length != 0) {
-				var setName = `${set.event.event} - ${set.episode.episode}`
-			} else {
-				var setName = set.event.event
-			}
+			var setName = (set.episode != undefined && R.keys(set.episode).length != 0) ? `${set.event.event} - ${set.episode.episode}` : set.event.event
 			
 			return React.createElement(SetTile, {
 				key: index,
