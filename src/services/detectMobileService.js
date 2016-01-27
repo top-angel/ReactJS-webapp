@@ -19,7 +19,7 @@ var detectMobileService = {
     },
     detectMobileBrowser: function() {
         console.log(window.location.pathname);
-        if(this.iOS()) {
+        if(this.iOS() || this.Android()) {
             if(window.location.pathname.length > 0) {
                 var pathWithoutLeadingSlash = window.location.pathname.substring(1);
                 var parameters = pathWithoutLeadingSlash.split('/');
