@@ -44,23 +44,28 @@ var detectMobileService = {
                 window.location = 'setmine://setmine.com/bugfix';
             }
         } else if(this.Android()) {
-            var pathWithoutLeadingSlash = window.location.pathname.substring(1);
-            var parameters = pathWithoutLeadingSlash.split('/');
-            var command = parameters[0];
-            var value = parameters[1];
-            switch(command) {
-                case 'play':
-                    window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash; break;
-                case 'artist':
-                    window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash.split('+').join('%20'); break;
-                case 'festival':
-                    window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash; break;
-                case 'mix':
-                    window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash; break;
-                case 'event':
-                    window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash; break;
-                case 'offer':
-                    window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash; break;
+            if(window.location.pathname.length > 0) {
+                var pathWithoutLeadingSlash = window.location.pathname.substring(1);
+                var parameters = pathWithoutLeadingSlash.split('/');
+                var command = parameters[0];
+                var value = parameters[1];
+                switch(command) {
+                    case 'play':
+                        window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash; break;
+                    case 'artist':
+                        window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash.split('+').join('%20'); break;
+                    case 'festival':
+                        window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash; break;
+                    case 'mix':
+                        window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash; break;
+                    case 'event':
+                        window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash; break;
+                    case 'offer':
+                        window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash; break;
+            } else {
+                window.location = 'setmine://www.setmine.com'
+            }
+            
         } 
     }
 };
