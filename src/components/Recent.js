@@ -29,7 +29,7 @@ export default class Recent extends BaseComponent {
 	render() {
 		return (
 			<Loader loaded={this.state.loaded}>
-				<SetContainer sets={this.state.sets} />
+				<SetContainer sets={this.state.sets} onScroll={() => console.log('ayy lmao')}/>
 			</Loader>
 		)
 	}

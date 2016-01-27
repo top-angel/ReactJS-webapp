@@ -1,11 +1,13 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import R from 'ramda'
 import {checkIfFavorited} from '../services/favoriteSet'
 
 import BaseComponent from './BaseComponent'
 import SetTile from './SetTile'
+import InfiniteScrollify from './InfiniteScrollify'
 
-export default class SetContainer extends BaseComponent {
+
+class SetContainer extends BaseComponent {
 	constructor(props) {
 		super(props)
 		this.autoBind('checkIfFavorited')
@@ -57,7 +59,7 @@ export default class SetContainer extends BaseComponent {
 		})
 
 		return (
-			<div className={this.props.className}>
+			<div className={this.props.className} id='SetContainer'>
 				{tiles}
 			</div>
 		)
@@ -75,3 +77,10 @@ SetContainer.defaultProps = {
 	className: 'flex-row tile-container scrollable',
 	sets: []
 }
+
+SetContainer.propTypes = {
+	sets: PropTypes.array.isRequired
+}
+
+// export default InfiniteScrollify(SetContainer)
+export default SetContainer

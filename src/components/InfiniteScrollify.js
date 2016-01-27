@@ -1,10 +1,11 @@
-import React, {Component} from 'react'
+import React, {PropTypes} from 'react'
+import BaseComponent from './BaseComponent'
 
 export default function(InnerComponent) {
-	class InfiniteScrollify extends Component {
+	class InfiniteScrollify extends BaseComponent {
 		constructor(props) {
 			super(props)
-			this.onScroll = this.onScroll.bind(this)
+			this.autoBind('onScroll')
 		}
 		componentDidMount() {
 			window.addEventListener('scroll', this.onScroll, false)
@@ -13,13 +14,18 @@ export default function(InnerComponent) {
 			window.removeEventListener('scroll', this.onScroll, false)
 		}
 		onScroll() {
-			if((window.innerHeight + window.scrollY) >= (document.body.offSetHeight - 200)) {
-				callback()
+			// may need to change to set container height
+			if((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 200)) {
+				this.props.onScroll()
 			}
 		}
 		render() {
 			return <InnerComponent {...this.props} />
 		}
+	}
+
+	InfiniteScrollify.propTypes = {
+		onScroll: PropTypes.func.isRequired
 	}
 
 	return InfiniteScrollify

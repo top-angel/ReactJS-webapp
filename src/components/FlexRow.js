@@ -2,7 +2,7 @@ import React from 'react'
 import CssModules from 'react-css-modules'
 import styles from '../../public/css/Row.css'
 
-function Row(props) {
+function FlexRow(props) {
 
 	return (
 		<div styleName='flex-row' className={props.style} >
@@ -11,4 +11,4 @@ function Row(props) {
 	)
 }
 
-export default CssModules(Row, styles)
+export default CssModules(FlexRow, styles)

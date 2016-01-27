@@ -1,23 +1,20 @@
-import React from 'react';
-import Loader from 'react-loader';
-import {Link} from 'react-router';
-import R from 'ramda';
-import api from '../services/api';
-import {DEFAULT_IMAGE} from '../constants/constants';
+import React from 'react'
+import Loader from 'react-loader'
+import {Link} from 'react-router'
+import R from 'ramda'
+import api from '../services/api'
+import {DEFAULT_IMAGE} from '../constants/constants'
 
-import SetContainer from './SetContainer';
-import EventContainer from './EventContainer';
+import BaseComponent from './BaseComponent'
+import SetContainer from './SetContainer'
+import EventContainer from './EventContainer'
+import DetailImageContainer from './DetailImageContainer'
+import LinkButtonContainer from './LinkButtonContainer'
 
-import DetailImageContainer from './DetailImageContainer';
-import LinkButtonContainer from './LinkButtonContainer';
-
-var ArtistDetail = React.createClass({
-	componentWillMount() {
-		this.getArtistData();
-	},
-
-	getInitialState() {
-		return {
+export default class ArtistDetail extends BaseComponent {
+	constructor(props) {
+		super(props)
+		this.state = {
 			loaded: false,
 			sets: [],
 			upcomingEvents: [],
@@ -27,12 +24,13 @@ var ArtistDetail = React.createClass({
 			instagram_link: null,
 			soundcloud_link: null,
 			youtube_link: null
-		};
-	},
-
+		}
+		this.autoBind('getArtistData')
+		this.getArtistData()
+	}
 	getArtistData() {
-		var artist = this.props.params.artist;
-		var query = artist.split('_').join('%20');
+		var artist = this.props.params.artist
+		var query = artist.split('_').join('%20')
 
 		api.get(`artists/search/${query}`).then(res => {
 			var artist = res.artists_search
@@ -52,12 +50,11 @@ var ArtistDetail = React.createClass({
 		}).then(() => {
 			this.setState({ loaded: true })
 		})
-	},
-
+	}
 	render() {
-		var setText = this.state.setCount != 1 ? 'sets' : 'set';
-		var eventText = this.state.eventCount != 1 ? 'events' : 'event';
-		var artistInfo = `${this.state.setCount} ${setText} | ${this.state.eventCount} ${eventText}`;
+		var setText = this.state.setCount != 1 ? 'sets' : 'set'
+		var eventText = this.state.eventCount != 1 ? 'events' : 'event'
+		var artistInfo = `${this.state.setCount} ${setText} | ${this.state.eventCount} ${eventText}`
 
 		var detailInfo = {
 			sets: R.pluck('id', this.state.sets),
@@ -65,7 +62,7 @@ var ArtistDetail = React.createClass({
 			buttonText: 'Shuffle',
 			imageURL: this.state.artistImage,
 			info: artistInfo
-		};
+		}
 
 		var links = [
 			{
@@ -88,7 +85,7 @@ var ArtistDetail = React.createClass({
 				type: 'youtube',
 				url: this.state.youtube_link
 			}
-		];
+		]
 
 		return (
 			<Loader loaded={this.state.loaded}>
@@ -117,9 +114,6 @@ var ArtistDetail = React.createClass({
 					}
 				</div>
 			</Loader>
-		);
+		)
 	}
-
-});
-
-export default ArtistDetail;
+}
