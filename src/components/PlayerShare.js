@@ -2,6 +2,7 @@ import React from 'react';
 import R from 'ramda';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { Motion } from 'react-motion';
+import {S3_ROOT_FOR_IMAGES} from '../constants/constants'
 
 import history from '../services/history'
 import {favoriteSet, checkIfFavorited} from '../services/favoriteSet'
@@ -64,7 +65,7 @@ var PlayerShare = React.createClass({
 			method: 'feed',
 			link: url,
 			caption: 'Share this Set',
-			picture: constants.S3_ROOT_FOR_IMAGES + currentSet.artistimageURL
+			picture: S3_ROOT_FOR_IMAGES + currentSet.artistImage
 		}, function(response) {
 			console.debug(response);
 			console.log('share to facebook failed');

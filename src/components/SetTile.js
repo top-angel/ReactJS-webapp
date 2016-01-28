@@ -57,6 +57,7 @@ var SetTile = React.createClass({
 							<div className='flex click link set-name' onClick={this.openFestivalPage}>{this.props.setName}</div>
 							<div className='flex click link artist' onClick={this.openArtistPage}>{this.props.artist}</div>
 							<SetShare 
+								image={this.props.artistImage}
 								id={this.props.id} 
 								favorited={this.props.favorited} />
 						</div>
