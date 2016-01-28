@@ -23,6 +23,7 @@ export default class Popular extends BaseComponent {
 		api.get(`sets/popular?limit=36&page=${page}`).then(res => {
 			// merge new sets to existing
 			let sets = this.state.sets.concat(res.sets_popular)
+
 			this.setState({
 				loaded: true,
 				sets: sets,
@@ -31,7 +32,7 @@ export default class Popular extends BaseComponent {
 		})
 	}
 	onScroll() {
-		this.getPopularSets(this.state.sets)
+		this.getPopularSets(this.state.page)
 	}
 	render() {
 		return (
