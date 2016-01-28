@@ -6,7 +6,6 @@ import BaseComponent from './BaseComponent'
 import SetTile from './SetTile'
 import InfiniteScrollify from './InfiniteScrollify'
 
-
 class SetContainer extends BaseComponent {
 	constructor(props) {
 		super(props)
@@ -59,7 +58,7 @@ class SetContainer extends BaseComponent {
 		})
 
 		return (
-			<div className={this.props.className} id='SetContainer'>
+			<div className={this.props.className}>
 				{tiles}
 			</div>
 		)
@@ -67,10 +66,10 @@ class SetContainer extends BaseComponent {
 }
 
 SetContainer.contextTypes = {
-	push: React.PropTypes.func,
-	user: React.PropTypes.object,
-	loginStatus: React.PropTypes.bool,
-	favoriteSetIds: React.PropTypes.array
+	push: PropTypes.func,
+	user: PropTypes.object,
+	loginStatus: PropTypes.bool,
+	favoriteSetIds: PropTypes.array
 }
 
 SetContainer.defaultProps = {
@@ -79,8 +78,8 @@ SetContainer.defaultProps = {
 }
 
 SetContainer.propTypes = {
-	sets: PropTypes.array.isRequired
+	sets: PropTypes.array.isRequired,
+	onScroll: PropTypes.func
 }
 
-// export default InfiniteScrollify(SetContainer)
-export default SetContainer
+export default InfiniteScrollify(SetContainer)

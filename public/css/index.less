@@ -793,6 +793,11 @@ header {
 #NavMenu {
 	font-size: 1rem;
 	.background(@gray, @dark-gray);
+	position: fixed;
+	top: @headerHeight;
+	height: @windowHeight - @headerHeight;
+	width: 20vw;
+	z-index: 1;
 	i {
 		margin: auto 10px;
 	}
@@ -1015,21 +1020,21 @@ header {
 	}
 }
 
-#SetsView {
-	.flexContainer(row, horizontal, nowrap);
-	height: @pageHeightWithoutPlayer;
-	.loadedContent {
-		.flex-row;
-		.flex-fixed-4x;
-		.scrollable;
-		&::after {
-			content: '';
-			height: @playerHeight;
-			width: 100%;
-			background-color: @white;
-		}
-	}
-}
+// #SetsView {
+// 	.flexContainer(row, horizontal, nowrap);
+// 	height: @pageHeightWithoutPlayer;
+// 	.loadedContent {
+// 		.flex-row;
+// 		.flex-fixed-4x;
+// 		.scrollable;
+// 		&::after {
+// 			content: '';
+// 			height: @playerHeight;
+// 			width: 100%;
+// 			background-color: @white;
+// 		}
+// 	}
+// }
 
 .tile-button {
     &:hover {

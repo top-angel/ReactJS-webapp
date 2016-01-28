@@ -14,18 +14,18 @@ export default function(InnerComponent) {
 			window.removeEventListener('scroll', this.onScroll, false)
 		}
 		onScroll() {
-			// may need to change to set container height
-			if((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 200)) {
-				this.props.onScroll()
+			// console.log('distance scrolled', window.scrollY)
+			// console.log('window inner height', window.innerHeight)
+			// console.log('total page height', document.body.offsetHeight)
+			if(this.props.onScroll) {
+				if((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 100)) {
+					this.props.onScroll()
+				}
 			}
 		}
 		render() {
 			return <InnerComponent {...this.props} />
 		}
-	}
-
-	InfiniteScrollify.propTypes = {
-		onScroll: PropTypes.func.isRequired
 	}
 
 	return InfiniteScrollify

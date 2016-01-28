@@ -17,7 +17,7 @@ const NavMenu = (props) => {
 	})
 
 	return (
-		<nav id='NavMenu' className='flex-column flex-fixed'>
+		<nav id='NavMenu' className='flex-column'>
 			<div className='flex-container flex'>
 				<div className='nav-header'>BROWSE</div>
 			</div>

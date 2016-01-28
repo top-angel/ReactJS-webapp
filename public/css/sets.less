@@ -1,0 +1,21 @@
+@import 'variables.less';
+@import 'colors.less';
+@import 'flex.less';
+
+.sets {
+	position: relative;
+	top: @headerHeight;
+	background: @white;
+	.flexContainer(row, horizontal, nowrap);
+	> div {
+		.flex-row;
+		width: 100%;
+		margin-left: 20vw;
+		&::after {
+			content: '';
+			height: @playerHeight;
+			width: 100%;
+			background-color: @white;
+		}
+	}
+}

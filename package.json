@@ -41,7 +41,6 @@
     "ramda": "^0.17.1",
     "react-copy-to-clipboard": "^3.0.4",
     "react-geosuggest": "^1.13.0",
-    "react-infinite-scroll": "^0.1.5",
     "react-loader": "^2.0.0",
     "react-motion": "^0.3.1",
     "react-tap-event-plugin": "^0.2.1",
