@@ -10,7 +10,7 @@ const PlayerSetInfo = props => {
 	return (
 		<div className='set-info flex-column flex-5x'>
 			<div className='set-name flex'>
-				{currentSet.artist + ' - ' + currentSet.event}
+				{currentSet.artist + ' - ' + currentSet.setName}
 			</div> 
 			<div className='set-time flex'>
 				{time + ' / ' + currentSet.setLength}

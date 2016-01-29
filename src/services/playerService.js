@@ -66,13 +66,13 @@ export function generateSound(loadStart, appState, push) {
 			var tracklist = appState.get('tracklist');
 			var currentTrack = _.debounce(updateCurrentTrack(sound, tracklist, push), 1000);
 
-			// // count time
-			push({
+			// count time
+			_.debounce(push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					timeElapsed: currentTime
 				}
-			})
+			}), 1000)
 		}
 	};
 
@@ -109,6 +109,8 @@ export function playSet(setId, push, starttime = '00:00') {
 		var set = res.sets_id
 		var tracks = set.tracks
 
+		var setName = (set.episode.episode && set.episode.episode.length > 0) ? `${set.event.event} - ${set.episode.episode}` : set.event.event
+
 		// format artists for multiple artists
 		var artist = R.pluck('artist', set.artists).toString().split(',').join(', ')
 
@@ -118,6 +120,7 @@ export function playSet(setId, push, starttime = '00:00') {
 				currentSet: {
 					artist: artist,
 					event: set.event.event,
+					setName: setName,
 					id: set.id,
 					setLength: set.set_length,
 					songUrl: set.songURL,
@@ -147,7 +150,8 @@ export function scrub(position, appState, push) {
 		}
 	});
 
-	sound.setPosition(newPosition);
+	// SHEEEEIT DAS IT MAYNE
+	_.debounce(sound.setPosition(newPosition), 10000)
 }
 
 // play/pause a set

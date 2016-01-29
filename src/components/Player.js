@@ -19,7 +19,7 @@ class Player extends BaseComponent {
 	componentDidMount() {
 		// TODO move hide player toggle to appState maybe
 		var sound = this.props.appState.get('sound')
-		if(sound != null) {
+		if(sound.durationEstimate != 0) {
 			this.context.push({
 				type: 'SHALLOW_MERGE',
 				data: {
