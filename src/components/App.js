@@ -1,24 +1,24 @@
-import React from 'react';
-import Immutable from 'immutable';
-import DocMeta from 'react-doc-meta';
-import R from 'ramda';
+import React from 'react'
+import Immutable from 'immutable'
+import DocMeta from 'react-doc-meta'
+import R from 'ramda'
 import InjectTapEventPlugin from 'react-tap-event-plugin'
 
-import GlobalEventHandler from '../services/globalEventHandler';
-import {playSet, updatePlayCount} from '../services/playerService';
-import {startFacebookSDK} from '../services/loginService';
-import {getFavorites} from '../services/favoriteSet';
-import detectMobileService from '../services/detectMobileService';
-import {DEFAULT_IMAGE} from '../constants/constants';
+import GlobalEventHandler from '../services/globalEventHandler'
+import {playSet, updatePlayCount} from '../services/playerService'
+import {startFacebookSDK} from '../services/loginService'
+import {getFavorites} from '../services/favoriteSet'
+import detectMobileService from '../services/detectMobileService'
+import {DEFAULT_IMAGE} from '../constants/constants'
 
 // TODO move index.less from index.html to here
-// import styles from '../../public/globals.css'
 
 // fix mobile touch events not registering
 InjectTapEventPlugin()
 
-import Header from './Header';
-import Player from './Player';
+import BaseComponent from './BaseComponent'
+import Header from './Header'
+import Player from './Player'
 
 var initialAppState = Immutable.Map({
 	currentSet: {
@@ -64,25 +64,45 @@ var initialAppState = Immutable.Map({
 		upcomingEvents: [],
 		tracks: []
 	}
-});
+})
 
-var evtHandler = GlobalEventHandler(initialAppState);
-var evtTypes = evtHandler.types;
-var push = evtHandler.push;
+var evtHandler = GlobalEventHandler(initialAppState)
+var evtTypes = evtHandler.types
+var push = evtHandler.push
 
 // var push = data => pushFn({
 // 	type: 'SHALLOW_MERGE',
 // 	data: data
 // })
 
-const App = React.createClass({
-	childContextTypes: {
-		push: React.PropTypes.func,
-		user: React.PropTypes.object,
-		loginStatus: React.PropTypes.bool,
-		favoriteSetIds: React.PropTypes.array,
-	},
 
+export default class App extends BaseComponent {
+	constructor(props) {
+		super(props)
+		this.autoBind('initializeApp')
+		this.state = {
+			appState: initialAppState
+		}
+	}
+	componentWillMount() {
+		// initialize global appState and push fn
+		this.initializeApp()
+		detectMobileService.detectMobileBrowser()
+		// initialize Facebook SDK & check if user is logged in
+		startFacebookSDK(push)
+		// play set if specified in url
+		if(!!this.props.params.set) {
+			// this.playSet()
+			var setId = this.props.params.set
+			playSet(setId, push)
+			updatePlayCount(setId, this.state.appState.get('user').id)
+		}
+	}
+	componentWillUpdate(nextProps, nextState) {
+		if(nextState.appState.get('playerHidden') === false) {
+			return true
+		}
+	}
 	getChildContext() {
 		return {
 			push: push,
@@ -90,44 +110,15 @@ const App = React.createClass({
 			loginStatus: this.state.appState.get('isUserLoggedIn'),
 			favoriteSetIds: this.state.appState.get('favoriteSetIds')
 		}
-	},
-
-	getInitialState() {
-		return {
-			appState: initialAppState
-		};
-	},
-
-	componentWillMount() {
-		// initialize global appState and push fn
-		this.initializeApp();
-		detectMobileService.detectMobileBrowser();
-		// initialize Facebook SDK & check if user is logged in
-		startFacebookSDK(push);
-		// play set if specified in url
-		if(!!this.props.params.set) {
-			// this.playSet();
-			var setId = this.props.params.set;
-			playSet(setId, push)
-			updatePlayCount(setId, this.state.appState.get('user').id)
-		}
-	},
-
-	componentWillUpdate(nextProps, nextState) {
-		if(nextState.appState.get('playerHidden') === false) {
-			return true
-		}
-	},
-
+	}
 	initializeApp() {
-		var self = this;
+		var self = this
 		evtHandler.floodGate.subscribe(newState => {
-			self.setState({ appState: newState });
-		});
-	},
-
+			self.setState({ appState: newState })
+		})
+	}
 	render() {
-		var appState = this.state.appState;
+		var appState = this.state.appState
 		var tags = [
 			{property: "description", content: "Setmine is a music app dedicated to live events! Relive past music festivals: Ultra, Coachella + more! Find upcoming shows + buy tix + listen to DJs' sets"},
 			{property: "og:site_name", content: "Setmine"},
@@ -137,7 +128,7 @@ const App = React.createClass({
 			{property: "og:title", content: "Setmine | View Lineups & Play Sets | Relive Your Favorite Events"},
 			{property: "og:type", content: "website"},
 			{name: "google-site-verification", content: "T4hZD9xTwig_RvyoXaV9XQDYw5ksKEQywRkqaW-CGY4"}
-		];
+		]
 		
 		return (
 			<div id='App' className='flex-column'>
@@ -150,8 +141,13 @@ const App = React.createClass({
 				}
 				<Player appState={appState} />
 			</div>
-		);
+		)
 	}
-});
+}
 
-export default App;
+App.childContextTypes = {
+	push: React.PropTypes.func,
+	user: React.PropTypes.object,
+	loginStatus: React.PropTypes.bool,
+	favoriteSetIds: React.PropTypes.array,
+}

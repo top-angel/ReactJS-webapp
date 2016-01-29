@@ -1,6 +1,8 @@
 import React from 'react'
 import {millisecondsToMMSS} from '../services/convert'
 
+// TODO use css modules
+
 const PlayerSetInfo = props => {
 	var appState = props.appState
 	var currentSet = appState.get('currentSet')

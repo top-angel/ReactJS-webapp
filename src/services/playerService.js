@@ -29,7 +29,7 @@ soundManager.setup({
 export function changeTrack(appState, push, starttime, currentTrack) {
 	var sound = appState.get('sound');
 	sound.setPosition(starttime);
-
+	// updates player
 	push({
 		type: 'SHALLOW_MERGE',
 		data: {
@@ -52,7 +52,7 @@ export function generateSound(loadStart, appState, push) {
 
 	var songUrl = S3_ROOT + currentSet.songUrl;
 
-	var soundConf = {
+	var soundConfig = {
 		id: 'currentSound',
 		url: songUrl,
 		load: loadStart,
@@ -77,7 +77,7 @@ export function generateSound(loadStart, appState, push) {
 	};
 
 	return smPromise.then(function() {
-		sound = soundManager.createSound(soundConf);
+		sound = soundManager.createSound(soundConfig);
 		sound.setPosition(loadStart);
 		soundManager.play('currentSound');
 		return sound;
@@ -152,6 +152,7 @@ export function scrub(position, appState, push) {
 
 	// SHEEEEIT DAS IT MAYNE
 	_.debounce(sound.setPosition(newPosition), 10000)
+	// setTimeout(sound.setPosition(newPosition), 5000)
 }
 
 // play/pause a set
@@ -170,8 +171,7 @@ export function updatePlayCount(setId, userId) {
 	api.post('sets/play', {
 		set_id: setId,
 		user_id: userId
-	})
-	.then(res => {
+	}).then(res => {
 		console.log('play count updated')
 	})
 }

@@ -9,12 +9,16 @@ class PlayerControl extends BaseComponent {
 		this.autoBind('togglePlay', 'handleKeypress')
 	}
 	componentDidMount() {
-		let search = document.getElementById('search')
 		document.body.addEventListener('keypress', this.handleKeypress)
+	}
+	animate() {
+
 	}
 	handleKeypress(e) {
 		// TODO move this to a separate service
+		let search = document.getElementById('search')
 		let key = e.charCode
+		
 		switch(true) {
 			case(key == 32 && search != document.activeElement):
 				e.preventDefault()
