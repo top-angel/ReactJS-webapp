@@ -89,7 +89,6 @@ var routes = (
 		<Redirect from='/browse/:festival/festival' to='/festival/:festival' />
 		<Redirect from='/browse/:mix/mix' to='/mix/:mix' />
 		<Redirect from='/event/:eventID' to='/event/:eventID' />
-		<Redirect from='/offer/:offerId' to='/' />
 
 		<Route path='about' component={About}/>
 		<Route path='setstory' component={SetstoryLandingPage}/>

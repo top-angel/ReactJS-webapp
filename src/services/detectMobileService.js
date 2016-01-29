@@ -53,7 +53,7 @@ var detectMobileService = {
 					case 'play':
 						window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash; break;
 					case 'artist':
-						window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash.split('+').join('%20'); break;
+						window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash.split('_').join('%20'); break;
 					case 'festival':
 						window.location = 'setmine://www.setmine.com/' + pathWithoutLeadingSlash; break;
 					case 'mix':
