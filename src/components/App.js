@@ -28,7 +28,9 @@ var initialAppState = Immutable.Map({
 	},
 	tracklist: [],
 	currentTrack: null,
-	sound: null,
+	sound: {
+		durationEstimate: 0
+	},
 	playerHidden: true,
 	playing: false,
 	timeElapsed: 0,

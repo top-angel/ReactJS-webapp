@@ -1,38 +1,39 @@
-import React from 'react';
-import {generateSound, mixpanelTrackSetPlay} from '../services/playerService';
+import React, {PropTypes} from 'react'
+import CssModules from 'react-css-modules'
+import {generateSound, mixpanelTrackSetPlay} from '../services/playerService'
 
-import PlayerControl from './PlayerControl';
-import PlayerSeek from './PlayerSeek';
-import PlayerSetInfo from './PlayerSetInfo';
-import PlayerTracklist from './PlayerTracklist';
-import PlayerShare from './PlayerShare';
+import BaseComponent from './BaseComponent'
+import PlayerControl from './PlayerControl'
+import PlayerSeek from './PlayerSeek'
+import PlayerSetInfo from './PlayerSetInfo'
+import PlayerTracklist from './PlayerTracklist'
+import PlayerShare from './PlayerShare'
 
-var playingClass = 'fa center fa-pause play-button';
-var pausedClass = 'fa center fa-play play-button';
+var playingClass = 'fa center fa-pause play-button'
+var pausedClass = 'fa center fa-play play-button'
 
-const Player = React.createClass({
-	contextTypes: {
-		push: React.PropTypes.func
-	},
-
+class Player extends BaseComponent {
+	constructor(props) {
+		super(props)
+	}
 	componentDidMount() {
-		var sound = this.props.appState.get('sound');
+		// TODO move hide player toggle to appState maybe
+		var sound = this.props.appState.get('sound')
 		if(sound != null) {
 			this.context.push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					playerHidden: false
 				}
-			});
+			})
 		}
-	},
-
+	}
 	componentWillReceiveProps(nextProps) {
-		var appState = this.props.appState;
-		var push = this.context.push;
+		var appState = this.props.appState
+		var push = this.context.push
 
 		if(nextProps.appState.get('currentSet') != appState.get('currentSet')) {
-			var starttime = nextProps.appState.get('currentSet').starttime;
+			var starttime = nextProps.appState.get('currentSet').starttime
 
 			generateSound(starttime, nextProps.appState, push).then(function(smObj) {
 				//play a new set
@@ -43,19 +44,18 @@ const Player = React.createClass({
 						playing: true,
 						playerHidden: false
 					}
-				});
+				})
 
 				// Log Mixpanel event
-				var selectedSet = nextProps.appState.get('currentSet');
-				mixpanelTrackSetPlay(selectedSet);
-			});
+				var selectedSet = nextProps.appState.get('currentSet')
+				mixpanelTrackSetPlay(selectedSet)
+			})
 		} 
-	},
-
+	}
 	render() {
-		var appState = this.props.appState;
-		var currentSet = appState.get('currentSet');
-		var hidePlayer = appState.get('playerHidden') ? 'hidden' : '';
+		var appState = this.props.appState
+		var currentSet = appState.get('currentSet')
+		var hidePlayer = appState.get('playerHidden') ? 'hidden' : ''
 
 		return (
 			<div className={`flex-row ${hidePlayer}`} id='Player'>
@@ -69,8 +69,16 @@ const Player = React.createClass({
 					</div>
 				</div>
 			</div>
-		);
+		)
 	}
-});
+}
 
-export default Player;
+Player.contextTypes = {
+	push: PropTypes.func
+}
+
+Player.propTypes = {
+
+}
+
+export default Player

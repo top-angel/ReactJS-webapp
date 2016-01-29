@@ -3,11 +3,11 @@
 @import "fonts.less";
 
 // complementary color scheme
-@base: #663333;
-@complement1: spin(@base, 180);
-@complement2: darken(spin(@base, 180), 5%);
-@lighten1: lighten(@base, 15%);
-@lighten2: lighten(@base, 30%);
+// @base: #663333;
+// @complement1: spin(@base, 180);
+// @complement2: darken(spin(@base, 180), 5%);
+// @lighten1: lighten(@base, 15%);
+// @lighten2: lighten(@base, 30%);
 
 .active(@color, @multiplier: 0.8) {
     color: @color;
@@ -95,24 +95,6 @@
 .hidden  {
     display:none!important;
 }
-// .header  {
-//     font-size:4rem;
-//     font-weight: 400;
-//     font-family: Avenir Regular;
-//     letter-spacing: 0.5rem;
-// }
-// .header-medium {
-//     font-size:3rem;
-//     font-weight:400;
-//     font-family: Avenir Regular;
-//     letter-spacing: 0.2rem;
-// }
-// .header-small  {
-//     font-size:1.25rem;
-//     font-weight: 300;
-//     font-family: Avenir Regular;
-//     letter-spacing: 0.1rem;
-// }
 .heading(@background, @color) {
     .background(@background, @color);
     .flex-container;

@@ -64,15 +64,15 @@ export function generateSound(loadStart, appState, push) {
 			var currentTime = sound.position;
 			// UPDATE CURRENT TRACK HERE
 			var tracklist = appState.get('tracklist');
-			// var currentTrack = updateCurrentTrack(sound, tracklist, push);
 			var currentTrack = _.debounce(updateCurrentTrack(sound, tracklist, push), 1000);
 
-			_.debounce(push({
+			// // count time
+			push({
 				type: 'SHALLOW_MERGE',
 				data: {
 					timeElapsed: currentTime
 				}
-			}), 1000);
+			})
 		}
 	};
 
@@ -135,14 +135,10 @@ export function playSet(setId, push, starttime = '00:00') {
 //scrub to a new position after clicking progress bar
 export function scrub(position, appState, push) {
 	var sound = appState.get('sound');
-	var currentSet = appState.get('currentSet');
 	var timeElapsed = appState.get('timeElapsed');
 
 	var setLength = sound.durationEstimate;
-	var multiplier = position / 100;// 70 -> 0.7
-	var newPosition = multiplier * setLength;
-
-	sound.setPosition(newPosition);
+	var newPosition = (position * setLength) / 100;
 
 	push({
 		type: 'SHALLOW_MERGE',
@@ -150,6 +146,8 @@ export function scrub(position, appState, push) {
 			timeElapsed: newPosition
 		}
 	});
+
+	sound.setPosition(newPosition);
 }
 
 // play/pause a set

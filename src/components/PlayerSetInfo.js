@@ -1,24 +1,22 @@
-import React from 'react';
-import {millisecondsToMMSS} from '../services/convert';
+import React from 'react'
+import {millisecondsToMMSS} from '../services/convert'
 
-var PlayerSetInfo = React.createClass({
-	render() {
-		var appState = this.props.appState;
-		var currentSet = appState.get('currentSet');
-		var timeElapsed = appState.get('timeElapsed');
-		var time = millisecondsToMMSS(timeElapsed);
+const PlayerSetInfo = props => {
+	var appState = props.appState
+	var currentSet = appState.get('currentSet')
+	var timeElapsed = appState.get('timeElapsed')
+	var time = millisecondsToMMSS(timeElapsed)
 
-		return (
-			<div className='set-info flex-column flex-5x'>
-				<div className='set-name flex'>
-					{currentSet.artist + ' - ' + currentSet.event}
-				</div> 
-				<div className='set-time flex'>
-					{time + ' / ' + currentSet.setLength}
-				</div>
+	return (
+		<div className='set-info flex-column flex-5x'>
+			<div className='set-name flex'>
+				{currentSet.artist + ' - ' + currentSet.event}
+			</div> 
+			<div className='set-time flex'>
+				{time + ' / ' + currentSet.setLength}
 			</div>
-		);
-	}
-});
+		</div>
+	)
+}
 
-export default PlayerSetInfo;
+export default PlayerSetInfo
