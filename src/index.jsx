@@ -65,6 +65,7 @@ var routes = (
 			<Route path='sets' component={NewSets}/>
 			<Route path='events' component={NewEvents}/>
 		</Route>
+		<Route path='offer/:offerId' component={LandingView} />
 
 		<Route path='events' component={EventsView}>
 			<IndexRoute component={UpcomingEvents}/>
