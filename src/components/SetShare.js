@@ -2,6 +2,7 @@ import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { Motion } from 'react-motion';
 import { favoriteSet } from '../services/favoriteSet';
+import {S3_ROOT_FOR_IMAGES} from '../constants/constants'
 
 const SetShare = React.createClass({
 	contextTypes: {
@@ -45,7 +46,7 @@ const SetShare = React.createClass({
 			method: 'feed',
 			link: 'https://setmine.com/play/' + this.props.id,
 			caption: 'Share this Set',
-			picture: S3_ROOT_FOR_IMAGES + this.props.artist_image
+			picture: S3_ROOT_FOR_IMAGES + this.props.image
 		}, function(response) {
 			console.debug(response);
 		});
