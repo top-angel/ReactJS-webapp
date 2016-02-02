@@ -16,6 +16,10 @@ app.use(function( req, res, next ) {
     next();
 });
 
+app.get('/setrecords', function( req, res ) {
+    res.redirect('https://setrecords.setmine.com');
+});
+
 app.get('*', function( req, res, next ) {
 
     // For facebook metatags, HTML is read first then the og url is inserted before sending it as the response
