@@ -1,10 +1,14 @@
-import React from 'react';
-import R from 'ramda';
-import Loader from 'react-loader';
+import React from 'react'
+import R from 'ramda'
+import Loader from 'react-loader'
+import {colors} from '../constants/constants'
+import api from '../services/api'
 
-import {API_ROOT, colors} from '../constants/constants';
-import ArtistTile from './ArtistTile';
-import Footer from './Footer';
+import BaseComponent from './BaseComponent'
+import ArtistTileContainer from './ArtistTileContainer'
+import ArtistTile from './ArtistTile'
+import Footer from './Footer'
+import Spinner from './Spinner'
 
 var artistPage = {
 	background: colors.white,
@@ -12,87 +16,47 @@ var artistPage = {
 	top: '8vh'
 }
 
-var Artists = React.createClass({
-
-	getInitialState() {
-		return {
+export default class Artists extends BaseComponent {
+	constructor(props) {
+		super(props)
+		this.autoBind('fetchArtists', 'filterArtists', 'onScroll')
+		this.state = {
 			loaded: false,
-			artists: []
-		};
-	},
+			artists: [],
+			page: 1
+		}
+		this.fetchArtists(this.state.page)
+	}
+	fetchArtists(page) {
+		api.get(`artists?page=${page}`).then(res => {
+			let artists = this.filterArtists(res.artists)
+			artists = this.state.artists.concat(artists)
 
-	componentWillMount() {
-		this.getArtists().done(res => {
-			if(res.status === 'success') {
-				var artists = this.filterArtists(res.payload.artists);
-				this.setState({
-					loaded: true,
-					artists: artists
-				});
-			}
-		});
-	},
-
-	updateArtists(res) {
-		if(res.status === 'success') {
-			var artists = this.filterArtists(res.payload.artists);
 			this.setState({
 				loaded: true,
-				artists: artists
-			});
-		}
-	},
-
+				artists: artists,
+				page: page + 1
+			})
+		})
+	}
 	filterArtists(array) {
 		var hasSets = set => {
-			return set.set_count != 0;
-		};
-		return R.filter(hasSets, array);
-	},
-
-	getArtists() {
-		var artistUrl = `${API_ROOT}artists`;
-		return (
-			$.ajax({
-				url: artistUrl,
-				type: 'get',
-				data: {
-					limit: 5000,
-					property: 'artist',
-					order: 'ASC',
-				}
-			})
-		);
-	},
-
+			return set.set_count != 0
+		}
+		return R.filter(hasSets, array)
+	}
+	onScroll() {
+		this.fetchArtists(this.state.page)
+	}
 	render() {
-		var push = this.props.push;
-		var tiles = this.state.artists.map((artist, index) => {
-			var props = {
-				artist: artist.artist,
-				key: index,
-				id: artist.id,
-				push: push,
-				imageURL: artist.icon_image.imageURL_small,
-				set_count: artist.set_count,
-				event_count: artist.event_count
-			};
-
-			return <ArtistTile {...props} />
-		});
-
 		return (
 			<div style={artistPage}>
 				<Loader loaded={this.state.loaded}>
-					<div className='flex-row flex scrollable'>
-						{tiles}
-					</div>
+					<ArtistTileContainer artists={this.state.artists} onScroll={this.onScroll}/>
+					<Spinner />
 				</Loader>
 				<Footer />
 			</div>
-		);
+		)
 	}
-
-});
-
-module.exports = Artists
+}

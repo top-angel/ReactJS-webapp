@@ -87,12 +87,15 @@ export default class App extends BaseComponent {
 	componentWillMount() {
 		// initialize global appState and push fn
 		this.initializeApp()
+
+		// detect if user is on mobile web
 		detectMobileService.detectMobileBrowser()
+
 		// initialize Facebook SDK & check if user is logged in
 		startFacebookSDK(push)
+
 		// play set if specified in url
 		if(!!this.props.params.set) {
-			// this.playSet()
 			var setId = this.props.params.set
 			playSet(setId, push)
 			updatePlayCount(setId, this.state.appState.get('user').id)
@@ -130,15 +133,28 @@ export default class App extends BaseComponent {
 			{name: "google-site-verification", content: "T4hZD9xTwig_RvyoXaV9XQDYw5ksKEQywRkqaW-CGY4"}
 		]
 		
+		// return (
+		// 	<div id='App' className='flex-column'>
+		// 		<DocMeta tags={tags} />
+		// 		<Header appState={appState} />
+		// 			{
+		// 				React.cloneElement(this.props.children, {
+		// 					appState: appState
+		// 				})
+		// 			}
+		// 		<Player appState={appState} />
+		// 	</div>
+		// )
+
 		return (
 			<div id='App' className='flex-column'>
 				<DocMeta tags={tags} />
 				<Header appState={appState} />
-				{
-					React.cloneElement(this.props.children, {
-						appState: appState
-					})
-				}
+					{
+						React.cloneElement(this.props.children, {
+							appState: appState
+						})
+					}
 				<Player appState={appState} />
 			</div>
 		)
