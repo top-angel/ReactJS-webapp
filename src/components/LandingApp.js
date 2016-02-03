@@ -28,7 +28,7 @@ var LandingApp = React.createClass({
 			clearTimeout(changeTimeout);
 			changeTimeout = setTimeout(function() {
 				moveTo('next');
-			}, 7000);
+			}, 15000);
 		}
 
 		//change slides by clicking on dots
