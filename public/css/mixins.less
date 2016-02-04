@@ -1,7 +1,3 @@
-@import "variables.less";
-@import "colors.less";
-@import "fonts.less";
-
 // complementary color scheme
 // @base: #663333;
 // @complement1: spin(@base, 180);
@@ -56,19 +52,12 @@
         box-shadow: 0 27px 55px 0 rgba(49, 53, 66, 0.3), 0 17px 17px 0 rgba(49, 53, 66, 0.15);
     }
 }
-.center {
-    margin:auto;
-}
-.click {
-    cursor:pointer;
-    .transition(0.1s, ease-in, color);
-}
 .createDivider(@width, @height:initial, @color) {
     height: @height;
     width: @width;
     background-color: @color;
 }
-.createOverlay(@opacity, @color: @dark-gray) {
+.createOverlay(@opacity, @color: #313542) {
     z-index: 1;
     &::before {
         content: '';
@@ -82,18 +71,12 @@
         z-index: -1;
     }
 }
-.fadeBackground(@color:@dark-gray, @alpha:100%) {
-    background-color: fade(@color, @alpha);
-}
 .gradient(@origin, @stops){
     background: -webkit-linear-gradient(@origin, @stops) no-repeat;
     background:    -moz-linear-gradient(@origin, @stops) no-repeat;
     background:    -ms-linear-gradient(@origin, @stops) no-repeat;
     background:      -o-linear-gradient(@origin, @stops) no-repeat;
     background:         linear-gradient(@origin, @stops) no-repeat;
-}
-.hidden  {
-    display:none!important;
 }
 .heading(@background, @color) {
     .background(@background, @color);
@@ -102,9 +85,6 @@
     border-top: solid 1px;
     border-bottom: solid 1px;
     font-size: 2rem;
-}
-.hidden-fade {
-    opacity:0!important;
 }
 .hover(@color, @multiplier: 0.8) {
     color: @color;
@@ -118,14 +98,6 @@
     &:hover {
         background-color: @color*@multiplier;
     }
-}
-
-.scrollable {
-    overflow-y:scroll!important;
-}
-.size-min(@width, @height) {
-    min-width: @width!important;
-    min-height: @height!important;
 }
 .size(@width, @height: @width) {
     width: @width!important;
@@ -159,7 +131,4 @@
     and (max-width: @max) 
     and (min-width: @min) 
     {@rules();}
-}
-@-ms-viewport{
-  width: device-width;
 }

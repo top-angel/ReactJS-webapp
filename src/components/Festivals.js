@@ -4,9 +4,9 @@ import {API_ROOT} from '../constants/constants'
 import api from '../services/api'
 
 import FestivalTile from './FestivalTile'
-import BaseComponent from './BaseComponent'
+import Base from './Base'
 
-export default class Festivals extends BaseComponent {
+export default class Festivals extends Base {
 	constructor(props) {
 		super(props)
 		this.autoBind('getFestivals')

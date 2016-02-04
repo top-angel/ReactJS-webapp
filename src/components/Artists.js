@@ -4,7 +4,7 @@ import Loader from 'react-loader'
 import {colors} from '../constants/constants'
 import api from '../services/api'
 
-import BaseComponent from './BaseComponent'
+import Base from './Base'
 import ArtistTileContainer from './ArtistTileContainer'
 import ArtistTile from './ArtistTile'
 import Footer from './Footer'
@@ -16,7 +16,7 @@ var artistPage = {
 	top: '8vh'
 }
 
-export default class Artists extends BaseComponent {
+export default class Artists extends Base {
 	constructor(props) {
 		super(props)
 		this.autoBind('fetchArtists', 'filterArtists', 'onScroll')

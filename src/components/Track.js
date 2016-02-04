@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react'
 import {changeTrack} from '../services/playerService'
 import {MMSSToMilliseconds} from '../services/convert'
-import BaseComponent from './BaseComponent'
+import Base from './Base'
 
-export default class Track extends BaseComponent {
+export default class Track extends Base {
 	constructor(props) {
 		super(props)
 		this.autoBind('changeTrack')

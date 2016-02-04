@@ -33,12 +33,23 @@
 	display: flex;
 	position: relative;
 }
+
 .flex-column {
 	.flexContainer(column, vertical, nowrap);
 }
 .flex-row {
 	.flexContainer(row, horizontal, wrap);
+	// &.wrap {
+	// 	.flexContainer(row, horizontal, wrap);
+	// }
+	// &.reverse {
+	// 	.flexContainer(row-reverse, horizontal-reverse)
+	// }
+	// &.align {
+	// 	align-items: center;
+	// }
 }
+
 .flex-zero {
 	.flex(0,1,auto)!important;
 }
@@ -78,6 +89,7 @@
 .flex-fixed-5x {
 	.flex(5,1,0)!important;
 }
+
 .buffer {
 .flex(1,1,auto)!important;
 }
@@ -98,7 +110,4 @@
 }
 .buffer-lg {
 	.flex(10,1,auto)!important;   
-}
-.unflexContainer {
-	display: initial;
 }

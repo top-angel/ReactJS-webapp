@@ -1,0 +1,89 @@
+.set-tile {
+	@setImg: 72px;
+	.card(1);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	width:30%;
+	height: @tileHeight;
+	margin: 2rem auto;
+
+	img {
+		.size(@setImg);
+		cursor: pointer;
+		background-color: white;
+		border-radius: 50%;
+		border: solid 3px @purple;
+		position: absolute;
+		top: -@setImg/2;
+		left: 2rem;
+		.small({
+			.size(48px)
+		});
+		.medium({
+			.size(60px);
+			top: -30px;
+		});
+    }
+	.detail {
+		.background(fade(@dark-gray, 90%), white);
+		position: relative;
+		height: 60%;
+		margin-top: auto;
+	}
+	.set-info {
+		padding: 5px;
+		margin-left: 13rem;
+		text-align: center;
+		>* {cursor:pointer;}
+	}
+	.set {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+	.artist {
+		color: @gray;
+	}
+	.share {
+		justify-content: space-around;
+		i:hover {
+			color:@blue;
+			.transition(0.1s, ease-in, color);
+		}
+	} 
+	i {
+		font-size: 2rem;
+		margin: 1rem;
+	}
+	.play, .time {
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+	}
+	.play {
+		cursor: pointer;
+		&:hover {
+			background-color: fade(@dark-gray, 100%);
+		}
+	}
+
+	.horizontal-divider {
+		.createDivider(96%, 1px, @gray);
+	}
+
+	.vertical-divider {
+		.createDivider(1px, 30px, @gray);
+	}
+
+	.small({
+    	width: 100%;
+    	margin: 2% 1.5%;
+    	font-size: 1.1rem;
+  	}, 619px);
+	.medium({
+		width: 47%;
+	}, 620px, 1050px);
+}
+
+

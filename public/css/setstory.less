@@ -2,6 +2,7 @@
 @import "mixins.less";
 @import "variables.less";
 @import "fonts.less";
+@import 'flex.less';
 
 /*****************
 
@@ -14,12 +15,12 @@ SETSTORY lANDING PAGE
 	font-family: @light;
 	margin-top: @headerHeight;
 	width: 100%;
-	background-color: @setstory-white;
+	background-color: @white;
 	justify-content: center;
 	align-items: center;
 
     section.mainLanding{
-    	color: @setstory-white;
+    	color: @white;
     	width: 100%;
     	height: @pageHeightWithoutPlayer;
     	background-image: url("/images/setstory/background.jpg");
@@ -81,7 +82,7 @@ SETSTORY lANDING PAGE
 	}
 
 	section.beacon {
-		color: @setstory-dark-gray;
+		color: @dark-gray;
 		justify-content: center;
 		align-items: center;
 		height: @pageHeightWithoutPlayer*2/3;

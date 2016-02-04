@@ -29,14 +29,10 @@ soundManager.setup({
 export function changeTrack(appState, push, starttime, currentTrack) {
 	var sound = appState.get('sound');
 	sound.setPosition(starttime);
-	// updates player
 	push({
-		type: 'SHALLOW_MERGE',
-		data: {
-			currentTrack: currentTrack,
-			timeElapsed: starttime
-		}
-	});
+		currentTrack: currentTrack,
+		timeElapsed: starttime
+	})
 }
 
 // create SoundManager sound object from a set
@@ -68,10 +64,7 @@ export function generateSound(loadStart, appState, push) {
 
 			// count time
 			_.debounce(push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					timeElapsed: currentTime
-				}
+				timeElapsed: currentTime
 			}), 1000)
 		}
 	};
@@ -115,22 +108,19 @@ export function playSet(setId, push, starttime = '00:00') {
 		var artist = R.pluck('artist', set.artists).toString().split(',').join(', ')
 
 		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				currentSet: {
-					artist: artist,
-					event: set.event.event,
-					setName: setName,
-					id: set.id,
-					setLength: set.set_length,
-					songUrl: set.songURL,
-					artistImage: set.artists[0].icon_image.imageURL,
-					starttime: starttime,
-				},
-				tracklist: tracks,
-				currentTrack: tracks[0].trackname,
-				playing: true
-			}
+			currentSet: {
+				artist: artist,
+				event: set.event.event,
+				setName: setName,
+				id: set.id,
+				setLength: set.set_length,
+				songUrl: set.songURL,
+				artistImage: set.artists[0].icon_image.imageURL,
+				starttime: starttime,
+			},
+			tracklist: tracks,
+			currentTrack: tracks[0].trackname,
+			playing: true
 		})
 	})
 }
@@ -143,12 +133,7 @@ export function scrub(position, appState, push) {
 	var setLength = sound.durationEstimate;
 	var newPosition = (position * setLength) / 100;
 
-	push({
-		type: 'SHALLOW_MERGE',
-		data: {
-			timeElapsed: newPosition
-		}
-	});
+	push({ timeElapsed: newPosition })
 
 	// SHEEEEIT DAS IT MAYNE
 	_.debounce(sound.setPosition(newPosition), 10000)
@@ -189,10 +174,5 @@ export function updateCurrentTrack(sound, tracklist, push) {
 		return playing;
 	});
 
-	push({
-		type: 'SHALLOW_MERGE',
-		data: {
-			currentTrack: R.last(currentTrack).trackname
-		}
-	})
+	push({ currentTrack: R.last(currentTrack).trackname })
 }

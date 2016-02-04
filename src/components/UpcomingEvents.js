@@ -1,10 +1,10 @@
 import React from 'react'
-import BaseComponent from './BaseComponent'
+import Base from './Base'
 import api from '../services/api'
 import Loader from 'react-loader'
 import EventContainer from './EventContainer'
 
-export default class UpcomingEvents extends BaseComponent {
+export default class UpcomingEvents extends Base {
 	constructor(props) {
 		super(props)
 		this.autoBind('getUpcomingEvents')

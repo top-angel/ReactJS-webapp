@@ -1,64 +1,56 @@
 import React, {PropTypes} from 'react'
-import CssModules from 'react-css-modules'
 import {generateSound, mixpanelTrackSetPlay} from '../services/playerService'
 
-import BaseComponent from './BaseComponent'
+import Base from './Base'
 import PlayerControl from './PlayerControl'
 import PlayerSeek from './PlayerSeek'
 import PlayerSetInfo from './PlayerSetInfo'
 import PlayerTracklist from './PlayerTracklist'
 import PlayerShare from './PlayerShare'
+import SetShare from './SetShare'
 
-var playingClass = 'fa center fa-pause play-button'
-var pausedClass = 'fa center fa-play play-button'
+let playingClass = 'fa center fa-pause play-button'
+let pausedClass = 'fa center fa-play play-button'
 
-class Player extends BaseComponent {
+class Player extends Base {
 	constructor(props) {
 		super(props)
 	}
 	componentDidMount() {
 		// TODO move hide player toggle to appState maybe
-		var sound = this.props.appState.get('sound')
+		let sound = this.props.appState.get('sound')
 		if(sound.durationEstimate != 0) {
-			this.context.push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					playerHidden: false
-				}
-			})
+			this.context.push({ playerHidden: false })
 		}
 	}
 	componentWillReceiveProps(nextProps) {
-		var appState = this.props.appState
-		var push = this.context.push
+		let appState = this.props.appState
 
 		if(nextProps.appState.get('currentSet') != appState.get('currentSet')) {
-			var starttime = nextProps.appState.get('currentSet').starttime
+			let starttime = nextProps.appState.get('currentSet').starttime
 
 			generateSound(starttime, nextProps.appState, push).then(function(smObj) {
 				//play a new set
-				push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						sound: smObj,
-						playing: true,
-						playerHidden: false
-					}
+				this.context.push({
+					sound: smObj,
+					playing: true,
+					playerHidden: false
 				})
 
+
 				// Log Mixpanel event
-				var selectedSet = nextProps.appState.get('currentSet')
+				let selectedSet = nextProps.appState.get('currentSet')
 				mixpanelTrackSetPlay(selectedSet)
 			})
 		} 
 	}
 	render() {
-		var appState = this.props.appState
-		var currentSet = appState.get('currentSet')
-		var hidePlayer = appState.get('playerHidden') ? 'hidden' : ''
+		let appState = this.props.appState
+		let currentSet = appState.get('currentSet')
+		let hidePlayer = appState.get('playerHidden') ? 'hidden' : ''
 
 		return (
-			<div className={`flex-row ${hidePlayer}`} id='Player'>
+			<div id='Player' className={`flex-row ${hidePlayer}`}>
 				<PlayerControl appState={appState} />
 				<div className='flex-column flex'>
 					<PlayerSeek appState={appState} />

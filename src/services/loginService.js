@@ -42,6 +42,7 @@ function statusChangeCallback(response, push) {
 	switch(response.status) {
 		case 'connected':
 			// Logged into setmine and Facebook.
+			console.log(response.authResponse)
 			registerFacebookUser(response.authResponse.accessToken, push)
 			break
 		case 'not_authorized':
@@ -57,6 +58,14 @@ function checkLoginState(push) {
 	FB.getLoginStatus(function(response) {
 		statusChangeCallback(response, push);
 	}.bind(this));
+}
+
+// TODO test
+function fetchProfilePicture(id) {
+	FB.api(
+		`/${id}picture`,
+		res => console.log(res)
+	)
 }
 
 function registerFacebookUser(auth, push) {

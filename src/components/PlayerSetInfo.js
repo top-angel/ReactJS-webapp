@@ -4,19 +4,15 @@ import {millisecondsToMMSS} from '../services/convert'
 // TODO use css modules
 
 const PlayerSetInfo = props => {
-	var appState = props.appState
-	var currentSet = appState.get('currentSet')
-	var timeElapsed = appState.get('timeElapsed')
-	var time = millisecondsToMMSS(timeElapsed)
+	let appState = props.appState
+	let currentSet = appState.get('currentSet')
+	let timeElapsed = appState.get('timeElapsed')
+	timeElapsed = millisecondsToMMSS(timeElapsed)
 
 	return (
-		<div className='set-info flex-column flex-5x'>
-			<div className='set-name flex'>
-				{currentSet.artist + ' - ' + currentSet.setName}
-			</div> 
-			<div className='set-time flex'>
-				{time + ' / ' + currentSet.setLength}
-			</div>
+		<div id='PlayerSetInfo' className='flex-column flex-5x'>
+			<p>{`${currentSet.artist} - ${currentSet.setName}`}</p>
+			<p className='caption'>{`${timeElapsed} / ${currentSet.setLength}`}</p>
 		</div>
 	)
 }

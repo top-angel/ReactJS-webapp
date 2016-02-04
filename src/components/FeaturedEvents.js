@@ -1,11 +1,11 @@
 import React from 'react'
-import BaseComponent from './BaseComponent'
+import Base from './Base'
 import api from '../services/api'
 
 import Loader from 'react-loader'
 import FeaturedTile from './FeaturedTile'
 
-export default class FeaturedEvents extends BaseComponent {
+export default class FeaturedEvents extends Base {
 	constructor(props) {
 		super(props)
 		this.autoBind('getFeaturedEvents')

@@ -1,6 +1,4 @@
 import React from 'react'
-import CssModules from 'react-css-modules'
-import styles from '../../public/css/ArtistTile.css'
 import {S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE} from '../constants/constants'
 import history from '../services/history'
 
@@ -27,4 +25,4 @@ const ArtistTile = (props) => {
 	)
 }
 
-export default CssModules(ArtistTile, styles)
+export default ArtistTile

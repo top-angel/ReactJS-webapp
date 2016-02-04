@@ -1,9 +1,10 @@
 import React, {PropTypes} from 'react'
 import {togglePlay} from '../services/playerService'
 import {S3_ROOT_FOR_IMAGES} from '../constants/constants'
-import BaseComponent from './BaseComponent'
+import Base from './Base'
+import FaIcon from './FaIcon'
 
-class PlayerControl extends BaseComponent {
+export default class PlayerControl extends Base {
 	constructor(props) {
 		super(props)
 		this.autoBind('togglePlay', 'handleKeypress')
@@ -49,9 +50,9 @@ class PlayerControl extends BaseComponent {
 		var playing = this.props.appState.get('playing')
 
 		if(!!playing) {
-			var playButtonIcon = 'fa center fa-pause'
+			var playButtonIcon = 'pause center'
 		} else {
-			var playButtonIcon = 'fa center fa-play'
+			var playButtonIcon = 'play center'
 		}
 
 		var image = {
@@ -60,8 +61,8 @@ class PlayerControl extends BaseComponent {
 		}
 
 		return (
-			<div className='click flex-container' id='PlayButton' onMouseUp={this.togglePlay} style={image}>
-				<i className={playButtonIcon}/>
+			<div id='PlayerControl' className='click flex-container' onMouseUp={this.togglePlay} style={image}>
+				<FaIcon size={18}>{playButtonIcon}</FaIcon>
 			</div>
 		)
 	}
@@ -70,5 +71,3 @@ class PlayerControl extends BaseComponent {
 PlayerControl.contextTypes = {
 	push: PropTypes.func
 }
-
-export default PlayerControl

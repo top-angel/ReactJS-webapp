@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react'
 import ArtistTile from './ArtistTile'
-import BaseComponent from './BaseComponent'
+import Base from './Base'
 import InfiniteScrollify from './InfiniteScrollify'
 
-class ArtistTileContainer extends BaseComponent {
+class ArtistTileContainer extends Base {
 	constructor(props) {
 		super(props)
 	}

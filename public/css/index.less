@@ -1,99 +1,14 @@
 /* Variables */
 
-@import "colors.less";
-@import "mixins.less";
+@import 'colors.less';
+@import 'mixins.less';
 @import 'flex.less';
-@import "variables.less";
-@import "fonts.less";
-@import "geocode.less";
-@import "setmusic.less";
-@import "setstory.less";
+@import 'variables.less';
+@import 'fonts.less';
+@import 'geocode.less';
+@import 'setmusic.less';
+@import 'setstory.less';
 
-// normalize
-
-body {
-	margin:0;
-	padding:0;
-	cursor:default;
-	width: 100vw;
-	overflow-x:hidden;
-	font-size: @defaultFontSize;
-	background: @white;
-	font-family: Avenir Light;
-	-webkit-text-size-adjust: 100%;
-	.small({
-		font-size: @defaultFontSize*0.75;
-	});
-	.medium({
-		font-size: @defaultFontSize*0.75;
-	});
-}
-* {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-a {
-	color:inherit;
-	background-color: transparent;
-	text-decoration:none;
-	&:hover, &:active {
-		color:inherit;
-		outline: 0;
-	}
-}
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-main,
-menu,
-nav,
-section,
-summary {
-  display: block;
-}
-
-img {
-	border: 0;
-}
-
-button,
-input,
-optgroup,
-select,
-textarea {
-  color: inherit;
-  font: inherit;
-  margin: 0;
-}
-
-button {
-  overflow: visible;
-}
-
-button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  -webkit-appearance: button;
-  cursor: pointer;
-}
-
-button[disabled],
-html input[disabled] {
-  cursor: default;
-}
-
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-}
 
 // css
 
@@ -259,13 +174,6 @@ input::-moz-focus-inner {
 	});
 }
 
-.fa-facebook:hover{color:@facebook-blue;}
-.fa-twitter:hover{color:@twitter-blue;}
-.fa-instagram:hover{color:@instagram-blue;}
-.fa-soundcloud:hover{color:@soundcloud-orange;}
-.fa-youtube:hover{color:@youtube-red;}
-.fa-globe:hover{color:@purple;}
-
 #FeaturedContainer {
 	height: @featuredHeight;
 	background-color: @light-gray;
@@ -394,46 +302,46 @@ footer {
 	}, 500px);
 }
 
-header {
-	background-color: @dark-gray;
-	min-height: @headerHeight;
-	position:fixed;
-	width: 100%;
-	z-index: 100;
-	font-size: 1rem;
-	.icon-setmine {
-		color: white;
-		font-size: 2.5rem;
-	}
-	.nav-button {
-		text-align: center;
-		.hover(@light-gray, 2);
-		&.fa-search {
-			padding:0 1vw;
-		}
-	}
-	.active {
-		color: white;
-		background-color: @dark-gray*1.2;
-	}
-	.desktop({
-		.icon-setmine {
-			font-size: 2rem;
-			padding: 0 1vw;
-		}
-	}, 400px);
-	.small({
-		.search-bar, #login {
-			.hidden;
-		}
-		.buffer-4x {
-			.hidden;
-		}
-		a:not(.icon-setmine) {
-			.hidden;
-		}
-	});
-}
+// header {
+// 	background-color: @dark-gray;
+// 	min-height: @headerHeight;
+// 	position:fixed;
+// 	width: 100%;
+// 	z-index: 100;
+// 	font-size: 1rem;
+// 	.icon-setmine {
+// 		color: white;
+// 		font-size: 2.5rem;
+// 	}
+// 	.nav-button {
+// 		text-align: center;
+// 		.hover(@light-gray, 2);
+// 		&.fa-search {
+// 			padding:0 1vw;
+// 		}
+// 	}
+// 	.active {
+// 		color: white;
+// 		background-color: @dark-gray*1.2;
+// 	}
+// 	.desktop({
+// 		.icon-setmine {
+// 			font-size: 2rem;
+// 			padding: 0 1vw;
+// 		}
+// 	}, 400px);
+// 	.small({
+// 		.search-bar, #login {
+// 			.hidden;
+// 		}
+// 		.buffer-4x {
+// 			.hidden;
+// 		}
+// 		a:not(.icon-setmine) {
+// 			.hidden;
+// 		}
+// 	});
+// }
 
 #HomeView {
 	position: relative;
@@ -837,24 +745,24 @@ header {
 	});
 }
 
-#Player {
-	height: @playerHeight;
-	width: 100%;
-	position:fixed;
-	bottom: 0!important;
-	.background(@dark-gray, white);
-	z-index: 100;
-	.set-info {
-		padding: 8px 0 0 8px;
-		font-size: 0.8rem;
-	}
-	@media (max-width: 640px) {
-		font-size: 0.75rem;
-	}
-	.medium({
-		font-size: 1.2rem;
-	});
-}
+// #Player {
+// 	height: @playerHeight;
+// 	width: 100%;
+// 	position:fixed;
+// 	bottom: 0!important;
+// 	.background(@dark-gray, white);
+// 	z-index: 100;
+// 	.set-info {
+// 		padding: 8px 0 0 8px;
+// 		font-size: 0.8rem;
+// 	}
+// 	@media (max-width: 640px) {
+// 		font-size: 0.75rem;
+// 	}
+// 	.medium({
+// 		font-size: 1.2rem;
+// 	});
+// }
 #PlayerTracklist {
 	text-align: center;
 	cursor: pointer;
@@ -891,23 +799,7 @@ header {
 		}
 	}
 }
-#PlayButton {
-	position: relative;
-	.size(@playerHeight, 100%);
-	.transition(0.2s);
-	img {
-		.size(100%,100%);
-	}
-	.fa {
-		visibility: visible;
-	}
-	&:hover {
-		.createOverlay(0.5, @dark-gray);
-		.fa {
-			visibility: visible;
-		}
-	}
-}
+
 .player-set-info {
 	border-right: solid 1px @gray;
 	div {
@@ -963,18 +855,6 @@ header {
 	}, 840px);
 }
 
-#search {
-	font-size: 1rem;
-	font-family: @regular;
-	.border-radius(25px);
-	padding: 1vh 1vw;
-	color: @dark-gray;
-	outline:0;
-	margin: auto 0;
-	border:none;
-	width:0;
-}
-
 #SearchResultsView {
 	color: @dark-gray;
 	min-height: @windowHeight - @headerHeight;
@@ -1002,22 +882,6 @@ header {
 	}
 }
 
-// #SetsView {
-// 	.flexContainer(row, horizontal, nowrap);
-// 	height: @pageHeightWithoutPlayer;
-// 	.loadedContent {
-// 		.flex-row;
-// 		.flex-fixed-4x;
-// 		.scrollable;
-// 		&::after {
-// 			content: '';
-// 			height: @playerHeight;
-// 			width: 100%;
-// 			background-color: @white;
-// 		}
-// 	}
-// }
-
 .tile-button {
     &:hover {
     background-color: rgba(255,255,255,0.2);
@@ -1034,7 +898,7 @@ header {
 }
 
 .view {
-	top: @headerHeight;
+	// top: @headerHeight;
 	position: relative;
 	min-height: @pageHeight;
 	background-color: @white;

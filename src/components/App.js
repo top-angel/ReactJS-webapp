@@ -16,33 +16,21 @@ import {DEFAULT_IMAGE} from '../constants/constants'
 // fix mobile touch events not registering
 InjectTapEventPlugin()
 
-import BaseComponent from './BaseComponent'
+import Base from './Base'
 import Header from './Header'
+import NavBar from './NavBar'
 import Player from './Player'
+import Notifications from './Notifications'
 
-var initialAppState = Immutable.Map({
+let initialAppState = Immutable.Map({
+	closestEvents: [],
+	currentPage: 'Setmine',
 	currentSet: {
 		setLength: '00:00',
 		starttime: '00:00',
 		id: null
 	},
-	tracklist: [],
 	currentTrack: null,
-	sound: {
-		durationEstimate: 0
-	},
-	playerHidden: true,
-	playing: false,
-	timeElapsed: 0,
-	isUserLoggedIn: false,
-	user: {
-		id: 67,
-		first_name: '',
-		last_name: ''
-	},
-	favorites: [],
-	favoriteSetIds: [],
-	closestEvents: [],
 	detailData: {
 		sets: [],
 		upcomingEvents: [],
@@ -58,25 +46,56 @@ var initialAppState = Immutable.Map({
 		soundcloud_link: null,
 		youtube_link: null
 	},
+	favorites: [],
+	favoriteSetIds: [],
+	isUserLoggedIn: false,
+	playerHidden: false,
+	playing: false,
 	searchResults: {
 		artists: [],
 		sets: [],
 		upcomingEvents: [],
 		tracks: []
+	},
+	snackbar: {
+		open: false,
+		message: ''
+	},
+	sound: {
+		durationEstimate: 0
+	},
+	timeElapsed: 0,
+	tracklist: [],
+	user: {
+		id: 67,
+		first_name: '',
+		last_name: ''
 	}
 })
 
-var evtHandler = GlobalEventHandler(initialAppState)
-var evtTypes = evtHandler.types
-var push = evtHandler.push
+let tags = [
+	{property: "description", content: "Setmine is a music app dedicated to live events! Relive past music festivals: Ultra, Coachella + more! Find upcoming shows + buy tix + listen to DJs' sets"},
+	{property: "og:site_name", content: "Setmine"},
+	{property: "fb:app_id", content: "648288801959503"},
+	{property: "og:description", content: "Setmine offers live music enthusiasts a new way to experience their favorite festival music.  No more struggling to find your favorite sets--we've done it all for you.  Listen to Ultra, Coachella, TomorrowWorld, and many more! Also don't forget to listen your favorite DJ's radio shows!"},
+	{property: "og:image", content: "https://setmine.com/images/setmine-logo-facebook.png"},
+	{property: "og:title", content: "Setmine | View Lineups & Play Sets | Relive Your Favorite Events"},
+	{property: "og:type", content: "website"},
+	{name: "google-site-verification", content: "T4hZD9xTwig_RvyoXaV9XQDYw5ksKEQywRkqaW-CGY4"}
+]
 
-// var push = data => pushFn({
-// 	type: 'SHALLOW_MERGE',
-// 	data: data
-// })
+let evtHandler = GlobalEventHandler(initialAppState)
+let evtTypes = evtHandler.types
+let pushFn = evtHandler.push
+
+// wrapper for pushFn. data must be an object
+var push = data => pushFn({
+	type: 'SHALLOW_MERGE',
+	data: data
+})
 
 
-export default class App extends BaseComponent {
+export default class App extends Base {
 	constructor(props) {
 		super(props)
 		this.autoBind('initializeApp')
@@ -96,7 +115,7 @@ export default class App extends BaseComponent {
 
 		// play set if specified in url
 		if(!!this.props.params.set) {
-			var setId = this.props.params.set
+			let setId = this.props.params.set
 			playSet(setId, push)
 			updatePlayCount(setId, this.state.appState.get('user').id)
 		}
@@ -115,46 +134,27 @@ export default class App extends BaseComponent {
 		}
 	}
 	initializeApp() {
-		var self = this
+		let self = this
 		evtHandler.floodGate.subscribe(newState => {
 			self.setState({ appState: newState })
 		})
 	}
 	render() {
-		var appState = this.state.appState
-		var tags = [
-			{property: "description", content: "Setmine is a music app dedicated to live events! Relive past music festivals: Ultra, Coachella + more! Find upcoming shows + buy tix + listen to DJs' sets"},
-			{property: "og:site_name", content: "Setmine"},
-			{property: "fb:app_id", content: "648288801959503"},
-			{property: "og:description", content: "Setmine offers live music enthusiasts a new way to experience their favorite festival music.  No more struggling to find your favorite sets--we've done it all for you.  Listen to Ultra, Coachella, TomorrowWorld, and many more! Also don't forget to listen your favorite DJ's radio shows!"},
-			{property: "og:image", content: "https://setmine.com/images/setmine-logo-facebook.png"},
-			{property: "og:title", content: "Setmine | View Lineups & Play Sets | Relive Your Favorite Events"},
-			{property: "og:type", content: "website"},
-			{name: "google-site-verification", content: "T4hZD9xTwig_RvyoXaV9XQDYw5ksKEQywRkqaW-CGY4"}
-		]
-		
-		// return (
-		// 	<div id='App' className='flex-column'>
-		// 		<DocMeta tags={tags} />
-		// 		<Header appState={appState} />
-		// 			{
-		// 				React.cloneElement(this.props.children, {
-		// 					appState: appState
-		// 				})
-		// 			}
-		// 		<Player appState={appState} />
-		// 	</div>
-		// )
-
+		let appState = this.state.appState
+		let snackbar = appState.get('snackbar')
+		let currentPage = appState.get('currentPage')
+		// className='flex-row'
 		return (
-			<div id='App' className='flex-column'>
+			<div id='App'>
 				<DocMeta tags={tags} />
-				<Header appState={appState} />
-					{
-						React.cloneElement(this.props.children, {
-							appState: appState
-						})
-					}
+				<Header currentPage={currentPage} />
+				<NavBar />
+				{
+					React.cloneElement(this.props.children, {
+						appState: appState
+					})
+				}
+				<Notifications snackbar={snackbar} />
 				<Player appState={appState} />
 			</div>
 		)

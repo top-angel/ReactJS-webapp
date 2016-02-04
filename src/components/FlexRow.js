@@ -1,37 +1,45 @@
 import React, {PropTypes} from 'react'
-import CssModules from 'react-css-modules'
-import styles from '../../public/css/FlexRow.css'
 
 function FlexRow(props) {
-	// return (
-	// 	<div styleName='flex-row' className={props.style}>
-	// 		{props.children}
-	// 	</div>
-	// )
-
-	// TODO
-		// filter through props & create string with classNames
-	let fixed, wrap, reverse
+	let wrap, reverse, center, size
 	switch(true) {
-		case props.fixed:
-			fixed = 'fixed'
 		case props.wrap:
 			wrap = 'wrap'
 		case props.reverse:
 			reverse = 'reverse'
+		case props.center:
+			center = 'align'
+	}
+
+	switch(props.size) {
+		case 1:
+			size = 'flex'
+		case 2:
+			size = 'flex-2x'
+		case 3:
+			size = 'flex-3x'
+		case 4:
+			size = 'flex-4x'
+		case 5:
+			size = 'flex-5x'
 	}
 	return (
-		<div className={`flex-row ${fixed} ${wrap} ${reverse}`}>
+		<div className={`flex-row ${wrap} ${reverse} ${center} ${size}`} style={props.style}>
 			{props.children}
 		</div>
 	)
+}
+
+FlexRow.defaultProps = {
+	wrap: true
 }
 
 FlexRow.propTypes = {
 	fixed: PropTypes.bool,
 	wrap: PropTypes.bool,
 	reverse: PropTypes.bool,
-	around: PropTypes.bool
+	around: PropTypes.bool,
+	style: PropTypes.object
 }
 
-export default CssModules(FlexRow, styles)
+export default FlexRow

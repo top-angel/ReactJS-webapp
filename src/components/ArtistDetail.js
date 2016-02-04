@@ -5,13 +5,13 @@ import R from 'ramda'
 import api from '../services/api'
 import {DEFAULT_IMAGE} from '../constants/constants'
 
-import BaseComponent from './BaseComponent'
+import Base from './Base'
 import SetContainer from './SetContainer'
 import EventContainer from './EventContainer'
 import DetailImageContainer from './DetailImageContainer'
 import LinkButtonContainer from './LinkButtonContainer'
 
-export default class ArtistDetail extends BaseComponent {
+export default class ArtistDetail extends Base {
 	constructor(props) {
 		super(props)
 		this.state = {

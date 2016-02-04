@@ -1,49 +1,51 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import {Link} from 'react-router'
+import _ from 'underscore'
 import api from '../services/api'
 import history from '../services/history'
-import _ from 'underscore'
+import Base from './Base'
 
-const SearchBar = (props, context) => {
-	function handleKeypress(e) {
-		var query = document.getElementById('search').value
-		if(query.length >= 3 || e.charCode == 13) {
-			search(query)
-		} 
+export default class SearchBar extends Base {
+	constructor(props) {
+		super(props)
+		this.autoBind('search', 'handleKeypress')
 	}
-
-	function search(query) {
+	handleKeypress(e) {
+		let query = ReactDOM.findDOMNode(this.refs.search).value
+		if(query.length >= 3 || e.charCode == 13) {
+			this.search(query)
+		}
+	}
+	search(query) {
 		api.get(`search/${query}`).then(res => {
 			var {artists, sets, events, tracks} = res.search
-			context.push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					searchResults: {
-						sets: sets,
-						upcomingEvents: events,
-						tracks: tracks,
-						artists: artists
-					}
+			this.context.push({
+				searchResults: {
+					sets: sets,
+					upcomingEvents: events,
+					tracks: tracks,
+					artists: artists
 				}
 			})
 
 			history.pushState(null, '/search')
 		})
 	}
-
-	return (
-		<div className='center flex flex-row'>
-			<Link className='nav-button fa fa-search center click' to='/search' />
-			<input id='search' 
-				className='flex'
-				placeholder='search' 
-				onKeyPress={_.debounce(handleKeypress, 300)} />
-        </div>
-	)
+	render() {
+		return (
+			<div id='SearchBar' className='flex-row'>
+				<i className='fa fa-search'/>
+				<input
+					id='search'
+					placeholder='search'
+					ref='search'
+					onKeyPress={_.debounce(this.handleKeypress, 300)} />
+			</div>
+		)
+	}
 }
 
 SearchBar.contextTypes = {
 	push: React.PropTypes.func
 }
-
-export default SearchBar

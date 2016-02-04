@@ -1,11 +1,11 @@
 import React from 'react'
-import BaseComponent from './BaseComponent'
+import Base from './Base'
 import Loader from 'react-loader'
 import api from '../services/api'
 import SetContainer from './SetContainer'
 import Spinner from './Spinner'
 
-export default class Popular extends BaseComponent {
+export default class Popular extends Base {
 	constructor(props) {
 		super(props)
 		this.autoBind('getPopularSets', 'onScroll')

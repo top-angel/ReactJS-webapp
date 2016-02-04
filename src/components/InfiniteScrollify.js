@@ -1,8 +1,8 @@
 import React, {PropTypes} from 'react'
-import BaseComponent from './BaseComponent'
+import Base from './Base'
 
 export default function(InnerComponent) {
-	class InfiniteScrollify extends BaseComponent {
+	class InfiniteScrollify extends Base {
 		constructor(props) {
 			super(props)
 			this.autoBind('onScroll')

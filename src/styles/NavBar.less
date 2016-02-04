@@ -1,0 +1,23 @@
+#NavBar {
+	background: @dark-gray;
+	color: @white;
+	cursor: pointer;
+	width: @navbarWidth;
+	z-index: 100;
+	position: fixed;
+	height: 90vh;
+	top: @headerHeight;
+	a {
+		justify-content: space-around;
+		align-items: center;
+		height: @headerHeight;
+		&:hover {
+			background: @dark-gray*0.9;
+		}
+		&.active {
+			background: @dark-gray*0.8;
+			color: @white;
+			border-left: solid 2px @blue;
+		}
+	}
+}

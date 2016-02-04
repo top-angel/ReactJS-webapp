@@ -2,11 +2,11 @@ import React, {PropTypes} from 'react'
 import R from 'ramda'
 import {checkIfFavorited} from '../services/favoriteSet'
 
-import BaseComponent from './BaseComponent'
+import Base from './Base'
 import SetTile from './SetTile'
 import InfiniteScrollify from './InfiniteScrollify'
 
-class SetContainer extends BaseComponent {
+class SetContainer extends Base {
 	constructor(props) {
 		super(props)
 		this.autoBind('checkIfFavorited')
@@ -58,7 +58,7 @@ class SetContainer extends BaseComponent {
 		})
 
 		return (
-			<div className={this.props.className}>
+			<div className='flex-row'>
 				{tiles}
 			</div>
 		)

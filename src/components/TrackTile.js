@@ -1,13 +1,11 @@
 import React from 'react'
-import BaseComponent from './BaseComponent'
-import CssModules from 'react-css-modules'
-import styles from '../../public/css/TrackTile.css'
+import Base from './Base'
 
 import { S3_ROOT_FOR_IMAGES } from '../constants/constants'
 import { playSet, updatePlayCount } from '../services/playerService'
 import history from '../services/history'
 
-class TrackTile extends BaseComponent {
+export default class TrackTile extends Base {
 	constructor(props) {
 		super(props)
 		this.autoBind('openArtistPage', 'openFestivalPage', 'playSet', 'trackPlay')
@@ -72,5 +70,3 @@ TrackTile.contextTypes = {
 	push: React.PropTypes.func,
 	user: React.PropTypes.object
 }
-
-export default CssModules(TrackTile, styles)

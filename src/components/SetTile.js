@@ -1,15 +1,12 @@
 import React from 'react'
-import BaseComponent from './BaseComponent'
-import CssModules from 'react-css-modules'
-import styles from '../../public/css/SetTile.css'
-
+import Base from './Base'
 import { API_ROOT, S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE } from '../constants/constants'
 import history from '../services/history'
 import {playSet, updatePlayCount} from '../services/playerService'
 
 import SetShare from './SetShare'
 
-class SetTile extends BaseComponent {
+export default class SetTile extends Base {
 	constructor(props) {
 		super(props)
 		this.autoBind('openArtistPage', 'openFestivalPage', 'playSet')
@@ -38,29 +35,38 @@ class SetTile extends BaseComponent {
 		}
 
 		return (
-			<div styleName='set-tile' style={eventImage} className='flex-column'>
-				<div  styleName='detail' className='flex-column'>
-					<div className='flex-row flex-fixed-2x'>
-						<img src={S3_ROOT_FOR_IMAGES+this.props.artistImage} onClick={this.openArtistPage} />
-						<div className='flex-column flex' styleName='set'>
-							<div className='flex click' onClick={this.openFestivalPage}>{this.props.setName}</div>
-							<div styleName='artist' className='flex click' onClick={this.openArtistPage}>{this.props.artist}</div>
-							<SetShare 
-								id={this.props.id} 
-								favorited={this.props.favorited} />
+			<div className='set-tile flex-column' style={eventImage} >
+				<div className='detail flex-column'>
+					<img src={S3_ROOT_FOR_IMAGES+this.props.artistImage} onClick={this.openArtistPage} />
+
+					<div className='set-info flex-column flex-fixed-2x'>
+						<p className='set' onClick={this.openFestivalPage}>{this.props.setName}</p> 
+						<p className='artist caption' onClick={this.openArtistPage}>{this.props.artist}</p>
+						<SetShare 
+							id={this.props.id} 
+							favorited={this.props.favorited} />
+					</div>
+
+					<div className='horizontal-divider center'/>
+
+					<div className='flex-row flex-fixed flex-row'>
+						<div className='play flex-fixed' onClick={this.playSet}>
+							<p>
+								<i className='fa fa-play' />
+								{this.props.popularity}
+							</p>
+						</div>
+
+						<div className='vertical-divider'/>
+
+						<div className='time flex-fixed flex-row'>
+							<p>
+								<i className='fa fa-clock-o' />
+								{this.props.setLength}
+							</p>
 						</div>
 					</div>
-					<div styleName='horizontal-divider'/>
-					<div className='flex-row flex-fixed'>
-						<div styleName='play' className='flex-fixed flex-container' onClick={this.playSet}>
-							{/*<i className='fa fa-play center'>{'  '+this.props.popularity}</i>*/}
-							<i className='ti-control-play center'>{'  '+this.props.popularity}</i>
-						</div>
-						<div styleName='vertical-divider'/>
-						<div className='flex-fixed flex-container'>
-							<i className='fa fa-clock-o center'>{'  '+this.props.setLength}</i>
-						</div>
-					</div>
+
 				</div>
 			</div>
 		)
@@ -77,5 +83,3 @@ SetTile.defaultProps = {
 	favorited: false,
 	artistImage: DEFAULT_IMAGE
 }
-
-export default CssModules(SetTile, styles)

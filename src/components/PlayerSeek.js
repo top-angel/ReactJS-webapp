@@ -3,11 +3,9 @@ import ReactDOM from 'react-dom'
 import {scrub} from '../services/playerService'
 import {MMSSToMilliseconds, millisecondsToMMSS} from '../services/convert'
 
-import BaseComponent from './BaseComponent'
-import CssModules from 'react-css-modules'
-import styles from '../../public/css/PlayerSeek.css'
+import Base from './Base'
 
-class PlayerSeek extends BaseComponent {
+export default class PlayerSeek extends Base {
 	constructor(props) {
 		super(props)
 		this.autoBind('scrub', 'offsetLeft', 'bindSeekMouseEvents', 'handleSeekMouseDown', 'handleSeekMouseUp')
@@ -73,12 +71,10 @@ class PlayerSeek extends BaseComponent {
 
 		
 		return (
-			<div styleName='container' onClick={this.scrub} ref='scrubber'>
-				<div 
-					styleName='time-elapsed' 
+			<div id='PlayerSeek' onClick={this.scrub} ref='scrubber'>
+				<div className='time-elapsed' 
 					style={{ width: percent+'%' }}>
-					<div 
-						styleName='handle'
+					<div className='handle'
 						onClick={this.handleMouseClick}
 						onMouseDown={this.handleSeekMouseDown} />
 				</div>
@@ -94,5 +90,3 @@ PlayerSeek.contextTypes = {
 PlayerSeek.propTypes = {
 	appState: PropTypes.object
 }
-
-export default CssModules(PlayerSeek, styles)

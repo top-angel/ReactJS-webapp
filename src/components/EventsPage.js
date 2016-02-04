@@ -1,13 +1,16 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import Loader from 'react-loader'
 
 import FeaturedEvents from './FeaturedEvents'
 import Location from './Location'
 import EventContainer from './EventContainer'
 
-export default class EventsView extends React.Component {
+export default class EventsPage extends React.Component {
 	constructor(props) {
 		super(props)
+	}
+	componentWillMount() {
+		this.context.push({ currentPage: 'Events' })
 	}
 	componentDidMount() {
 		mixpanel.track("Events Page Open")
@@ -30,4 +33,8 @@ export default class EventsView extends React.Component {
 			</div>
 		)
 	}
+}
+
+EventsPage.contextTypes = {
+	push: PropTypes.func
 }

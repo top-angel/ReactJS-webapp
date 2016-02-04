@@ -1,12 +1,12 @@
 import React from 'react'
-import BaseComponent from './BaseComponent'
+import Base from './Base'
 import R from 'ramda'
 import Loader from 'react-loader'
 import api from '../services/api'
 import SetContainer from './SetContainer'
 import Spinner from './Spinner'
 
-class Recent extends BaseComponent {
+export default class Recent extends Base {
 	constructor(props) {
 		super(props)
 		this.autoBind('getRecentSets', 'onScroll')
@@ -44,5 +44,3 @@ class Recent extends BaseComponent {
 		)
 	}
 }
-
-export default Recent
