@@ -11,13 +11,14 @@
 		justify-content: space-around;
 		align-items: center;
 		height: @headerHeight;
+		.transition(border);
 		&:hover {
 			background: @dark-gray*0.9;
 		}
 		&.active {
 			background: @dark-gray*0.8;
 			color: @white;
-			border-left: solid 2px @blue;
+			border-left: solid 3px @blue;
 		}
 	}
 }

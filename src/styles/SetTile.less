@@ -35,7 +35,13 @@
 		padding: 5px;
 		margin-left: 13rem;
 		text-align: center;
-		>* {cursor:pointer;}
+		>* {
+			cursor:pointer;
+		}
+	}
+	.set:hover, .artist:hover {
+		color: @blue;
+		.transition(color);
 	}
 	.set {
 		white-space: nowrap;
@@ -45,13 +51,6 @@
 	.artist {
 		color: @gray;
 	}
-	.share {
-		justify-content: space-around;
-		i:hover {
-			color:@blue;
-			.transition(0.1s, ease-in, color);
-		}
-	} 
 	i {
 		font-size: 2rem;
 		margin: 1rem;
@@ -64,7 +63,8 @@
 	.play {
 		cursor: pointer;
 		&:hover {
-			background-color: fade(@dark-gray, 100%);
+			color: @blue;
+			.transition(color);
 		}
 	}
 

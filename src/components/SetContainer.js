@@ -9,14 +9,6 @@ import InfiniteScrollify from './InfiniteScrollify'
 class SetContainer extends Base {
 	constructor(props) {
 		super(props)
-		this.autoBind('checkIfFavorited')
-	}
-	checkIfFavorited(id, favorites) {
-		if(this.context.loginStatus) {
-			return R.contains(id, favorites)
-		} else {
-			return false
-		}
 	}
 	shouldComponentUpdate(nextProps, nextState, nextContext) {
 		var oldFav = this.context.favoriteSetIds
@@ -35,7 +27,7 @@ class SetContainer extends Base {
 	render() {
 		var tiles = this.props.sets.map((set, index) => {
 			// check if each set is favorited
-			var favorited = checkIfFavorited(this.context.loginStatus, set.id, this.context.favoriteSetIds)
+			let favorited = this.context.loginStatus ? checkIfFavorited(set.id, this.context.favoriteSetIds) : false
 
 			// show episode on set tiles
 			var setName = (set.episode != undefined && R.keys(set.episode).length != 0) ? `${set.event.event} - ${set.episode.episode}` : set.event.event

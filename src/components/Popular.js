@@ -20,7 +20,7 @@ export default class Popular extends Base {
 		mixpanel.track("Popular Sets Page Open")
 	}
 	getPopularSets(page=this.state.page) {
-		api.get(`sets/popular?limit=36&page=${page}`).then(res => {
+		api.get(`sets/popular?limit=24&page=${page}`).then(res => {
 			// merge new sets to existing
 			let sets = this.state.sets.concat(res.sets_popular)
 

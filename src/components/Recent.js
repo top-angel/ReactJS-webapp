@@ -21,7 +21,7 @@ export default class Recent extends Base {
 		mixpanel.track("Sets Page Open")
 	}
 	getRecentSets(page=this.state.page) {
-		api.get(`sets/recent?limit=36&page=${page}`).then(res => {
+		api.get(`sets/recent?limit=24&page=${page}`).then(res => {
 			// merge sets to existing sets
 			let sets = this.state.sets.concat(res.sets_recent)
 

@@ -13,6 +13,16 @@ const tabs = [
 		text: 'POPULAR',
 		to: '/sets/popular',
 		index: false
+	},
+	{
+		text: 'FESTIVALS',
+		to: '/sets/festivals',
+		index: false
+	},
+	{
+		text: 'MIXES',
+		to: '/sets/mixes',
+		index: false
 	}
 ]
 
@@ -25,7 +35,7 @@ export default class SetsPage extends Base {
 	}
 	render() {
 		return (
-			<div id='Sets' className='flex-column'>
+			<div id='SetsPage' className='flex-column'>
 				<Tabs tabs={tabs} />
 				{
 					React.cloneElement(this.props.children, {

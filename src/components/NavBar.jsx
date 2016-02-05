@@ -16,16 +16,16 @@ export default class NavBar extends Base {
 		return (
 			<nav id='NavBar' className='flex-column'>
 				<Link to='/user' className='flex-container' activeClassName='active'>
-					<Icon size={2}>home</Icon>
+					<Icon size={24}>home</Icon>
 				</Link>
 				<Link to='/sets' className='flex-container' activeClassName='active'>
-					<Icon size={2}>music</Icon>
+					<Icon size={24}>music</Icon>
 				</Link>
 				<Link to='/events' className='flex-container' activeClassName='active'>
-					<Icon size={2}>calendar</Icon>
+					<Icon size={24}>calendar</Icon>
 				</Link>
 				<Link to='/artists' className='flex-container' activeClassName='active'>
-					<Icon size={2}>users</Icon>
+					<Icon size={24}>users</Icon>
 				</Link>
 			</nav>
 		)

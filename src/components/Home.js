@@ -1,25 +1,24 @@
 import React from 'react';
+import Base from './Base';
 import HomeSidebar from './HomeSidebar';
 import LoginOverlay from './LoginOverlay';
 
-const Home = React.createClass({
-
-	contextTypes: {
-		push: React.PropTypes.func,
-		user: React.PropTypes.object,
-		loginStatus: React.PropTypes.bool
-	},
-
+export default class Home extends Base {
+	constructor(props) {
+		super(props)
+		this.autoBind('showOverlay')
+	}
+	componentWillMount() {
+		this.context.push({ currentPage: 'Home' })
+	}
 	componentDidMount() {
 		mixpanel.track("User Home Page Open");
-	},
-
+	}
 	showOverlay(loginStatus) {
 		if(!loginStatus) {
 			return <LoginOverlay />
 		}
-	},
-
+	}
 	render() {
 		return (
 			<div id='HomeView' className='flex-row'>
@@ -34,8 +33,10 @@ const Home = React.createClass({
 			</div>
 		);
 	}
+}
 
-});
-
-
-export default Home;
+Home.contextTypes =  {
+	push: React.PropTypes.func,
+	user: React.PropTypes.object,
+	loginStatus: React.PropTypes.bool
+}

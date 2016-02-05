@@ -26,7 +26,7 @@ const Icon = props => {
 }
 
 Icon.propTypes = {
-	size: PropTypes.oneOf([2, 3, 4, 5]),
+	size: PropTypes.oneOf([18, 24, 36, 48]),
 	children: PropTypes.string.isRequired
 }
 

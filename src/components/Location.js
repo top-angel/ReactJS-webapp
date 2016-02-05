@@ -1,116 +1,56 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Geosuggest from 'react-geosuggest';
 import {Link} from 'react-router';
-import {API_ROOT} from '../constants/constants';
+import api from '../services/api';
 import history from '../services/history';
+import Base from './Base';
+import Icon from './FaIcon';
 
-const Location = React.createClass({
-
-	contextTypes: {
-		push: React.PropTypes.func
-	},
-
-	componentWillMount() {
-		navigator.geolocation.getCurrentPosition(this.getDefaultCoordinates);
-		this.getClosestEvents();
-	},
-
-	getInitialState() {
-		return {
-			location: {
-				label: 'DEFAULT LOCATION',
-				location: {
-					lat: 29.652175,
-					lng: -82.325856
-				}
-			}
+export default class Location extends Base {
+	constructor(props) {
+		super(props)
+		this.autoBind('getCurrentPosition', 'getClosestEvents', 'onSuggestSelect')
+		this.state = {
+			lat: 29.652175,
+			lng: -82.325856
 		}
-	},
-
-	getDefaultCoordinates(location) {
-		var coordinates = {
-			latitude: location.coords.latitude,
-			longitude: location.coords.longitude,
-			time: location.coords.timestamp
-		};
-
-		console.log(coordinates)
-
-		// set state of location?
-		// this.setState({
-		// 	location: {
-		// 		label: 'USER LOCATION',
-		// 		location: {
-		// 			lat: coordinates.latitude,
-		// 			lng: coordinates.longitude
-		// 		}
-		// 	}
-		// });
-	},
-
+		navigator.geolocation.getCurrentPosition(this.getCurrentPosition);
+		// this.getClosestEvents();
+	}
+	getCurrentPosition(location) {
+		// console.log('current location', location)
+		this.setState({
+			lat: location.coords.latitude,
+			lng: location.coords.longitude
+		});
+	}
 	getClosestEvents() {
-		var push = this.context.push;
-		// var location = this.props.appState.get('location');
-		var location = this.state.location
-		console.log(location);
-
-		var coordinates = location.location;
-		console.log(coordinates);
-
-		$.ajax({
-			url: `${API_ROOT}events/upcoming`,
-			type: 'get',
-			data: {
-				latitude: coordinates.lat,
-				longitude: coordinates.lng
-			}
-		}).done(res => {
-			if(res.status === 'success') {
-				push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						closestEvents: res.payload.upcoming
-					}
-				});
-			} else {
-				console.log('Could not load events');
-			}
-		})
-	},
-
+		api.get(`events/upcoming?latitude=${this.state.lat}&longitude=${this.state.lng}`).then(res => {
+			this.context.push({ closestEvents: res.upcoming });
+		});
+	}
 	onSuggestSelect(suggest) {
-		this.context.push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				location: suggest
-			}
+		// console.log('react geosuggest coordinates', suggest);
+		this.setState({
+			lat: suggest.location.lat,
+			lng: suggest.location.lng
 		});
-
-		this.getClosestEvents();
-		history.pushState(null, '/events/closest');
-		mixpanel.track("Event Search Active", {
-			"search": suggest
-		});
-	},
-
+		// this.getClosestEvents();
+		// history.pushState(null, '/events/closest');
+	}
 	render() {
-		// var defaultLocation = this.props.appState.get('location');
-		var location = this.state.location
 		return (
-			<div id='LocationModule' className='flex-row flex-zero'>
-				<Link className='flex click' to='/events' onlyActiveOnIndex={true} activeClassName='active'>Upcoming</Link>
-				<Link className='flex click' to='/events/closest' activeClassName='active'>Around</Link>
-				<div className='buffer-lg'/>
-				<i className='flex fa fa-map-marker'/>
+			<div id='Location' className='flex-row'>
+				<Icon size={24}>search</Icon>
 				<Geosuggest
-					className='flex'
-					location={new google.maps.LatLng(location.latitude, location.longitude)}
+					location={new google.maps.LatLng(this.state.lat, this.state.lng)}
 					radius={25}
 					onSuggestSelect={this.onSuggestSelect} />
 			</div>
 		);
 	}
+};
 
-});
-
-export default Location;
+Location.contextTypes = {
+	push: PropTypes.func
+};

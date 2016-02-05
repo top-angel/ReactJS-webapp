@@ -2,6 +2,7 @@ import R from 'ramda';
 import api from './api';
 
 // adds a set to a user's favorites
+// TODO write as pure function
 export function favoriteSet(setId, userId, push) {
 	api.post('setmineuser/favorites', {
 		user_id: userId,
@@ -21,10 +22,6 @@ export function favoriteSet(setId, userId, push) {
 }
 
 // checks if a set is favorited
-export function checkIfFavorited(loginStatus, id, favorites) {
-	if(loginStatus) {
-		return R.contains(id, favorites);
-	} else {
-		return false
-	}
+export function checkIfFavorited(setId, favoriteSetIds) {
+	return R.contains(setId, favoriteSetIds)
 }

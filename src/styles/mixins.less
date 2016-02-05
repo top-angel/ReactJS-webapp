@@ -130,7 +130,7 @@
 	width: @width!important;
 	height: @height!important;
 }
-.transition(@durationTime:@defaultDuration, @transitionType: @easeIn, @transitionProperty:all) {
+.transition(@transitionProperty:all, @durationTime:@defaultDuration, @transitionType: @easeIn) {
 	transition: @transitionProperty @durationTime @transitionType;
 	transition-duration: @durationTime;
 }

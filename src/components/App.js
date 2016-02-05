@@ -49,7 +49,7 @@ let initialAppState = Immutable.Map({
 	favorites: [],
 	favoriteSetIds: [],
 	isUserLoggedIn: false,
-	playerHidden: false,
+	playerHidden: true,
 	playing: false,
 	searchResults: {
 		artists: [],
@@ -141,20 +141,18 @@ export default class App extends Base {
 	}
 	render() {
 		let appState = this.state.appState
-		let snackbar = appState.get('snackbar')
-		let currentPage = appState.get('currentPage')
 		// className='flex-row'
 		return (
 			<div id='App'>
 				<DocMeta tags={tags} />
-				<Header currentPage={currentPage} />
+				<Header currentPage={appState.get('currentPage')} />
 				<NavBar />
 				{
 					React.cloneElement(this.props.children, {
 						appState: appState
 					})
 				}
-				<Notifications snackbar={snackbar} />
+				<Notifications snackbar={appState.get('snackbar')} playerHidden={appState.get('playerHidden')} />
 				<Player appState={appState} />
 			</div>
 		)

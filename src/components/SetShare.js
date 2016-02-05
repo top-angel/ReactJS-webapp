@@ -22,9 +22,11 @@ export default class SetShare extends Base {
 		var {user, loginStatus, push} = this.context
 		if(loginStatus) {
 			favoriteSet(this.props.id, user.id, push)
-			this.setState({
-				open: true,
-				message: 'Set added to your favorites' 
+			this.context.push({
+				snackbar: {
+					open: true,
+					message: 'Set added to your favorites'
+				}
 			})
 		} else {
 			history.pushState(null, '/user')
@@ -41,7 +43,7 @@ export default class SetShare extends Base {
 		let playURL = `https://setmine.com/play/${this.props.id}`
 
 		return (
-			<div className='share flex-row'>
+			<div id='SetShare' className='share flex-row'>
 				<i className={favorite} onClick={this.favoriteSet} title='Favorite Set' />
 				<CopyToClipboard text={playURL} onCopy={this.handleCopy}>
 					<i className='fa fa-fw fa-clipboard' title='Copy to Clipboard' />

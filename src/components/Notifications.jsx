@@ -16,6 +16,10 @@ export default class Notifications extends Base {
 		})
 	}
 	render() {
+		let snackbarStyle = {
+			bottom: this.props.playerHidden ? 0 : 64,
+		}
+		
 		return (
 			<div id='Notifications'>
 				<SnackBar
@@ -23,7 +27,8 @@ export default class Notifications extends Base {
 					message={this.props.snackbar.message}
 					onRequestClose={this.closeSnackBar}
 					autoHideDuration={2000}
-					className='snackbar' />
+					className='snackbar'
+					style={snackbarStyle} />
 			</div>
 		)
 	}
@@ -35,5 +40,6 @@ Notifications.contextTypes = {
 
 Notifications.propTypes = {
 	snackbar: PropTypes.object,
-	modal: PropTypes.bool
+	modal: PropTypes.bool,
+	playerHidden: PropTypes.bool
 }

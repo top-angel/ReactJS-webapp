@@ -26,10 +26,10 @@ export default class PlayerControl extends Base {
 				this.togglePlay()
 				break
 			case(key >= 97 && key <= 122 && document.location.pathname != '/events'):
-				search.focus()
+				// search.focus()
 				break
 			case(key >= 65 && key <= 90 && document.location.pathname != '/events'):
-				search.focus()
+				// search.focus()
 				break
 		}
 	}
