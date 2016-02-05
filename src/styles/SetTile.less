@@ -37,11 +37,11 @@
 		text-align: center;
 		>* {
 			cursor:pointer;
+			.transition(color);
 		}
 	}
 	.set:hover, .artist:hover {
 		color: @blue;
-		.transition(color);
 	}
 	.set {
 		white-space: nowrap;
@@ -62,9 +62,9 @@
 	}
 	.play {
 		cursor: pointer;
+		.transition(color);
 		&:hover {
 			color: @blue;
-			.transition(color);
 		}
 	}
 

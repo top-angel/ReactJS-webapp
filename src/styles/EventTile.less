@@ -1,0 +1,51 @@
+.event-tile {
+	border-radius: 3px;
+	background-size: 100% 100%;
+	height: @tileHeight;
+	width:30%;
+	min-width: 360px;
+	margin: 2rem auto;
+
+	.body {
+		.colors(white, @dark-gray);
+		width: 70%;
+		margin-left: auto;
+	}
+	.event-info {
+		padding: 2rem;
+		justify-content: space-between;
+	}
+	.event {
+		.flexContainer(row, horizontal, nowrap);
+	}
+	.date, i {
+		color: @red;
+		width: 24px;
+		text-align: center;
+	}
+	h5, .venue {
+		margin-left: 2rem;
+		cursor: pointer;
+		line-height: 3rem;
+		.transition(color);
+		&:hover {
+			color: @blue;
+		}
+	}
+	button {
+		.colors(@blue, @white);
+		&:hover {
+			background: @blue*0.95;
+		}
+		&:active {
+			background: @blue*0.9;
+		}
+	}
+
+	.small({
+		width: 100%;
+	});
+	.medium({
+		width: 47%;
+	});
+}

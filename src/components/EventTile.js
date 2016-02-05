@@ -1,49 +1,71 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import moment from 'moment';
 import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
 import history from '../services/history';
+import Base from './Base';
+import Icon from './FaIcon';
 
-var EventTile = React.createClass({
-	displayName: 'Event Tile',
-	contextTypes: {
-		push: React.PropTypes.func
-	},
+function addressParser(address) {
+	let cityAndState
+}
 
+export default class EventTile extends Base {
+	constructor(props) {
+		super(props);
+		this.autoBind('openEventPage', 'openTicketLink', 'openMapLink');
+	}
 	openEventPage(e) {
-		e.stopPropagation()
+		e.stopPropagation();
 		history.pushState(null, '/event/' + this.props.id);
-	},
-
+	}
+	openMapLink(e) {
+		e.stopPropagation();
+		// TODO nofity to open in google maps
+		window.open(`http://google.com/maps/place/${this.props.address}`);
+	}
+	openTicketLink() {
+		window.open(this.props.ticketLink);
+	}
 	render() {
-		var month = moment(this.props.start_date).format('MMM');
-    	var day = moment(this.props.start_date).format('DD');
-		var image = {
-			backgroundImage: `url('${S3_ROOT_FOR_IMAGES+this.props.banner_image}')`
+		let month = moment(this.props.startDate).format('MMM');
+    	let day = moment(this.props.startDate).format('DD');
+		let image = {
+			backgroundImage: `url('${S3_ROOT_FOR_IMAGES+this.props.bannerImage}')`
 		};
 
 		return (
-			<div className='flex-column event-tile' style={image}>
-				<div className='event-date-container flex-5x flex-column'>
-					<h2>{month}</h2>
-					<div className='divider'/>
-					<h2>{day}</h2>
-				</div>
-				<div className='divider'/>
-				<div className='detail flex-row flex'>
-					<a target='_blank' href={this.props.ticket_link} className='flex-container flex click ticket-link tile-button'>
-						<i className='fa fa-fw fa-ticket center'/>
-					</a>
-					<div className='flex-3x flex-column event-info'>
-						<div className='center'>{this.props.event}</div>
-						<div className='center venue'>{this.props.venue}</div>
+			<div className='event-tile flex-column' style={image}>
+				<div className='body flex-column flex'>
+					<div className='event-info flex-column flex'>
+						<div className='event'>
+							<div className='date'>
+								<h4>{day}</h4>
+								<p className='caption'>{month}</p>
+							</div>
+							<h5 onClick={this.openEventPage}>{this.props.event}</h5>
+						</div>
+						<div className='flex-row'>
+							<Icon>map-marker</Icon>
+							<p className='venue' onClick={this.openMapLink}>{this.props.venue}</p>
+						</div>
 					</div>
-					<div className='flex-container flex click event tile-button' onClick={this.openEventPage}>
-						<i className='fa fa-fw fa-long-arrow-right center'/>
-					</div>
+					<button onClick={this.openTicketLink}>TICKETS</button>
 				</div>
 			</div>
 		);
 	}
-})
+}
 
-export default EventTile;
+EventTile.contextTypes = {
+	push: PropTypes.func
+}
+
+EventTile.propTypes = {
+	id: PropTypes.number,
+	event: PropTypes.string,
+	startDate: PropTypes.string,
+	bannerImage: PropTypes.string,
+	ticketLink: PropTypes.string,
+	venue: PropTypes.string,
+	address: PropTypes.string
+};

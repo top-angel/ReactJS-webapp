@@ -15,7 +15,7 @@ export default class Location extends Base {
 			lng: -82.325856
 		}
 		navigator.geolocation.getCurrentPosition(this.getCurrentPosition);
-		// this.getClosestEvents();
+		this.getClosestEvents();
 	}
 	getCurrentPosition(location) {
 		// console.log('current location', location)
@@ -35,14 +35,16 @@ export default class Location extends Base {
 			lat: suggest.location.lat,
 			lng: suggest.location.lng
 		});
-		// this.getClosestEvents();
-		// history.pushState(null, '/events/closest');
+
+		this.getClosestEvents();
+		history.pushState(null, '/events/closest');
 	}
 	render() {
 		return (
 			<div id='Location' className='flex-row'>
-				<Icon size={24}>search</Icon>
+				<Icon size={24}>location-arrow</Icon>
 				<Geosuggest
+					ref='location'
 					location={new google.maps.LatLng(this.state.lat, this.state.lng)}
 					radius={25}
 					onSuggestSelect={this.onSuggestSelect} />

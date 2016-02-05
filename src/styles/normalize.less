@@ -35,7 +35,7 @@ a {
 }
 
 @-ms-viewport{
-  width: device-width;
+	width: device-width;
 }
 
 article,
@@ -50,7 +50,7 @@ menu,
 nav,
 section,
 summary {
-  display: block;
+	display: block;
 }
 
 img {
@@ -62,32 +62,28 @@ input,
 optgroup,
 select,
 textarea {
-  color: inherit;
-  font: inherit;
-  margin: 0;
-}
-
-button {
-  overflow: visible;
+	color: inherit;
+	font: inherit;
+	margin: 0;
 }
 
 button,
 html input[type='button'],
 input[type='reset'],
 input[type='submit'] {
-  -webkit-appearance: button;
-  cursor: pointer;
+	-webkit-appearance: button;
+	cursor: pointer;
 }
 
 button[disabled],
 html input[disabled] {
-  cursor: default;
+	cursor: default;
 }
 
 button::-moz-focus-inner,
 input::-moz-focus-inner {
-  border: 0;
-  padding: 0;
+	border: 0;
+	padding: 0;
 }
 
 input, input:focus {
@@ -140,11 +136,25 @@ h5 {
 h6 {
 	font-size: 1.75rem;
 	font-family: Avenir Bold;
+	line-height: 2.8rem;
+}
+button {
+	overflow: visible;
+	background: none;
+	border: none;
+	height: 36px;
+	font-size: 1.75rem;
+	font-family: Avenir Bold;
+	letter-spacing: 1px;
+	padding: 0;
+	&:focus {
+		outline: 0;
+	}
 }
 // text
 p {
-	font-size: 1.75rem;
-	line-height: 22.4px;
+	font-size: @defaultFontSize;
+	line-height: @defaultFontSize*1.6;
 	&.menu {
 		font-family: Avenir Bold;
 	}

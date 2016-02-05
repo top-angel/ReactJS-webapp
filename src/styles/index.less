@@ -7,6 +7,7 @@
 @import 'normalize';
 
 // components
+@import 'EventTile';
 @import 'EventsPage';
 @import 'Header';
 @import 'Location';
@@ -87,11 +88,6 @@
 	z-index: 1;
 }
 
-.change-location {
-	color:@blue;
-	cursor:pointer;
-	font-family: @regular;
-}
 #detail-button {
 	.border-radius(30px);
 }
@@ -145,46 +141,6 @@
 	h4 {
 		margin-top: 0;
 	}
-}
-
-.event-tile {
-	.card(2);
-	.border-radius(3px);
-	background-size: 100% 100%;
-	width:30%;
-	height: @tileHeight;
-	margin: 1rem;
-	color:white;
-	>.divider {
-		.createDivider(100%, 3px, @purple);
-	}
-	.event-date-container {
-		text-align: left;
-		.divider {
-			margin-left: 0.9rem;
-			.createDivider(12%, 2px, white)!important;
-		}
-	}
-	.event-info {
-		border-right: solid 1px white;
-		border-left: solid 1px white;
-		font-size: 0.75rem;
-	}
-	.venue {
-		color: @gray;
-	}
-	h2 {
-		margin: 1rem;
-	}
-	.detail {
-		.background(@dark-gray, white);
-	}
-	.small({
-		width: 100%;
-	});
-	.medium({
-		width: 47%;
-	});
 }
 
 #FeaturedContainer {
@@ -312,111 +268,6 @@ footer {
 		.social{.center;}
 		.sponsors {margin: 0 1rem;}
 	}, 500px);
-}
-
-// header {
-// 	background-color: @dark-gray;
-// 	min-height: @headerHeight;
-// 	position:fixed;
-// 	width: 100%;
-// 	z-index: 100;
-// 	font-size: 1rem;
-// 	.icon-setmine {
-// 		color: white;
-// 		font-size: 2.5rem;
-// 	}
-// 	.nav-button {
-// 		text-align: center;
-// 		.hover(@light-gray, 2);
-// 		&.fa-search {
-// 			padding:0 1vw;
-// 		}
-// 	}
-// 	.active {
-// 		color: white;
-// 		background-color: @dark-gray*1.2;
-// 	}
-// 	.desktop({
-// 		.icon-setmine {
-// 			font-size: 2rem;
-// 			padding: 0 1vw;
-// 		}
-// 	}, 400px);
-// 	.small({
-// 		.search-bar, #login {
-// 			.hidden;
-// 		}
-// 		.buffer-4x {
-// 			.hidden;
-// 		}
-// 		a:not(.icon-setmine) {
-// 			.hidden;
-// 		}
-// 	});
-// }
-
-// #HomeView {
-// 	position: relative;
-// 	height: @pageHeightWithoutPlayer;
-// 	top: @headerHeight;
-// 	color: @dark-gray;
-// 	.loadedContent {
-// 		.flex-row;
-// 		.flex-fixed-4x;
-// 		.scrollable;
-// 		&::after {
-// 			content: '';
-// 			height: @playerHeight;
-// 			width: 100%;
-// 			opacity: 0;
-// 		}
-// 	}
-// }
-
-#HomeSidebar {
-	border-bottom: solid 1px @light-gray;
-	font-size: 1rem;
-	.nav-header {
-		.background(@gray, @dark-gray);
-		* {
-			margin: auto 2vw;
-		}
-	}
-	.nav-button {
-		color: @white;
-		&:hover {
-            background-color: @dark-gray*0.9;
-		} 
-        &.active {
-            border-left: solid @blue 5px;
-            background-color: @dark-gray*0.8;
-            color: white;
-		}
-		div {
-       	margin: auto 3vw;
-		}
-	}
-	.user-background {
-		.background(@light-gray, @dark-gray);
-	}
-	.user-nav {
-		background-color: @dark-gray;
-	}
-	img {
-		.size(100px, 100px);
-		border-radius: 50%;
-		border: solid white;
-	}
-	.small({	
-		.user-nav {
-			.flex-5x;
-		}
-	});
-	.medium({
-		.nav-header {
-			* {margin: auto;}
-		}
-	});
 }
 
 #LandingView {
@@ -735,24 +586,6 @@ footer {
 	});
 }
 
-// #Player {
-// 	height: @playerHeight;
-// 	width: 100%;
-// 	position:fixed;
-// 	bottom: 0!important;
-// 	.background(@dark-gray, white);
-// 	z-index: 100;
-// 	.set-info {
-// 		padding: 8px 0 0 8px;
-// 		font-size: 0.8rem;
-// 	}
-// 	@media (max-width: 640px) {
-// 		font-size: 0.75rem;
-// 	}
-// 	.medium({
-// 		font-size: 1.2rem;
-// 	});
-// }
 #PlayerTracklist {
 	text-align: center;
 	cursor: pointer;
@@ -790,60 +623,51 @@ footer {
 	}
 }
 
-.player-set-info {
-	border-right: solid 1px @gray;
-	div {
-		margin-left: 1vw;
-		&:not(.set-name) {
-			font-size: 0.8rem;
-			color:@gray;
-		}
-	}
-}
-#PlayerShare {
-	width: @tracklistOffset;
-	@modalHeight: 5vh;
-	.link {
-		cursor: pointer;
-		&:hover {
-			color: @blue;
-		}
-	}
-	.modal {
-		.background(@dark-gray, @white);
-		.size(12vw, @modalHeight);
-		position: fixed;
-		bottom: @playerHeight*1.1;
-		right: 1vh;
-		visibility: hidden;
-		.text {
-			font-size: 1rem;
-			width: 95%;
-			margin: auto;
-			text-align: center;
-		}
-		span {
-			position: relative;
-			&::after {
-				content:'';
-				position: absolute;
-				bottom: -5px;
-				right: @tracklistOffset*.6;
-				background: @dark-gray;
-				.border-radius(0 0 0 3px);
-				z-index: -1;
-				.size(10px, 10px);
-				.transform(rotate(45deg));
-				.small({
-					right: 11.5vw;
-				}, 840px);
-			}
-		}
-	}
-	.small({
-		width: @tracklistOffset*2;
-	}, 840px);
-}
+
+// #PlayerShare {
+// 	width: @tracklistOffset;
+// 	@modalHeight: 5vh;
+// 	.link {
+// 		cursor: pointer;
+// 		&:hover {
+// 			color: @blue;
+// 		}
+// 	}
+// 	.modal {
+// 		.background(@dark-gray, @white);
+// 		.size(12vw, @modalHeight);
+// 		position: fixed;
+// 		bottom: @playerHeight*1.1;
+// 		right: 1vh;
+// 		visibility: hidden;
+// 		.text {
+// 			font-size: 1rem;
+// 			width: 95%;
+// 			margin: auto;
+// 			text-align: center;
+// 		}
+// 		span {
+// 			position: relative;
+// 			&::after {
+// 				content:'';
+// 				position: absolute;
+// 				bottom: -5px;
+// 				right: @tracklistOffset*.6;
+// 				background: @dark-gray;
+// 				.border-radius(0 0 0 3px);
+// 				z-index: -1;
+// 				.size(10px, 10px);
+// 				.transform(rotate(45deg));
+// 				.small({
+// 					right: 11.5vw;
+// 				}, 840px);
+// 			}
+// 		}
+// 	}
+// 	.small({
+// 		width: @tracklistOffset*2;
+// 	}, 840px);
+// }
 
 #SearchResultsView {
 	color: @dark-gray;
@@ -870,13 +694,6 @@ footer {
 			border-bottom: solid @blue 2px;
 		}
 	}
-}
-
-.tile-button {
-    &:hover {
-    background-color: rgba(255,255,255,0.2);
-    	.transition(0.3s);
-    }
 }
 
 .tile-container {

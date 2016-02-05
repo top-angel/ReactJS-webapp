@@ -5,9 +5,10 @@
 	.card(1);
 	height: 48px;
 	width: @locationWidth;
-	margin: 3rem;
+	margin: 3rem 3rem 2rem;
 	text-align: center;
-	font-size: 1.75rem;
+	font-size: @defaultFontSize;
+	line-height: @defaultFontSize*1.6;
 	i {
 		align-self: center;
 		margin: auto 2rem;
@@ -31,23 +32,20 @@
 	font-family: @regular;
 }
 
-.geosuggest__suggests {
+ul.geosuggest__suggests {
 	.background(white, @dark-gray);
 	.card(1);
 	width: @locationWidth;
 	position: absolute;
 	top: 100%;
 	right: 0;
-	max-height: 25rem;
 	padding: 0;
-	margin-top: -1px;
+	margin: 0;
 	border-top-width: 0;
 	overflow-x: hidden;
 	overflow-y: auto;
 	list-style: none;
 	z-index: 5;
-	-webkit-transition: max-height 0.2s, border 0.2s;
-	transition: max-height 0.2s, border 0.2s;
 }
 .geosuggest__suggests--hidden {
 	max-height: 0;
@@ -59,8 +57,7 @@
  * A geosuggest item
  */
 .geosuggest-item {
-	font-size: 1rem;
-	padding: .5em .65em;
+	padding: 1rem;
 	cursor: pointer;
 	&:hover, &:focus {
 		background: @white;
