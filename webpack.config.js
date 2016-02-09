@@ -5,6 +5,7 @@ var path = require('path');
 var buildPath = path.resolve(__dirname, 'public');
 var mainPath = path.resolve(__dirname, 'src', 'index.jsx');
 
+
 module.exports = {
 	entry: {
 		setmine: mainPath
