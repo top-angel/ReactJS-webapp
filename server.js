@@ -1,3 +1,5 @@
+// require('es6-promise').polyfill();
+
 var express = require('express');
 var path = require('path');
 var fs = require('fs');
