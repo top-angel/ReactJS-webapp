@@ -1,26 +1,26 @@
-import React from 'react'
-import Immutable from 'immutable'
-import DocMeta from 'react-doc-meta'
-import R from 'ramda'
-import InjectTapEventPlugin from 'react-tap-event-plugin'
+import React from 'react';
+import Immutable from 'immutable';
+import DocMeta from 'react-doc-meta';
+import R from 'ramda';
+import InjectTapEventPlugin from 'react-tap-event-plugin';
 
-import GlobalEventHandler from '../services/globalEventHandler'
-import {playSet, updatePlayCount} from '../services/playerService'
-import {startFacebookSDK} from '../services/loginService'
-import {getFavorites} from '../services/favoriteSet'
-import detectMobileService from '../services/detectMobileService'
-import {DEFAULT_IMAGE} from '../constants/constants'
+import GlobalEventHandler from '../services/globalEventHandler';
+import {playSet, updatePlayCount} from '../services/playerService';
+import {startFacebookSDK} from '../services/loginService';
+import {getFavorites} from '../services/favoriteSet';
+import detectMobileService from '../services/detectMobileService';
+import {DEFAULT_IMAGE} from '../constants/constants';
 
 // TODO move index.less from index.html to here
 
 // fix mobile touch events not registering
-InjectTapEventPlugin()
+InjectTapEventPlugin();
 
-import Base from './Base'
-import Header from './Header'
-import NavBar from './NavBar'
-import Player from './Player'
-import Notifications from './Notifications'
+import Base from './Base';
+import Header from './Header';
+import NavBar from './NavBar';
+import Player from './Player';
+import Notifications from './Notifications';
 
 let initialAppState = Immutable.Map({
 	closestEvents: [],
@@ -48,7 +48,7 @@ let initialAppState = Immutable.Map({
 	},
 	favorites: [],
 	favoriteSetIds: [],
-	isUserLoggedIn: false,
+	isUserLoggedIn: true,
 	playerHidden: true,
 	playing: false,
 	searchResults: {
@@ -71,7 +71,7 @@ let initialAppState = Immutable.Map({
 		first_name: '',
 		last_name: ''
 	}
-})
+});
 
 let tags = [
 	{property: "description", content: "Setmine is a music app dedicated to live events! Relive past music festivals: Ultra, Coachella + more! Find upcoming shows + buy tix + listen to DJs' sets"},
@@ -82,47 +82,46 @@ let tags = [
 	{property: "og:title", content: "Setmine | View Lineups & Play Sets | Relive Your Favorite Events"},
 	{property: "og:type", content: "website"},
 	{name: "google-site-verification", content: "T4hZD9xTwig_RvyoXaV9XQDYw5ksKEQywRkqaW-CGY4"}
-]
+];
 
-let evtHandler = GlobalEventHandler(initialAppState)
-let evtTypes = evtHandler.types
-let pushFn = evtHandler.push
+let evtHandler = GlobalEventHandler(initialAppState);
+let evtTypes = evtHandler.types;
+let pushFn = evtHandler.push;
 
 // wrapper for pushFn. data must be an object
 var push = data => pushFn({
 	type: 'SHALLOW_MERGE',
 	data: data
-})
-
+});
 
 export default class App extends Base {
 	constructor(props) {
-		super(props)
-		this.autoBind('initializeApp')
+		super(props);
+		this.autoBind('initializeApp');
 		this.state = {
 			appState: initialAppState
-		}
+		};
 	}
 	componentWillMount() {
 		// initialize global appState and push fn
-		this.initializeApp()
+		this.initializeApp();
 
 		// detect if user is on mobile web
-		detectMobileService.detectMobileBrowser()
+		detectMobileService.detectMobileBrowser();
 
 		// initialize Facebook SDK & check if user is logged in
-		startFacebookSDK(push)
+		startFacebookSDK(push);
 
 		// play set if specified in url
 		if(!!this.props.params.set) {
-			let setId = this.props.params.set
-			playSet(setId, push)
-			updatePlayCount(setId, this.state.appState.get('user').id)
+			let setId = this.props.params.set;
+			playSet(setId, push);
+			updatePlayCount(setId, this.state.appState.get('user').id);
 		}
 	}
 	componentWillUpdate(nextProps, nextState) {
 		if(nextState.appState.get('playerHidden') === false) {
-			return true
+			return true;
 		}
 	}
 	getChildContext() {
@@ -134,14 +133,13 @@ export default class App extends Base {
 		}
 	}
 	initializeApp() {
-		let self = this
+		let self = this;
 		evtHandler.floodGate.subscribe(newState => {
-			self.setState({ appState: newState })
-		})
+			self.setState({ appState: newState });
+		});
 	}
 	render() {
-		let appState = this.state.appState
-		// className='flex-row'
+		let appState = this.state.appState;
 		return (
 			<div id='App'>
 				<DocMeta tags={tags} />
@@ -155,7 +153,7 @@ export default class App extends Base {
 				<Notifications snackbar={appState.get('snackbar')} playerHidden={appState.get('playerHidden')} />
 				<Player appState={appState} />
 			</div>
-		)
+		);
 	}
 }
 
@@ -164,4 +162,4 @@ App.childContextTypes = {
 	user: React.PropTypes.object,
 	loginStatus: React.PropTypes.bool,
 	favoriteSetIds: React.PropTypes.array,
-}
+};

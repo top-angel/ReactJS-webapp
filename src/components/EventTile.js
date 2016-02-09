@@ -58,7 +58,7 @@ export default class EventTile extends Base {
 
 EventTile.contextTypes = {
 	push: PropTypes.func
-}
+};
 
 EventTile.propTypes = {
 	id: PropTypes.number,

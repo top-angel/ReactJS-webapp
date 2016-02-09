@@ -1,0 +1,34 @@
+.artist-tile {
+	background-size: 100% 100%;
+	text-align: center;
+	position: relative;
+	cursor: pointer;
+	padding: 3rem;
+	.background(white, @dark-gray);
+	min-width: 200px;
+	.tileBorder();
+
+	img {
+		margin: 0 auto 3rem;
+		border-radius: 50%;
+		.size(72px);
+	}
+	.artist {
+		.background(@dark-gray, white);
+		margin: auto;
+		padding: 0 .5rem;
+	}
+	h5 {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	p {
+		color: @gray;
+	}
+	.small({
+		.size(50vw);
+		margin: 0;
+	});
+}
+

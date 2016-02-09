@@ -1,53 +1,55 @@
-import React from 'react'
-import {render} from 'react-dom'
+import React from 'react';
+import {render} from 'react-dom';
 
-import Router from 'react-router/lib/Router'
-import IndexRoute from 'react-router/lib/IndexRoute'
-import Route from 'react-router/lib/Route'
-import Redirect from 'react-router/lib/Redirect'
+import Router from 'react-router/lib/Router';
+import IndexRoute from 'react-router/lib/IndexRoute';
+import Route from 'react-router/lib/Route';
+import Redirect from 'react-router/lib/Redirect';
 
-import App from './components/App'
-import Footer from './components/Footer'
-import LandingView from './components/LandingView'
-import EventsPage from './components/EventsPage'
-import Home from './components/Home'
-import SetsPage from './components/SetsPage'
-import SearchResultsView from './components/SearchResultsView'
+import App from './components/App';
+import Footer from './components/Footer';
+import LandingView from './components/LandingView';
+import EventsPage from './components/EventsPage';
+import Home from './components/Home';
+import SetsPage from './components/SetsPage';
+import SearchResultsView from './components/SearchResultsView';
 
-import UpcomingEvents from './components/UpcomingEvents'
-import ClosestEvents from './components/ClosestEvents'
+import FeaturedEvents from './components/FeaturedEvents';
+import UpcomingEvents from './components/UpcomingEvents';
+import ClosestEvents from './components/ClosestEvents';
 
-import ArtistDetail from './components/ArtistDetail'
-import FestivalDetail from './components/FestivalDetail'
-import ActivityDetail from './components/ActivityDetail'
-import MixDetail from './components/MixDetail'
-import EventDetail from './components/EventDetail'
+import ArtistDetail from './components/ArtistDetail';
+import FestivalDetail from './components/FestivalDetail';
+import ActivityDetail from './components/ActivityDetail';
+import MixDetail from './components/MixDetail';
+import EventDetail from './components/EventDetail';
 
-import Favorites from './components/Favorites'
-import NewSets from './components/NewSets'
-import NewEvents from './components/NewEvents'
+import Favorites from './components/Favorites';
+import NewSets from './components/NewSets';
+import NewEvents from './components/NewEvents';
 
-import Recent from './components/Recent'
-import Popular from './components/Popular'
-import Artists from './components/Artists'
-import Festivals from './components/Festivals'
-import Mixes from './components/Mixes'
-import Activities from './components/Activities'
+import Recent from './components/Recent';
+import Popular from './components/Popular';
+import Artists from './components/Artists';
+import Festivals from './components/Festivals';
+import Mixes from './components/Mixes';
+import Activities from './components/Activities';
 
-import SetContainer from './components/SetContainer'
-import EventContainer from './components/EventContainer'
-import ArtistTileContainer from './components/ArtistTileContainer'
+import SetContainer from './components/SetContainer';
+import EventContainer from './components/EventContainer';
+import ArtistTileContainer from './components/ArtistTileContainer';
 
-import DMCA from './components/DMCA'
-import Setmusic from './components/Setmusic'
-import SetstoryLandingPage from './components/SetstoryLandingPage'
-import About from './components/About'
+import DMCA from './components/DMCA';
+import Setmusic from './components/Setmusic';
+import SetstoryLandingPage from './components/SetstoryLandingPage';
+import About from './components/About';
 
 // styling
-require('./styles/index.less')
+require('./styles/index.less');
+// import './styles/index.less';
 
-let bodyMount = document.getElementById('body-mount-point')
-import history from './services/history'
+let bodyMount = document.getElementById('body-mount-point');
+import history from './services/history';
 
 render(
 	<Router history={history}>
@@ -70,7 +72,7 @@ render(
 				<Route path='activities' component={Activities}/>
 			</Route>
 
-			<Route path='user' component={Home}>
+			<Route path='home' component={Home}>
 				<IndexRoute component={Favorites}/>
 				<Route path='sets' component={NewSets}/>
 				<Route path='events' component={NewEvents}/>
@@ -79,6 +81,7 @@ render(
 			<Route path='events' component={EventsPage}>
 				<IndexRoute component={UpcomingEvents}/>
 				<Route path='closest' component={ClosestEvents}/>
+				<Route path='featured' component={FeaturedEvents} />
 			</Route>
 
 			<Route path='artists' component={Artists}/>
@@ -106,6 +109,6 @@ render(
 			{/*<Route path='blog' component={BlogWrapper}/>*/}
 		</Route>
 	</Router>
-, bodyMount)
+, bodyMount);
 
-mixpanel.track("Page Load")
+mixpanel.track("Page Load");

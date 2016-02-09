@@ -1,28 +1,32 @@
-import React from 'react'
-import {S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE} from '../constants/constants'
-import history from '../services/history'
+import React from 'react';
+import {S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE} from '../constants/constants';
+import history from '../services/history';
 
-const ArtistTile = (props) => {
+const ArtistTile = ({artist, imageURL, setCount, eventCount}) => {
 	function openArtistPage() {
-		var artist = props.artist.split(' ').join('_')
-		history.pushState(null, `/artist/${artist}`)
+		let route = artist.split(' ').join('_');
+		history.pushState(null, `/artist/${route}`);
 		mixpanel.track("Artist Clicked", {
-			"Artist": props.artist
-		})
+			"Artist": artist
+		});
 	}
 
-	var image = { backgroundImage: `url('${S3_ROOT_FOR_IMAGES+props.imageURL}')` }
-	var setText = props.set_count > 1 ? 'sets' : 'set'
-	var eventText = props.event_count != 1 ? 'events' : 'event'
-	var artistInfo = `${props.set_count} ${setText} | ${props.event_count} ${eventText}`
+	let image = { backgroundImage: `url('${S3_ROOT_FOR_IMAGES+imageURL}')` };
+	let setText = setCount > 1 ? 'sets' : 'set';
+	let eventText = eventCount != 1 ? 'events' : 'event';
+	let artistInfo = `${setCount} ${setText} | ${eventCount} ${eventText}`;
 
 	return (
-		<div styleName='artist-tile' className='flex-column' onClick={openArtistPage}>
-			<img src={S3_ROOT_FOR_IMAGES+props.imageURL} />
-			<div styleName='artist'>{props.artist}</div>
+		<div className='artist-tile flex-column flex-fixed' onClick={openArtistPage} title={artist}>
+			<img src={S3_ROOT_FOR_IMAGES+imageURL} />
+			<h5>{artist}</h5>
 			<p>{artistInfo}</p>
 		</div>
-	)
+	);
 }
 
-export default ArtistTile
+ArtistTile.defaultProps = {
+	imageURL: DEFAULT_IMAGE
+};
+
+export default ArtistTile;

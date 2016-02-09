@@ -35,7 +35,7 @@ export default class EventContainer extends Component {
 		}
 
 		return (
-			<div className='flex-row tile-container'>
+			<div className='tile-container'>
 				{tiles}
 			</div>
 		);

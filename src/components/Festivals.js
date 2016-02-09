@@ -1,10 +1,9 @@
-import React from 'react'
-import Loader from 'react-loader'
-import {API_ROOT} from '../constants/constants'
-import api from '../services/api'
+import React from 'react';
+import Loader from 'react-loader';
+import api from '../services/api';
 
-import FestivalTile from './FestivalTile'
-import Base from './Base'
+import FestivalContainer from './FestivalContainer';
+import Base from './Base';
 
 export default class Festivals extends Base {
 	constructor(props) {
@@ -28,22 +27,9 @@ export default class Festivals extends Base {
 		})
 	}
 	render() {
-		var festivalTiles = this.state.festivals.map((festival, index) => {
-			return React.createElement(FestivalTile, {
-				key: index,
-				id: festival.id,
-				festival: festival.event,
-				bannerImage: festival.banner_image.imageURL,
-				setCount: festival.set_count,
-				formattedDate: festival.formatted_date
-			})
-		})
-
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div className='flex-row scrollable tile-container'>
-					{festivalTiles}
-				</div>
+				<FestivalContainer festivals={this.state.festivals} />
 			</Loader>
 		)
 	}

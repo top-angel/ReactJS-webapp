@@ -120,7 +120,8 @@ export function playSet(setId, push, starttime = '00:00') {
 			},
 			tracklist: tracks,
 			currentTrack: tracks[0].trackname,
-			playing: true
+			playing: true,
+			playerHidden: false
 		})
 	})
 }
@@ -133,15 +134,16 @@ export function scrub(position, appState, push) {
 	var setLength = sound.durationEstimate;
 	var newPosition = (position * setLength) / 100;
 
-	push({ timeElapsed: newPosition })
+	push({ timeElapsed: newPosition });
 
 	// SHEEEEIT DAS IT MAYNE
-	_.debounce(sound.setPosition(newPosition), 10000)
+	_.debounce(sound.setPosition(newPosition), 10000);
 	// setTimeout(sound.setPosition(newPosition), 5000)
 }
 
 // play/pause a set
 export function togglePlay(sound) {
+	console.log(sound);
 	if(sound.paused) {
 		console.log('playing')
 		sound.play();

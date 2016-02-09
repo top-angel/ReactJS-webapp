@@ -4,9 +4,9 @@
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-	width:30%;
+	min-width: 360px;
+	width: 30%;
 	height: @tileHeight;
-	margin: 2rem auto;
 
 	img {
 		.size(@setImg);
@@ -26,7 +26,7 @@
 		});
     }
 	.detail {
-		.background(fade(@dark-gray, 90%), white);
+		.colors(fade(@dark-gray, 90%), white);
 		position: relative;
 		height: 60%;
 		margin-top: auto;

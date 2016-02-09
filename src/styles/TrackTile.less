@@ -1,0 +1,65 @@
+.track-tile {
+	@trackImg: 8rem;
+	border: solid 1px @light-gray;
+	background-size: 100% 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	border-radius: 3px;
+	height: @trackTile;
+	position: relative;
+	min-width: 320px;
+	.createOverlay(0.4);
+	width: 23%;
+
+	header, p {
+		cursor: pointer;
+	}
+	.track-info {
+		.colors(white, @dark-gray);
+		position: relative;
+		header {
+			margin: 1rem;
+			margin-left: (4rem + @trackImg);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			.actionColor(@blue);
+		}
+	}
+	img {
+		.size(@trackImg);
+		position: absolute;
+		left: 2rem;
+		bottom: -@trackImg/2;
+		border-radius: 50%;
+		border: solid 3px @purple;
+
+	}
+	i {
+		margin-right: 1rem;
+	}
+	.set-info {
+		position: absolute;
+		bottom: 2rem;
+		left: 2rem;
+		color: @white;
+		p {
+			margin-right:auto;
+			padding: 6px 2rem;
+		}
+	}
+	.artist {
+		.actionBackground(@blue);
+	}
+	.event {
+		.actionBackground(@dark-gray);
+	}
+	
+	.medium({
+		width: 48%;
+		});
+	.small({
+		width: 100%;
+		});
+}
+	

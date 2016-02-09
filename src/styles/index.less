@@ -7,8 +7,9 @@
 @import 'normalize';
 
 // components
+@import 'ArtistTile';
 @import 'EventTile';
-@import 'EventsPage';
+@import 'FestivalTile';
 @import 'Header';
 @import 'Location';
 @import 'NavBar';
@@ -19,10 +20,12 @@
 @import 'PlayerSeek';
 @import 'Tabs';
 @import 'SearchBar';
-@import 'SetsPage';
 @import 'SetShare';
 @import 'SetTile';
 @import 'Spinner';
+@import 'TileContainer';
+@import 'TrackTile';
+@import 'View';
 
 // to refactor
 
@@ -195,41 +198,6 @@
 	.medium({
 		width: @windowWidth/3;
 		font-size: 1.2rem;
-	});
-}
-
-.festival-tile {
-	margin: 1rem;
-	font-size: 1rem;
-	.card(1);
-	.border-radius(3px);
-	width: 30%;
-	height: 30vh;
-	background-size: 100% 100%;
-	color: white;
-	position: relative;
-	.createOverlay(.10, @dark-gray);
-	span {
-		padding:5px;
-		margin: auto auto auto 0;
-	}
-	.detail {
-		@padding: 15px;
-		position: absolute;
-		bottom: @padding;
-		left: @padding;
-	}
-	.festival {
-		background-color: @blue;
-	}
-	.info {
-		background-color: @dark-gray;
-	}
-	.small({
-		width: 100%;
-	});
-	.medium({
-		width: 47%;
 	});
 }
 
@@ -694,14 +662,6 @@ footer {
 			border-bottom: solid @blue 2px;
 		}
 	}
-}
-
-.tile-container {
-    min-height: 50vh;
-    width: 100%;
-    background-color: @white;
-    // margin-bottom: @playerHeight;
-    position: relative;
 }
 
 .view {

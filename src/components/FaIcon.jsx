@@ -1,24 +1,9 @@
 import React, {PropTypes} from 'react'
 
 const Icon = props => {
-	let size, fixed
-
-	// dynamically change size
-	switch(props.size) {
-		case 18:
-			size = 18; break;
-		case 24:
-			size = 24; break;
-		case 36:
-			size = 36; break;
-		case 48:
-			size = 48; break;
-		default:
-			size = 24; break;
-	}
-
 	// sets icons at fixed width
-	fixed = props.fixed ? 'fa-fw' : undefined
+	let fixed = props.fixed ? 'fa-fw' : undefined
+	let size = props.size || 24
 
 	return (
 		<i className={`fa fa-${props.children} ${fixed}`} style={{ fontSize: size }}/>
@@ -26,7 +11,7 @@ const Icon = props => {
 }
 
 Icon.propTypes = {
-	size: PropTypes.oneOf([18, 24, 36, 48]),
+	size: PropTypes.oneOf([14, 18, 24, 36, 48]),
 	children: PropTypes.string.isRequired
 }
 

@@ -50,7 +50,7 @@ class SetContainer extends Base {
 		})
 
 		return (
-			<div className='flex-row'>
+			<div className='tile-container'>
 				{tiles}
 			</div>
 		)

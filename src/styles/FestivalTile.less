@@ -1,0 +1,30 @@
+.festival-tile {
+	position: relative;
+	width: 30%;
+	height: 30vh;
+	background-size: 100% 100%;
+	color: white;
+	cursor: pointer;
+
+	header {
+		position: absolute;
+		bottom: 2rem;
+		left: 2rem;
+		* {
+			margin-right: auto;
+			padding: .5rem 1rem;
+		}
+	}
+	.festival {
+		background: @blue;
+	}
+	.info {
+		background-color: @dark-gray;
+	}
+	.small({
+		width: 100%;
+	});
+	.medium({
+		width: 47%;
+	});
+}

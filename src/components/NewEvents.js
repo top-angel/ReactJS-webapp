@@ -1,48 +1,39 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import Loader from 'react-loader';
 import api from '../services/api';
 import EventContainer from './EventContainer';
 
-var NewEvents = React.createClass({
-	displayName: 'Recommended Events',
-	contextTypes: {
-		user: React.PropTypes.object,
-		push: React.PropTypes.func
-	},
-
-	getInitialState() {
-		return {
+export default class NewEvents extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
 			loaded: false,
-			newEvents: []
+			events: []
 		};
-	},
-
+		this.getNewEvents();
+	}
 	componentDidMount() {
 		mixpanel.track("New Events Page Open");
-	},
-
-	componentWillMount() {
-		this.getNewEvents();
-	},
-
+	}
 	getNewEvents() {
 		var userId = this.context.user.id;
-		api.get(`setmineuser/${userId}/stream?filter=events`).then(res => {
+		api.get(`setmineuser/${userId}/stream?filter=events`).then(payload => {
 			this.setState({
-				newEvents: res.setmineuser_stream,
+				events: payload.setmineuser_stream,
 				loaded: true
-			})
-		})
-	},
-
+			});
+		});
+	}
 	render() {
 		return (
 			<Loader loaded={this.state.loaded}>
-				<EventContainer events={this.state.newEvents} />
+				<EventContainer events={this.state.events} />
 			</Loader>
 		);
 	}
+}
 
-});
-
-export default NewEvents;
+NewEvents.contextTypes = {
+	user: PropTypes.object,
+	push: PropTypes.func
+};

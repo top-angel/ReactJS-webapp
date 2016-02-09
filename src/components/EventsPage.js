@@ -7,7 +7,7 @@ import FeaturedEvents from './FeaturedEvents';
 import Location from './Location';
 import EventContainer from './EventContainer';
 
-import EventTile from './EventTile';
+import TrackTile from './TrackTile';
 
 const tabs = [
 	{
@@ -19,12 +19,12 @@ const tabs = [
 		text: 'NEAR YOU',
 		to: '/events/closest',
 		index: false
+	},
+	{
+		text: 'FEATURED',
+		to: '/events/featured',
+		index: false
 	}
-	// {
-	// 	text: 'FEATURED',
-	// 	to: '/events/featured',
-	// 	index: false
-	// }
 ];
 
 export default class EventsPage extends Base {
@@ -38,39 +38,29 @@ export default class EventsPage extends Base {
 		// mixpanel.track("Events Page Open");
 	}
 	render() {
-		// return (
-		// 	<div id='EventsView' className='view flex-column'>
-		// 		<div className='view-title-container flex-column'>
-		// 			<h3 className='center'>Featured</h3>
-		// 			<div className='divider'/>
-		// 		</div>
-		// 		<FeaturedEvents appState={appState} />
-		// 		<Location appState={appState} />
-	 //        	{
-		// 			React.cloneElement(this.props.children, {
-		// 				appState: appState
-		// 			})
-		// 		}
-		// 	</div>
-		// )
 		return (
-			<div id='EventsPage' className='flex-column'>
+			<div className='view'>
 				<Tabs tabs={tabs} />
 				<Location appState={this.props.appState} />
 
-				{/*<div className='flex-row'>
-					{
-						React.createElement(EventTile, {
-							key: 1,
-							id: 3056,
-							event: 'Holy Ship! 2016 February',
-							startDate: '2016-02-10T12:00:00.000Z',
-							bannerImage: 'af03a838f95a3e02a18af0dac4bb79d8.jpg',
-							ticketLink: 'http://www.holyship.com/waitlist',
-							venue: 'Port of Miami',
-							address: '1015 N America Way, Miami, FL 33132, United States'
-						})
-					}
+				{/*<div className='tile-container'>
+				{
+					React.createElement(TrackTile, {
+						songName: 'Miami 82 (Kygo Remix)',
+						artistName: 'Syn Cole feat. Madame Buttons',
+						trackName: 'Miami 82 (Kygo Remix)',
+						id: 1903,
+						songUrl: '8bf16c6bb2609bcbb7a00940d65038a9e992c98b.mp3',
+						startTime: '01:11',
+						setLength: '45:42',
+						event: 'TomorrowWorld 2069',
+						artist: 'Kygo',
+						isRadiomix: 0,
+						eventId: 116,
+						bannerImage: '12141ddad8636c5804c86dc685550ee1.jpg',
+						artistImage: 'small_a7f7aaec8ecd0cdec444b8abb06dbc66.jpg'
+					})
+				}
 				</div>*/}
 				{
 					React.cloneElement(this.props.children, {

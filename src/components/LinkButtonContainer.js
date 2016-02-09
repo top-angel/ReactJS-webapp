@@ -1,38 +1,34 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
+import Icon from './FaIcon';
 
-var LinkButtonContainer = React.createClass({
-
-	getDefaultProps() {
-		return {
-			links: []
-		};
-	},
-
-	render() {
-		var links = this.props.links;
-
-		for(var i in links) {
-			if(typeof links[i].url == 'undefined') {
-				var hidden = 'hidden';
-			} else {
-				var hidden = '';
-			}
+const LinkButtonContainer = ({links}) => {
+	for(var l in links) {
+		if(typeof links[l].url == 'undefined') {
+			var hidden = 'hidden';
+		} else {
+			var hidden = '';
 		}
-
-		var icons = links.map((link, index) => {
-			var classString = `fa fa-fw fa-2x center click fa-${link.type}`;
-			if(!!link.url) {
-				return (
-					<a className='flex set-flex' href={link.url} key={index}>
-						<i className={classString}/>
-					</a>
-				);
-			}
-		});
-
-		return <div className={`flex-row links-container ${hidden}`}>{icons}</div>
 	}
+	return (
+		<div className={`links-container flex-row ${hidden}`}>
+			{
+				links.map((link, index) => {
+					let className = `fa fa-fw fa-2x center click fa-${link.type}`;
+					if(!!link.url) {
+						return (
+							<a className='flex set-flex' href={link.url} key={index}>
+								<i className={className}/>
+							</a>
+						);
+					}
+				})
+			}
+		</div>
+	)
+}
 
-});
+LinkButtonContainer.propTypes = {
+	links: PropTypes.array
+};
 
 export default LinkButtonContainer;

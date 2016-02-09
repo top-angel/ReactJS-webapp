@@ -1,38 +1,38 @@
-import React from 'react'
-import Base from './Base'
-import { API_ROOT, S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE } from '../constants/constants'
-import history from '../services/history'
-import {playSet, updatePlayCount} from '../services/playerService'
+import React from 'react';
+import Base from './Base';
+import { API_ROOT, S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE } from '../constants/constants';
+import history from '../services/history';
+import {playSet, updatePlayCount} from '../services/playerService';
 
-import SetShare from './SetShare'
+import SetShare from './SetShare';
 
 export default class SetTile extends Base {
 	constructor(props) {
-		super(props)
-		this.autoBind('openArtistPage', 'openFestivalPage', 'playSet')
+		super(props);
+		this.autoBind('openArtistPage', 'openFestivalPage', 'playSet');
 	}
 	openArtistPage() {
-		var routePath = this.props.artist.split(' ').join('_')
-		history.pushState(null, `/artist/${routePath}`)
+		var route = this.props.artist.split(' ').join('_');
+		history.pushState(null, `/artist/${route}`);
 		mixpanel.track("Artist Clicked", {
 			"Artist": this.props.artist
-		})
+		});
 	}
 	openFestivalPage() {
 		if(this.props.isRadiomix) {
-			history.pushState(null, `/mix/${this.props.eventId}`)
+			history.pushState(null, `/mix/${this.props.eventId}`);
 		} else {
-			history.pushState(null, `/festival/${this.props.eventId}`)
+			history.pushState(null, `/festival/${this.props.eventId}`);
 		}
 	}
 	playSet() {	
-		playSet(this.props.id, this.context.push)
-		updatePlayCount(this.props.id, this.context.user.id)
+		playSet(this.props.id, this.context.push);
+		updatePlayCount(this.props.id, this.context.user.id);
 	}
 	render() {
 		var eventImage = {
 			backgroundImage: `url(${S3_ROOT_FOR_IMAGES+this.props.bannerImage})`
-		}
+		};
 
 		return (
 			<div className='set-tile flex-column' style={eventImage} >
@@ -69,7 +69,7 @@ export default class SetTile extends Base {
 
 				</div>
 			</div>
-		)
+		);
 	}
 }
 
@@ -77,9 +77,9 @@ SetTile.contextTypes = {
 	push: React.PropTypes.func,
 	user: React.PropTypes.object,
 	loginStatus: React.PropTypes.bool
-}
+};
 
 SetTile.defaultProps = {
 	favorited: false,
 	artistImage: DEFAULT_IMAGE
-}
+};

@@ -1,34 +1,26 @@
-import React, {PropTypes} from 'react'
-import ArtistTile from './ArtistTile'
-import Base from './Base'
-import InfiniteScrollify from './InfiniteScrollify'
+import React, {PropTypes} from 'react';
+import ArtistTile from './ArtistTile';
+import InfiniteScrollify from './InfiniteScrollify';
 
-class ArtistTileContainer extends Base {
-	constructor(props) {
-		super(props)
-	}
-	render() {
-		return (
-			<div className='flex-row'>
-				{
-					this.props.artists.map((artist, index) => {
-						return React.createElement(ArtistTile, {
-							artist: artist.artist,
-							key: index,
-							imageURL: artist.icon_image.imageURL,
-							set_count: artist.set_count,
-							event_count: artist.event_count
-						})
-					})
-				}
-			</div>
-		)
-	}
-}
+const ArtistTileContainer = ({artists}) => (
+	<div className='artist-tile-container'>
+		{
+			artists.map((artist, index) => {
+				return React.createElement(ArtistTile, {
+					artist: artist.artist,
+					key: index,
+					imageURL: artist.icon_image.imageURL,
+					setCount: artist.set_count,
+					eventCount: artist.event_count
+				})
+			})
+		}
+	</div>
+);
 
 ArtistTileContainer.propTypes = {
 	artists: PropTypes.array.isRequired,
 	onScroll: PropTypes.func
-}
+};
 
-export default InfiniteScrollify(ArtistTileContainer)
+export default InfiniteScrollify(ArtistTileContainer);

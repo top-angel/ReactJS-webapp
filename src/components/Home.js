@@ -2,31 +2,32 @@ import React from 'react';
 import Base from './Base';
 import HomeSidebar from './HomeSidebar';
 import LoginOverlay from './LoginOverlay';
+import Tabs from './Tabs';
+
+const tabs = [
+	{
+		text: 'FAVORITES',
+		to: '/home',
+		index: true
+	}
+];
 
 export default class Home extends Base {
 	constructor(props) {
-		super(props)
-		this.autoBind('showOverlay')
+		super(props);
 	}
 	componentWillMount() {
-		this.context.push({ currentPage: 'Home' })
+		this.context.push({ currentPage: 'Home' });
 	}
 	componentDidMount() {
 		mixpanel.track("User Home Page Open");
 	}
-	showOverlay(loginStatus) {
-		if(!loginStatus) {
-			return <LoginOverlay />
-		}
-	}
 	render() {
 		return (
-			<div id='HomeView' className='flex-row'>
-				{this.showOverlay(this.context.loginStatus)}
-				<HomeSidebar user={this.context.user} />
+			<div className='view'>
+				<Tabs tabs={tabs} />
 				{
 					React.cloneElement(this.props.children, {
-						className: 'flex-row flex-fixed-4x tile-container',
 						appState: this.props.appState
 					})
 				}
@@ -39,4 +40,4 @@ Home.contextTypes =  {
 	push: React.PropTypes.func,
 	user: React.PropTypes.object,
 	loginStatus: React.PropTypes.bool
-}
+};

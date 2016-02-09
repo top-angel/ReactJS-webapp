@@ -1,52 +1,33 @@
-import React from 'react'
-import Base from './Base'
-import api from '../services/api'
-
-import Loader from 'react-loader'
-import FeaturedTile from './FeaturedTile'
+import React from 'react';
+import Base from './Base';
+import api from '../services/api';
+import Loader from 'react-loader';
+import FestivalContainer from './FestivalContainer';
 
 export default class FeaturedEvents extends Base {
 	constructor(props) {
-		super(props)
-		this.autoBind('getFeaturedEvents')
+		super(props);
+		this.autoBind('getFeaturedEvents');
 		this.state = {
 			loaded: false,
 			events: []
-		}
-		this.getFeaturedEvents()
+		};
+		this.getFeaturedEvents();
 	}
 	getFeaturedEvents() {
-		api.get('events/featured').then(res => {
-			var featuredEvents = res.events_featured
+		api.get('events/featured').then(payload => {
+			var featuredEvents = payload.events_featured
 			this.setState({
 				loaded: true,
 				events: featuredEvents
-			})
-		})
+			});
+		});
 	}
 	render() {
-		var featuredEvents = this.state.events
-		var push = this.props.push
-		var featuredTiles = featuredEvents.map((event, index) => {
-			return React.createElement(FeaturedTile, {
-				key: index,
-				id: event.event_id,
-				event: event.event.event,
-				banner_image: event.event.banner_image.imageURL,
-				formattedDate: event.event.formatted_date,
-				push: push,
-				set_count: event.event.set_count
-			})
-		})
-
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div id='FeaturedContainer'>
-					<div className='container'>
-						{featuredTiles}
-					</div>
-				</div>
+				<FestivalContainer festivals={this.state.events} />
 			</Loader>
-		)
+		);
 	}
 }

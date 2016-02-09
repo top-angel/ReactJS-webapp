@@ -1,16 +1,15 @@
-import {API_ROOT} from '../constants/constants'
+import {API_ROOT} from '../constants/constants';
 
 module.exports = {
 	get(route) {
 		return (
 			fetch(API_ROOT+route)
 				.then(res => res.json())
-				.then(json => json)
 				.then(res => {
 					if(res.status === 'success') {
-						return res.payload
+						return res.payload;
 					} else {
-						console.error('API call failed')
+						console.error('API call failed');
 					}
 				})
 				.catch(err => console.error(err))
@@ -27,12 +26,11 @@ module.exports = {
 				body: JSON.stringify(data)
 			})
 			.then(res => res.json())
-			.then(json => json)
 			.then(res => {
 				if(res.status === 'success') {
-					return res.payload
+					return res.payload;
 				} else {
-					console.error('API call failed')
+					console.error('API call failed');
 				}
 			})
 			.catch(err => console.error(err))
@@ -49,8 +47,7 @@ module.exports = {
 				body: JSON.stringify(query)
 			})
 			.then(res => res.json())
-			.then(json => json)
 			.catch(err => console.error(err))
 		)
 	}
-}
+};

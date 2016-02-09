@@ -1,29 +1,28 @@
-import React from 'react'
-import { S3_ROOT_FOR_IMAGES } from '../constants/constants'
-import Moment from 'moment'
-import history from '../services/history'
+import React, {PropTypes} from 'react';
+import { S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE } from '../constants/constants';
+import history from '../services/history';
 
-var FestivalTile = React.createClass({
-	displayName: 'Festival Tile',
-	openFestivalPage() {
-		// var routePath = this.props.event.split(' ').join('-')
-		history.pushState(null, '/festival/' + this.props.id)
-	},
-	render() {
-		var image = { backgroundImage: `url('${S3_ROOT_FOR_IMAGES + this.props.bannerImage}')` }
-		var setCount = this.props.setCount != 1 ? `${this.props.setCount} sets`: `${this.props.setCount} set`
+const FestivalTile = ({festival, id, setCount, bannerImage, formattedDate}) => {
+	let sets = setCount != 1 ? `${setCount} sets`: `${setCount} set`;
+	let image = DEFAULT_IMAGE || bannerImage.imageURL;
+	return (
+		<div className='festival-tile flex-column' 
+			style={{ backgroundImage: `url('${S3_ROOT_FOR_IMAGES + bannerImage}')` }}
+			onClick={() => history.pushState(null, `/festival/${id}`)}>
+			<header className='flex-column'>
+				<p className='info'>{`${sets} | ${formattedDate}`}</p>
+				<p className='festival'>{festival}</p>
+			</header>
+		</div>
+	);
+}
 
-		return (
-			<div className='festival-tile flex-column click'
-				onClick={this.openFestivalPage} 
-				style={image}>
-				<div className='detail flex-column'>
-					<span className='info'>{`${setCount} | ${this.props.formattedDate}`}</span>
-					<span className='festival'>{this.props.festival}</span>
-				</div>
-			</div>
-		)
-	}
-})
+FestivalTile.propTypes = {
+	event: PropTypes.string,
+	bannerImage: PropTypes.string,
+	setCount: PropTypes.number,
+	formattedDate: PropTypes.string,
+	id: PropTypes.number
+};
 
-export default FestivalTile
+export default FestivalTile;

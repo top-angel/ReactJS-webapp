@@ -1,7 +1,7 @@
-import React, {PropTypes} from 'react'
-import Base from './Base'
-import NavMenu from './NavMenu'
-import Tabs from './Tabs'
+import React, {PropTypes} from 'react';
+import Base from './Base';
+import NavMenu from './NavMenu';
+import Tabs from './Tabs';
 
 const tabs = [
 	{
@@ -28,14 +28,14 @@ const tabs = [
 
 export default class SetsPage extends Base {
 	constructor(props) {
-		super(props)
+		super(props);
 	}
 	componentWillMount() {
-		this.context.push({ currentPage: 'Sets' })
+		this.context.push({ currentPage: 'Sets' });;
 	}
 	render() {
 		return (
-			<div id='SetsPage' className='flex-column'>
+			<div className='view'>
 				<Tabs tabs={tabs} />
 				{
 					React.cloneElement(this.props.children, {
@@ -49,4 +49,4 @@ export default class SetsPage extends Base {
 
 SetsPage.contextTypes = {
 	push: PropTypes.func
-}
+};

@@ -1,47 +1,39 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import Loader from 'react-loader';
 import api from '../services/api';
 import SetContainer from './SetContainer';
 
-var NewSets = React.createClass({
-	displayName: 'Recommended Sets',
-	contextTypes: {
-		push: React.PropTypes.func,
-		user: React.PropTypes.object
-	},
-
-	getInitialState() {
-		return {
+export default class NewSets extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
 			loaded: false,
-			newSets: []
+			sets: []
 		};
-	},
-
-	componentDidMount() {
-		mixpanel.track("New Sets Page Open");
-	},
-
-	componentWillMount() {
 		this.getNewSets();
-	},
-
+	}
+	componentDidMount() {
+		mixpanel.track("New Events Page Open");
+	}
 	getNewSets() {
-		var userId = this.context.user.id
-		api.get(`setmineuser/${userId}/stream?filter=sets`).then(res => {
+		var userId = this.context.user.id;
+		api.get(`setmineuser/${userId}/stream?filter=sets`).then(payload => {
 			this.setState({
-				newSets: res.setmineuser_stream,
+				sets: payload.setmineuser_stream,
 				loaded: true
-			})
-		})
-	},
-
+			});
+		});
+	}
 	render() {
 		return (
 			<Loader loaded={this.state.loaded}>
-				<SetContainer sets={this.state.newSets} />
+				<SetContainer sets={this.state.sets} />
 			</Loader>
 		);
 	}
-});
+}
 
-export default NewSets;
+NewSets.contextTypes = {
+	user: PropTypes.object,
+	push: PropTypes.func
+};

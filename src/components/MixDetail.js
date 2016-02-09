@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import R from 'ramda';
 import Loader from 'react-loader';
 import api from '../services/api';
 import {DEFAULT_IMAGE} from '../constants/constants';
-
+import Base from './Base';
 import SetContainer from './SetContainer';
 import DetailImageContainer from './DetailImageContainer';
 
-const MixDetail = React.createClass({
-	getInitialState() {
-		return {
+class MixDetail extends Base {
+	constructor(props) {
+		super(props);
+		this.autoBind('getMix');
+		this.state = {
 			loaded: false,
 			mix: '',
 			sets: [],
@@ -18,16 +20,14 @@ const MixDetail = React.createClass({
 				imageURL: DEFAULT_IMAGE
 			}
 		};
-	},
-
-	componentWillMount() {
-		this.getMixData(this.props.params.mix);
-	},
-
-	getMixData(id) {
+		this.getMix();
+	}
+	getMix(id) {
 		// test id 69
-		api.get(`mixes/id/${id}`).then(res => {
-			var m = res.mixes_id
+		api.get(`mixes/id/${id}`).then(payload => {
+			let m = payload.mixes_id;
+			this.context.push({ currentPage: m.event });
+
 			this.setState({
 				mix: m.event,
 				setCount: m.set_count,
@@ -35,14 +35,13 @@ const MixDetail = React.createClass({
 				sets: m.sets
 			});
 		}).then(() => {
-			this.setState({ loaded: true })
-		})
-	},
-
+			this.setState({ loaded: true });
+		});
+	}
 	render() {
-		var setText = this.state.set_count != 1 ? 'sets' : 'set';
-
-		var detailInfo = {
+		let setText = this.state.set_count != 1 ? 'sets' : 'set';
+		
+		let detailInfo = {
 			title: this.state.mix,
 			imageURL: this.state.imageURL,
 			info: `${this.state.setCount} ${setText}`,
@@ -63,7 +62,8 @@ const MixDetail = React.createClass({
 			</Loader>
 		);
 	}
+}
 
-});
-
-export default MixDetail;
+MixDetail.contextTypes = {
+	push: PropTypes.func
+};

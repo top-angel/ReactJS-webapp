@@ -1,21 +1,17 @@
-import React, {PropTypes} from 'react'
-import Base from './Base'
+import React, {PropTypes} from 'react';
+import Base from './Base';
 
-import Link from 'react-router/lib/Link'
-import Icon from './FaIcon'
+import Link from 'react-router/lib/Link';
+import Icon from './FaIcon';
 
 export default class NavBar extends Base {
 	constructor(props) {
-		super(props)
-		this.autoBind('changeCurrentPage')
-	}
-	changeCurrentPage(e) {
-		console.log(e)
+		super(props);
 	}
 	render() {
 		return (
 			<nav id='NavBar' className='flex-column'>
-				<Link to='/user' className='flex-container' activeClassName='active'>
+				<Link to='/home' className='flex-container' activeClassName='active'>
 					<Icon size={24}>home</Icon>
 				</Link>
 				<Link to='/sets' className='flex-container' activeClassName='active'>
@@ -28,10 +24,10 @@ export default class NavBar extends Base {
 					<Icon size={24}>users</Icon>
 				</Link>
 			</nav>
-		)
+		);
 	}
 }
 
 NavBar.contextTypes = {
 	push: PropTypes.func
-}
+};

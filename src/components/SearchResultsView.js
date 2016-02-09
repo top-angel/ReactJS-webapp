@@ -1,15 +1,15 @@
-import React from 'react'
-import ArtistTileContainer from './ArtistTileContainer'
-import SetContainer from './SetContainer'
-import EventContainer from './EventContainer'
-import TrackContainer from './TrackContainer'
+import React, {PropTypes} from 'react';
+import ArtistTileContainer from './ArtistTileContainer';
+import SetContainer from './SetContainer';
+import EventContainer from './EventContainer';
+import TrackContainer from './TrackContainer';
 
 export default class SearchResultsView extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			active: 'artists'
-		}
+		};
 	}
 	componentDidMount() {
 		var self = this
@@ -59,25 +59,21 @@ export default class SearchResultsView extends React.Component {
 		})
 	}
 	componentWillUnmount() {
-		$('#search').val('')
 		this.context.push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				searchResults: {
-					sets: [],
-					upcomingEvents: [],
-					tracks: []
-				}
+			searchResults: {
+				sets: [],
+				upcomingEvents: [],
+				tracks: []
 			}
 		})
 	}
 	render() {
-		var searchResults = this.props.appState.get('searchResults')
-		var {artists, sets, upcomingEvents, tracks} = searchResults
+		var searchResults = this.props.appState.get('searchResults');
+		var {artists, sets, upcomingEvents, tracks} = searchResults;
 
-		var setClass = 'flex-row results sets'
-		var eventClass = 'flex-row results events'
-		var trackClass = 'flex-row results tracks'
+		var setClass = 'flex-row results sets';
+		var eventClass = 'flex-row results events';
+		var trackClass = 'flex-row results tracks';
 
 		return (
 			<div id='SearchResultsView' className='view overlay-container'>
@@ -112,10 +108,10 @@ export default class SearchResultsView extends React.Component {
 						className={trackClass} />
 				</div>
 			</div>
-		)
+		);
 	}
 }
 
 SearchResultsView.contextTypes = {
 	push: React.PropTypes.func
-}
+};

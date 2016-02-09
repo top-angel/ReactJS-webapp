@@ -25,34 +25,36 @@ class Player extends Base {
 		}
 	}
 	componentWillReceiveProps(nextProps) {
-		let appState = this.props.appState
+		let appState = this.props.appState;
 
 		if(nextProps.appState.get('currentSet') != appState.get('currentSet')) {
-			let starttime = nextProps.appState.get('currentSet').starttime
+			let starttime = nextProps.appState.get('currentSet').starttime;
 
-			generateSound(starttime, nextProps.appState, push).then(function(smObj) {
+			generateSound(starttime, nextProps.appState, this.context.push).then(smObj => {
 				//play a new set
+				console.log(smObj);
+
 				this.context.push({
 					sound: smObj,
 					playing: true,
 					playerHidden: false
-				})
+				});
 
 
 				// Log Mixpanel event
-				let selectedSet = nextProps.appState.get('currentSet')
-				mixpanelTrackSetPlay(selectedSet)
-			})
+				// let selectedSet = nextProps.appState.get('currentSet');
+				// mixpanelTrackSetPlay(selectedSet);
+			});
 		} 
 	}
 	checkIfFavorited(setId) {
-		return this.context.loginStatus ? checkIfFavorited(setId, this.context.favoriteSetIds) : false
+		return this.context.loginStatus ? checkIfFavorited(setId, this.context.favoriteSetIds) : false;
 	}
 	render() {
-		let appState = this.props.appState
-		let currentSet = appState.get('currentSet')
-		let hidePlayer = appState.get('playerHidden') ? 'hidden' : ''
-		let favorited = this.checkIfFavorited(currentSet.id)
+		let appState = this.props.appState;
+		let currentSet = appState.get('currentSet');
+		let hidePlayer = appState.get('playerHidden') ? 'hidden' : '';
+		let favorited = this.checkIfFavorited(currentSet.id);
 
 		return (
 			<div id='Player' className={`flex-row ${hidePlayer}`}>
@@ -74,10 +76,10 @@ Player.contextTypes = {
 	push: PropTypes.func,
 	loginStatus: PropTypes.bool,
 	favoriteSetIds: PropTypes.array
-}
+};
 
 Player.propTypes = {
 
-}
+};
 
-export default Player
+export default Player;

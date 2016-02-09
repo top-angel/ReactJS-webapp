@@ -1,47 +1,41 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import TrackTile from './TrackTile';
 
-var TrackContainer = React.createClass({
-
-	getDefaultProps() {
-		return {
-			className: 'flex-row tile-container',
-			tracks: []
-		};
-	},
-
+export default class TrackContainer extends Component {
+	constructor(props) {
+		super(props);
+	}
 	shouldComponentUpdate(nextProps, nextState) {
 		return nextProps.tracks != this.props.tracks;
-	},
-
+	}
 	render() {
-		var { tracks, push } = this.props;
-		var tiles = tracks.map((track, index) => {
-			return React.createElement(TrackTile, {
-				key: index,
-				songname: track.song_name,
-				artistname: track.artist_name,
-				trackname: track.track_name,
-				id: track.id,
-				songURL: track.songURL,
-				starttime: track.starttime,
-				set_length: track.set_length,
-				event: track.event.event,
-				artist: track.artists[0].artist,
-				is_radiomix: track.is_radiomix,
-				event_id: track.event_id,
-				banner_image: track.event.banner_image.imageURL,
-				artist_image: track.artists[0].icon_image.imageURL_small
-			})
-		});
-
 		return (
-			<div className={this.props.className}>
-				{tiles}
+			<div className='tile-container'>
+				{
+					this.props.tracks.map((track, index) => {
+						return React.createElement(TrackTile, {
+							key: index,
+							songName: track.song_name,
+							artistName: track.artist_name,
+							trackName: track.track_name,
+							id: track.id,
+							songUrl: track.songURL,
+							startTime: track.starttime,
+							setLength: track.set_length,
+							event: track.event.event,
+							artist: track.artists[0].artist,
+							isRadiomix: track.is_radiomix,
+							eventId: track.event_id,
+							bannerImage: track.event.banner_image.imageURL,
+							artistImage: track.artists[0].icon_image.imageURL_small
+						})
+					})
+				}
 			</div>
 		);
 	}
+}
 
-});
-
-export default TrackContainer;
+TrackContainer.propTypes = {
+	tracks: PropTypes.array.isRequired
+};

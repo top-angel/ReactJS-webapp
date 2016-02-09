@@ -1,16 +1,18 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import R from 'ramda';
 import api from '../services/api';
 import {DEFAULT_IMAGE} from '../constants/constants';
 
-
+import Base from './Base';
 import Loader from 'react-loader';
 import EventDetailHeader from './EventDetailHeader'
 import ArtistTileContainer from './ArtistTileContainer';
 
-var EventDetail = React.createClass({
-	getInitialState() {
-		return {
+export default class EventDetail extends Base {
+	constructor(props) {
+		super(props);
+		this.autoBind('getEvent');
+		this.state = {
 			loaded: false,
 			event: '',
 			date: '',
@@ -18,28 +20,25 @@ var EventDetail = React.createClass({
 			lineup: [],
 			imageURL: DEFAULT_IMAGE
 		};
-	},
-
-	componentWillMount() {
-		this.getEventData(this.props.params.event);
-	},
-
+		this.getEvent();
+	}
 	getEventData(event) {
-		api.get(`events/id/${event}`).then(res => {
-			var e = res.events_id
+		api.get(`events/id/${event}`).then(payload => {
+			let e = payload.events_id;
+			this.context.push({ currentPage: e.event });
 			this.setState({
 				event: e.event,
 				date: e.formatted_date,
 				ticketLink: e.ticket_link,
 				imageURL: e.banner_image.imageURL,
 				lineup: e.lineup
-			})
+			});
 		}).then(() => {
-			this.setState({ loaded: true })
-		})
-	},
+			this.setState({ loaded: true });
+		});
+	}
 	render() {
-		var header = {
+		let header = {
 			date: this.state.date,
 			title: this.state.event,
 			ticketLink: this.state.ticketLink,
@@ -60,7 +59,8 @@ var EventDetail = React.createClass({
 			</Loader>
 		);
 	}
+}
 
-});
-
-export default EventDetail;
+EventDetail.contextTypes = {
+	push: PropTypes.func
+};

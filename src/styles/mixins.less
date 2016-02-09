@@ -13,6 +13,7 @@
 .fa-youtube:hover{color:@youtube-red;}
 .fa-globe:hover{color:@purple;}
 
+// deprecated use actionbackground
 .active(@color, @multiplier: 0.8) {
 	color: @color;
 	&:active {
@@ -25,6 +26,23 @@
 		background-color: @color*@multiplier;
 	}
 }
+
+.actionBackground(@color) {
+	.transition(background);
+	background: @color;
+	cursor: pointer;
+	&:hover {background: @color*0.9}
+	&:active {background: @color*0.8}
+}
+.actionColor(@color) {
+	.transition(color);
+	cursor: pointer;
+	&:hover {
+		color: @color;
+	}
+}
+
+
 .animation(@time: 1s, @delay: 0s,) {
 	animation-duration: @time!important;
 	animation-delay: @delay!important;
@@ -111,6 +129,8 @@
 .hidden-fade {
 	opacity:0!important;
 }
+
+// deprecated
 .hover(@color, @multiplier: 0.8) {
 	color: @color;
 	.transition(0.2s, ease-in, color);
@@ -124,12 +144,14 @@
 		background-color: @color*@multiplier;
 	}
 }
+
+
 .scrollable {
 	overflow-y:scroll!important;
 }
 .size(@width, @height: @width) {
-	width: @width!important;
-	height: @height!important;
+	width: @width;
+	height: @height;
 }
 .transition(@transitionProperty:all, @durationTime:@defaultDuration, @transitionType: @easeIn) {
 	transition: @transitionProperty @durationTime @transitionType;
@@ -141,6 +163,10 @@
 	-ms-transform:     @value;
 	-o-transform:      @value;
 	transform:         @value;
+}
+.tileBorder {
+	border: solid 1px @light-gray;
+	border-radius: 3px;
 }
 
 //media queries
