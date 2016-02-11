@@ -56,7 +56,7 @@ export default class SearchBar extends Base {
 	}
 	render() {
 		return (
-			<div id='SearchBar' className='flex-row'>
+			<div id='SearchBar'>
 				<i className='fa fa-search'/>
 				<input
 					id='search'

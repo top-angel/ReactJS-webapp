@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import {scrub} from '../services/playerService';
 import {MMSSToMilliseconds, millisecondsToMMSS} from '../services/convert';
 
 import Base from './Base';
@@ -13,6 +12,11 @@ export default class PlayerSeek extends Base {
 			isSeeking: false
 		};
 	}
+	// shouldComponentUpdate(nextProps, nextState) {
+	// 	if(nextProps.appState.get('timeElapsed') != this.props.appState.get('timeElapsed')) {
+	// 		return true;
+	// 	}
+	// }
 	bindSeekMouseEvents() {
 		document.addEventListener('mousemove', this.scrub);
 		document.addEventListener('mouseup', this.handleSeekMouseUp);
@@ -41,23 +45,27 @@ export default class PlayerSeek extends Base {
 		document.removeEventListener('mouseup', this.handleSeekMouseUp);
 
 		this.setState({
-			isSeeking: false 
+			isSeeking: false
 		});
 	}
 	scrub(e) {
 		let push = this.context.push;
 		let appState = this.props.appState;
-
+		let sound = appState.get('sound')
 		let seekBar = ReactDOM.findDOMNode(this.refs.scrubber);
 		let offsetLeft = this.offsetLeft(seekBar);
 
 		// le scrub 2.0
 		let newPosition = ((e.clientX - offsetLeft) / (window.innerWidth - offsetLeft)) * 100;
+		let setLength = sound.durationEstimate;
+		let timeElapsed = (newPosition * setLength) / 100;
 
 		// console.log('clicked point x-coord', e.clientX)
 		// console.log('offsetleft', offsetLeft)
 		// console.log('new position', newPosition)
-		scrub(newPosition, appState, push);
+		
+		push({ timeElapsed: timeElapsed });
+		sound.setPosition(timeElapsed);
 	}
 	render() {
 		let appState = this.props.appState;
@@ -69,9 +77,8 @@ export default class PlayerSeek extends Base {
 		let setLength = sound.durationEstimate;
 		let percent = (timeElapsed / setLength) * 100;
 
-		
 		return (
-			<div id='PlayerSeek' onClick={this.scrub} ref='scrubber'>
+			<div id='PlayerSeek' ref='scrubber' onClick={this.scrub}>
 				<div className='time-elapsed' 
 					style={{ width: percent+'%' }}>
 					<div className='handle'

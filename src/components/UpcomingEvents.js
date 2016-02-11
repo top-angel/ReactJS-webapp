@@ -12,6 +12,8 @@ export default class UpcomingEvents extends Base {
 			loaded: false,
 			upcomingEvents: []
 		};
+	}
+	componentWillMount() {
 		this.getUpcomingEvents();
 	}
 	getUpcomingEvents() {

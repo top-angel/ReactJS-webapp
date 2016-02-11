@@ -19,10 +19,10 @@ export default class Festivals extends Base {
 		mixpanel.track("Festivals Page Open")
 	}
 	getFestivals() {
-		api.get('events/festivals').then(res => {
+		api.get('events/festivals').then(payload => {
 			this.setState({
 				loaded: true,
-				festivals: res.events_festivals
+				festivals: payload.events_festivals
 			})
 		})
 	}

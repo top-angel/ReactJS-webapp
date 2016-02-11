@@ -7,11 +7,11 @@ const FestivalContainer = ({festivals}) => (
 			festivals.map((festival, index) => {
 				return React.createElement(FestivalTile, {
 					key: index,
-					id: festival.id,
-					festival: festival.event,
-					bannerImage: festival.banner_image.imageURL,
-					setCount: festival.set_count,
-					formattedDate: festival.formatted_date
+					id: festival.event.id,
+					festival: festival.event.event,
+					bannerImage: festival.event.banner_image.imageURL,
+					setCount: festival.event.set_count,
+					formattedDate: festival.event.formatted_date
 				})
 			})
 		}

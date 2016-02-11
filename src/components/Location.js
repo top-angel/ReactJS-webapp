@@ -11,14 +11,13 @@ export default class Location extends Base {
 		super(props)
 		this.autoBind('getCurrentPosition', 'getClosestEvents', 'onSuggestSelect')
 		this.state = {
-			lat: 29.652175,
-			lng: -82.325856
+			lat: 25.7753,
+			lng: -80.2089
 		}
 		navigator.geolocation.getCurrentPosition(this.getCurrentPosition);
 		this.getClosestEvents();
 	}
-	getCurrentPosition(location) {
-		// console.log('current location', location)
+	getCurrentPosition(location, callback) {
 		this.setState({
 			lat: location.coords.latitude,
 			lng: location.coords.longitude
@@ -27,6 +26,8 @@ export default class Location extends Base {
 	getClosestEvents() {
 		api.get(`events/upcoming?latitude=${this.state.lat}&longitude=${this.state.lng}`).then(res => {
 			this.context.push({ closestEvents: res.upcoming });
+		}).then(() => {
+			this.props.onLoaded();
 		});
 	}
 	onSuggestSelect(suggest) {
@@ -55,4 +56,8 @@ export default class Location extends Base {
 
 Location.contextTypes = {
 	push: PropTypes.func
+};
+
+Location.propTypes = {
+	onLoaded: PropTypes.func.isRequired
 };

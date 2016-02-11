@@ -14,10 +14,10 @@ export default class Favorites extends Component {
 		};
 	}
 	componentDidMount() {
-		mixpanel.track("Favorites Page Open");
 		if(this.context.loginStatus) {
 			this.getFavoriteSets(this.context.user.id);
 		}
+		mixpanel.track("Favorites Page Open");
 	}
 	componentWillReceiveProps(nextProps, nextContext) {
 		if(nextContext.loginStatus) {

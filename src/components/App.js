@@ -48,7 +48,7 @@ let initialAppState = Immutable.Map({
 	},
 	favorites: [],
 	favoriteSetIds: [],
-	isUserLoggedIn: true,
+	loginStatus: true,
 	playerHidden: true,
 	playing: false,
 	searchResults: {
@@ -128,7 +128,7 @@ export default class App extends Base {
 		return {
 			push: push,
 			user: this.state.appState.get('user'),
-			loginStatus: this.state.appState.get('isUserLoggedIn'),
+			loginStatus: this.state.appState.get('loginStatus'),
 			favoriteSetIds: this.state.appState.get('favoriteSetIds')
 		}
 	}

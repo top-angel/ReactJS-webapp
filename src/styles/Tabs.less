@@ -1,11 +1,19 @@
-#Tabs {
+#Tabs, #SearchTabs {
 	.background(@light-gray, @dark-gray);
-	height: 6rem;
+	height: @tabsHeight;
 	width: 100%;
+	position: fixed;
+	top: @headerHeight;
+	z-index: 98;
+	~ * {
+		position: relative;
+		top: @tabsHeight;
+	}
 	a {
 		display: flex;
 		align-items: center;
 		justify-content: space-around;
+		cursor: pointer;
 		&:hover {
 			background: @light-gray*0.95;
 			.transition(background);

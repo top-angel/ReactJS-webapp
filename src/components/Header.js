@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
+import React, { PropTypes } from 'react';
+import Link from 'react-router/lib/Link';
 
-import SearchBar from './SearchBar'
+import SearchBar from './SearchBar';
 
 // const Header = () => {
 // 	return (
@@ -30,20 +30,24 @@ import SearchBar from './SearchBar'
 // 	)
 // }
 
-const Header = (props) => {
+const Header = ({currentPage}, {push}) => {
 	return (
 		<nav id='Header' className='flex-row'>
 			<Link to='/' className='icon-setmine' onlyActiveOnIndex={true} />
 			<div className='flex-fixed'>
-				<h4>{props.currentPage}</h4>
+				<h4 onClick={() => push({ loginStatus: true })}>{currentPage}</h4>
 			</div>
 			<SearchBar />
 		</nav>
 	)
 }
 
+Header.contextTypes = {
+	push: PropTypes.func
+};
+
 Header.propTypes = {
 	currentPage: PropTypes.string.isRequired
-}
+};
 
-export default Header
+export default Header;

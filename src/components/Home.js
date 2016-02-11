@@ -6,9 +6,14 @@ import Tabs from './Tabs';
 
 const tabs = [
 	{
-		text: 'FAVORITES',
+		text: 'STREAM',
 		to: '/home',
 		index: true
+	},
+	{
+		text: 'FAVORITES',
+		to: '/home/favorites',
+		index: false
 	}
 ];
 
@@ -20,7 +25,7 @@ export default class Home extends Base {
 		this.context.push({ currentPage: 'Home' });
 	}
 	componentDidMount() {
-		mixpanel.track("User Home Page Open");
+		// mixpanel.track("User Home Page Open");
 	}
 	render() {
 		return (

@@ -2,7 +2,7 @@ import React from 'react';
 import Base from './Base';
 import api from '../services/api';
 import Loader from 'react-loader';
-import FestivalContainer from './FestivalContainer';
+import FeaturedContainer from './FeaturedContainer';
 
 export default class FeaturedEvents extends Base {
 	constructor(props) {
@@ -26,7 +26,7 @@ export default class FeaturedEvents extends Base {
 	render() {
 		return (
 			<Loader loaded={this.state.loaded}>
-				<FestivalContainer festivals={this.state.events} />
+				<FeaturedContainer festivals={this.state.events} />
 			</Loader>
 		);
 	}

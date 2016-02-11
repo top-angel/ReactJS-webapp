@@ -9,8 +9,9 @@ export default class NavBar extends Base {
 		super(props);
 	}
 	render() {
+		let height = ((window.innerHeight - 64) / window.innerHeight) * 100 + '%';
 		return (
-			<nav id='NavBar' className='flex-column'>
+			<nav id='NavBar' className='flex-column' style={{ height: height }}>
 				<Link to='/home' className='flex-container' activeClassName='active'>
 					<Icon size={24}>home</Icon>
 				</Link>

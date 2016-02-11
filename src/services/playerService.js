@@ -1,5 +1,6 @@
 import Q from 'q';
-import R from 'ramda';
+// import R from 'ramda';
+import R from 'ramda/dist/ramda.min';
 import SM2 from 'soundmanager2';
 import _ from 'underscore';
 
@@ -126,24 +127,24 @@ export function playSet(setId, push, starttime = '00:00') {
 	})
 }
 
+// DEPRECATED
 //scrub to a new position after clicking progress bar
-export function scrub(position, appState, push) {
-	var sound = appState.get('sound');
-	var timeElapsed = appState.get('timeElapsed');
+// export function scrub(position, appState, push) {
+// 	var sound = appState.get('sound');
+// 	var timeElapsed = appState.get('timeElapsed');
 
-	var setLength = sound.durationEstimate;
-	var newPosition = (position * setLength) / 100;
+// 	var setLength = sound.durationEstimate;
+// 	var newPosition = (position * setLength) / 100;
 
-	push({ timeElapsed: newPosition });
+// 	push({ timeElapsed: newPosition });
 
-	// SHEEEEIT DAS IT MAYNE
-	_.debounce(sound.setPosition(newPosition), 10000);
-	// setTimeout(sound.setPosition(newPosition), 5000)
-}
+// 	// SHEEEEIT DAS IT MAYNE
+// 	// _.debounce(sound.setPosition(newPosition), 10000);
+// 	sound.setPosition(newPosition);
+// }
 
 // play/pause a set
 export function togglePlay(sound) {
-	console.log(sound);
 	if(sound.paused) {
 		console.log('playing')
 		sound.play();

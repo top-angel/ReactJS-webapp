@@ -12,7 +12,7 @@ import LandingView from './components/LandingView';
 import EventsPage from './components/EventsPage';
 import Home from './components/Home';
 import SetsPage from './components/SetsPage';
-import SearchResultsView from './components/SearchResultsView';
+import SearchResults from './components/SearchResults';
 
 import FeaturedEvents from './components/FeaturedEvents';
 import UpcomingEvents from './components/UpcomingEvents';
@@ -25,7 +25,7 @@ import MixDetail from './components/MixDetail';
 import EventDetail from './components/EventDetail';
 
 import Favorites from './components/Favorites';
-import NewSets from './components/NewSets';
+import Stream from './components/Stream';
 import NewEvents from './components/NewEvents';
 
 import Recent from './components/Recent';
@@ -73,8 +73,8 @@ render(
 			</Route>
 
 			<Route path='home' component={Home}>
-				<IndexRoute component={Favorites}/>
-				<Route path='sets' component={NewSets}/>
+				<IndexRoute component={Stream}/>
+				<Route path='favorites' component={Favorites}/>
 				<Route path='events' component={NewEvents}/>
 			</Route>
 
@@ -85,7 +85,7 @@ render(
 			</Route>
 
 			<Route path='artists' component={Artists}/>
-			<Route path='search' component={SearchResultsView}/>
+			<Route path='search' component={SearchResults}/>
 
 			<Route path='artist/:artist' component={ArtistDetail}>
 				<IndexRoute component={SetContainer}/>

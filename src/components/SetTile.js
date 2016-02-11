@@ -25,7 +25,7 @@ export default class SetTile extends Base {
 			history.pushState(null, `/festival/${this.props.eventId}`);
 		}
 	}
-	playSet() {	
+	playSet() {
 		playSet(this.props.id, this.context.push);
 		updatePlayCount(this.props.id, this.context.user.id);
 	}

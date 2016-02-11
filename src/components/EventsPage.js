@@ -41,8 +41,6 @@ export default class EventsPage extends Base {
 		return (
 			<div className='view'>
 				<Tabs tabs={tabs} />
-				<Location appState={this.props.appState} />
-
 				{/*<div className='tile-container'>
 				{
 					React.createElement(TrackTile, {

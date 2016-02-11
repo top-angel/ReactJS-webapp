@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import moment from 'moment';
+import Momemt from 'moment';
 import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
 import history from '../services/history';
 import Base from './Base';
@@ -27,8 +27,8 @@ export default class EventTile extends Base {
 		window.open(this.props.ticketLink);
 	}
 	render() {
-		let month = moment(this.props.startDate).format('MMM');
-    	let day = moment(this.props.startDate).format('DD');
+		let month = Moment(this.props.startDate).format('MMM');
+    	let day = Moment(this.props.startDate).format('DD');
 		let image = {
 			backgroundImage: `url('${S3_ROOT_FOR_IMAGES+this.props.bannerImage}')`
 		};
