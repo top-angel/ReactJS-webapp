@@ -20,6 +20,7 @@
 @import 'PlayerSeek';
 @import 'Tabs';
 @import 'SearchBar';
+@import 'SearchResults';
 @import 'SetShare';
 @import 'SetTile';
 @import 'Spinner';
@@ -146,60 +147,60 @@
 	}
 }
 
-#FeaturedContainer {
-	height: @featuredHeight;
-	background-color: @light-gray;
-	.background(@light-gray, @gray);
-	overflow-x: scroll;
-	.container {
-		// TODO find way to not hardcode
-		width: 1575%;
-		height: 100%;
-	}
-	.small({
-		.container {
-			width: 1250%;
-		}
-	});
-	.medium({
-		.container {
-			width: 835%;
-		}
-	});
-}
+// #FeaturedContainer {
+// 	height: @featuredHeight;
+// 	background-color: @light-gray;
+// 	.background(@light-gray, @gray);
+// 	overflow-x: scroll;
+// 	.container {
+// 		// TODO find way to not hardcode
+// 		width: 1575%;
+// 		height: 100%;
+// 	}
+// 	.small({
+// 		.container {
+// 			width: 1250%;
+// 		}
+// 	});
+// 	.medium({
+// 		.container {
+// 			width: 835%;
+// 		}
+// 	});
+// }
 
-.featured-tile {
-	background-size: cover;
-	background-position: center;
-	width: 25vw;
-	height: 100%;
-	color:white;
-	float: left;
-	position: relative;
-	.transition(0.2s);
-	.createOverlay(0.2, @dark-gray);
-	.featured-info {
-	    position: absolute;
-	    left: 1rem;
-	    bottom: 1rem;
-	    .animation(0.3s);
-	}
-	&:hover {
-		.createOverlay(0.8, @dark-gray);
-		.featured-info {
-			visibility: visible;
-		}
-	}
-	.small({
-		width: 50vw;
-		font-size: 1.3rem;
-		.createOverlay(0.4, @dark-gray);
-	});
-	.medium({
-		width: @windowWidth/3;
-		font-size: 1.2rem;
-	});
-}
+// .featured-tile {
+// 	background-size: cover;
+// 	background-position: center;
+// 	width: 25vw;
+// 	height: 100%;
+// 	color:white;
+// 	float: left;
+// 	position: relative;
+// 	.transition(0.2s);
+// 	.createOverlay(0.2, @dark-gray);
+// 	.featured-info {
+// 	    position: absolute;
+// 	    left: 1rem;
+// 	    bottom: 1rem;
+// 	    .animation(0.3s);
+// 	}
+// 	&:hover {
+// 		.createOverlay(0.8, @dark-gray);
+// 		.featured-info {
+// 			visibility: visible;
+// 		}
+// 	}
+// 	.small({
+// 		width: 50vw;
+// 		font-size: 1.3rem;
+// 		.createOverlay(0.4, @dark-gray);
+// 	});
+// 	.medium({
+// 		width: @windowWidth/3;
+// 		font-size: 1.2rem;
+// 	});
+// }
 
 footer {
 	.flex-column;
@@ -495,52 +496,52 @@ footer {
 	});
 }
 
-#NavMenu {
-	font-size: 1rem;
-	.background(@gray, @dark-gray);
-	position: fixed;
-	top: @headerHeight;
-	height: @windowHeight - @headerHeight;
-	width: 20vw;
-	z-index: 1;
-	i {
-		margin: auto 10px;
-	}
-	.nav-header {
-		margin: auto 20px;
-		font-family: @bold;
-	}
-	a {
-		font-family: @regular;
-		div {
-			margin: auto 30px;
-		}
-		&:hover {
-			.background(@gray*0.9, @dark-gray*1.2);
-		}
-		&.active {
-			border-left: solid 5px @blue;
-			.background(@gray*0.8, white);
-		}
-	}
-	.small({
-		.nav-button div {
-			.hidden;
-		}
-		i {
-			font-size: 2rem;
-			.center;
-		}
-		.nav-header {
-			.hidden;
-		}
-	});
-	.medium({
-		.nav-button div {
-			margin: auto 1vw;
-		}
-	});
-}
+// #NavMenu {
+// 	font-size: 1rem;
+// 	.background(@gray, @dark-gray);
+// 	position: fixed;
+// 	top: @headerHeight;
+// 	height: @windowHeight - @headerHeight;
+// 	width: 20vw;
+// 	z-index: 1;
+// 	i {
+// 		margin: auto 10px;
+// 	}
+// 	.nav-header {
+// 		margin: auto 20px;
+// 		font-family: @bold;
+// 	}
+// 	a {
+// 		font-family: @regular;
+// 		div {
+// 			margin: auto 30px;
+// 		}
+// 		&:hover {
+// 			.background(@gray*0.9, @dark-gray*1.2);
+// 		}
+// 		&.active {
+// 			border-left: solid 5px @blue;
+// 			.background(@gray*0.8, white);
+// 		}
+// 	}
+// 	.small({
+// 		.nav-button div {
+// 			.hidden;
+// 		}
+// 		i {
+// 			font-size: 2rem;
+// 			.center;
+// 		}
+// 		.nav-header {
+// 			.hidden;
+// 		}
+// 	});
+// 	.medium({
+// 		.nav-button div {
+// 			margin: auto 1vw;
+// 		}
+// 	});
+// }
 
 #PlayerTracklist {
 	text-align: center;
@@ -651,19 +652,6 @@ footer {
 // 		}
 // 	}
 // }
-
-.view-title-container {
-	height: @headerHeight*0.75;
-	width:100%;
-	position:relative;
-	background-color: white;
-	.divider {
-		.createDivider(33%, 4px, @blue);
-		position:absolute;
-		bottom:0;
-		left:33%;
-	}
-}
 
 .sandbox {
 	.background(@dank-blue, @dank-green);

@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import Momemt from 'moment';
+import Moment from 'moment';
 import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
 import history from '../services/history';
 import Base from './Base';

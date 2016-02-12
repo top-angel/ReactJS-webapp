@@ -1,24 +1,24 @@
-var detectMobileService = {
-    Android: function() {
+export default {
+    Android() {
         return navigator.userAgent.match(/Android/i);
     },
-    BlackBerry: function() {
+    BlackBerry() {
         return navigator.userAgent.match(/BlackBerry/i);
     },
-    iOS: function() {
+    iOS() {
         return navigator.userAgent.match(/iPhone|iPad|iPod/i);
     },
-    Opera: function() {
+    Opera() {
         return navigator.userAgent.match(/Opera Mini/i);
     },
-    Windows: function() {
+    Windows() {
         return navigator.userAgent.match(/IEMobile/i);
     },
-    any: function() {
+    any() {
         return (Android() || BlackBerry() || iOS() || Opera() || Windows());
     },
-    detectMobileBrowser: function() {
-        console.log(window.location.pathname);
+    detectMobileBrowser() {
+        // console.log(window.location.pathname);
         if(this.iOS()) {
             if(window.location.pathname.length > 0) {
                 var pathWithoutLeadingSlash = window.location.pathname.substring(1);
@@ -46,5 +46,3 @@ var detectMobileService = {
         }
     }
 };
-
-module.exports = detectMobileService;

@@ -1,4 +1,6 @@
 import React, {PropTypes} from 'react';
+import ReactDOM from 'react-dom';
+import R from 'ramda';
 
 import Base from './Base';
 import SearchTabs from './SearchTabs';
@@ -11,65 +13,69 @@ import Tab from './Tab';
 export default class SearchResults extends Base {
 	constructor(props) {
 		super(props);
+		this.autoBind('handleSelect', 'onScroll');
+		this.state = {
+			selectedIndex: null,
+			nodes: []
+		};
 	}
 	componentWillMount() {
 		this.context.push({ currentPage: 'Search Results' });
 	}
-	// componentDidMount() {
-	// 	let self = this
-	// 	$('.results-filter').click(function(e) {
-	// 		let scrollOffset = -$('header').height()*0.875*2
-	// 		let type = $(this).attr('data-type')
-	// 		//TODO make divider move when scrolling using react motion
-	// 		if($(this).is('.sets')) {
-	// 			self.setState({
-	// 				active: 'sets'
-	// 			})
-	// 			$(window).scrollTo($('.header-small.sets'), 200, {
-	// 				offset: scrollOffset
-	// 			})
-	// 		} else if($(this).is('.events')) {
-	// 			self.setState({
-	// 				active: 'events'
-	// 			})
-	// 			$(window).scrollTo($('.header-small.events'), 200, {
-	// 				offset: scrollOffset
-	// 			})
-	// 		} else if($(this).is('.tracks')) {
-	// 			self.setState({
-	// 				active: 'tracks'
-	// 			})
-	// 			$(window).scrollTo($('.header-small.tracks'), 200, {
-	// 				offset: scrollOffset
-	// 			})
-	// 		} else if($(this).is('.artists')) {
-	// 			self.setState({
-	// 				active: 'artists'
-	// 			})
-	// 			$(window).scrollTo($('.header-small.artists'), 200, {
-	// 				offset: scrollOffset
-	// 			})
-	// 		}
-	// 		// switch(true) {
-	// 		// 	case $(this).is('.artists'):
-	// 		// 		break
-	// 		// 	case $(this).is('.sets'):
-	// 		// 		break
-	// 		// 	case $(this).is('.events'):
-	// 		// 		break
-	// 		// 	case $(this).is('.tracks'):
-	// 		// 		break
-	// 		// }
-	// 	})
-	// }
+	componentDidMount() {
+		window.addEventListener('scroll', this.onScroll, false);
+		this.getNodeOffsets();
+	}
 	componentWillUnmount() {
+		window.removeEventListener('scroll', this.onScroll, false);
 		this.context.push({
 			searchResults: {
 				sets: [],
 				upcomingEvents: [],
 				tracks: []
 			}
-		})
+		});
+	}
+	getNodeOffsets() {
+		let keys = R.keys(this.refs);
+		let nodes = keys.map((key, index) => {
+			let node = this.refs[key];
+			let nodePosition = node.offsetTop - node.clientHeight;
+			return {
+				node: keys[index],
+				position: nodePosition
+			};
+		});
+
+		this.setState({ nodes: nodes });
+	}
+	handleSelect(value, e, tab) {
+		let tabIndex = tab.props.tabIndex;
+		let nodes = this.state.nodes;
+		let scrollPosition = nodes[tabIndex].position;
+		window.scrollTo(0, scrollPosition);
+	}
+	onScroll() {
+		let keys = R.pluck('position', this.state.nodes);
+		let scroll = window.scrollY;
+		switch(true) {
+			case(scroll < keys[0]):
+				// console.log('artists');
+				this.setState({ selectedIndex: 0 });
+				break;
+			case(scroll >= keys[1] && scroll < keys[2]):
+				// console.log('sets');
+				this.setState({ selectedIndex: 1 });
+				break;
+			case(scroll >= keys[2] && scroll < keys[3]):
+				// console.log('events');
+				this.setState({ selectedIndex: 2 });
+				break;
+			case(scroll >= keys[3]):
+				// console.log('tracks');
+				this.setState({ selectedIndex: 3 });
+				break;
+		}
 	}
 	render() {
 		let searchResults = this.props.appState.get('searchResults');
@@ -77,66 +83,28 @@ export default class SearchResults extends Base {
 			artists, 
 			sets, 
 			upcomingEvents, 
-			tracks} = searchResults;
+			tracks
+		} = searchResults;
 
 		return (
-			<div className='view flex-column'>
-				<SearchTabs>
+			<div id='SearchResults' className='view flex-column' style={{ height: 2000}}>
+				<SearchTabs onSelect={this.handleSelect} selectedIndex={this.state.selectedIndex}>
 					<Tab>ARTISTS</Tab>
 					<Tab>SETS</Tab>
 					<Tab>EVENTS</Tab>
 					<Tab>TRACKS</Tab>
 				</SearchTabs>
+				<h6 ref='artists'>ARTISTS</h6>
 				<ArtistTileContainer artists={artists} />
+				<h6 ref='sets'>SETS</h6>
 				<SetContainer sets={sets} />
+				<h6 ref='events'>EVENTS</h6>
 				<EventContainer events={upcomingEvents} />
+				<h6 ref='tracks'>TRACKS</h6>
 				<TrackContainer tracks={tracks} />
 			</div>
 		);
 	}
-	// render() {
-	// 	let searchResults = this.props.appState.get('searchResults');
-	// 	let {artists, sets, upcomingEvents, tracks} = searchResults;
-
-	// 	let setClass = 'flex-row results sets';
-	// 	let eventClass = 'flex-row results events';
-	// 	let trackClass = 'flex-row results tracks';
-
-	// 	return (
-	// 		<div id='SearchResultsView' className='view overlay-container'>
-	// 			<div className='flex-row view-title-container search'>
-	// 				<div className={this.state.active == 'artists' ? 'view-title artists results-filter flex flex-container active':'view-title artists results-filter flex flex-container'}  data-type='artists'>
-	// 					<div className='center'>ARTISTS</div>
-	// 				</div>
-	// 				<div className={this.state.active == 'sets' ? 'view-title sets results-filter flex flex-container active':'view-title sets results-filter flex flex-container'}  data-type='sets'>
-	// 					<div className='center'>SETS</div>
-	// 				</div>
-	// 				<div className={this.state.active == 'events' ? 'view-title events results-filter flex flex-container active':'view-title events results-filter flex flex-container'} data-type='events'>
-	// 					<div className='center'>EVENTS</div>
-	// 				</div>
-	// 				<div className={this.state.active == 'tracks' ? 'view-title tracks results-filter flex flex-container active':'view-title tracks results-filter flex flex-container'} data-type='tracks'>
-	// 						<div className='center'>TRACKS</div>
-	// 				</div>
-	// 			</div>
-	// 			<div className='results-container flex-column'>
-	// 				<div className='header-small artists'>ARTISTS</div>
-	// 				<ArtistTileContainer artists={artists} />
-	// 				<div className='header-small sets'>SETS</div>
-	// 				<SetContainer
-	// 					sets={sets}
-	// 					className={setClass} />
-	// 				<div className='header-small events'>EVENTS</div>
-	// 				<EventContainer
-	// 					events={upcomingEvents}
-	// 					className={eventClass} />
-	// 				<div className='header-small tracks'>TRACKS</div>
-	// 				<TrackContainer
-	// 					tracks={tracks}
-	// 					className={trackClass} />
-	// 			</div>
-	// 		</div>
-	// 	);
-	// }
 }
 
 SearchResults.contextTypes = {

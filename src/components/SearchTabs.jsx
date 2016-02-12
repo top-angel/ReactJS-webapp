@@ -1,44 +1,69 @@
 import React, {PropTypes} from 'react';
-import {Motion, spring} from 'react-motion';
+import {Motion, spring, presets} from 'react-motion';
 import Base from './Base';
 import InkBar from './InkBar';
 
 export default class SearchTabs extends Base {
 	constructor(props, context) {
 		super(props, context);
+		this.autoBind('getTabWidth', 'handleClick');
 		this.state = {
-			activeIndex: 0 
+			activeIndex: 0,
+			left: 0
 		};
 	}
-	getTabCount() {
-		return React.Children.count(this.props.children);
+	componentWillReceiveProps(nextProps) {
+		console.log(this.props.selectedIndex);
+		console.log(nextProps.selectedIndex);
+		let left = nextProps.selectedIndex * this.getTabWidth();
+		this.setState({ left: left });
+	}
+	getTabWidth() {
+		let count = React.Children.count(this.props.children);
+		let width = 100 / count;
+		return width;
 	}
 	handleClick(value, e, tab) {
-		console.log('value', value);
-		console.log('e', e);
-		console.log('tab', tab);
+		let newLeft = (this.getTabWidth() * tab.props.tabIndex);
+		this.setState({ left: newLeft });
+
+		if(this.props.onSelect) {
+			this.props.onSelect(value, e, tab);
+		}
 	}
 	renderTabs() {
-		// may not be needed
-		let width = 100 / this.getTabCount() + '%';
 		let tabs = React.Children.map(this.props.children, (tab, index) => {
-			console.log(tab);
 			return React.cloneElement(tab, {
 				key: index,
 				onClick: this.handleClick,
-				width: width
+				width: this.getTabWidth(),
+				tabIndex: index
 			}, tab.props.children);
 		});
 
 		return tabs;
 	}
 	render() {
-		let width = ((window.innerWidth - 64) / window.innerWidth) * 100 + '%';
+		let containerWidth = ((window.innerWidth - 64) / window.innerWidth) * 100 + '%';
+		let inkbarWidth = this.getTabWidth() + '%';
+		console.log(inkbarWidth);
+
 		return (
-			<nav id='SearchTabs' className='flex-row' style={{ width: width }}>
+			<nav id='SearchTabs' className='flex-row' style={{ width: containerWidth }}>
 				{this.renderTabs()}
-				<InkBar />
+				<Motion style={{ left: spring(this.state.left, presets.gentle) }} >
+					{
+						({left}) => (
+							<InkBar width={inkbarWidth} animation={left}/>
+						)
+					}
+				</Motion>
 			</nav>
 		);
 	}
 }
+
+SearchTabs.propTypes = {
+	onSelect: PropTypes.func,
+	children: PropTypes.element.isRequired
+};
