@@ -8,23 +8,32 @@
 
 // components
 @import 'ArtistTile';
+@import 'Avatar';
+@import 'DetailHeader';
+@import 'DetailButton';
 @import 'EventTile';
 @import 'FestivalTile';
+@import 'Footer';
 @import 'Header';
 @import 'Location';
+@import 'MixTile';
 @import 'NavBar';
 @import 'Notifications';
 @import 'Player';
 @import 'PlayerControl';
 @import 'PlayerSetInfo';
 @import 'PlayerSeek';
+@import 'PlayerTracklist';
 @import 'Tabs';
 @import 'SearchBar';
 @import 'SearchResults';
 @import 'SetShare';
 @import 'SetTile';
+@import 'SocialMediaLinks';
 @import 'Spinner';
 @import 'TileContainer';
+@import 'ToolTip';
+@import 'Track';
 @import 'TrackTile';
 @import 'View';
 
@@ -92,39 +101,6 @@
 	z-index: 1;
 }
 
-#detail-button {
-	.border-radius(30px);
-}
-.detail-page {
-	.background(@white, white);
-	text-align: center;
-	position: relative;
-	margin-bottom: @playerHeight;
-	top: @headerHeight;
-	h1 {
-		margin-top: 10vh;
-	}
-	>.detail-header {
-		height: 45vh;
-		background-size: 100%;
-		background-position-y: 40%;
-		position: relative;
-		.createOverlay(0.75, @dark-gray);
-		.small({
-			height: 60vh;
-		});
-	}
-	>.divider {
-		.createDivider(100%, 2px, @gray);
-	}
-	.tile-controls {
-		background-color: @dark-gray;
-	}
-	.active {
-		.background(@dark-gray*0.8, @blue);
-	}
-}
-
 .dmca-container {
 	color: @dark-gray;
 	padding: 5vh;
@@ -145,98 +121,6 @@
 	h4 {
 		margin-top: 0;
 	}
-}
-
-// #FeaturedContainer {
-// 	height: @featuredHeight;
-// 	background-color: @light-gray;
-// 	.background(@light-gray, @gray);
-// 	overflow-x: scroll;
-// 	.container {
-// 		// TODO find way to not hardcode
-// 		width: 1575%;
-// 		height: 100%;
-// 	}
-// 	.small({
-// 		.container {
-// 			width: 1250%;
-// 		}
-// 	});
-// 	.medium({
-// 		.container {
-// 			width: 835%;
-// 		}
-// 	});
-// }
-
-// .featured-tile {
-// 	background-size: cover;
-// 	background-position: center;
-// 	width: 25vw;
-// 	height: 100%;
-// 	color:white;
-// 	float: left;
-// 	position: relative;
-// 	.transition(0.2s);
-// 	.createOverlay(0.2, @dark-gray);
-// 	.featured-info {
-// 	    position: absolute;
-// 	    left: 1rem;
-// 	    bottom: 1rem;
-// 	    .animation(0.3s);
-// 	}
-// 	&:hover {
-// 		.createOverlay(0.8, @dark-gray);
-// 		.featured-info {
-// 			visibility: visible;
-// 		}
-// 	}
-// 	.small({
-// 		width: 50vw;
-// 		font-size: 1.3rem;
-// 		.createOverlay(0.4, @dark-gray);
-// 	});
-// 	.medium({
-// 		width: @windowWidth/3;
-// 		font-size: 1.2rem;
-// 	});
-// }
-
-footer {
-	.flex-column;
-	position: relative;
-	.background(@dark-gray, white);
-	padding: 3vh;
-	z-index: 3;
-	&::after {
-		content: '';
-		width: 100%;
-		height: @playerHeight;
-		background: @dark-gray;
-	}
-	h4 {
-		margin: 0;
-		text-align: center;
-	}
-	span {
-		margin-left: 1rem;
-	}
-	ul {
-		list-style: none;
-		padding: 0;
-		> * {margin:0.5rem;}
-	}
-	.copyright {
-		margin: 1rem 0;
-	}
-	.sponsors, .links, .social {
-		margin: 0 2rem;
-	}
-	.desktop({
-		.flex-row;
-		.social{.center;}
-		.sponsors {margin: 0 1rem;}
-	}, 500px);
 }
 
 #LandingView {
@@ -380,39 +264,6 @@ footer {
 		}
 	});
 }
-.links-container {
-	.background(@dark-gray, white);
-	height: 8vh;
-	text-align: center;
-	font-family: @regular;
-	.flex;
-	>.divider {
-		.createDivider(2px, initial, @gray);
-	}
-	.active {
-		color: @blue;
-	}
-}
-
-#listen-now, #detail-button {
-	border: solid 1px;
-	padding: .5rem 2rem;
-	width: 8rem;
-	margin: 2rem auto 4rem;
-	.click;
-	&:hover {
-		background-color: fade(@blue, 10%);
-	}
-	&:active {
-		background-color:@blue;
-	}
-}
-#listen-now {width:12rem}
-
-
-.loadedContent {
-	position: relative;
-}
 
 #LoginOverlay {
 	background-color: fade(@dark-gray, 75%);
@@ -464,194 +315,7 @@ footer {
 	}
 }
 
-.mix-tile {
-	.background(white, @dark-gray);
-	margin: 1rem;
-	padding: 25px;
-	text-align: center;
-	.card(1);
-	width: 20%;
-	height: 40vh;
-	background-size: 100% 100%;
-	img {
-		.size(120px, 120px);
-		.center;
-	}
-	.small({
-		height: 35vh;
-		width: 46%;
-		margin: 2%;
-		font-size: 1rem;
-		img {
-			.size(70px, 70px);
-			.center;
-		}
-	});
-	.medium({
-		.size(28%, 30vh);
-		img {
-			.size(100px, 100px);
-			.center;
-		}	
-	});
-}
 
-// #NavMenu {
-// 	font-size: 1rem;
-// 	.background(@gray, @dark-gray);
-// 	position: fixed;
-// 	top: @headerHeight;
-// 	height: @windowHeight - @headerHeight;
-// 	width: 20vw;
-// 	z-index: 1;
-// 	i {
-// 		margin: auto 10px;
-// 	}
-// 	.nav-header {
-// 		margin: auto 20px;
-// 		font-family: @bold;
-// 	}
-// 	a {
-// 		font-family: @regular;
-// 		div {
-// 			margin: auto 30px;
-// 		}
-// 		&:hover {
-// 			.background(@gray*0.9, @dark-gray*1.2);
-// 		}
-// 		&.active {
-// 			border-left: solid 5px @blue;
-// 			.background(@gray*0.8, white);
-// 		}
-// 	}
-// 	.small({
-// 		.nav-button div {
-// 			.hidden;
-// 		}
-// 		i {
-// 			font-size: 2rem;
-// 			.center;
-// 		}
-// 		.nav-header {
-// 			.hidden;
-// 		}
-// 	});
-// 	.medium({
-// 		.nav-button div {
-// 			margin: auto 1vw;
-// 		}
-// 	});
-// }
-
-#PlayerTracklist {
-	text-align: center;
-	cursor: pointer;
-	.background(@dark-gray, @white);
-	&:hover {
-		.background(@dark-gray*1.1, white);
-	}
-	.tracklist {
-		z-index: -1;
-		position: fixed;
-		height: @playerTracklistHeight;
-		right: @tracklistOffset;
-		.background(fade(@dark-gray, 90%), @white);
-		width: 40vw;
-		overflow-y: scroll;
-		> *:hover {
-		    .background(fade(@dark-gray, 60%), @blue);
-		} 
-		.active {
-			.background(@dark-gray, @blue);
-		}
-	}
-	.track {
-		display: flex;
-		padding: 1rem 0;
-		.starttime {
-			margin: auto 0.5vw auto 2vw
-		}
-		.trackname {
-			margin: auto auto auto 2vw;
-			overflow-x: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-		}
-	}
-}
-
-
-// #PlayerShare {
-// 	width: @tracklistOffset;
-// 	@modalHeight: 5vh;
-// 	.link {
-// 		cursor: pointer;
-// 		&:hover {
-// 			color: @blue;
-// 		}
-// 	}
-// 	.modal {
-// 		.background(@dark-gray, @white);
-// 		.size(12vw, @modalHeight);
-// 		position: fixed;
-// 		bottom: @playerHeight*1.1;
-// 		right: 1vh;
-// 		visibility: hidden;
-// 		.text {
-// 			font-size: 1rem;
-// 			width: 95%;
-// 			margin: auto;
-// 			text-align: center;
-// 		}
-// 		span {
-// 			position: relative;
-// 			&::after {
-// 				content:'';
-// 				position: absolute;
-// 				bottom: -5px;
-// 				right: @tracklistOffset*.6;
-// 				background: @dark-gray;
-// 				.border-radius(0 0 0 3px);
-// 				z-index: -1;
-// 				.size(10px, 10px);
-// 				.transform(rotate(45deg));
-// 				.small({
-// 					right: 11.5vw;
-// 				}, 840px);
-// 			}
-// 		}
-// 	}
-// 	.small({
-// 		width: @tracklistOffset*2;
-// 	}, 840px);
-// }
-
-// #SearchResultsView {
-// 	color: @dark-gray;
-// 	min-height: @windowHeight - @headerHeight;
-// 	.header-small {
-// 		margin: 1vh 0;
-// 		padding: 5px 1vw;
-// 		background-color: @light-gray;
-// 		.card(1);
-// 	}
-// 	.results-container {
-// 		position: relative;
-// 		top: 6vh;
-// 		padding-bottom: @playerHeight;
-// 	}
-// 	.view-title-container {
-// 		position: fixed;
-// 		top: @headerHeight;
-// 		width: 100%;
-// 		z-index: 100;
-// 		.card(2);
-// 		.active {
-// 			.background(@light-gray, @dark-gray);
-// 			border-bottom: solid @blue 2px;
-// 		}
-// 	}
-// }
 
 .sandbox {
 	.background(@dank-blue, @dank-green);

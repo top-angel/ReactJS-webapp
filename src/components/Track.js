@@ -1,35 +1,35 @@
-import React, {PropTypes} from 'react'
-import {changeTrack} from '../services/playerService'
-import {MMSSToMilliseconds} from '../services/convert'
-import Base from './Base'
+import React, {PropTypes} from 'react';
+import {changeTrack} from '../services/playerService';
+import {MMSSToMilliseconds} from '../services/convert';
+import Base from './Base';
 
 export default class Track extends Base {
 	constructor(props) {
-		super(props)
-		this.autoBind('changeTrack')
+		super(props);
+		this.autoBind('changeTrack');
 	}
 	changeTrack() {
-		var {appState, trackname, starttime, className} = this.props
-		var starttime = MMSSToMilliseconds(starttime)
-		changeTrack(appState, this.context.push, starttime, trackname)
+		let {appState, trackname, starttime} = this.props;
+		starttime = MMSSToMilliseconds(starttime);
+		changeTrack(appState, this.context.push, starttime, trackname);
 	}
 	render() {
-		var {trackname, starttime, className} = this.props
+		const {trackname, starttime, style} = this.props;
 
 		return (
-			<div className={className} onClick={this.changeTrack} >
+			<p className='track' onClick={this.changeTrack} style={style}>
 				<span className='starttime'>{starttime}</span>
 				<span className='trackname'>{trackname}</span>
-			</div>
-		)
+			</p>
+		);
 	}
 }
 
 Track.contextTypes = {
 	push: PropTypes.func
-}
+};
 
-Track.defaultProps = {
-	className: 'track flex',
-	starttime: 0,
-}
+Track.propTypes = {
+	starttime: PropTypes.string,
+	style: PropTypes.object
+};

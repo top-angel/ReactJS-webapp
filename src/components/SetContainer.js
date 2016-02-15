@@ -65,7 +65,6 @@ SetContainer.contextTypes = {
 }
 
 SetContainer.defaultProps = {
-	className: 'flex-row tile-container scrollable',
 	sets: []
 }
 

@@ -21,6 +21,7 @@ export default function(InnerComponent) {
 			// must pass onScroll method to instance of wrapped component
 			if(this.props.onScroll) {
 				if((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 200)) {
+					console.log('fetching more...');
 					this.props.onScroll();
 				}
 			}

@@ -3,6 +3,7 @@ import R from 'ramda';
 import Loader from 'react-loader';
 import {colors} from '../constants/constants';
 import api from '../services/api';
+import {filterWithoutSets} from '../services/utilities';
 
 import Base from './Base';
 import ArtistTileContainer from './ArtistTileContainer';
@@ -13,7 +14,7 @@ import Spinner from './Spinner';
 export default class Artists extends Base {
 	constructor(props) {
 		super(props);
-		this.autoBind('fetchArtists', 'filterArtists', 'onScroll');
+		this.autoBind('fetchArtists', 'onScroll');
 		this.state = {
 			loaded: false,
 			artists: [],
@@ -25,9 +26,10 @@ export default class Artists extends Base {
 		this.context.push({ currentPage: 'Artists' })	
 	}
 	fetchArtists(page) {
-		api.get(`artists?page=${page}`).then(res => {
-			let artists = this.filterArtists(res.artists);
+		api.get(`artists?page=${page}`).then(payload => {
+			let artists = filterWithoutSets(payload.artists);
 			artists = this.state.artists.concat(artists);
+			artists = R.uniq(artists);
 
 			this.setState({
 				loaded: true,
@@ -36,18 +38,12 @@ export default class Artists extends Base {
 			});
 		});
 	}
-	filterArtists(array) {
-		var hasSets = set => {
-			return set.set_count != 0;
-		}
-		return R.filter(hasSets, array);
-	}
 	onScroll() {
 		this.fetchArtists(this.state.page);
 	}
 	render() {
 		return (
-			<div className='view'>
+			<div className='artists'>
 				<Loader loaded={this.state.loaded}>
 					<ArtistTileContainer artists={this.state.artists} onScroll={this.onScroll}/>
 					<Spinner />

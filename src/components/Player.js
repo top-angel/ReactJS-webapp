@@ -1,27 +1,24 @@
-import React, {PropTypes} from 'react'
-import {generateSound, mixpanelTrackSetPlay} from '../services/playerService'
-import {checkIfFavorited} from '../services/favoriteSet'
+import React, {PropTypes} from 'react';
+import {generateSound, mixpanelTrackSetPlay} from '../services/playerService';
+import {checkIfFavorited} from '../services/favoriteSet';
 
-import Base from './Base'
-import PlayerControl from './PlayerControl'
-import PlayerSeek from './PlayerSeek'
-import PlayerSetInfo from './PlayerSetInfo'
-import PlayerTracklist from './PlayerTracklist'
-import SetShare from './SetShare'
+import Base from './Base';
+import PlayerControl from './PlayerControl';
+import PlayerSeek from './PlayerSeek';
+import PlayerSetInfo from './PlayerSetInfo';
+import PlayerTracklist from './PlayerTracklist';
+import SetShare from './SetShare';
 
-let playingClass = 'fa center fa-pause play-button'
-let pausedClass = 'fa center fa-play play-button'
-
-class Player extends Base {
+export default class Player extends Base {
 	constructor(props) {
-		super(props)
-		this.autoBind('checkIfFavorited')
+		super(props);
+		this.autoBind('checkIfFavorited');
 	}
 	componentDidMount() {
 		// TODO move hide player toggle to appState maybe
-		let sound = this.props.appState.get('sound')
+		let sound = this.props.appState.get('sound');
 		if(sound.durationEstimate != 0) {
-			this.context.push({ playerHidden: false })
+			this.context.push({ playerHidden: false });
 		}
 	}
 	componentWillReceiveProps(nextProps) {
@@ -32,7 +29,7 @@ class Player extends Base {
 
 			generateSound(starttime, nextProps.appState, this.context.push).then(smObj => {
 				//play a new set
-				console.log(smObj);
+				// console.log(smObj);
 
 				this.context.push({
 					sound: smObj,
@@ -68,7 +65,7 @@ class Player extends Base {
 					</div>
 				</div>
 			</div>
-		)
+		);
 	}
 }
 
@@ -81,5 +78,3 @@ Player.contextTypes = {
 Player.propTypes = {
 
 };
-
-export default Player;

@@ -1,9 +1,14 @@
 .view {
 	.flex-column();
-	.flex();
+	// .flex();
 	position: relative;
-	top: @headerHeight;
-	// padding-left: @navbarWidth;
+	top: @headerHeight + @tabsHeight;
+	padding-left: @navbarWidth;
 	width: 100%;
-	margin-left: @navbarWidth;
+	margin-bottom: @playerHeight;
+}
+
+.detail-view, .artists {
+	&:extend(.view);
+	top: @headerHeight;
 }

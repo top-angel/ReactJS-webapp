@@ -1,18 +1,25 @@
-import React, {PropTypes} from 'react'
+import React, {PropTypes} from 'react';
+const {oneOf, string, bool, object, func} = PropTypes;
 
-const Icon = props => {
+const Icon = ({fixed, size, children, style, onClick}) => {
 	// sets icons at fixed width
-	let fixed = props.fixed ? 'fa-fw' : undefined
-	let size = props.size || 24
+	let fixedWidth = fixed ? 'fa-fw' : undefined;
+	let iconSize = size || 24;
+	let mergedStyle = Object.assign({}, style, { fontSize: iconSize });
 
-	return (
-		<i className={`fa fa-${props.children} ${fixed}`} style={{ fontSize: size }}/>
-	)
+	return React.createElement('i', {
+		className: `fa fa-${children} ${fixedWidth}`,
+		style: mergedStyle,
+		onClick: onClick
+	});
 }
 
 Icon.propTypes = {
-	size: PropTypes.oneOf([14, 18, 24, 36, 48]),
-	children: PropTypes.string.isRequired
-}
+	size: oneOf([14, 18, 24, 36, 48]),
+	children: string.isRequired,
+	fixed: bool,
+	style: object,
+	onClick: func
+};
 
-export default Icon
+export default Icon;

@@ -1,77 +1,80 @@
 import React from 'react';
-import {Link} from 'react-router';
+import Link from 'react-router/lib/Link';
+import Icon from './FaIcon';
 
-var Footer = React.createClass({
+const trackAndroid = () => mixpanel.track("Android App Link Clicked");
+const trackIos = () => mixpanel.track("iOS App Link Clicked");
+const iconMargin = {
+	marginRight: '2rem'
+};
 
-	trackiOS() {
-		mixpanel.track("iOS App Link Clicked");
-	},
-	trackAndroid() {
-		mixpanel.track("Android App Link Clicked");
-	},
+const Footer = props => (
+	<footer>
+		<div className='links flex-column'>
+			<Link to='/about'>
+				<p>About</p>
+			</Link>
+			<Link to='/legal'>
+				<p>DMCA Notice</p>
+			</Link>
+			<a href='http://bit.ly/SetmineiOS' onClick={trackIos} title='view on App Store' className='click'>
+				<p>iOS</p>
+			</a>
+			<a href='http://bit.ly/SetmineAndroid' onClick={trackAndroid} title='view on Google Play'className='click'>
+				<p>Android</p>
+			</a>
+			<Link to='/setstory'>
+				<p>Setstory</p>
+			</Link>
+			<div className='flex-row' style={{ marginTop: 'auto' }}>
+				<Icon style={iconMargin}>copyright</Icon>
+				<p>Setmusic LLC. 2015</p>
+			</div>
+      </div>
 
-	render() {
-		return (
-			<footer>
-				<div className='flex-column links'>
-					<a className='click hidden' id='contact'>
-						Contact Us
+		<div className='social'>
+			<div className='flex-row'>
+				<Icon style={iconMargin}>share-alt</Icon>
+				<h5>Connect With Us</h5>
+			</div>
+			<ul>
+				<li>
+					<a className='flex-row' href='mailto:jesus@setmine.com'>
+						<Icon style={iconMargin}>envelope-o</Icon>
+						<p>jesus@setmine.com</p>
 					</a>
-					<Link to='/about' className='click'>
-						About
-					</Link>
-					<Link to='/legal' className='click' id='dmca'>
-						DMCA Notice
-					</Link>
-					<a href='http://bit.ly/SetmineiOS' onClick={this.trackiOS} title='view on App Store' className='click'>
-						iOS
+				</li>
+				<li>
+					<a className='flex-row' href='https://www.facebook.com/SetmineApp'>
+						<Icon style={iconMargin}>facebook-square</Icon>
+						<p>facebook</p>
 					</a>
-					<a href='http://bit.ly/SetmineAndroid' onClick={this.trackAndroid} title='view on Google Play'className='click'>
-						Android
+				</li>
+				<li>
+					<a className='flex-row' href='https://twitter.com/setmineapp'>
+						<Icon style={iconMargin}>twitter-square</Icon>
+						<p>twitter</p>
 					</a>
-					<Link to='/setstory' className='click'>
-						Setstory
-					</Link>
-					<div className='copyright'>
-						<i className='fa fa-copyright'/> 
-						{' Setmusic LLC. 2015'}
-					</div>
-	          </div>
-				<div className='flex-column social'>
-					<h4 className='flex-row'>
-						<i className='fa fa-share-alt'/>
-						<span>CONNECT WITH US</span>
-					</h4>
-					<ul>
-						<li>
-							<a className='fa fa-fw fa-envelope-o'></a>
-							<span>jesus@setmine.com</span>
-						</li>
-						<li>
-							<a href='https://www.facebook.com/SetmineApp' className='fa fa-fw fa-facebook-square'></a>
-							<span>Facebook</span>
-						</li>
-						<li>
-							<a href='https://twitter.com/setmineapp' className='fa fa-fw fa-twitter-square'></a>
-							<span>Twitter</span>
-						</li>
-						<li>
-							<a href='https://instagram.com/setmine/' className='fa fa-fw fa-instagram'></a>
-							<span>Instagram</span>
-						</li>
-						<li>
-							<a href='http://setmine.tumblr.com/' className='fa fa-fw fa-tumblr-square'></a>
-							<span>Tumblr</span>
-						</li>
-					</ul>
-				</div>
-				<div className='flex-column sponsors'>
-					<a className='center' href='https://teamtreehouse.com'><img src='/images/treehouse.png' /></a>
-					<a className='center' href='https://mixpanel.com/f/partner'><img src='//cdn.mxpnl.com/site_media/images/partner/badge_light.png' alt='Mobile Analytics' /></a>
-				</div>
-			</footer>
-		);
-	}
-});
+				</li>
+				<li>
+					<a className='flex-row' href='https://instagram.com/setmine/'>
+						<Icon style={iconMargin}>instagram</Icon>
+						<p>instagram</p>
+					</a>
+				</li>
+				<li>
+					<a className='flex-row' href='http://setmine.tumblr.com/'>
+						<Icon style={iconMargin}>tumblr-square</Icon>
+						<p>tumblr</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div className='sponsors flex-column'>
+			<a href='https://teamtreehouse.com'><img src='/images/treehouse.png' /></a>
+			<a href='https://mixpanel.com/f/partner'><img src='//cdn.mxpnl.com/site_media/images/partner/badge_light.png' alt='Mobile Analytics' /></a>
+		</div>
+	</footer>
+);
 
-module.exports = Footer
+export default Footer;

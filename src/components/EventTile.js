@@ -5,10 +5,6 @@ import history from '../services/history';
 import Base from './Base';
 import Icon from './FaIcon';
 
-function addressParser(address) {
-	let cityAndState
-}
-
 export default class EventTile extends Base {
 	constructor(props) {
 		super(props);

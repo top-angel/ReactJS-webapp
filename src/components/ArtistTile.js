@@ -17,7 +17,7 @@ const ArtistTile = ({artist, imageURL, setCount, eventCount}) => {
 	let artistInfo = `${setCount} ${setText} | ${eventCount} ${eventText}`;
 
 	return (
-		<div className='artist-tile flex-column flex-fixed' onClick={openArtistPage} title={artist}>
+		<div className='artist-tile flex-column' onClick={openArtistPage} title={artist}>
 			<img src={S3_ROOT_FOR_IMAGES+imageURL} />
 			<h5>{artist}</h5>
 			<p>{artistInfo}</p>

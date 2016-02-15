@@ -1,12 +1,11 @@
-.artist-tile {
-	background-size: 100% 100%;
+.artist-tile, .mix-tile {
 	text-align: center;
 	position: relative;
 	cursor: pointer;
 	padding: 3rem;
-	.background(white, @dark-gray);
-	min-width: 200px;
+	.colors(white, @dark-gray);
 	.tileBorder();
+	width: 200px;
 
 	img {
 		margin: 0 auto 3rem;
@@ -18,17 +17,13 @@
 		margin: auto;
 		padding: 0 .5rem;
 	}
-	h5 {
+	h5, p {
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-	p {
+	p:last-child {
 		color: @gray;
 	}
-	.small({
-		.size(50vw);
-		margin: 0;
-	});
 }
 

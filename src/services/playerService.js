@@ -123,7 +123,7 @@ export function playSet(setId, push, starttime = '00:00') {
 			currentTrack: tracks[0].trackname,
 			playing: true,
 			playerHidden: false
-		})
+		});
 	})
 }
 
@@ -146,10 +146,10 @@ export function playSet(setId, push, starttime = '00:00') {
 // play/pause a set
 export function togglePlay(sound) {
 	if(sound.paused) {
-		console.log('playing')
+		// console.log('playing')
 		sound.play();
 	} else {
-		console.log('paused')
+		// console.log('paused')
 		sound.pause();
 	}
 }

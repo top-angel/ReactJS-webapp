@@ -1,36 +1,41 @@
 import React from 'react';
 import Base from './Base';
-import HomeSidebar from './HomeSidebar';
 import LoginOverlay from './LoginOverlay';
 import Tabs from './Tabs';
-
-const tabs = [
-	{
-		text: 'STREAM',
-		to: '/home',
-		index: true
-	},
-	{
-		text: 'FAVORITES',
-		to: '/home/favorites',
-		index: false
-	}
-];
+import Tab from './Tab';
 
 export default class Home extends Base {
 	constructor(props) {
 		super(props);
+		this.state = {
+			favoritesDisabled: true
+		}
 	}
 	componentWillMount() {
-		this.context.push({ currentPage: 'Home' });
+		const { push, loginStatus } = this.context;
+		push({ currentPage: 'Home' });
+		if(loginStatus) {
+			this.setState({ favoritesDisabled: false });
+		}
+	}
+	componentWillReceiveProps(nextProps, nextContext) {
+		if(nextContext.loginStatus) {
+			this.setState({
+				favoritesDisabled: false 
+			});
+		}
 	}
 	componentDidMount() {
 		// mixpanel.track("User Home Page Open");
 	}
 	render() {
+		let disabledText = 'Log in to start favoriting sets!';
 		return (
 			<div className='view'>
-				<Tabs tabs={tabs} />
+				<Tabs>
+					<Tab to='/home'>STREAM</Tab>
+					<Tab to='/home/favorites' disabled={this.state.favoritesDisabled} disabledText={disabledText}>FAVORITES</Tab>
+				</Tabs>
 				{
 					React.cloneElement(this.props.children, {
 						appState: this.props.appState

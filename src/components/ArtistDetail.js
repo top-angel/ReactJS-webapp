@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import Loader from 'react-loader';
-import {Link} from 'react-router';
+import Link from 'react-router/lib/Link';
 import R from 'ramda';
 import api from '../services/api';
 import {DEFAULT_IMAGE} from '../constants/constants';
@@ -8,8 +8,16 @@ import {DEFAULT_IMAGE} from '../constants/constants';
 import Base from './Base';
 import SetContainer from './SetContainer';
 import EventContainer from './EventContainer';
-import DetailImageContainer from './DetailImageContainer';
-import LinkButtonContainer from './LinkButtonContainer';
+import DetailHeader from './DetailHeader';
+// import SocialMediaLinks from './SocialMediaLinks';
+import ShuffleButton from './ShuffleButton';
+import Tabs from './Tabs';
+import Tab from './Tab';
+
+const tabStyle = {
+	position: 'relative',
+	top: 0
+};
 
 export default class ArtistDetail extends Base {
 	constructor(props) {
@@ -18,15 +26,15 @@ export default class ArtistDetail extends Base {
 		this.state = {
 			loaded: false,
 			sets: [],
-			upcomingEvents: [],
+			events: [],
 			artistImage: DEFAULT_IMAGE,
-			fb_link: null,
-			twitter_link: null,
-			instagram_link: null,
-			soundcloud_link: null,
-			youtube_link: null
+			setCount: 0,
+			eventCount: 0
 		};
+	}
+	componentWillMount() {
 		this.getArtist();
+		this.context.push({ currentPage: 'Artists' });
 	}
 	getArtist() {
 		let artist = this.props.params.artist;
@@ -34,85 +42,55 @@ export default class ArtistDetail extends Base {
 
 		api.get(`artists/search/${query}`).then(payload => {
 			let a = payload.artists_search;
-			this.context.push({ currentPage: a.artist });
+			// this.context.push({ currentPage: a.artist });
 
 			this.setState({
 				artist: a.artist,
 				sets: a.sets,
-				upcomingEvents: a.upcoming_events,
+				events: a.upcoming_events,
 				artistImage: a.icon_image.imageURL,
-				fb_link: a.fb_link,
-				twitter_link: a.twitter_link,
-				instagram_link: a.instagram_link,
-				soundcloud_link: a.soundcloud_link,
-				youtube_link: a.youtube_link,
 				setCount: a.set_count,
 				eventCount: a.event_count
 			});
-			return artist.artist
-		}).then(artist => {
+		}).then(() => {
 			this.setState({ loaded: true });
 		});
 	}
 	render() {
-		let setText = this.state.setCount != 1 ? 'sets' : 'set';
-		let eventText = this.state.eventCount != 1 ? 'events' : 'event';
-		let artistInfo = `${this.state.setCount} ${setText} | ${this.state.eventCount} ${eventText}`;
+		const setText = this.state.setCount != 1 ? 'sets' : 'set';
+		const eventText = this.state.eventCount != 1 ? 'events' : 'event';
+		const artistInfo = `${this.state.setCount} ${setText} | ${this.state.eventCount} ${eventText}`;
 
-		let detailInfo = {
-			sets: R.pluck('id', this.state.sets),
-			title: this.state.artist,
-			buttonText: 'Shuffle',
-			imageURL: this.state.artistImage,
-			info: artistInfo
-		};
-
-		let links = [
+		const setIds = R.pluck('id', this.state.sets);
+		const tabs = [
 			{
-				type: 'facebook',
-				url: this.state.fb_link
+				text: 'SETS',
+				to: `/artist/${this.props.params.artist}`,
+				index: true
 			},
 			{
-				type: 'twitter',
-				url: this.state.twitter_link
-			},
-			{
-				type: 'instagram',
-				url: this.state.instagram_link
-			},
-			{
-				type: 'soundcloud',
-				url: this.state.soundcloud_link
-			},
-			{
-				type: 'youtube',
-				url: this.state.youtube_link
+				text: 'EVENTS',
+				to: `/artist/${this.props.params.artist}/events`,
+				index: false
 			}
 		];
 
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div id='detail' className='view detail-page'>
-					<DetailImageContainer {...detailInfo} />
-					<LinkButtonContainer links={links}/>
-					<div className='divider'/>
-					<div className='flex-row links-container'>
-						<Link className='click flex-fixed flex-container'
-							to={`/artist/${this.props.params.artist}`}
-							onlyActiveOnIndex={true}
-							activeClassName='active'>
-							<div className='center'>SETS</div>
-						</Link>
-						<Link className='click flex-fixed flex-container'
-							to={`/artist/${this.props.params.artist}/events`}
-							activeClassName='active'>
-							<div className='center'>EVENTS</div>
-						</Link>
-					</div>
+				<div className='detail-view'>
+					<DetailHeader image={this.state.artistImage}>
+						<h3>{this.state.artist}</h3>
+						<h5>{artistInfo}</h5>
+						<ShuffleButton setIds={setIds} />
+					</DetailHeader>
+					<Tabs type='detail' style={tabStyle}>
+						<Tab to={`/artist/${this.props.params.artist}`}>SETS</Tab>
+						<Tab to={`/artist/${this.props.params.artist}/events`}>EVENTS</Tab>
+					</Tabs>
 					{
 						React.cloneElement(this.props.children, {
 							sets: this.state.sets,
-							events: this.state.upcomingEvents
+							events: this.state.events
 						})
 					}
 				</div>

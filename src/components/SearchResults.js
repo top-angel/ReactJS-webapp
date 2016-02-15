@@ -3,17 +3,17 @@ import ReactDOM from 'react-dom';
 import R from 'ramda';
 
 import Base from './Base';
-import SearchTabs from './SearchTabs';
+import Tabs from './Tabs';
 import ArtistTileContainer from './ArtistTileContainer';
 import SetContainer from './SetContainer';
 import EventContainer from './EventContainer';
 import TrackContainer from './TrackContainer';
-import Tab from './Tab';
+import SearchTab from './SearchTab';
 
 export default class SearchResults extends Base {
 	constructor(props) {
 		super(props);
-		this.autoBind('handleSelect', 'onScroll');
+		this.autoBind('handleSelect', 'onScroll', 'getNodeOffsets');
 		this.state = {
 			selectedIndex: null,
 			nodes: []
@@ -24,7 +24,12 @@ export default class SearchResults extends Base {
 	}
 	componentDidMount() {
 		window.addEventListener('scroll', this.onScroll, false);
-		this.getNodeOffsets();
+		setTimeout(this.getNodeOffsets, 3000);
+	}
+	componentWillReceiveProps(nextProps, nextState) {
+		if(nextProps.appState.get('searchResults') != this.props.appState.get('searchResults')) {
+			setTimeout(this.getNodeOffsets, 3000);
+		}
 	}
 	componentWillUnmount() {
 		window.removeEventListener('scroll', this.onScroll, false);
@@ -40,7 +45,7 @@ export default class SearchResults extends Base {
 		let keys = R.keys(this.refs);
 		let nodes = keys.map((key, index) => {
 			let node = this.refs[key];
-			let nodePosition = node.offsetTop - node.clientHeight;
+			let nodePosition = node.offsetTop;
 			return {
 				node: keys[index],
 				position: nodePosition
@@ -59,7 +64,7 @@ export default class SearchResults extends Base {
 		let keys = R.pluck('position', this.state.nodes);
 		let scroll = window.scrollY;
 		switch(true) {
-			case(scroll < keys[0]):
+			case(scroll <= keys[0]):
 				// console.log('artists');
 				this.setState({ selectedIndex: 0 });
 				break;
@@ -87,13 +92,13 @@ export default class SearchResults extends Base {
 		} = searchResults;
 
 		return (
-			<div id='SearchResults' className='view flex-column' style={{ height: 2000}}>
-				<SearchTabs onSelect={this.handleSelect} selectedIndex={this.state.selectedIndex}>
-					<Tab>ARTISTS</Tab>
-					<Tab>SETS</Tab>
-					<Tab>EVENTS</Tab>
-					<Tab>TRACKS</Tab>
-				</SearchTabs>
+			<div id='SearchResults' className='view'>
+				<Tabs selectedIndex={this.state.selectedIndex}>
+					<SearchTab onSelect={this.handleSelect}>ARTISTS</SearchTab>
+					<SearchTab onSelect={this.handleSelect}>SETS</SearchTab>
+					<SearchTab onSelect={this.handleSelect}>EVENTS</SearchTab>
+					<SearchTab onSelect={this.handleSelect}>TRACKS</SearchTab>
+				</Tabs>
 				<h6 ref='artists'>ARTISTS</h6>
 				<ArtistTileContainer artists={artists} />
 				<h6 ref='sets'>SETS</h6>

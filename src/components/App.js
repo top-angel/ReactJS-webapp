@@ -48,7 +48,7 @@ let initialAppState = Immutable.Map({
 	},
 	favorites: [],
 	favoriteSetIds: [],
-	loginStatus: true,
+	loginStatus: false,
 	playerHidden: true,
 	playing: false,
 	searchResults: {
@@ -73,7 +73,7 @@ let initialAppState = Immutable.Map({
 	}
 });
 
-let tags = [
+const tags = [
 	{property: "description", content: "Setmine is a music app dedicated to live events! Relive past music festivals: Ultra, Coachella + more! Find upcoming shows + buy tix + listen to DJs' sets"},
 	{property: "og:site_name", content: "Setmine"},
 	{property: "fb:app_id", content: "648288801959503"},
@@ -83,6 +83,11 @@ let tags = [
 	{property: "og:type", content: "website"},
 	{name: "google-site-verification", content: "T4hZD9xTwig_RvyoXaV9XQDYw5ksKEQywRkqaW-CGY4"}
 ];
+
+// const playerBuffer = {
+// 	width: '100%',
+// 	height: 112
+// };
 
 let evtHandler = GlobalEventHandler(initialAppState);
 let evtTypes = evtHandler.types;
@@ -140,6 +145,10 @@ export default class App extends Base {
 	}
 	render() {
 		let appState = this.state.appState;
+		let playerHidden = appState.get('playerHidden');
+		let pageWidth = ((window.innerWidth - 64) / window.innerWidth) * 100 + '%';
+		// let buffer = playerHidden ? {display: 'none'} : playerBuffer;
+
 		return (
 			<div id='App'>
 				<DocMeta tags={tags} />
@@ -150,7 +159,7 @@ export default class App extends Base {
 						appState: appState
 					})
 				}
-				<Notifications snackbar={appState.get('snackbar')} playerHidden={appState.get('playerHidden')} />
+				<Notifications snackbar={appState.get('snackbar')} playerHidden={playerHidden} />
 				<Player appState={appState} />
 			</div>
 		);

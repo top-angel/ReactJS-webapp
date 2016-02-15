@@ -1,49 +1,24 @@
 import React, { PropTypes } from 'react';
 import Link from 'react-router/lib/Link';
-
 import SearchBar from './SearchBar';
+import Avatar from './Avatar';
 
-// const Header = () => {
-// 	return (
-// 		<header className='flex-row'>
-// 			<Link className='nav-button fa icon-setmine click center' to='/' onlyActiveOnIndex={true} />
-// 			<Link className='nav-button click flex flex-container' to='/user' activeClassName='active'>
-// 				<div className='center'>Home</div>
-// 			</Link>
-// 			<Link className='nav-button click flex flex-container' to='/sets' activeClassName='active'>
-// 				<div className='center'>Sets</div>
-// 			</Link>
-// 			<Link className='nav-button click flex flex-container' to='/events' activeClassName='active'>
-// 				<div className='center'>Events</div>
-// 			</Link>
-// 			<Link className='nav-button click flex flex-container' to='/artists' activeClassName='active'>
-// 				<div className='center'>Artists</div>
-// 			</Link>
-// 			{/*<Link className='nav-button click flex flex-container' to='/blog' activeClassName='active'>
-// 				<div className='center'>Blog</div>
-// 			</Link>*/}
-// 			<div className='buffer-4x'/>
-// 			<div className='flex-row flex-3x' style={{marginRight: '1vw'}}>
-// 				<SearchBar/>
-// 			</div>
-// 		</header>
-// 	)
-// }
-
-const Header = ({currentPage}, {push}) => {
+const Header = ({currentPage}, {push, loginStatus}) => {
 	return (
 		<nav id='Header' className='flex-row'>
-			<Link to='/' className='icon-setmine' onlyActiveOnIndex={true} />
-			<div className='flex-fixed'>
+			<Link to='/' className='icon-setmine' />
+			<div className='flex-fixed' style={{ margin: '0 3rem' }}>
 				<h4 onClick={() => push({ loginStatus: true })}>{currentPage}</h4>
 			</div>
 			<SearchBar />
+			<Avatar />
 		</nav>
 	)
 }
 
 Header.contextTypes = {
-	push: PropTypes.func
+	push: PropTypes.func,
+	loginStatus: PropTypes.bool
 };
 
 Header.propTypes = {

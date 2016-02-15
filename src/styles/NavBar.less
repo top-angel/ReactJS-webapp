@@ -1,6 +1,6 @@
 #NavBar {
 	background: @dark-gray;
-	color: @white;
+	color: @light-gray;
 	cursor: pointer;
 	width: @navbarWidth;
 	z-index: 100;
@@ -8,12 +8,18 @@
 	top: @headerHeight;
 	.card(2);
 	a {
+		position: relative;
 		justify-content: space-around;
 		align-items: center;
 		height: @headerHeight;
 		.transition(border);
 		&:hover {
 			background: @dark-gray*0.9;
+			color: white;
+			.tooltip {
+				visibility: visible;
+				opacity: 1;
+			}
 		}
 		&.active {
 			background: @dark-gray*0.8;

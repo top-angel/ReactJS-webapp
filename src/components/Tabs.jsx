@@ -3,20 +3,24 @@ import {Motion, spring, presets} from 'react-motion';
 import Base from './Base';
 import InkBar from './InkBar';
 
-export default class SearchTabs extends Base {
+let fixedTabs = {
+	width: ((window.innerWidth - 64) / window.innerWidth) * 100 + '%'
+};
+
+export default class Tabs extends Base {
 	constructor(props, context) {
 		super(props, context);
 		this.autoBind('getTabWidth', 'handleClick');
 		this.state = {
-			activeIndex: 0,
 			left: 0
 		};
 	}
 	componentWillReceiveProps(nextProps) {
-		console.log(this.props.selectedIndex);
-		console.log(nextProps.selectedIndex);
-		let left = nextProps.selectedIndex * this.getTabWidth();
-		this.setState({ left: left });
+		// change position of inkbar while scrolling
+		if(nextProps.selectedIndex) {
+			let left = nextProps.selectedIndex * this.getTabWidth();
+			this.setState({ left: left });
+		}
 	}
 	getTabWidth() {
 		let count = React.Children.count(this.props.children);
@@ -32,24 +36,23 @@ export default class SearchTabs extends Base {
 		}
 	}
 	renderTabs() {
-		let tabs = React.Children.map(this.props.children, (tab, index) => {
+		return React.Children.map(this.props.children, (tab, index) => {
 			return React.cloneElement(tab, {
 				key: index,
 				onClick: this.handleClick,
 				width: this.getTabWidth(),
-				tabIndex: index
+				tabIndex: index,
+				activeClassName: 'active'
 			}, tab.props.children);
 		});
-
-		return tabs;
 	}
 	render() {
-		let containerWidth = ((window.innerWidth - 64) / window.innerWidth) * 100 + '%';
-		let inkbarWidth = this.getTabWidth() + '%';
-		console.log(inkbarWidth);
+		const inkbarWidth = this.getTabWidth() + '%';
+		const style = this.props.type == 'detail' ? {} : fixedTabs;
+		let mergedStyle = Object.assign({}, style, this.props.style);
 
 		return (
-			<nav id='SearchTabs' className='flex-row' style={{ width: containerWidth }}>
+			<nav id='Tabs' className='flex-row' style={mergedStyle}>
 				{this.renderTabs()}
 				<Motion style={{ left: spring(this.state.left, presets.gentle) }} >
 					{
@@ -63,7 +66,12 @@ export default class SearchTabs extends Base {
 	}
 }
 
-SearchTabs.propTypes = {
-	onSelect: PropTypes.func,
-	children: PropTypes.element.isRequired
+const {func, number, arrayOf, element, object, oneOf} = PropTypes;
+
+Tabs.propTypes = {
+	onSelect: func, // callback when tab is selected ie. scroll to position
+	selectedIndex: number, // override slider position from scroll
+	children: arrayOf(element).isRequired,
+	style: object,
+	type: oneOf(['detail', 'search'])
 };

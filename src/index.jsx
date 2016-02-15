@@ -20,7 +20,6 @@ import ClosestEvents from './components/ClosestEvents';
 
 import ArtistDetail from './components/ArtistDetail';
 import FestivalDetail from './components/FestivalDetail';
-import ActivityDetail from './components/ActivityDetail';
 import MixDetail from './components/MixDetail';
 import EventDetail from './components/EventDetail';
 
@@ -91,10 +90,10 @@ render(
 				<IndexRoute component={SetContainer}/>
 				<Route path='events' component={EventContainer}/>
 			</Route>
+			
 			<Route path='event/:event' component={EventDetail}/>
 			<Route path='festival/:festival' component={FestivalDetail}/>
-			<Route path='mix/:mix' component={MixDetail}/>
-			<Route path='activity/:activity' component={ActivityDetail}/>
+			<Route path='mix/:mix' component={MixDetail} />
 			<Route path='legal' component={DMCA} />
 
 			{/*Redirects from Setmine v5.0*/}

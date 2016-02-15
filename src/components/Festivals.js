@@ -13,7 +13,9 @@ export default class Festivals extends Base {
 			loaded: false,
 			festivals: []
 		}
-		this.getFestivals()
+	}
+	componentWillMount() {
+		this.getFestivals();
 	}
 	componentDidMount() {
 		mixpanel.track("Festivals Page Open")

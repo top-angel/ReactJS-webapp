@@ -1,14 +1,10 @@
-#Tabs, #SearchTabs {
-	.background(@light-gray, @dark-gray);
+#Tabs {
+	.colors(@light-gray, @dark-gray);
 	height: @tabsHeight;
 	width: 100%;
 	position: fixed;
 	top: @headerHeight;
 	z-index: 98;
-	~ * {
-		position: relative;
-		top: @tabsHeight;
-	}
 	a {
 		display: flex;
 		align-items: center;
@@ -27,4 +23,12 @@
 	p {
 		margin: 3rem;
 	}
+}
+
+.tab {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	height: @tabsHeight;
+	.colors(@light-gray, @dark-gray);
 }

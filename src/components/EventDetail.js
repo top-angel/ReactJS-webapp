@@ -5,54 +5,67 @@ import {DEFAULT_IMAGE} from '../constants/constants';
 
 import Base from './Base';
 import Loader from 'react-loader';
-import EventDetailHeader from './EventDetailHeader'
+import DetailHeader from './DetailHeader';
 import ArtistTileContainer from './ArtistTileContainer';
+import Tab from './Tab';
 
 export default class EventDetail extends Base {
 	constructor(props) {
 		super(props);
-		this.autoBind('getEvent');
+		this.autoBind('getEvent', 'openTicketLink', 'openMapLink');
 		this.state = {
 			loaded: false,
 			event: '',
 			date: '',
 			ticketLink: null,
 			lineup: [],
-			imageURL: DEFAULT_IMAGE
+			eventImage: DEFAULT_IMAGE,
+			venue: '',
+			address: ''
 		};
-		this.getEvent();
 	}
-	getEventData(event) {
-		api.get(`events/id/${event}`).then(payload => {
+	componentWillMount() {
+		this.getEvent();
+		this.context.push({ currentPage: 'Events' });
+	}
+
+	getEvent() {
+		api.get(`events/id/${this.props.params.event}`).then(payload => {
 			let e = payload.events_id;
-			this.context.push({ currentPage: e.event });
+			// this.context.push({ currentPage: e.event });
 			this.setState({
 				event: e.event,
 				date: e.formatted_date,
 				ticketLink: e.ticket_link,
-				imageURL: e.banner_image.imageURL,
+				eventImage: e.banner_image.imageURL,
+				venue: e.venue.venue,
+				address: e.venue.address,
 				lineup: e.lineup
 			});
 		}).then(() => {
 			this.setState({ loaded: true });
 		});
 	}
+	openMapLink(e) {
+		e.stopPropagation();
+		window.open(`http://google.com/maps/place/${this.state.address}`);
+	}
+	openTicketLink(e) {
+		e.stopPropagation();
+		window.open(this.state.ticketLink);
+	}
 	render() {
-		let header = {
-			date: this.state.date,
-			title: this.state.event,
-			ticketLink: this.state.ticketLink,
-			imageURL: this.state.imageURL
-		};
-
 		return (
 			<Loader loaded={this.state.loaded}>
-				<div id='detail' className='detail-page'>
-					<EventDetailHeader {...header}/>
-					<div className='flex-row links-container'>
-						<div className='center flex-fixed'>
-							LINEUP
-						</div>
+				<div className='detail-view'>
+					<DetailHeader image={this.state.eventImage}>
+						<h3>{this.state.event}</h3>
+						<p>{this.state.date}</p>
+						<p title='Open in Google Maps' className='link' onClick={this.openMapLink}>{this.state.venue}</p>
+						<p id='DetailButton' onClick={this.openTicketLink}>TICKETS</p>
+					</DetailHeader>
+					<div className='tab'>
+						<p>LINEUP</p>
 					</div>
 					<ArtistTileContainer artists={this.state.lineup} />
 				</div>

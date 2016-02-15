@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {togglePlay} from '../services/playerService';
 import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
 import Base from './Base';
-import FaIcon from './FaIcon';
+import Icon from './FaIcon';
 
 export default class PlayerControl extends Base {
 	constructor(props) {
@@ -35,35 +35,24 @@ export default class PlayerControl extends Base {
 		}
 	}
 	togglePlay() {
-		var sound = this.props.appState.get('sound');
-		var playing = this.props.appState.get('playing');
-
+		const sound = this.props.appState.get('sound');
+		let playing = this.props.appState.get('playing');
+		this.context.push({ playing: !playing });
 		togglePlay(sound);
-		this.context.push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				playing: !playing
-			}	
-		});
 	}
 	render() {
-		var currentSet = this.props.appState.get('currentSet');
-		var playing = this.props.appState.get('playing');
+		const currentSet = this.props.appState.get('currentSet');
+		const playing = this.props.appState.get('playing');
+		let playerIcon = playing ? 'pause' : 'play';
 
-		if(!!playing) {
-			var playButtonIcon = 'pause center';
-		} else {
-			var playButtonIcon = 'play center';
-		}
-
-		var image = {
+		let image = {
 			backgroundImage: `url('${S3_ROOT_FOR_IMAGES+currentSet.artistImage}')`,
 			backgroundSize: '100% 100%'
 		};
 
 		return (
-			<div id='PlayerControl' className='click flex-container' onMouseUp={this.togglePlay} style={image}>
-				<FaIcon size={18}>{playButtonIcon}</FaIcon>
+			<div id='PlayerControl' onMouseUp={this.togglePlay} style={image}>
+				<Icon size={18}>{playerIcon}</Icon>
 			</div>
 		);
 	}
