@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import Base from './Base';
 import {Motion, spring, presets} from 'react-motion';
+import Dropdown from './Dropdown';
 import Icon from './FaIcon';
 
 const {bool, func, object} = PropTypes;
@@ -23,7 +24,7 @@ export default class Avatar extends Base {
 			<div id='Avatar'>
 				<div className='flex-row'>
 					<Icon>user</Icon>
-					<Icon onClick={this.toggleDropdown} size={18}>chevron-down</Icon>
+					{/*<Icon onClick={this.toggleDropdown} size={18}>chevron-down</Icon>*/}
 				</div>
 			</div>
 		);

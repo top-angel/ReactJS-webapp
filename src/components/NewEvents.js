@@ -1,15 +1,20 @@
-import React, {PropTypes, Component} from 'react';
+import React, {PropTypes} from 'react';
 import Loader from 'react-loader';
 import api from '../services/api';
+import Base from './Base';
 import EventContainer from './EventContainer';
+const {object, func} = PropTypes;
 
-export default class NewEvents extends Component {
+export default class NewEvents extends Base {
 	constructor(props) {
 		super(props);
+		this.autoBind('getNewEvents');
 		this.state = {
 			loaded: false,
 			events: []
 		};
+	}
+	componentWillMount() {
 		this.getNewEvents();
 	}
 	componentDidMount() {
@@ -34,6 +39,6 @@ export default class NewEvents extends Component {
 }
 
 NewEvents.contextTypes = {
-	user: PropTypes.object,
-	push: PropTypes.func
+	user: object,
+	push: func
 };

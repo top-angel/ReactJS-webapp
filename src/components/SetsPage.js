@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
 import Base from './Base';
-import NavMenu from './NavMenu';
 import Tabs from './Tabs';
 import Tab from './Tab';
 

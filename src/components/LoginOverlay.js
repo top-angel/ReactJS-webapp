@@ -1,6 +1,5 @@
 import React from 'react';
-import constants from '../constants/constants';
-import {login} from '../services/loginService.js';
+import {login} from '../services/loginService';
 
 var LoginOverlay = React.createClass({
 
@@ -25,12 +24,11 @@ var LoginOverlay = React.createClass({
 							<div className='center'>Sign in with Facebook</div>
 						</div>
 					</div>
-					<h1 className='hidden'>Features</h1>
 					<div className='divider'/>
 					<ul className='flex-column'>
 						<li>Favorite the sets you want to listen to later</li>
 						<br/>
-						<li>Follow your favorite artists and unlock their exclusive content</li>
+						<li>Unlock exclusive music from your favorite artists</li>
 						<br/>
 						<li>Discover new sets and events from artists you follow</li>
 					</ul>

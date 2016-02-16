@@ -11,11 +11,14 @@
 @import 'Avatar';
 @import 'DetailHeader';
 @import 'DetailButton';
+@import 'Dropdown';
 @import 'EventTile';
 @import 'FestivalTile';
 @import 'Footer';
 @import 'Header';
+@import 'IconMenu';
 @import 'Location';
+@import 'LandingPage'; // TODO deprecate
 @import 'MixTile';
 @import 'NavBar';
 @import 'Notifications';
@@ -121,148 +124,6 @@
 	h4 {
 		margin-top: 0;
 	}
-}
-
-#LandingView {
-	color: @white;
-	.small({
-		width:105vw;
-	});
-}
-#LandingHome {
-	// background: url(../images/landing-1.jpg) @dark-gray;
-	background-size: 100% 100%;
-	height: @pageHeightWithoutPlayer;
-	font-weight: 100;
-	text-align: center;
-	.createOverlay(0.5, @dark-gray);
-	h1 {
-		font-size: 8rem;
-		font-weight: inherit;
-		margin-top: 10vh;
-	}
-	h2 {
-		margin: 0 auto;
-		font-size: 1.5rem;
-	}
-	a:hover {
-		color: @gray;
-	}
-	&::before{
-		height: @pageHeightWithoutPlayer!important;
-	}
-	.small({
-		h1 {
-			font-size: 4rem;
-			margin-top: 6rem;
-		}
-		h2 {font-size: 1rem;}
-		a:not(#listen-now) {
-			font-size: 3rem;
-		}
-		i {
-			font-size: 2rem;
-		}
-	});
-}
-#LandingApp {
-	background-size: 100% 100%;
-	font-size: 1.2rem;
-	height: @pageHeightWithoutPlayer;
-	position: relative;
-	.slide-controls {
-		position: absolute;
-		bottom: 4vh;
-		left: 25%;
-	}
-	.slide {
-		.size(100%, 100%);
-		position: relative;
-		img {
-			.size(75%, @pageHeight);
-		}
-	}
-	.text-container {
-	    padding: 4vw;
-	    h1 {
-	    	line-height: initial;
-	    }
-	}
-	.slide-1 {
-		.text-container {
-			.background(@green, white);
-		}
-		.image-container {
-			background: @white;
-		}
-	}
-	.slide-2 {
-		.text-container {
-			.background(@blue, white);
-		}
-		.image-container {
-			background: @blue;
-		}
-	}
-	.slide-3 {
-		.text-container {
-			.background(@red, white);
-		}
-		.image-container {
-			background: @white;
-		}
-	}
-	.small({
-		font-size: 1rem;
-		height: @pageHeight*.75;
-		.slide-controls {
-			left: 45%;
-		}
-		.image-container {
-			.hidden;
-		}
-	});
-}
-#LandingBeacon {
-	position: relative;
-	height: @pageHeightWithoutPlayer;
-	// background-image: url(../images/beacon-offer.jpg);
-	background-size: 33% 100%;
-	background-repeat: no-repeat;
-	font-size: 1.1rem;
-	.text-container {
-		color: @dark-gray;
-		width: 67%;
-		padding-right: 20%;
-		position: absolute;
-		right:0;
-	}
-	h1 {
-		-webkit-margin-before: 25%;
-		margin-right: 25%;
-	}
-	.small({
-		background-size: 60% 100%;
-		height: @pageHeight;
-		.text-container {
-			width: 40%;
-			padding-right: 5%;
-		}
-		h1 {
-			font-size: 1.5rem;
-			margin: 10vh 0 5vh 0;
-		}
-		p {
-			font-size: 0.8rem;
-		}
-	});
-	.medium({
-		background-size: 45% 100%;
-		.text-container {
-			width: 60%;
-			padding: 2%;
-		}
-	});
 }
 
 #LoginOverlay {

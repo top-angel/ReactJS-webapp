@@ -1,13 +1,15 @@
-import React, {PropTypes, Component} from 'react';
+import React, {PropTypes} from 'react';
 import Loader from 'react-loader';
-
 import {getFavoriteSets} from '../services/favoriteSet'
 import api from '../services/api'
+import Base from './Base';
 import SetContainer from './SetContainer';
+import NoFavorites from './NoFavorites';
 
-export default class Favorites extends Component {
+export default class Favorites extends Base {
 	constructor(props) {
 		super(props);
+		this.autoBind('getFavoriteSets', 'renderFavorites');
 		this.state = {
 			loaded	: false,
 			favorites: []
@@ -26,17 +28,27 @@ export default class Favorites extends Component {
 	}
 	getFavoriteSets(userId) {
 		api.get(`setmineuser/${userId}/stream?filter=favorites`).then(payload =>{
+			if(payload.setmineuser_stream.length == 0) {
+				this.setState({ loaded: true });
+				return;
+			}
 			this.setState({
 				favorites: payload.setmineuser_stream,
 				loaded: true
 			});
 		});
 	}
+	renderFavorites() {
+		if(this.state.favorites.length === 0) {
+			return <NoFavorites />
+		}
+
+		return <SetContainer sets={this.state.favorites} />
+	}
 	render() {
-		var favorites = this.state.favorites;
 		return (
 			<Loader loaded={this.state.loaded}>
-				<SetContainer sets={favorites} />
+				{this.renderFavorites()}
 			</Loader>
 		);
 	}

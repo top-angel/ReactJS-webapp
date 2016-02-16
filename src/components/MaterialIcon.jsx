@@ -1,25 +1,23 @@
 import React, {PropTypes} from 'react'
+const {oneOf, string, bool, object, func} = PropTypes;
 
-const Icon = props => {
-	let size
+const Icon = ({size, children, style, onClick}) => {
+	let iconSize = size || 24;
+	let mergedStyle = Object.assign({}, style, { fontSize: iconSize });
 
-	// dynamically change size
-	switch(props.size) {
-		case 18:
-			size = 18; break;
-		case 24:
-			size = 24; break;
-		case 36:
-			size = 36; break;
-		case 48:
-			size = 48; break;
-	}
-
-	return <i className={`mdi mdi-${props.children}`} style={{ fontSize: size}}/>
+	return React.createElement('i', {
+		displayName: 'MaterialIcon',
+		className: `mdi mdi-${children}`,
+		style: mergedStyle,
+		onClick: onClick
+	});
 }
 
 Icon.propTypes = {
-	size: PropTypes.oneOf([18, 24, 36, 48])
+	size: oneOf([18, 24, 36, 48]),
+	children: string.isRequired,
+	onClick: func,
+	style: object
 }
 
-export default Icon
+export default Icon;

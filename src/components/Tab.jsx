@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import Base from './Base';
 import Link from 'react-router/lib/Link';
 
-const {number, element, func, any, string, bool} = PropTypes;
+const {number, element, func, any, string, bool, object} = PropTypes;
 const style = {
 	background: '#cfd4d6',
 	color: '#bdc3c7'

@@ -10,7 +10,7 @@ let fixedTabs = {
 export default class Tabs extends Base {
 	constructor(props, context) {
 		super(props, context);
-		this.autoBind('getTabWidth', 'handleClick');
+		this.autoBind('getTabWidth', 'handleClick', 'renderTabs');
 		this.state = {
 			left: 0
 		};

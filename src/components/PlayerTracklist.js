@@ -13,9 +13,7 @@ export default class PlayerTracklist extends Base {
 		};
 	}
 	animate() {
-		this.setState({
-			open: !this.state.open
-		});
+		this.setState({ open: !this.state.open });
 	}
 	updateCurrentTrack() {
 		updateCurrentTrack(this.props.appState, this.context.push);

@@ -1,7 +1,11 @@
 import React, { PropTypes } from 'react';
 import Link from 'react-router/lib/Link';
 import SearchBar from './SearchBar';
-import Avatar from './Avatar';
+import IconMenu from './IconMenu';
+import Icon from './FaIcon';
+
+const trackAndroid = () => mixpanel.track("Android App Link Clicked");
+const trackIos = () => mixpanel.track("iOS App Link Clicked");
 
 const Header = ({currentPage}, {push, loginStatus}) => {
 	return (
@@ -11,7 +15,26 @@ const Header = ({currentPage}, {push, loginStatus}) => {
 				<h4 onClick={() => push({ loginStatus: true })}>{currentPage}</h4>
 			</div>
 			<SearchBar />
-			<Avatar />
+			<IconMenu icon={<Icon>ellipsis-h</Icon>}>
+				<Link to='/about'>
+					<p>About</p>
+				</Link>
+				<a href='http://bit.ly/SetmineiOS' onClick={trackIos} title='view on App Store' className='click'>
+					<p>iOS</p>
+				</a>
+				<a href='http://bit.ly/SetmineAndroid' onClick={trackAndroid} title='view on Google Play'className='click'>
+					<p>Android</p>
+				</a>
+				<Link to='/setstory'>
+					<p>Setstory</p>
+				</Link>
+				<Link to='/legal'>
+					<p>DMCA Notice</p>
+				</Link>
+			</IconMenu>
+			<IconMenu icon={<Icon>user</Icon>}>
+				<p>Login</p>
+			</IconMenu>
 		</nav>
 	)
 }

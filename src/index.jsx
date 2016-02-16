@@ -8,7 +8,7 @@ import Redirect from 'react-router/lib/Redirect';
 
 import App from './components/App';
 import Footer from './components/Footer';
-import LandingView from './components/LandingView';
+import LandingPage from './components/LandingPage';
 import EventsPage from './components/EventsPage';
 import Home from './components/Home';
 import SetsPage from './components/SetsPage';
@@ -32,7 +32,6 @@ import Popular from './components/Popular';
 import Artists from './components/Artists';
 import Festivals from './components/Festivals';
 import Mixes from './components/Mixes';
-import Activities from './components/Activities';
 
 import SetContainer from './components/SetContainer';
 import EventContainer from './components/EventContainer';
@@ -53,14 +52,13 @@ import history from './services/history';
 render(
 	<Router history={history}>
 		<Route path='/' component={App}>
-			<IndexRoute component={LandingView}/>
+			<IndexRoute component={LandingPage}/>
 
 			<Route path='play/:set' component={SetsPage}>
 				<IndexRoute component={Recent}/>
 				<Route path='mixes' component={Mixes}/>
 				<Route path='popular' component={Popular}/>
 				<Route path='festivals' component={Festivals}/>
-				<Route path='activities' component={Activities}/>
 			</Route>
 
 			<Route path='sets' component={SetsPage}>
@@ -68,7 +66,6 @@ render(
 				<Route path='mixes' component={Mixes}/>
 				<Route path='popular' component={Popular}/>
 				<Route path='festivals' component={Festivals}/>
-				<Route path='activities' component={Activities}/>
 			</Route>
 
 			<Route path='home' component={Home}>
@@ -105,7 +102,6 @@ render(
 
 			<Route path='about' component={About}/>
 			<Route path='setstory' component={SetstoryLandingPage}/>
-			{/*<Route path='blog' component={BlogWrapper}/>*/}
 		</Route>
 	</Router>
 , bodyMount);

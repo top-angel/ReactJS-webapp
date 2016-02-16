@@ -8,6 +8,7 @@ const Icon = ({fixed, size, children, style, onClick}) => {
 	let mergedStyle = Object.assign({}, style, { fontSize: iconSize });
 
 	return React.createElement('i', {
+		displayName: 'FontAweSomeIcon',
 		className: `fa fa-${children} ${fixedWidth}`,
 		style: mergedStyle,
 		onClick: onClick
