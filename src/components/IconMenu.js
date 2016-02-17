@@ -29,16 +29,25 @@ export default class IconMenu extends Base {
 	}
 	renderChildren() {
 		return React.Children.map(this.props.children, (child, index) => {
+			let onClick;
+			if(child.props.onClick) {
+				onClick = () => {
+					child.props.onClick();
+					this.toggleDropdown();
+				}
+			} else {
+				onClick = this.toggleDropdown; 
+			}
 			return React.cloneElement(child, {
 				key: index,
-				onClick: this.toggleDropdown
+				onClick: onClick
 			})
 		})
 	}
 	render() {
 		let transform = this.state.open ? 1 : 0;
 		let motionStyle = {
-			t: spring(transform, {stiffness: 192, damping: 18})
+			t: spring(transform, {stiffness: 192, damping: 18, precision: 0.1})
 		};
 
 		return (

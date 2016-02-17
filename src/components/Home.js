@@ -1,8 +1,5 @@
 import React from 'react';
 import Base from './Base';
-import LoginOverlay from './LoginOverlay';
-// import Tabs from './Tabs';
-// import Tab from './Tab';
 import Nav from './Nav';
 import Link from 'react-router/lib/Link';
 import IndexLink from 'react-router/lib/IndexLink';

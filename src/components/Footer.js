@@ -9,7 +9,7 @@ const iconMargin = {
 };
 
 const Footer = props => (
-	<footer>
+	<footer id='Footer'>
 		<div className='links flex-column'>
 			<Link to='/about'>
 				<p>About</p>

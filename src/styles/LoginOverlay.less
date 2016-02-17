@@ -1,0 +1,80 @@
+#LoginOverlay {
+	background: fade(@dark-gray, 50%);
+	position: fixed;
+	display: flex;
+	top: 0;
+	left: 0;
+	.size(100%);
+	.transition(background);
+	z-index: 100;
+	section {
+		.card(3);
+		.colors(@white, @dark-gray);
+		margin: auto;
+		padding: 3rem;
+		width: 45%;
+		position: relative;
+	}
+	ul {
+		margin: 3rem 0;
+		padding: 0;
+	}
+	li {
+		margin: 1rem 0;
+	}
+	footer {
+		.flexContainer(row-reverse, horizontal-reverse);
+	}
+	button {
+		display: flex;
+		padding: 0 1rem;
+		color: @white;
+		align-items: center;
+		&.facebook {
+			.actionBackground(@facebook-blue);
+		}
+		&.nope {
+			.actionBackground(@red);
+		}
+	}
+	
+	// .content {
+	// 	.card(3);
+	// 	.background(@white, @dark-gray);
+	// 	width: 70%;
+	// 	.divider {
+	// 		.createDivider(95%, 2px, @dark-gray);
+	// 		margin: 0 auto;
+	// 	}
+	// 	.facebook {
+	// 		.background(@facebook-blue, white);
+	// 		.border-radius(5px);
+	// 		border: solid 1px;
+	// 		height: 50px;
+	// 		margin: 2rem auto;
+	// 		width: 90%;
+	// 		&:hover {
+	// 			.background(@facebook-blue*1.1, white);
+	// 		}
+	// 	}
+	// 	h1 {
+	// 		text-align: center;
+	// 	}
+	// 	.icon {
+	// 		display: flex;
+	// 		border-right: solid 1px;
+	// 	}
+	// 	.medium({
+	// 		width: 60%;
+	// 		.facebook {
+	// 			width: 60%;
+	// 		}
+	// 	}, 500px, 800px);
+	// 	.desktop({
+	// 		width: 50%;
+	// 		.facebook {
+	// 			width: 33%;
+	// 		}
+	// 	},800px);
+	// }
+}

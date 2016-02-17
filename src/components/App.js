@@ -11,7 +11,7 @@ import {getFavorites} from '../services/favoriteSet';
 import detectMobileService from '../services/detectMobileService';
 import {DEFAULT_IMAGE} from '../constants/constants';
 
-// TODO move index.less from index.html to here
+import {spring, presets} from 'react-motion';
 
 // fix mobile touch events not registering
 InjectTapEventPlugin();
@@ -21,6 +21,7 @@ import Header from './Header';
 import NavBar from './NavBar';
 import Player from './Player';
 import Notifications from './Notifications';
+import LoginOverlay from './LoginOverlay';
 
 let initialAppState = Immutable.Map({
 	closestEvents: [],
@@ -57,6 +58,7 @@ let initialAppState = Immutable.Map({
 		upcomingEvents: [],
 		tracks: []
 	},
+	showLogin: false,
 	snackbar: {
 		open: false,
 		message: ''
@@ -146,21 +148,46 @@ export default class App extends Base {
 	render() {
 		let appState = this.state.appState;
 		let playerHidden = appState.get('playerHidden');
+		let currentPage = appState.get('currentPage');
+		let snackbar = appState.get('snackbar');
+		let showLogin = appState.get('showLogin');
 		let pageWidth = ((window.innerWidth - 64) / window.innerWidth) * 100 + '%';
-		// let buffer = playerHidden ? {display: 'none'} : playerBuffer;
+
+		let top = showLogin ? 0 : -100;
+		let opacity = showLogin ? 1 : 0;
+
+		let motionStyle = {
+			y: spring(top, {stiffness: 120, damping: 14, precision: 0.1}),
+			o: spring(opacity, {stiffness: 80, damping: 25, precision: 0.1})
+		};
+
+		console.log(showLogin)
 
 		return (
-			<div id='App'>
+			<div id='App' className='flex-column'>
 				<DocMeta tags={tags} />
-				<Header currentPage={appState.get('currentPage')} />
+				<Header currentPage={currentPage} showLogin={showLogin} />
 				<NavBar />
 				{
 					React.cloneElement(this.props.children, {
 						appState: appState
 					})
 				}
-				<Notifications snackbar={appState.get('snackbar')} playerHidden={playerHidden} />
+				<Notifications snackbar={snackbar} playerHidden={playerHidden} />
+				{
+					// showLogin ? 
+					// 	<LoginOverlay 
+					// 		style={motionStyle}
+					// 		visible={showLogin}
+					// 		close={() => push({ showLogin: false })} />
+					// 	: null
+				}
+				<LoginOverlay 
+					style={motionStyle}
+					visible={showLogin}
+					close={() => push({ showLogin: false })} />
 				<Player appState={appState} />
+				{playerHidden ? <div id='noplayer'/> : <Player appState={appState} />}
 			</div>
 		);
 	}
