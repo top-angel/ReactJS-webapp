@@ -47,10 +47,14 @@ export default class Header extends Base {
 						<p>DMCA Notice</p>
 					</Link>
 				</IconMenu>
-				<Icon onClick={this.toggleLogin} style={{cursor: 'pointer'}}>user</Icon>
-				{/*<IconMenu icon={<Icon>user</Icon>}>
-					<p onClick={this.toggleLogin}>Login</p>
-				</IconMenu>*/}
+				{/*this.context.loginStatus ? null : <Icon onClick={this.toggleLogin} style={{cursor: 'pointer'}}>user</Icon>*/}
+				{
+					this.context.loginStatus ? 
+						null :
+						<IconMenu icon={<Icon>user</Icon>}>
+							<p onClick={this.toggleLogin}>Login</p>
+						</IconMenu>
+				}
 			</nav>
 		);
 	}
