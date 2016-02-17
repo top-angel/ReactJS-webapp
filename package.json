@@ -12,7 +12,7 @@
   "scripts": {
     "start": "forever stopall; forever start server.js;",
     "stop": "forever stopall;",
-    "deploy": "webpack -p --config --progress webpack.config.production.js",
+    "deploy": "webpack -p --config webpack.config.production.js",
     "test": "webpack-dev-server --progress --colors",
     "lint": "eslint src"
   },

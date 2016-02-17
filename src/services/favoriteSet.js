@@ -8,7 +8,7 @@ export function favoriteSet(setId, userId, push) {
 		user_id: userId,
 		set_id: setId
 	}).then(res => {
-		console.log(res);
+		// console.log(res);
 		// doesn't return from the server yet :(
 		let favoriteSetIds = R.pluck('id', res.favorites.user.favorite_sets)
 
