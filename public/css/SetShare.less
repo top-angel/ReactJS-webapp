@@ -1,0 +1,44 @@
+@import 'mixins.less';
+@import 'variables.less';
+@import 'colors.less';
+
+.modal {
+	@modalHeight: 1.5rem;
+	.background(@light-gray, @dark-gray);
+	.size(8rem, @modalHeight);
+	display: flex;
+	position: absolute;
+	bottom: 55%;
+	right: 20%;
+	visibility: hidden;
+	p {
+		font-size: 1rem;
+		width: 95%;
+		margin: auto;
+		text-align: center;
+	}
+	span {
+		position: relative;
+		&::after {
+			content:'';
+			position: absolute;
+			bottom: -5px;
+			right: @tracklistOffset*.6;
+			background: @dark-gray;
+			.border-radius(0 0 0 3px);
+			z-index: -1;
+			.size(10px, 10px);
+			.transform(rotate(45deg));
+			.small({
+				right: 11.5vw;
+			}, 840px);
+		}
+	}
+}
+.share {
+	cursor: pointer;
+	.center;
+	&:hover {
+		color: @blue;
+	}
+}

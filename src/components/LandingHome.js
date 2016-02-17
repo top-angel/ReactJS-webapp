@@ -1,40 +1,40 @@
 import React from 'react';
-import {Link} from 'react-router';
+import Link from 'react-router/lib/Link';
+import Icon from './FaIcon';
 
-var LandingHome = React.createClass({
+function openIos() {
+	window.open('http://bit.ly/SetmineiOS');
+	mixpanel.track("iOS App Link Clicked");
+}
 
-	scroll() {
+function openAndroid() {
+	window.open('http://bit.ly/SetmineAndroid');
+	mixpanel.track("Android App Link Clicked");
+}
+
+const LandingHome = () => {
+	let scroll = () => {
 		//TODO Fix this
-		setTimeout(function(){
+		setTimeout(() => {
 			$(window).scrollTo($('#LandingHome').height(), 400, {
 				offset: -'8vh'
-			});
-		}, 200);
-	},
-
-	trackiOS() {
-		mixpanel.track("iOS App Link Clicked");
-	},
-
-	trackAndroid() {
-		mixpanel.track("Android App Link Clicked");
-	},
-	
-	render() {
-		return (
-			<div className='flex-column' id='LandingHome'>
-				<h1 className='center wow zoomIn'>Setmine</h1>
-				<h2 className='center wow zoomIn'>Relive your favorite sets</h2>
-				<div className='center'>
-				    <a href='http://bit.ly/SetmineiOS' onClick={this.trackiOS} className='fa fa-apple fa-fw fa-4x wow fadeInLeft click'/>
-				    <a href='http://bit.ly/SetmineAndroid' onClick={this.trackAndroid} className='fa fa-android fa-fw fa-4x wow fadeInRight click'/>
-				</div>
-				<Link to='/sets' className='header-small center click wow fadeInUp' id='listen-now'>Listen Now</Link>
-				<i className='fa fa-chevron-down center click wow slideInUp' onClick={this.scroll} />
-          </div>
-		);
+			})
+		}, 200)
 	}
-
-});
+	return (
+		<div id='LandingHome' className='flex-column'>
+			<h1>Setmine</h1>
+			<h2>Relive your favorite sets</h2>
+			<div className='flex-row'>
+				<Icon onClick={openIos}>apple</Icon>
+				<Icon onClick={openAndroid}>android</Icon>
+			</div>
+			<Link to='/sets'>
+				<p>Listen Now</p>
+			</Link>
+			<Icon onClick={scroll}>chevron-down</Icon>
+		</div>
+	);
+}
 
 export default LandingHome;

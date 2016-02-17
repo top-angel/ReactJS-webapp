@@ -1,0 +1,33 @@
+.artist-tile, .mix-tile {
+	text-align: center;
+	position: relative;
+	cursor: pointer;
+	padding: 3rem;
+	.colors(white, @dark-gray);
+	.tileBorder();
+	// width: 200px;
+	width: 19%;
+
+	img {
+		margin: 0 auto 3rem;
+		border-radius: 50%;
+		.size(72px);
+	}
+	.artist {
+		.background(@dark-gray, white);
+		margin: auto;
+		padding: 0 .5rem;
+	}
+	h5, p {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	p:last-child {
+		color: @gray;
+	}
+}
+
+.mix-tile {
+	width: 200px;
+}

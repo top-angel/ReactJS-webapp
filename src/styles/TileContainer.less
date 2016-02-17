@@ -1,0 +1,18 @@
+.tile-container {
+	.flex-row();
+	// margin-bottom: @playerHeight;
+	position: relative;
+	justify-content: flex-start;
+	align-items: flex-start;
+	padding: 3rem;
+	> * {
+		margin: 0 3rem 3rem 0;
+	}
+}
+
+.artist-tile-container {
+	&:extend(.tile-container);
+	> * {
+		margin: 0 1rem 1rem 0;
+	}
+}

@@ -1,67 +1,64 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {togglePlay} from '../services/playerService';
 import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
+import Base from './Base';
+import Icon from './FaIcon';
 
-const PlayerControl = React.createClass({
-	contextTypes: {
-		push: React.PropTypes.func
-	},
-
+export default class PlayerControl extends Base {
+	constructor(props) {
+		super(props);
+		this.autoBind('togglePlay', 'handleKeydown');
+	}
 	componentDidMount() {
-		// TODO do this without jquery
-		$(document.body).on('keypress', (e) => {
-			var search = document.getElementById('search');
-			var key = e.charCode;
-
-			switch(true) {
-				case(key == 32 && search != document.activeElement):
-					e.preventDefault();
-					this.togglePlay();
-					break;
-				case(key >= 97 && key <= 122 && document.location.pathname != '/events'):
-					search.focus();
-					break;
-				case(key >= 65 && key <= 90 && document.location.pathname != '/events'):
-					search.focus();
-					break;
-			}
-		})
-	},
-
-	togglePlay() {
-		var sound = this.props.appState.get('sound');
-		var playing = this.props.appState.get('playing');
-
-		togglePlay(sound);
-		this.context.push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				playing: !playing
-			}	
-		})
-	},
-
-	render() {
-		var currentSet = this.props.appState.get('currentSet');
-		var playing = this.props.appState.get('playing');
-
-		if(!!playing) {
-			var playButtonIcon = 'fa center fa-pause';
-		} else {
-			var playButtonIcon = 'fa center fa-play';
+		document.addEventListener('keydown', this.handleKeydown);
+	}
+	handleKeydown(e) {
+		const key = e.keyCode || e.which;
+		const isInsideInput = e.target.tagName.toLowerCase().match(/input|textarea/);
+		if(isInsideInput) {
+			return;
 		}
 
-		var image = {
+		switch(true) {
+			case key === 32:
+				e.preventDefault();
+				this.togglePlay();
+				break;
+			case (key === 37):
+				// TODO prev track
+				e.preventDefault();
+				break;
+			case (key === 39):
+				// TODO next track
+				e.preventDefault();
+				break;
+		}
+	}
+	togglePlay() {
+		const sound = this.props.appState.get('sound');
+		console.log(sound);
+		let playing = this.props.appState.get('playing');
+		this.context.push({ playing: !playing });
+		togglePlay(sound);
+	}
+	render() {
+		const currentSet = this.props.appState.get('currentSet');
+		const playing = this.props.appState.get('playing');
+		let playerIcon = playing ? 'pause' : 'play';
+
+		let image = {
 			backgroundImage: `url('${S3_ROOT_FOR_IMAGES+currentSet.artistImage}')`,
 			backgroundSize: '100% 100%'
 		};
 
 		return (
-			<div className='click flex-container' id='PlayButton' onMouseUp={this.togglePlay} style={image}>
-				<i className={playButtonIcon}/>
+			<div id='PlayerControl' onMouseUp={this.togglePlay} style={image}>
+				<Icon size={18}>{playerIcon}</Icon>
 			</div>
 		);
 	}
-});
+}
 
-export default PlayerControl;
+PlayerControl.contextTypes = {
+	push: PropTypes.func
+};

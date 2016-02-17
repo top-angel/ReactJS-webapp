@@ -1,8 +1,10 @@
+import R from 'ramda';
+
 export function spliceArray(array, cutoff) {
 	if(array.length > cutoff) {
-		return array.splice(cutoff, array.length-cutoff)
+		return array.splice(cutoff, array.length-cutoff);
 	} else {
-		return array
+		return array;
 	}
 }
 
@@ -12,11 +14,18 @@ export function convertMMSSToMilliseconds(time) {
 }
 
 export function convertMillisecondsToMMSS(ms) {
-	var secs = ms / 1000;
-	var minutes = Math.floor(secs / 60);
-	var seconds = Math.floor(secs - (minutes * 60));
+	let secs = ms / 1000;
+	let minutes = Math.floor(secs / 60);
+	let seconds = Math.floor(secs - (minutes * 60));
 	if (minutes < 10) {minutes = '0'+minutes;}
 	if (seconds < 10) {seconds = '0'+seconds;}
-	var time = minutes+':'+seconds;
+	let time = minutes+':'+seconds;
 	return time;
+}
+
+export function filterWithoutSets(array) {
+	const hasSets = set => {
+		return set.set_count != 0;
+	}
+	return R.filter(hasSets, array);
 }

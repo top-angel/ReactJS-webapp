@@ -1,0 +1,22 @@
+.tooltip {
+	@diamond: 10px;
+	visibility: hidden;
+	opacity: 0;
+	position: absolute;
+	background: @dark-gray;
+	border-radius: 5px;
+	padding: 1rem 2rem;
+	top: 2rem;
+	left: 9rem;
+	transition: opacity 750ms @easeIn, left 750ms @easeIn, top 750ms @easeIn, right 750ms @easeIn, bottom 750ms @easeIn;
+	&::after {
+		content: '';
+		background: @dark-gray;
+		border-radius: 3px;
+		.size(@diamond);
+		.transform(rotate(45deg));
+		position: absolute;
+		left: -@diamond/2;
+		top: 14px;
+	}
+}

@@ -1,0 +1,19 @@
+#PlayerTracklist {
+	text-align: center;
+	cursor: pointer;
+	align-items: center;
+	justify-content: center;
+	.colors(@dark-gray, @white);
+	&:hover {
+		.colors(@dark-gray*1.1, white);
+	}
+	.tracklist {
+		z-index: -1;
+		position: fixed;
+		height: @playerTracklistHeight;
+		right: @tracklistOffset;
+		.colors(fade(@dark-gray, 90%), @white);
+		width: 40vw;
+		overflow-y: scroll;
+	}
+}

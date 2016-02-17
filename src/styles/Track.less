@@ -1,0 +1,16 @@
+.track {
+	display: flex;
+	padding: 2rem 0;
+	.starttime {
+		margin: auto 0.5vw auto 2vw
+	}
+	.trackname {
+		margin: auto auto auto 2vw;
+		overflow-x: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+	&:hover {
+		.colors(fade(@dark-gray, 60%), @blue);
+	} 
+}

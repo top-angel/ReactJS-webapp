@@ -1,0 +1,192 @@
+// complementary color scheme
+// @base: #663333;
+// @complement1: spin(@base, 180);
+// @complement2: darken(spin(@base, 180), 5%);
+// @lighten1: lighten(@base, 15%);
+// @lighten2: lighten(@base, 30%);
+// globals
+
+// .fa-facebook:hover{color:@facebook-blue;}
+// .fa-twitter:hover{color:@twitter-blue;}
+// .fa-instagram:hover{color:@instagram-blue;}
+// .fa-soundcloud:hover{color:@soundcloud-orange;}
+// .fa-youtube:hover{color:@youtube-red;}
+// .fa-globe:hover{color:@purple;}
+
+// deprecated use actionbackground
+.active(@color, @multiplier: 0.8) {
+	color: @color;
+	&:active {
+		color: @color*@multiplier;
+	}
+}
+.active-bg(@color, @multiplier: 0.8) {
+		background-color: @color;
+	&:active {
+		background-color: @color*@multiplier;
+	}
+}
+
+.actionBackground(@color, @hover: 0.9, @active:0.8) {
+	.transition(background);
+	background: @color;
+	cursor: pointer;
+	&:hover {background: @color*@hover}
+	&:active {background: @color*@active}
+}
+.actionColor(@color, @hover: 0.9, @active:0.8) {
+	color: @color;
+	.transition(color);
+	cursor: pointer;
+	&:hover {
+		color: @color*@hover;
+	}
+	&:active {
+		color: @color*@active;
+	}
+}
+
+
+.animation(@time: 1s, @delay: 0s,) {
+	animation-duration: @time!important;
+	animation-delay: @delay!important;
+}
+// deprecated TODO refactor
+.background(@color, @textColor) {
+	background-color:@color;
+	color:@textColor;
+}
+.colors(@background, @text) {
+	.background(@background, @text)
+}
+.border-radius(@radius) {
+	-webkit-border-radius: @radius;
+		-moz-border-radius: @radius;
+		border-radius: @radius;
+}
+.box-shadow (@x, @y, @blur: 0px, @color) {
+	-webkit-box-shadow: @x @y @blur @color;
+	-moz-box-shadow: @x @y @blur @color;
+	box-shadow: @x @y @blur @color;
+}
+.card(@level: 1) {
+	& when (@level = 1) {
+		box-shadow: 0 1px 4px 0 rgba(49, 53, 66, 0.37);
+	}
+	& when (@level = 2) {
+		box-shadow: 0 6px 10px 0 rgba(49, 53, 66, 0.3), 0 2px 2px 0 rgba(49, 53, 66, 0.2);
+	}
+	& when (@level = 3) {
+		box-shadow: 0 13px 25px 0 rgba(49, 53, 66, 0.3), 0 11px 7px 0 rgba(0, 0, 0, 0.19);
+	}
+	& when (@level = 4) {
+		box-shadow: 0 20px 40px 0 rgba(49, 53, 66, 0.3), 0 14px 12px 0 rgba(49, 53, 66, 0.17);
+	}
+	& when (@level = 5) {
+		box-shadow: 0 27px 55px 0 rgba(49, 53, 66, 0.3), 0 17px 17px 0 rgba(49, 53, 66, 0.15);
+	}
+}
+.center {
+	margin:auto;
+}
+.click {
+	cursor:pointer;
+	.transition(0.1s, ease-in, color);
+}
+.createDivider(@width, @height:initial, @color) {
+	height: @height;
+	width: @width;
+	background-color: @color;
+}
+.createOverlay(@opacity, @color: #313542) {
+	z-index: 1;
+	&::before {
+		content: '';
+		opacity: @opacity;
+		background-color: @color;
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: -1;
+	}
+}
+.gradient(@origin, @stops){
+	background: -webkit-linear-gradient(@origin, @stops) no-repeat;
+	background:    -moz-linear-gradient(@origin, @stops) no-repeat;
+	background:    -ms-linear-gradient(@origin, @stops) no-repeat;
+	background:      -o-linear-gradient(@origin, @stops) no-repeat;
+	background:         linear-gradient(@origin, @stops) no-repeat;
+}
+.heading(@background, @color) {
+	.background(@background, @color);
+	.flex-container;
+	padding: 2rem 0 0 2vw;
+	border-top: solid 1px;
+	border-bottom: solid 1px;
+	font-size: 2rem;
+}
+.hidden  {
+	display:none!important;
+}
+.hidden-fade {
+	opacity:0!important;
+}
+
+// deprecated
+.hover(@color, @multiplier: 0.8) {
+	color: @color;
+	.transition(0.2s, ease-in, color);
+	&:hover {
+		color: @color*@multiplier;
+	}
+}
+.hover-bg(@color, @multiplier: 0.8) {
+	background-color: @color;
+	&:hover {
+		background-color: @color*@multiplier;
+	}
+}
+
+
+.scrollable {
+	overflow-y:scroll!important;
+}
+.size(@width, @height: @width) {
+	width: @width;
+	height: @height;
+}
+.transition(@transitionProperty:all, @durationTime:@defaultDuration, @transitionType: @easeIn) {
+	transition: @transitionProperty @durationTime @transitionType;
+	transition-duration: @durationTime;
+}
+.transform(@value) {
+	-webkit-transform: @value;
+	-moz-transform:    @value;
+	-ms-transform:     @value;
+	-o-transform:      @value;
+	transform:         @value;
+}
+.tileBorder {
+	border: solid 1px @light-gray;
+	border-radius: 3px;
+}
+
+//media queries
+.desktop(@rules, @min: 640px) {
+	@media screen 
+	and (min-width: @min) 
+	{@rules();}
+}
+.small(@rules, @max: 540px) {
+	@media screen
+	and (max-width: @max)
+	{@rules();}
+}
+.medium(@rules, @min: 420px, @max: 840px) {
+	@media screen 
+	and (max-width: @max) 
+	and (min-width: @min) 
+	{@rules();}
+}

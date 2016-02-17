@@ -1,61 +1,73 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {Link} from 'react-router';
-import {API_ROOT} from '../constants/constants';
-import history from '../services/history';
 import _ from 'underscore';
+import api from '../services/api';
+import history from '../services/history';
+import Base from './Base';
 
-var SearchBar = React.createClass({
+export default class SearchBar extends Base {
+	constructor(props) {
+		super(props);
+		this.autoBind('search', 'handleKeypress', 'handleKeydown');
+	}
+	componentDidMount() {
+		document.addEventListener('keydown', this.handleKeydown);
+	}
+	handleKeydown(e) {
+		let key = e.keyCode || e.which;
+		let search = ReactDOM.findDOMNode(this.refs.search);
+		let inactiveInput = document.activeElement.tagName.toLowerCase() === 'body';
+		let isSearchingEvents = !((search != document.activeElement) && inactiveInput);
 
-	contextTypes: {
-		push: React.PropTypes.func
-	},
+		if(isSearchingEvents) {
+			return;
+		}
 
+		switch(true) {
+			case(key >= 97 && key <= 122):
+				search.focus();
+				break;
+			case(key >= 65 && key <= 90):
+				search.focus();
+				break;
+		}
+	}
 	handleKeypress(e) {
-		var query = document.getElementById('search').value;
+		let query = ReactDOM.findDOMNode(this.refs.search).value;
 		if(query.length >= 3 || e.charCode == 13) {
 			this.search(query);
-		} 
-	},
-
+		}
+	}
 	search(query) {
-		var searchUrl = `${API_ROOT}search/${query}`;
+		api.get(`search/${query}`).then(res => {
+			var {artists, sets, events, tracks} = res.search;
+			this.context.push({
+				searchResults: {
+					sets: sets,
+					upcomingEvents: events,
+					tracks: tracks,
+					artists: artists
+				}
+			});
 
-		$.ajax({
-			url: searchUrl,
-			type: 'get'
-		}).done(res => {
-			if(res.status === 'success') {
-				var {artists, sets, events, tracks} = res.payload.search;
-				this.context.push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						searchResults: {
-							sets: sets,
-							upcomingEvents: events,
-							tracks: tracks,
-							artists: artists
-						}
-					}
-				});
-
-				history.pushState(null, '/search');
-			}
-		});
-	},
-	
+			history.pushState(null, '/search');
+		})
+	}
 	render() {
 		return (
-			<div className='center flex flex-row'>
-				<Link className='nav-button fa fa-search center click' to='/search' />
-				<input id='search' 
-					className='flex'
-					placeholder='search' 
+			<div id='SearchBar'>
+				<i className='fa fa-search'/>
+				<input
+					id='search'
+					placeholder='search'
+					ref='search'
 					onKeyPress={_.debounce(this.handleKeypress, 300)} />
-          </div>
+			</div>
 		);
 	}
+}
 
-});
-
-
-export default SearchBar;
+SearchBar.contextTypes = {
+	push: React.PropTypes.func
+};

@@ -1,0 +1,1 @@
+.nav{background:#313542;color:#f4f4f4;cursor:pointer;width:64px;z-index:100;position:fixed;height:90vh;top:64px}.nav a{justify-content:space-around;align-items:center;height:64px}.nav a:hover{background:#2c303b}.active{background:#272a35;color:#f4f4f4;border-left:solid 2px #22a7f0}

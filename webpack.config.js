@@ -1,6 +1,8 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
+var autoprefixer = require('autoprefixer');
 
 var buildPath = path.resolve(__dirname, 'public');
 var mainPath = path.resolve(__dirname, 'src', 'index.jsx');
@@ -9,27 +11,18 @@ module.exports = {
 	entry: {
 		setmine: mainPath
 	},
+	devtool: 'cheap-source-map',
+	devServer: {
+		contentBase: 'public/' // where webpack-dev-server should look for static files
+	},
 	output: {
 		path: buildPath,
-		filename: '[name]-bundle.js',
-		pathinfo: true,
-		historyApiFallback: true
+		filename: '[name]-bundle.js' // name of output file
 	},
 	resolve: {
-		extensions: ['', '.jsx', '.es6', '.js', '.scss'],
+		extensions: ['', '.jsx', '.es6', '.js', '.less'],
 		moduleDirectories: ['node_modules']
 	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			template: 'src/index-dev.html',
-			inject: 'body'
-		}),
-		new webpack.ProvidePlugin({
-			'Promise': 'exports?global.Promise!es6-promise',
-			'fetch': 'exports?self.fetch!whatwg-fetch'
-		})
-	],
-	devtool: 'cheap-source-map',
 	module: {
 		loaders: [
 			{
@@ -39,7 +32,23 @@ module.exports = {
 				query: {
 					presets: ['es2015', 'react']
 				}
+			},
+			{
+				test: /\.less$/,
+				exclude: /node_modules/,
+				loader: ExtractTextPlugin.extract('style', 'css!less')
 			}
 		]
-	}
+	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: 'src/index-dev.html',
+			inject: 'body'
+		}),
+		new webpack.ProvidePlugin({
+			'Promise': 'exports?global.Promise!es6-promise',
+			'fetch': 'exports?self.fetch!whatwg-fetch'
+		}),
+		new ExtractTextPlugin('[name].css')
+	],
 };

@@ -1,0 +1,17 @@
+#PlayerControl {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	.size(@playerHeight, 100%);
+	img {
+		.size(100%,100%);
+	}
+	&:hover {
+		.createOverlay(0.5, @dark-gray);
+		&::before {
+			.transition(background)
+		}
+	}
+}

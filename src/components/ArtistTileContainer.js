@@ -1,32 +1,26 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import ArtistTile from './ArtistTile';
+import InfiniteScrollify from './InfiniteScrollify';
 
-var ArtistTileContainer = React.createClass({
-
-	getDefaultProps() {
-		return {
-			artists: []
-		};
-	},
-
-	render: function() {
-		var tiles = this.props.artists.map(artist => {
-			return React.createElement(ArtistTile, {
-				artist: artist.artist,
-				key: artist.id,
-				imageURL: artist.icon_image.imageURL,
-				set_count: artist.set_count,
-				event_count: artist.event_count
+const ArtistTileContainer = ({artists}) => (
+	<div className='artist-tile-container'>
+		{
+			artists.map((artist, index) => {
+				return React.createElement(ArtistTile, {
+					artist: artist.artist,
+					key: index,
+					imageURL: artist.icon_image.imageURL,
+					setCount: artist.set_count,
+					eventCount: artist.event_count
+				})
 			})
-		});
+		}
+	</div>
+);
 
-		return (
-			<div className='flex-row flex'>
-				{tiles}
-			</div>
-		);
-	}
+ArtistTileContainer.propTypes = {
+	artists: PropTypes.array.isRequired,
+	onScroll: PropTypes.func
+};
 
-});
-
-export default ArtistTileContainer;
+export default InfiniteScrollify(ArtistTileContainer);

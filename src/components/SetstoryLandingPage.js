@@ -1,13 +1,21 @@
 import React from 'react';
+import Icon from './FaIcon';
 import Footer from './Footer';
 
 var SetstoryLandingPage = React.createClass({
-
 	componentDidMount: function() {
 		$(window).scrollTo(0,0);
+		this.context.push({
+			currentPage: 'Setstory',
+			showNavbar: false
+		});
 		mixpanel.track("Setstory About Page Open");
 	},
-	
+	componentWillUnmount() {
+		this.context.push({
+			showNavbar: true
+		});
+	},
 	render() {
 		return (
 			<div id='SetstoryLandingPage'>	
@@ -104,4 +112,8 @@ var SetstoryLandingPage = React.createClass({
 	}
 });
 
-module.exports = SetstoryLandingPage ;
+SetstoryLandingPage.contextTypes = {
+	push: React.PropTypes.func
+};
+
+export default SetstoryLandingPage;

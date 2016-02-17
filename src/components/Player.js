@@ -1,76 +1,98 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {generateSound, mixpanelTrackSetPlay} from '../services/playerService';
+import {checkIfFavorited} from '../services/favoriteSet';
 
+import Base from './Base';
 import PlayerControl from './PlayerControl';
 import PlayerSeek from './PlayerSeek';
 import PlayerSetInfo from './PlayerSetInfo';
 import PlayerTracklist from './PlayerTracklist';
-import PlayerShare from './PlayerShare';
+import SetShare from './SetShare';
 
-var playingClass = 'fa center fa-pause play-button';
-var pausedClass = 'fa center fa-play play-button';
-
-const Player = React.createClass({
-	contextTypes: {
-		push: React.PropTypes.func
-	},
-
+export default class Player extends Base {
+	constructor(props) {
+		super(props);
+		this.autoBind('checkIfFavorited');
+	}
 	componentDidMount() {
-		var sound = this.props.appState.get('sound');
-		if(sound != null) {
-			this.context.push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					playerHidden: false
-				}
-			});
-		}
-	},
+		// TODO move hide player toggle to appState maybe
+		// let sound = this.props.appState.get('sound');
+		// if(sound.durationEstimate != 0) {
+		// 	this.context.push({ playerHidden: false });
+		// }
+		let appState = this.props.appState;
+		let starttime = appState.get('currentSet').starttime;
 
+		generateSound(starttime, appState, this.context.push).then(smObj => {
+			//play a new set
+			// console.log(smObj);
+
+			this.context.push({
+				sound: smObj,
+				playing: true,
+				playerHidden: false
+			});
+
+
+			// Log Mixpanel event
+			// let selectedSet = nextProps.appState.get('currentSet');
+			// mixpanelTrackSetPlay(selectedSet);
+		});
+	}
 	componentWillReceiveProps(nextProps) {
-		var appState = this.props.appState;
-		var push = this.context.push;
+		let appState = this.props.appState;
 
 		if(nextProps.appState.get('currentSet') != appState.get('currentSet')) {
-			var starttime = nextProps.appState.get('currentSet').starttime;
+			let starttime = nextProps.appState.get('currentSet').starttime;
 
-			generateSound(starttime, nextProps.appState, push).then(function(smObj) {
+			generateSound(starttime, nextProps.appState, this.context.push).then(smObj => {
 				//play a new set
-				push({
-					type: 'SHALLOW_MERGE',
-					data: {
-						sound: smObj,
-						playing: true,
-						playerHidden: false
-					}
+				// console.log(smObj);
+
+				this.context.push({
+					sound: smObj,
+					playing: true,
+					playerHidden: false
 				});
 
+
 				// Log Mixpanel event
-				var selectedSet = nextProps.appState.get('currentSet');
-				mixpanelTrackSetPlay(selectedSet);
+				// let selectedSet = nextProps.appState.get('currentSet');
+				// mixpanelTrackSetPlay(selectedSet);
 			});
 		} 
-	},
-
+	}
+	checkIfFavorited(setId) {
+		return this.context.loginStatus ? checkIfFavorited(setId, this.context.favoriteSetIds) : false;
+	}
 	render() {
-		var appState = this.props.appState;
-		var currentSet = appState.get('currentSet');
-		var hidePlayer = appState.get('playerHidden') ? 'hidden' : '';
+		let appState = this.props.appState;
+		let currentSet = appState.get('currentSet');
+		// let hidePlayer = appState.get('playerHidden') ? 'hidden' : '';{`flex-row ${hidePlayer}`}
+		let favorited = this.checkIfFavorited(currentSet.id);
 
 		return (
-			<div className={`flex-row ${hidePlayer}`} id='Player'>
+			<div id='Player' className='flex-row'>
 				<PlayerControl appState={appState} />
 				<div className='flex-column flex'>
 					<PlayerSeek appState={appState} />
 					<div className='flex flex-row'>
 						<PlayerSetInfo appState={appState} />
 						<PlayerTracklist appState={appState} />
-						<PlayerShare appState={appState} />
+						<SetShare id={currentSet.id} artistImage={currentSet.artistImage} favorited={favorited} />
 					</div>
 				</div>
 			</div>
 		);
 	}
-});
+}
 
-export default Player;
+Player.contextTypes = {
+	push: PropTypes.func,
+	loginStatus: PropTypes.bool,
+	favoriteSetIds: PropTypes.array
+};
+
+Player.propTypes = {
+
+};

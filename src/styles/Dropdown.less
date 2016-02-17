@@ -1,0 +1,25 @@
+.dropdown {
+	@diamond: 10px;
+	.colors(@white, @dark-gray);
+	.tileBorder();
+	position: absolute;
+	right: 0;
+	width: 20rem;
+	> * {
+		padding: 1rem 2rem;
+		.actionBackground(@white, 0.95, 0.9);
+		z-index: 2;
+	}
+	&::after {
+		content: '';
+		background: inherit;
+		position: absolute;
+		.size(@diamond);
+		.transform(rotate(45deg));
+		top: -@diamond/2;
+		right: 1rem;
+		border-left: solid 1px @light-gray;
+		border-top: solid 1px @light-gray;
+		z-index: 1;
+	}
+}

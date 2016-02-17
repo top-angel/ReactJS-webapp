@@ -39,13 +39,17 @@ export function startFacebookSDK(push) {
 }
 
 function statusChangeCallback(response, push) {
-	if (response.status === 'connected') {
-		// Logged into setmine and Facebook.
-		registerFacebookUser(response.authResponse.accessToken, push)
-	} else if (response.status === 'not_authorized') {
-		console.log('Logged into Facebook, but you need to authorize this app');
-	} else {
-		console.debug('Not logged into Facebook');
+	switch(response.status) {
+		case 'connected':
+			// Logged into setmine and Facebook.
+			console.log(response.authResponse)
+			registerFacebookUser(response.authResponse.accessToken, push)
+			break
+		case 'not_authorized':
+			console.log('Logged into Facebook, but you need to authorize this app')
+			break
+		default:
+			console.debug('Not logged into Facebook')
 	}
 }
 
@@ -54,6 +58,14 @@ function checkLoginState(push) {
 	FB.getLoginStatus(function(response) {
 		statusChangeCallback(response, push);
 	}.bind(this));
+}
+
+// TODO test
+function fetchProfilePicture(id) {
+	FB.api(
+		`/${id}picture`,
+		res => console.log(res)
+	)
 }
 
 function registerFacebookUser(auth, push) {
@@ -68,13 +80,18 @@ function registerFacebookUser(auth, push) {
 
 		// store setmine user in appState
 		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				isUserLoggedIn: true,
-				user: user,
-				favoriteSetIds: favoriteSetIds
-			}
-		})
+			loginStatus: true,
+			user: user,
+			favoriteSetIds: favoriteSetIds
+		});
+		// push({
+		// 	type: 'SHALLOW_MERGE',
+		// 	data: {
+		// 		loginStatus: true,
+		// 		user: user,
+		// 		favoriteSetIds: favoriteSetIds
+		// 	}
+		// })
 
 		//track user after logging in for the first time
 		mixpanel.identify(user.facebook_id);

@@ -1,0 +1,71 @@
+@import 'mixins.less';
+@import 'colors.less';
+@import 'variables.less';
+
+.track-tile {
+	@trackImg: 64px;
+	.card(1);
+	.border-radius(3px);
+	background-size: 100% 100%;
+	.createOverlay(0.4);
+	width: 23%;
+	height: @tileHeight;
+	margin: 1%;
+	font-size: 16px;
+	position: relative;
+	img {
+		.border-radius(50%);
+		border: solid 3px @purple;
+		.size(@trackImg, @trackImg);
+		position:absolute;
+		left: -(30%-@trackImg)/8;
+		bottom: -@trackImg/2;
+	}
+	&:hover {
+		.play {
+			opacity: 1;
+			.transition(0.2s);
+		}
+	}
+	.medium({
+		width: 48%;
+		});
+	.small({
+		width: 100%;
+		});
+}
+.artist {
+	.hover-bg(@blue, 0.8);
+}
+.event {
+	.hover-bg(@dark-gray, 0.8);
+}
+.play {
+	font-size: 2rem;
+	margin: 10% auto;
+	color: white;
+	opacity: 0;
+}
+.set {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	span {
+		margin-right:auto;
+		padding: 5px 8px;
+		color:white;
+	}
+}
+.track {
+	.background(white, @dark-gray);
+	position: relative;
+	height: 30%;
+	p {
+		margin: auto auto auto 30%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		line-height: 1.5rem;
+		font-size: 0.8rem;
+	}
+}

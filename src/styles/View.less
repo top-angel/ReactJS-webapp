@@ -1,0 +1,14 @@
+.view {
+	.flex-column();
+	.flex();
+	position: relative;
+	top: @headerHeight + @tabsHeight;
+	padding-left: @navbarWidth;
+	width: 100%;
+	margin-bottom: @playerHeight;
+}
+
+.detail-view, .artists {
+	&:extend(.view);
+	top: @headerHeight;
+}

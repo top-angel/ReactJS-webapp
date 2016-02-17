@@ -1,0 +1,27 @@
+#Footer {
+	.flex-column;
+	position: relative;
+	.background(@dark-gray, white);
+	padding: 3rem;
+	z-index: 3;
+
+	.links, .social {
+		cursor: pointer;
+	}
+	.sponsors > * {
+		margin: auto;
+	}
+	ul {
+		padding: 0;
+		list-style-type: none;
+	}
+	li {
+		margin: 1rem 0;
+	}
+
+	.desktop({
+		.flex-row;
+		.social{.center;}
+		.sponsors {margin: 0 1rem;}
+	}, 500px);
+}

@@ -108,4 +108,4 @@ var LandingApp = React.createClass({
 	}
 });
 
-module.exports = LandingApp
+export default LandingApp

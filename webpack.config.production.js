@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 
 var buildPath = path.resolve(__dirname, 'public');
@@ -9,27 +10,15 @@ module.exports = {
 	entry: {
 		'setmine': mainPath
 	},
+	devtool: 'source-map',
 	output: {
 		path: buildPath,
 		filename: '/[name]-bundle.js',
-		pathinfo: true,
-		historyApiFallback: true
 	},
 	resolve: {
-		extensions: ['', '.jsx', '.es6', '.js', '.scss'],
+		extensions: ['', '.jsx', '.es6', '.js', '.less'],
 		moduleDirectories: ['node_modules']
 	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			template: 'src/index.html',
-			inject: 'body'
-		}),
-		new webpack.ProvidePlugin({
-			'Promise': 'exports?global.Promise!es6-promise',
-			'fetch': 'exports?self.fetch!whatwg-fetch'
-		})
-	],
-	devtool: 'source-map',
 	module: {
 		loaders: [
 			{
@@ -39,7 +28,23 @@ module.exports = {
 				query: {
 					presets: ['es2015', 'react']
 				}
+			},
+			{
+				test: /\.less$/,
+				exclude: /node_modules/,
+				loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!less')
 			}
 		]
-	}
+	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: 'src/index.html',
+			inject: 'body'
+		}),
+		new webpack.ProvidePlugin({
+			'Promise': 'exports?global.Promise!es6-promise',
+			'fetch': 'exports?self.fetch!whatwg-fetch'
+		}),
+		new ExtractTextPlugin('[name].css')
+	]
 };

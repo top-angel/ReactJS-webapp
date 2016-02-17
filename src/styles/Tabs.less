@@ -1,0 +1,44 @@
+#Tabs {
+	.colors(@light-gray, @dark-gray);
+	height: @tabsHeight;
+	width: 100%;
+	position: fixed;
+	top: @headerHeight;
+	z-index: 98;
+	a {
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		cursor: pointer;
+		&:hover {
+			background: @light-gray*0.95;
+			.transition(background);
+		}
+		&.active {
+			background: @light-gray*0.9;
+			border-bottom: solid 3px @blue;
+			.transition(border);
+		}
+	}
+	p {
+		margin: 3rem;
+	}
+}
+
+.tab-base {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	background: @light-gray;
+	height: @tabsHeight;
+}
+
+.tab {
+	&:extend(.tab-base);
+	color: @dark-gray;
+}
+
+.disabled-tab {
+	&:extend(.tab-base);
+	color: @gray;
+}

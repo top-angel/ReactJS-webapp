@@ -1,0 +1,27 @@
+#PlayerSeek {
+	height: 8px;
+	// background-color: @gray*0.8;
+	background: @light-gray;
+	position: relative;
+	cursor: pointer;
+
+	// progress bar that changes over time
+	.time-elapsed {
+		background-color: @blue;
+		height:100%;
+		width: 0;
+		.transition(0.1s);
+		position: relative;
+	}
+	
+	// dragable scrubber
+	.handle {
+		position: absolute;
+		top: -3px;
+		right: -6px;
+		.size(12px);
+		background: #fff;
+		.border-radius(50%);
+		z-index: 1;
+	}
+}

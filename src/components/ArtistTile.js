@@ -1,38 +1,32 @@
 import React from 'react';
 import {S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE} from '../constants/constants';
-import history from '../services/history'
+import history from '../services/history';
 
-var ArtistTile = React.createClass({
-
-	trackArtist() {
+const ArtistTile = ({artist, imageURL, setCount, eventCount}) => {
+	function openArtistPage() {
+		let route = artist.split(' ').join('_');
+		history.pushState(null, `/artist/${route}`);
 		mixpanel.track("Artist Clicked", {
-			"Artist": this.props.artist
+			"Artist": artist
 		});
-	},
-
-	openArtistPage() {
-		var routePath = this.props.artist.split(' ').join('_');
-		history.pushState(null, `/artist/${routePath}`);
-		this.trackArtist();
-	},
-
-	render() {
-		var image = {
-			backgroundImage: `url('${S3_ROOT_FOR_IMAGES+this.props.imageURL}')`
-		};
-		var setText = this.props.set_count > 1 ? 'sets' : 'set';
-		var eventText = this.props.event_count != 1 ? 'events' : 'event';
-		var artistInfo = `${this.props.set_count} ${setText} | ${this.props.event_count} ${eventText}`;
-
-		return (
-			<div className='artist-tile flex-column' onClick={this.openArtistPage} >
-				<img src={S3_ROOT_FOR_IMAGES+this.props.imageURL} />
-				<div className='center'>{this.props.artist}</div>
-				<p>{artistInfo}</p>
-			</div>
-		);
 	}
-	
-});
+
+	let image = { backgroundImage: `url('${S3_ROOT_FOR_IMAGES+imageURL}')` };
+	let setText = setCount > 1 ? 'sets' : 'set';
+	let eventText = eventCount != 1 ? 'events' : 'event';
+	let artistInfo = `${setCount} ${setText} | ${eventCount} ${eventText}`;
+
+	return (
+		<div className='artist-tile flex-column' onClick={openArtistPage} title={artist}>
+			<img src={S3_ROOT_FOR_IMAGES+imageURL} />
+			<h5>{artist}</h5>
+			<p>{artistInfo}</p>
+		</div>
+	);
+}
+
+ArtistTile.defaultProps = {
+	imageURL: DEFAULT_IMAGE
+};
 
 export default ArtistTile;

@@ -1,0 +1,66 @@
+.event-tile {
+	border: solid 1px @light-gray;
+	border-radius: 3px;
+	background-size: 100% 100%;
+	height: @tileHeight;
+	min-width: 360px;
+	width: 30%;
+
+	.body {
+		.colors(white, @dark-gray);
+		width: 70%;
+		margin-left: auto;
+	}
+	.event-info {
+		padding: 2rem;
+		justify-content: space-between;
+	}
+	.event, .venue-container {
+		.flexContainer(row, horizontal, nowrap);
+	}
+	.date, i {
+		color: @red;
+		width: 24px;
+		text-align: center;
+	}
+	// multiline ellipsis overflow
+	h5 {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		line-height: 3rem;     /* fallback */
+		max-height: 6rem;      /* fallback */
+		-webkit-line-clamp: 2; /* number of lines to show */
+		-webkit-box-orient: vertical;
+	}
+	h5, .venue {
+		margin-left: 2rem;
+		cursor: pointer;
+		line-height: 3rem;
+		.transition(color);
+		&:hover {
+			color: @blue;
+		}
+	}
+	.venue {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	button {
+		.colors(@blue, @white);
+		&:hover {
+			background: @blue*0.95;
+		}
+		&:active {
+			background: @blue*0.9;
+		}
+	}
+
+	.small({
+		width: 100%;
+	});
+	.medium({
+		width: 47%;
+	});
+}

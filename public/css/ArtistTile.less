@@ -1,0 +1,27 @@
+.artist-tile {
+	background-size: 100% 100%;
+	margin: 1vh;
+	text-align: center;
+	position: relative;
+	cursor: pointer;
+	line-height: 1.5rem;
+	.background(white, @dark-gray);
+	.size(15.5vw, 20vw);
+	.card(1);
+	img {
+		margin: 2rem auto;
+		.border-radius(50%);
+		.size(100px);
+	}
+	.small({
+		.size(50vw);
+		margin: 0;
+	});
+}
+
+.artist {
+	.background(@dark-gray, white);
+	.border-radius(5px);
+	margin: auto;
+	padding: 0 .5rem;
+}

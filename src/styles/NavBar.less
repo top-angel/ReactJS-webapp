@@ -1,0 +1,31 @@
+#NavBar {
+	background: @dark-gray;
+	color: @light-gray;
+	cursor: pointer;
+	width: @navbarWidth;
+	z-index: 100;
+	position: fixed;
+	top: @headerHeight;
+	.card(2);
+	a {
+		display: flex;
+		position: relative;
+		justify-content: center;
+		align-items: center;
+		height: @headerHeight;
+		.transition(border);
+		&:hover {
+			background: @dark-gray*0.9;
+			color: white;
+			.tooltip {
+				visibility: visible;
+				opacity: 1;
+			}
+		}
+		&.active {
+			background: @dark-gray*0.8;
+			color: @white;
+			border-left: solid 3px @blue;
+		}
+	}
+}

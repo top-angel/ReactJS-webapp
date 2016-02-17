@@ -1,37 +1,40 @@
-import React from 'react';
-import {Link} from 'react-router';
+import React, {Component, PropTypes} from 'react';
+import Link from 'react-router/lib/Link';
+import Icon from './FaIcon';
 import Footer from './Footer';
 
-var DMCA = React.createClass({
-
-	render: function() {
-		return (	
-			<div>
+export default class DMCA extends Component {
+	componentWillMount() {
+		this.context.push({ currentPage: 'DMCA Notice' });
+	}
+	render() {
+		return (
+			<div id='DMCA' className='detail-view'>
 				<div className='dmca-container'>
-					<Link to='/' className='flex-row'>
-						<i className='fa fa-chevron-left center'/>
-						<h3 className='center'>Back</h3>
+					<Link to='/home' className='flex-row'>
+						<Icon>chevron-left</Icon>
+						<h3 style={{margin: '2rem'}}>Back</h3>
 					</Link>
 					<div className="dmca-text">
 						<h1 id="dcmaHeader">Setmusic LLC's Copyright and Digital Millenium Copyright Act Compliance Policy</h1> 
 						<p>Setmusic LLC (dba "Setmine") values and respects the rights of artists.  We endeavor to comply with copyright laws, including the Digital Millenium Copyright Act (DMCA), and avoid the infringement of copyrights or other intellectual property rights through the operation of our services.  This page describes certain aspects of our services, and some of the procedures we have implemented to promote compliance with copyright laws.
 						</p>
 
-						<h2 className="dcmaHeadline">Our Services and Licenses</h2>
+						<h3 className="dcmaHeadline">Our Services and Licenses</h3>
 						<p>Setmusic LLC provides services enabling the streaming of recordings of live performances.  Streamed content is procured with authorization from publicly accessible external servers or uploaded to our systems directly by parties believed to be authorized to provide content on our service.
 						</p>
 
 						<p>Additionally, Setmusic LLC has obtained, and is operating under, interactive streaming licenses from the performing arts organizations ASCAP, BMI and SESAC.</p>  
 
-						<h2 >Remedy</h2> 
+						<h3 >Remedy</h3> 
 						<p>If any material provided by our services infringes on the copyright of any offended party, or if we reasonably come to believe that such material infringes, we may remove the content from our services (including the www.setmine.com web site and Setmine mobile apps)&nbsp;to prevent access to it, terminate or block access for those responsible for the content, and/or take any other action we deem appropriate. We may also pass along documentation relating to any infringement or allegation of infringement for documentation and/or publication by third parties at our discretion.
 						</p>
 
-						<h2>DMCA Compliance</h2>
+						<h3>DMCA Compliance</h3>
 						<p>The DMCA, as codified in 17 U.S.C. 512, limits Internet Service Provider liability for copyright infringement, solely for transmitting information across the Internet, provided that certain procedures are in place to remove or limit access to infringing material.  We have implemented the procedures described below in an effort to rapidly and appropriately respond to any concerns about copyright infringement resulting from the operation of our service.  We request that you utilize the below procedures to most efficiently and effectively address any concerns.
 						</p>
 
-						<h2>Notification</h2>
+						<h3>Notification</h3>
 						<p>Setmusic LLC has assigned a Designated Agent to receive notification of claimed copyright or intellectual property infringement.  For your convenience and to speed resolution, notice of alleged infringement may be tendered to Setmusic via email to contact@setmine.com.  Please note that you may be liable for statutory and common law damages, as well as court costs and attorney fees, if you falsely claim that your copyrights have been violated.&nbsp;Significant damages have been awarded for illegitimate complaints.  Should you have any questions regarding the basis for your complaint, we encourage you to seek the help of competent counsel.
 						</p>
 
@@ -46,15 +49,15 @@ var DMCA = React.createClass({
 							<li> 	Digitally sign your affirmation.</li>
 						</ol>
 
-						<h2 className="dcmaHeadline">Once Proper Infringement Notification is Received by the Designated Agent</h2>
-						It is Setmusic policy: 
+						<h3 className="dcmaHeadline">Once Proper Infringement Notification is Received by the Designated Agent</h3>
+						It is Setmusic's policy: 
 						<ol className="dcma-indent">
 							<li>to remove or disable access to the infringing material;</li>
 							<li>to notify the content provider, member or user that it has removed or disabled access to the material; and</li>
 							<li>that repeat offenders will have the infringing material removed from the system and that Company will terminate such content provider's, member's or user's access to the Services.</li>
 						</ol>
 
-						<h2 className="dcmaHeadline">Procedure to Supply a Counter-Notice to the Designated Agent</h2>
+						<h3 className="dcmaHeadline">Procedure to Supply a Counter-Notice to the Designated Agent</h3>
 						<p>If the content provider or user believes that the material that was removed (or to which access was disabled) is not infringing, or the content provider or user believes that it has the right to post and use the disputed material from the copyright owner, then the copyright owner's agent, the content provider, or user ("the Countering Party") must send a counter-notice containing the following information to the Designated Agent:
 						</p> 
 
@@ -71,11 +74,11 @@ var DMCA = React.createClass({
 						</p>
 					</div>
 				</div>
-				<Footer/>
 			</div>
 		);
 	}
+}
 
-});
-
-module.exports = DMCA;
+DMCA.contextTypes = {
+	push: PropTypes.func
+};

@@ -1,5 +1,5 @@
 import Q from 'q';
-import R from 'ramda';
+import R from 'ramda/dist/ramda.min';
 import SM2 from 'soundmanager2';
 import _ from 'underscore';
 
@@ -29,14 +29,10 @@ soundManager.setup({
 export function changeTrack(appState, push, starttime, currentTrack) {
 	var sound = appState.get('sound');
 	sound.setPosition(starttime);
-
 	push({
-		type: 'SHALLOW_MERGE',
-		data: {
-			currentTrack: currentTrack,
-			timeElapsed: starttime
-		}
-	});
+		currentTrack: currentTrack,
+		timeElapsed: starttime
+	})
 }
 
 // create SoundManager sound object from a set
@@ -52,7 +48,7 @@ export function generateSound(loadStart, appState, push) {
 
 	var songUrl = S3_ROOT + currentSet.songUrl;
 
-	var soundConf = {
+	var soundConfig = {
 		id: 'currentSound',
 		url: songUrl,
 		load: loadStart,
@@ -64,20 +60,17 @@ export function generateSound(loadStart, appState, push) {
 			var currentTime = sound.position;
 			// UPDATE CURRENT TRACK HERE
 			var tracklist = appState.get('tracklist');
-			// var currentTrack = updateCurrentTrack(sound, tracklist, push);
 			var currentTrack = _.debounce(updateCurrentTrack(sound, tracklist, push), 1000);
 
+			// count time
 			_.debounce(push({
-				type: 'SHALLOW_MERGE',
-				data: {
-					timeElapsed: currentTime
-				}
-			}), 1000);
+				timeElapsed: currentTime
+			}), 1000)
 		}
 	};
 
 	return smPromise.then(function() {
-		sound = soundManager.createSound(soundConf);
+		sound = soundManager.createSound(soundConfig);
 		sound.setPosition(loadStart);
 		soundManager.play('currentSound');
 		return sound;
@@ -109,56 +102,53 @@ export function playSet(setId, push, starttime = '00:00') {
 		var set = res.sets_id
 		var tracks = set.tracks
 
+		var setName = (set.episode.episode && set.episode.episode.length > 0) ? `${set.event.event} - ${set.episode.episode}` : set.event.event
+
 		// format artists for multiple artists
 		var artist = R.pluck('artist', set.artists).toString().split(',').join(', ')
 
 		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				currentSet: {
-					artist: artist,
-					event: set.event.event,
-					id: set.id,
-					setLength: set.set_length,
-					songUrl: set.songURL,
-					artistImage: set.artists[0].icon_image.imageURL,
-					starttime: starttime,
-				},
-				tracklist: tracks,
-				currentTrack: tracks[0].trackname,
-				playing: true
-			}
-		})
+			currentSet: {
+				artist: artist,
+				event: set.event.event,
+				setName: setName,
+				id: set.id,
+				setLength: set.set_length,
+				songUrl: set.songURL,
+				artistImage: set.artists[0].icon_image.imageURL,
+				starttime: starttime,
+			},
+			tracklist: tracks,
+			currentTrack: tracks[0].trackname,
+			playing: true,
+			playerHidden: false
+		});
 	})
 }
 
+// DEPRECATED
 //scrub to a new position after clicking progress bar
-export function scrub(position, appState, push) {
-	var sound = appState.get('sound');
-	var currentSet = appState.get('currentSet');
-	var timeElapsed = appState.get('timeElapsed');
+// export function scrub(position, appState, push) {
+// 	var sound = appState.get('sound');
+// 	var timeElapsed = appState.get('timeElapsed');
 
-	var setLength = sound.durationEstimate;
-	var multiplier = position / 100;// 70 -> 0.7
-	var newPosition = multiplier * setLength;
+// 	var setLength = sound.durationEstimate;
+// 	var newPosition = (position * setLength) / 100;
 
-	sound.setPosition(newPosition);
+// 	push({ timeElapsed: newPosition });
 
-	push({
-		type: 'SHALLOW_MERGE',
-		data: {
-			timeElapsed: newPosition
-		}
-	});
-}
+// 	// SHEEEEIT DAS IT MAYNE
+// 	// _.debounce(sound.setPosition(newPosition), 10000);
+// 	sound.setPosition(newPosition);
+// }
 
 // play/pause a set
 export function togglePlay(sound) {
 	if(sound.paused) {
-		console.log('playing')
+		// console.log('playing')
 		sound.play();
 	} else {
-		console.log('paused')
+		// console.log('paused')
 		sound.pause();
 	}
 }
@@ -168,8 +158,7 @@ export function updatePlayCount(setId, userId) {
 	api.post('sets/play', {
 		set_id: setId,
 		user_id: userId
-	})
-	.then(res => {
+	}).then(res => {
 		console.log('play count updated')
 	})
 }
@@ -187,10 +176,5 @@ export function updateCurrentTrack(sound, tracklist, push) {
 		return playing;
 	});
 
-	push({
-		type: 'SHALLOW_MERGE',
-		data: {
-			currentTrack: R.last(currentTrack).trackname
-		}
-	})
+	push({ currentTrack: R.last(currentTrack).trackname })
 }

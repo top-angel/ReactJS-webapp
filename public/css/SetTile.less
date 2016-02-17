@@ -1,0 +1,69 @@
+.set-tile {
+	@setImg: 72px;
+	.card(1);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	width:30%;
+	height: @tileHeight;
+	margin: 1rem;
+	img {
+		.size(@setImg, @setImg);
+		cursor: pointer;
+		background-color: white;
+		border-radius: 50%;
+		border: solid 3px @purple;
+		position: absolute;
+		top: -@setImg/2;
+		left: -(25%-@setImg)/10;
+		.small({
+			.size(10vh, 10vh);
+		});
+		.medium({
+			.size(60px, 60px);
+			top: -30px;
+		});
+    }
+	.small({
+    	width: 100%;
+    	margin: 2% 1.5%;
+    	font-size: 1.1rem;
+  	}, 619px);
+	.medium({
+		width: 47%;
+	}, 620px, 1050px);
+}
+.link {
+	&:hover {
+		color:@blue;
+		.transition(0.2s, ease-in, color);
+	}
+}
+.play {
+	cursor: pointer;
+	&:hover {
+		background-color: fade(@dark-gray, 100%);
+	}
+}
+.detail {
+	.background(fade(@dark-gray, 90%), white);
+	position: relative;
+	height: 55%;
+	margin-top: auto;
+	.set {
+		padding: 5px;
+		margin-left: 25%;
+		text-align: center;
+		font-size: 0.8rem;
+	}
+	.artist {
+		color: @gray;
+	}
+}
+.horizontal-divider {
+	.createDivider(96%, 1px, @gray);
+	.center;
+}
+.vertical-divider {
+	.createDivider(1px, 30px, @gray);
+}

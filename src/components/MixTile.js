@@ -2,19 +2,18 @@ import React from 'react';
 import {S3_ROOT_FOR_IMAGES} from '../constants/constants';
 import history from '../services/history';
 
-var MixTile = React.createClass({
-	displayName: 'Mix Tile',
-	openMixPage() {
-		history.pushState(null, '/mix/' + this.props.id);
-	},
-	render() {
-		return (
-			<div className='mix-tile flex-column click'onClick={this.openMixPage}>
-				<img src={S3_ROOT_FOR_IMAGES + this.props.iconImage}/>
-				<span className='mix center'>{this.props.event}</span>
-			</div>
-		);
+const MixTile = ({iconImage, event, id, setCount}) => {
+	const openMixPage = () => {
+		history.pushState(null, `/mix/${id}`);
 	}
-});
+	const sets = setCount != 1 ? 'sets' : 'set';
+	return (
+		<div className='mix-tile flex-column' onClick={openMixPage} title={event}>
+			<img src={S3_ROOT_FOR_IMAGES + iconImage}/>
+			<p>{event}</p>
+			<p>{`${setCount} ${sets}`}</p>
+		</div>
+	);
+}
 
-module.exports = MixTile;
+export default MixTile;

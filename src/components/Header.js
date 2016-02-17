@@ -1,34 +1,72 @@
-import React from 'react'
-import { Link } from 'react-router';
+import React, { PropTypes } from 'react';
+import Link from 'react-router/lib/Link';
+import Base from './Base';
 import SearchBar from './SearchBar';
+import IconMenu from './IconMenu';
+import Icon from './FaIcon';
+import LoginOverlay from './LoginOverlay';
 
-var Header = React.createClass({
+export default class Header extends Base {
+	constructor(props) {
+		super(props);
+		this.autoBind('toggleLogin');
+	}
+	toggleLogin() {
+		this.context.push({ showLogin: !this.props.showLogin });
+	}
+	trackAndroid() {
+		mixpanel.track("Android App Link Clicked");
+	}
+	trackIos() {
+		mixpanel.track("iOS App Link Clicked");
+	}
 	render() {
+		const {currentPage} = this.props;
+
 		return (
-			<header className='flex-row'>
-				<Link className='nav-button fa icon-setmine click center' to='/' onlyActiveOnIndex={true} />
-				<Link className='nav-button click flex flex-container' to='/user' activeClassName='active'>
-					<div className='center'>Home</div>
-				</Link>
-				<Link className='nav-button click flex flex-container' to='/sets' activeClassName='active'>
-					<div className='center'>Sets</div>
-				</Link>
-				<Link className='nav-button click flex flex-container' to='/events' activeClassName='active'>
-					<div className='center'>Events</div>
-				</Link>
-				<Link className='nav-button click flex flex-container' to='/artists' activeClassName='active'>
-					<div className='center'>Artists</div>
-				</Link>
-				{/*<Link className='nav-button click flex flex-container' to='/blog' activeClassName='active'>
-					<div className='center'>Blog</div>
-				</Link>*/}
-				<div className='buffer-4x'/>
-				<div className='flex-row flex-3x' style={{marginRight: '1vw'}}>
-					<SearchBar/>
+			<nav id='Header' className='flex-row'>
+				<Link to='/home' className='icon-setmine' />
+				<div className='flex-fixed' style={{ margin: '0 3rem' }}>
+					<h4>{currentPage}</h4>
 				</div>
-			</header>
+				<SearchBar />
+				<IconMenu icon={<Icon>ellipsis-h</Icon>}>
+					<Link to='/about'>
+						<p>About</p>
+					</Link>
+					<a href='http://bit.ly/SetmineiOS' title='view on App Store' className='click'>
+						<p>iOS</p>
+					</a>
+					<a href='http://bit.ly/SetmineAndroid' title='view on Google Play' className='click'>
+						<p>Android</p>
+					</a>
+					{/*<Link to='/setstory'>
+						<p>Setstory</p>
+					</Link>*/}
+					<Link to='/legal'>
+						<p>DMCA Notice</p>
+					</Link>
+				</IconMenu>
+				{/*this.context.loginStatus ? null : <Icon onClick={this.toggleLogin} style={{cursor: 'pointer'}}>user</Icon>*/}
+				{
+					this.context.loginStatus ? 
+						null :
+						<IconMenu icon={<Icon>user</Icon>}>
+							<p onClick={this.toggleLogin}>Login</p>
+						</IconMenu>
+				}
+			</nav>
 		);
 	}
-});
+}
+
+Header.contextTypes = {
+	push: PropTypes.func,
+	loginStatus: PropTypes.bool
+};
+
+Header.propTypes = {
+	currentPage: PropTypes.string.isRequired
+};
 
 export default Header;

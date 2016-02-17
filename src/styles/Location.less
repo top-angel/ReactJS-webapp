@@ -1,0 +1,73 @@
+@locationWidth: 36rem;
+
+#Location {
+	.background(white, @gray);
+	.card(1);
+	height: 48px;
+	width: @locationWidth;
+	margin: 3rem;
+	text-align: center;
+	font-size: @defaultFontSize;
+	line-height: @defaultFontSize*1.6;
+	i {
+		align-self: center;
+		margin: auto 2rem;
+	}
+}
+
+.geosuggest {
+	.flex();
+	display: flex;
+	font-size: inherit;
+	position: relative;
+	text-align: left;
+	outline: 0;
+}
+
+.geosuggest__input {
+	color: @dark-gray;
+	width: 100%;
+	border: 2px solid transparent;
+	font-size: 1.75rem;
+	font-family: @regular;
+}
+
+ul.geosuggest__suggests {
+	.background(white, @dark-gray);
+	.card(1);
+	width: @locationWidth;
+	position: absolute;
+	top: 100%;
+	right: 0;
+	padding: 0;
+	margin: 0;
+	border-top-width: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	list-style: none;
+	z-index: 5;
+}
+.geosuggest__suggests--hidden {
+	max-height: 0;
+	overflow: hidden;
+	border-width: 0;
+}
+
+/**
+ * A geosuggest item
+ */
+.geosuggest-item {
+	padding: 1rem;
+	cursor: pointer;
+	&:hover, &:focus {
+		background: @white;
+	}
+}
+
+.geosuggest-item--active {
+	background: @blue;
+	color: #fff;
+	&:hover, &:focus {
+		background-color: @white;
+	}
+}

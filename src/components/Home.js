@@ -1,41 +1,58 @@
 import React from 'react';
-import HomeSidebar from './HomeSidebar';
-import LoginOverlay from './LoginOverlay';
+import Base from './Base';
+import Nav from './Nav';
+import Link from 'react-router/lib/Link';
+import IndexLink from 'react-router/lib/IndexLink';
+import DisabledTab from './DisabledTab';
 
-const Home = React.createClass({
+const favoritesTooltip = 'Log in to start favoriting sets';
+const setsTooltip = 'Log in to see sets from artists you\'ve favorited';
+const eventsTooltip = 'Log in to see recommended events';
 
-	contextTypes: {
-		push: React.PropTypes.func,
-		user: React.PropTypes.object,
-		loginStatus: React.PropTypes.bool
-	},
-
+export default class Home extends Base {
+	constructor(props) {
+		super(props);
+		this.state = {
+			disabled: true
+		};
+	}
+	componentWillMount() {
+		const { push, loginStatus } = this.context;
+		push({ currentPage: 'Home' });
+		if(loginStatus) {
+			this.setState({ disabled: false });
+		}
+	}
+	componentWillReceiveProps(nextProps, nextContext) {
+		// console.log(this.context.loginStatus, nextContext.loginStatus);
+		if(nextContext.loginStatus) {
+			this.setState({ disabled: false });
+		}
+	}
 	componentDidMount() {
 		mixpanel.track("User Home Page Open");
-	},
-
-	showOverlay(loginStatus) {
-		if(!loginStatus) {
-			return <LoginOverlay />
-		}
-	},
-
+	}
 	render() {
 		return (
-			<div id='HomeView' className='flex-row'>
-				{this.showOverlay(this.context.loginStatus)}
-				<HomeSidebar user={this.context.user} />
+			<div className='view'>
+				<Nav>
+					<IndexLink to='/home'><p>STREAM</p></IndexLink>
+					{this.context.loginStatus ? <Link to='/home/favorites'><p>FAVORITES</p></Link> : <DisabledTab tooltip={favoritesTooltip}>FAVORITES</DisabledTab>}
+					{this.context.loginStatus ? <Link to='/home/sets'><p>SETS</p></Link> : <DisabledTab tooltip={setsTooltip}>SETS</DisabledTab>}
+					{this.context.loginStatus ? <Link to='/home/events'><p>EVENTS</p></Link> : <DisabledTab tooltip={eventsTooltip}>EVENTS</DisabledTab>}
+				</Nav>
 				{
 					React.cloneElement(this.props.children, {
-						className: 'flex-row flex-fixed-4x tile-container',
 						appState: this.props.appState
 					})
 				}
 			</div>
 		);
 	}
+}
 
-});
-
-
-export default Home;
+Home.contextTypes =  {
+	push: React.PropTypes.func,
+	user: React.PropTypes.object,
+	loginStatus: React.PropTypes.bool
+};

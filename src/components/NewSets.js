@@ -1,47 +1,57 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Loader from 'react-loader';
+import R from 'ramda/dist/ramda.min';
 import api from '../services/api';
+import Base from './Base';
 import SetContainer from './SetContainer';
 
-var NewSets = React.createClass({
-	displayName: 'Recommended Sets',
-	contextTypes: {
-		push: React.PropTypes.func,
-		user: React.PropTypes.object
-	},
-
-	getInitialState() {
-		return {
+export default class NewSets extends Base {
+	constructor(props) {
+		super(props);
+		this.autoBind('getNewSets');
+		this.state = {
 			loaded: false,
-			newSets: []
+			sets: [],
+			page: 1
 		};
-	},
-
-	componentDidMount() {
-		mixpanel.track("New Sets Page Open");
-	},
-
+	}
 	componentWillMount() {
-		this.getNewSets();
-	},
-
-	getNewSets() {
-		var userId = this.context.user.id
-		api.get(`setmineuser/${userId}/stream?filter=sets`).then(res => {
+		if(this.context.loginStatus) {
+			this.getNewSets(this.context.user.id);
+		}
+	}
+	componentWillReceiveProps(nextProps, nextContext) {
+		if(nextContext.loginStatus != this.context.loginStatus) {
+			// this.setState({ loaded: false });
+			this.getNewSets(nextContext.user.id); 
+		}
+	}
+	getNewSets(userId) {
+		api.get(`setmineuser/${userId}/stream?filter=sets`).then(payload => {
 			this.setState({
-				newSets: res.setmineuser_stream,
+				sets: payload.setmineuser_stream,
 				loaded: true
-			})
-		})
-	},
-
-	render() {
+			});
+		});
+	}
+	renderSets() {
 		return (
 			<Loader loaded={this.state.loaded}>
-				<SetContainer sets={this.state.newSets} />
+				<SetContainer sets={this.state.sets} />
 			</Loader>
 		);
 	}
-});
+	sortByDate(array) {
+		console.log(array);
 
-export default NewSets;
+	}
+	render() {
+		return this.renderSets();
+	}
+}
+
+NewSets.contextTypes = {
+	user: PropTypes.object,
+	push: PropTypes.func,
+	loginStatus: PropTypes.bool
+};

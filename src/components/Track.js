@@ -1,37 +1,35 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {changeTrack} from '../services/playerService';
 import {MMSSToMilliseconds} from '../services/convert';
+import Base from './Base';
 
-var Track = React.createClass({
-
-	contextTypes: {
-		push: React.PropTypes.func
-	},
-
-	getDefaultProps() {
-		return {
-			className: 'track flex',
-			starttime: 0,
-		};
-	},
-
+export default class Track extends Base {
+	constructor(props) {
+		super(props);
+		this.autoBind('changeTrack');
+	}
 	changeTrack() {
-		var {appState, trackname, starttime, className} = this.props;
-		var starttime = MMSSToMilliseconds(starttime);
+		let {appState, trackname, starttime} = this.props;
+		starttime = MMSSToMilliseconds(starttime);
 		changeTrack(appState, this.context.push, starttime, trackname);
-	},
-
+	}
 	render() {
-		var {trackname, starttime, className} = this.props;
+		const {trackname, starttime, style} = this.props;
 
 		return (
-			<div className={className} onClick={this.changeTrack} >
+			<p className='track' onClick={this.changeTrack} style={style}>
 				<span className='starttime'>{starttime}</span>
 				<span className='trackname'>{trackname}</span>
-			</div>
+			</p>
 		);
 	}
+}
 
-});
+Track.contextTypes = {
+	push: PropTypes.func
+};
 
-export default Track;
+Track.propTypes = {
+	starttime: PropTypes.string,
+	style: PropTypes.object
+};
