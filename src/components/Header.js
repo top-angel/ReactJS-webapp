@@ -6,10 +6,6 @@ import IconMenu from './IconMenu';
 import Icon from './FaIcon';
 import LoginOverlay from './LoginOverlay';
 
-// const trackAndroid = () => mixpanel.track("Android App Link Clicked");
-// const trackIos = () => mixpanel.track("iOS App Link Clicked");
-
-
 export default class Header extends Base {
 	constructor(props) {
 		super(props);
@@ -29,7 +25,7 @@ export default class Header extends Base {
 
 		return (
 			<nav id='Header' className='flex-row'>
-				<Link to='/' className='icon-setmine' />
+				<Link to='/home' className='icon-setmine' />
 				<div className='flex-fixed' style={{ margin: '0 3rem' }}>
 					<h4>{currentPage}</h4>
 				</div>

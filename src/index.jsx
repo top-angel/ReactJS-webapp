@@ -26,6 +26,7 @@ import EventDetail from './components/EventDetail';
 import Favorites from './components/Favorites';
 import Stream from './components/Stream';
 import NewEvents from './components/NewEvents';
+import NewSets from './components/NewSets';
 
 import Recent from './components/Recent';
 import Popular from './components/Popular';
@@ -69,8 +70,9 @@ render(
 			</Route>
 
 			<Route path='home' component={Home}>
-				<IndexRoute component={Stream}/>
+				<IndexRoute component={Recent}/>
 				<Route path='favorites' component={Favorites}/>
+				<Route path='sets' component={NewSets}/>
 				<Route path='events' component={NewEvents}/>
 			</Route>
 

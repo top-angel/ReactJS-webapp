@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 var autoprefixer = require('autoprefixer');
 
@@ -11,15 +11,18 @@ module.exports = {
 	entry: {
 		setmine: mainPath
 	},
+	devtool: 'cheap-module-eval-source-map',
+	devServer: {
+		contentBase: 'public/' // where webpack-dev-server should look for static files
+	},
 	output: {
 		path: buildPath,
-		filename: '[name]-bundle.js'
+		filename: '[name]-bundle.js' // name of output file
 	},
 	resolve: {
 		extensions: ['', '.jsx', '.es6', '.js', '.less'],
 		moduleDirectories: ['node_modules']
 	},
-	devtool: 'cheap-module-eval-source-map',
 	module: {
 		loaders: [
 			{

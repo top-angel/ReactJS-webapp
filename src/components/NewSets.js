@@ -4,11 +4,11 @@ import R from 'ramda/dist/ramda.min';
 import api from '../services/api';
 import Base from './Base';
 import SetContainer from './SetContainer';
-import Recent from './Recent';
 
-export default class Stream extends Base {
+export default class NewSets extends Base {
 	constructor(props) {
 		super(props);
+		this.autoBind('getNewSets');
 		this.state = {
 			loaded: false,
 			sets: [],
@@ -34,16 +34,7 @@ export default class Stream extends Base {
 			});
 		});
 	}
-	getRecentSets(page=this.state.page) {
-		api.get(`sets/recent?limit=48&page=${page}`).then(payload => {
-			// TODO merge recent sets with recommended
-		});
-	}
 	renderSets() {
-		if(!this.context.loginStatus) {
-			return <Recent />
-		}
-
 		return (
 			<Loader loaded={this.state.loaded}>
 				<SetContainer sets={this.state.sets} />
@@ -59,7 +50,7 @@ export default class Stream extends Base {
 	}
 }
 
-Stream.contextTypes = {
+NewSets.contextTypes = {
 	user: PropTypes.object,
 	push: PropTypes.func,
 	loginStatus: PropTypes.bool

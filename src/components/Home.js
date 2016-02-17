@@ -6,6 +6,7 @@ import IndexLink from 'react-router/lib/IndexLink';
 import DisabledTab from './DisabledTab';
 
 const favoritesTooltip = 'Log in to start favoriting sets!';
+const setsTooltip = 'Log in to see sets from artists you\'ve favorited';
 const eventsTooltip = 'Log in to see recommended events';
 
 export default class Home extends Base {
@@ -36,6 +37,7 @@ export default class Home extends Base {
 				<Nav>
 					<IndexLink to='/home'><p>STREAM</p></IndexLink>
 					{this.context.loginStatus ? <Link to='/home/favorites'><p>FAVORITES</p></Link> : <DisabledTab tooltip={favoritesTooltip}>FAVORITES</DisabledTab>}
+					{this.context.loginStatus ? <Link to='/home/sets'><p>SETS</p></Link> : <DisabledTab tooltip={setsTooltip}>SETS</DisabledTab>}
 					{this.context.loginStatus ? <Link to='/home/events'><p>EVENTS</p></Link> : <DisabledTab tooltip={eventsTooltip}>EVENTS</DisabledTab>}
 				</Nav>
 				{

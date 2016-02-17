@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Link from 'react-router/lib/Link';
 import Icon from './FaIcon';
 
@@ -11,7 +11,7 @@ const iconMargin = {
 const Footer = props => (
 	<footer id='Footer'>
 		<div className='links flex-column'>
-			<Link to='/about'>
+			{/*<Link to='/about'>
 				<p>About</p>
 			</Link>
 			<Link to='/legal'>
@@ -25,6 +25,9 @@ const Footer = props => (
 			</a>
 			<Link to='/setstory'>
 				<p>Setstory</p>
+			</Link>*/}
+			<Link to='/'>
+				<p>Back to Setmine</p>
 			</Link>
 			<div className='flex-row' style={{ marginTop: 'auto' }}>
 				<Icon style={iconMargin}>copyright</Icon>

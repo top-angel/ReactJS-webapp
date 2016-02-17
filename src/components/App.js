@@ -10,6 +10,7 @@ import {startFacebookSDK} from '../services/loginService';
 import {getFavorites} from '../services/favoriteSet';
 import detectMobileService from '../services/detectMobileService';
 import {DEFAULT_IMAGE} from '../constants/constants';
+import history from '../services/history';
 
 import {spring, presets} from 'react-motion';
 
@@ -58,6 +59,7 @@ let initialAppState = Immutable.Map({
 		upcomingEvents: [],
 		tracks: []
 	},
+	showNavbar: true,
 	showLogin: false,
 	snackbar: {
 		open: false,
@@ -110,6 +112,7 @@ export default class App extends Base {
 		};
 	}
 	componentWillMount() {
+		// history.pushState(null, '/home');
 		// initialize global appState and push fn
 		this.initializeApp();
 
@@ -151,8 +154,9 @@ export default class App extends Base {
 		let currentPage = appState.get('currentPage');
 		let snackbar = appState.get('snackbar');
 		let showLogin = appState.get('showLogin');
-		let pageWidth = ((window.innerWidth - 64) / window.innerWidth) * 100 + '%';
+		let showNavbar = appState.get('showNavbar');
 
+		let pageWidth = ((window.innerWidth - 64) / window.innerWidth) * 100 + '%';
 		let top = showLogin ? 0 : -100;
 		let opacity = showLogin ? 1 : 0;
 
@@ -165,7 +169,7 @@ export default class App extends Base {
 			<div id='App' className='flex-column'>
 				<DocMeta tags={tags} />
 				<Header currentPage={currentPage} showLogin={showLogin} />
-				<NavBar />
+				{showNavbar ? <NavBar /> : null}
 				{
 					React.cloneElement(this.props.children, {
 						appState: appState

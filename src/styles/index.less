@@ -7,18 +7,20 @@
 @import 'normalize';
 
 // components
-// @import 'About';
+@import 'About';
 @import 'ArtistTile';
 @import 'Avatar';
 @import 'DetailHeader';
 @import 'DetailButton';
+@import 'DMCA';
 @import 'Dropdown';
 @import 'EventTile';
+@import 'Error';
 @import 'FestivalTile';
 @import 'Footer';
 @import 'Header';
 @import 'IconMenu';
-@import 'LandingPage'; // TODO deprecate
+// @import 'LandingPage'; // deprecated
 @import 'Location';
 @import 'LoginOverlay';
 @import 'MixTile';
@@ -43,25 +45,3 @@
 @import 'Track';
 @import 'TrackTile';
 @import 'View';
-
-.dmca-container {
-	color: @dark-gray;
-	padding: 5vh;
-	line-height: 1.5rem;
-	ol ol {
-		list-style-type: lower-alpha;
-	}
-	.flex-row {
-		width: 6vw;
-	}
-}
-
-.error {
-	background: inherit;
-	color: @dark-gray!important;
-	margin: 0 auto;
-	text-align: center;
-	h4 {
-		margin-top: 0;
-	}
-}
