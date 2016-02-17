@@ -36,6 +36,7 @@ export default class PlayerControl extends Base {
 	}
 	togglePlay() {
 		const sound = this.props.appState.get('sound');
+		console.log(sound);
 		let playing = this.props.appState.get('playing');
 		this.context.push({ playing: !playing });
 		togglePlay(sound);

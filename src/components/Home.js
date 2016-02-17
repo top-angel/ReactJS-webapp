@@ -5,7 +5,7 @@ import Link from 'react-router/lib/Link';
 import IndexLink from 'react-router/lib/IndexLink';
 import DisabledTab from './DisabledTab';
 
-const favoritesTooltip = 'Log in to start favoriting sets!';
+const favoritesTooltip = 'Log in to start favoriting sets';
 const setsTooltip = 'Log in to see sets from artists you\'ve favorited';
 const eventsTooltip = 'Log in to see recommended events';
 
@@ -24,12 +24,13 @@ export default class Home extends Base {
 		}
 	}
 	componentWillReceiveProps(nextProps, nextContext) {
+		// console.log(this.context.loginStatus, nextContext.loginStatus);
 		if(nextContext.loginStatus) {
 			this.setState({ disabled: false });
 		}
 	}
 	componentDidMount() {
-		// mixpanel.track("User Home Page Open");
+		mixpanel.track("User Home Page Open");
 	}
 	render() {
 		return (

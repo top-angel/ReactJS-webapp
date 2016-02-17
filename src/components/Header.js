@@ -40,9 +40,9 @@ export default class Header extends Base {
 					<a href='http://bit.ly/SetmineAndroid' onClick={this.trackAndroid} title='view on Google Play'className='click'>
 						<p>Android</p>
 					</a>
-					<Link to='/setstory'>
+					{/*<Link to='/setstory'>
 						<p>Setstory</p>
-					</Link>
+					</Link>*/}
 					<Link to='/legal'>
 						<p>DMCA Notice</p>
 					</Link>

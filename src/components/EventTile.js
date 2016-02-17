@@ -38,11 +38,11 @@ export default class EventTile extends Base {
 								<h4>{day}</h4>
 								<p className='caption'>{month}</p>
 							</div>
-							<h5 onClick={this.openEventPage}>{this.props.event}</h5>
+							<h5 onClick={this.openEventPage} title={this.props.event}>{this.props.event}</h5>
 						</div>
-						<div className='flex-row'>
+						<div className='venue-container'>
 							<Icon>map-marker</Icon>
-							<p className='venue' onClick={this.openMapLink}>{this.props.venue}</p>
+							<p className='venue' onClick={this.openMapLink} title='Open in Google Maps'>{this.props.venue}</p>
 						</div>
 					</div>
 					<button onClick={this.openTicketLink}>TICKETS</button>

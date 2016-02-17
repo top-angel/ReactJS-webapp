@@ -12,12 +12,7 @@ export function favoriteSet(setId, userId, push) {
 		var favoriteSetIds = R.pluck('id', res.favorites.user.favorite_sets)
 
 		// store favorites in appState
-		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				favoriteSetIds: favoriteSetIds
-			}
-		})
+		push({ favoriteSetIds: favoriteSetIds });
 	})
 }
 

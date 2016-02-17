@@ -15,7 +15,7 @@ export default class Favorites extends Base {
 			favorites: []
 		};
 	}
-	componentDidMount() {
+	componentWillMount() {
 		const {loginStatus, push} = this.context;
 		if(loginStatus) {
 			this.getFavoriteSets(this.context.user.id);
@@ -36,14 +36,19 @@ export default class Favorites extends Base {
 			}
 
 			this.setState({
-				favorites: payload.setmineuser_stream,
-				loaded: true
+				favorites: payload.setmineuser_stream
 			});
+		}).then(() => {
+			this.setState({ loaded: true })
 		});
 	}
 	renderFavorites() {
 		if(this.state.favorites.length === 0) {
-			return <NoFavorites />
+			return (
+				<Loader loaded={this.state.loaded}>
+					<NoFavorites />
+				</Loader>
+			) 
 		}
 
 		return (

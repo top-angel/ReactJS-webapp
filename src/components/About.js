@@ -85,10 +85,8 @@ export default class About extends React.Component {
 						<div className='flex-row' style={{padding: '0 10vw'}}>
 							<div className='flex-column member'>
 								<img src='images/setmusic/profileJesus.jpg'/>
-								<p>
-									<h4>Jesus Najera</h4>
-									<p>Founder & CEO</p>
-								</p>
+								<h4>Jesus Najera</h4>
+								<p>Founder & CEO</p>
 							</div>
 							<div className='flex-column member'>
 								<img src='images/setmusic/profileOscar.jpg'/>

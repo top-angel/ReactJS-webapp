@@ -80,13 +80,18 @@ function registerFacebookUser(auth, push) {
 
 		// store setmine user in appState
 		push({
-			type: 'SHALLOW_MERGE',
-			data: {
-				isUserLoggedIn: true,
-				user: user,
-				favoriteSetIds: favoriteSetIds
-			}
-		})
+			loginStatus: true,
+			user: user,
+			favoriteSetIds: favoriteSetIds
+		});
+		// push({
+		// 	type: 'SHALLOW_MERGE',
+		// 	data: {
+		// 		loginStatus: true,
+		// 		user: user,
+		// 		favoriteSetIds: favoriteSetIds
+		// 	}
+		// })
 
 		//track user after logging in for the first time
 		mixpanel.identify(user.facebook_id);

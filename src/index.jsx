@@ -40,7 +40,7 @@ import ArtistTileContainer from './components/ArtistTileContainer';
 
 import DMCA from './components/DMCA';
 import Setmusic from './components/Setmusic';
-import SetstoryLandingPage from './components/SetstoryLandingPage';
+// import SetstoryLandingPage from './components/SetstoryLandingPage';
 import About from './components/About';
 
 // styling
@@ -103,7 +103,7 @@ render(
 			<Redirect from='/offer/:offerId' to='/' />
 
 			<Route path='about' component={About}/>
-			<Route path='setstory' component={SetstoryLandingPage}/>
+			{/*<Route path='setstory' component={SetstoryLandingPage}/>*/}
 		</Route>
 	</Router>
 , bodyMount);

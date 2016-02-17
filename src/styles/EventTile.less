@@ -15,13 +15,23 @@
 		padding: 2rem;
 		justify-content: space-between;
 	}
-	.event {
+	.event, .venue-container {
 		.flexContainer(row, horizontal, nowrap);
 	}
 	.date, i {
 		color: @red;
 		width: 24px;
 		text-align: center;
+	}
+	// multiline ellipsis overflow
+	h5 {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		line-height: 3rem;     /* fallback */
+		max-height: 6rem;      /* fallback */
+		-webkit-line-clamp: 2; /* number of lines to show */
+		-webkit-box-orient: vertical;
 	}
 	h5, .venue {
 		margin-left: 2rem;
@@ -31,6 +41,11 @@
 		&:hover {
 			color: @blue;
 		}
+	}
+	.venue {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	button {
 		.colors(@blue, @white);

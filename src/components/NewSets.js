@@ -22,7 +22,7 @@ export default class NewSets extends Base {
 	}
 	componentWillReceiveProps(nextProps, nextContext) {
 		if(nextContext.loginStatus != this.context.loginStatus) {
-			this.setState({ loaded: false });
+			// this.setState({ loaded: false });
 			this.getNewSets(nextContext.user.id); 
 		}
 	}

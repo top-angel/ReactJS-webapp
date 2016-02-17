@@ -1,5 +1,4 @@
 import Q from 'q';
-// import R from 'ramda';
 import R from 'ramda/dist/ramda.min';
 import SM2 from 'soundmanager2';
 import _ from 'underscore';

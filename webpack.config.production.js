@@ -32,7 +32,7 @@ module.exports = {
 			{
 				test: /\.less$/,
 				exclude: /node_modules/,
-				loader: ExtractTextPlugin.extract('style', 'css!less')
+				loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!less')
 			}
 		]
 	},

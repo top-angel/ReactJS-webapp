@@ -112,7 +112,6 @@ export default class App extends Base {
 		};
 	}
 	componentWillMount() {
-		// history.pushState(null, '/home');
 		// initialize global appState and push fn
 		this.initializeApp();
 
@@ -180,7 +179,6 @@ export default class App extends Base {
 					style={motionStyle}
 					visible={showLogin}
 					close={() => push({ showLogin: false })} />
-				<Player appState={appState} />
 				{playerHidden ? <div id='noplayer'/> : <Player appState={appState} />}
 			</div>
 		);

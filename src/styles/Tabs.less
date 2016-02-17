@@ -25,10 +25,20 @@
 	}
 }
 
-.disabled-tab {
+.tab-base {
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
+	background: @light-gray;
 	height: @tabsHeight;
+}
+
+.tab {
+	&:extend(.tab-base);
+	color: @dark-gray;
+}
+
+.disabled-tab {
+	&:extend(.tab-base);
 	color: @gray;
 }

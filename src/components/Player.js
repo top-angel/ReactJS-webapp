@@ -16,10 +16,28 @@ export default class Player extends Base {
 	}
 	componentDidMount() {
 		// TODO move hide player toggle to appState maybe
-		let sound = this.props.appState.get('sound');
-		if(sound.durationEstimate != 0) {
-			this.context.push({ playerHidden: false });
-		}
+		// let sound = this.props.appState.get('sound');
+		// if(sound.durationEstimate != 0) {
+		// 	this.context.push({ playerHidden: false });
+		// }
+		let appState = this.props.appState;
+		let starttime = appState.get('currentSet').starttime;
+
+		generateSound(starttime, appState, this.context.push).then(smObj => {
+			//play a new set
+			// console.log(smObj);
+
+			this.context.push({
+				sound: smObj,
+				playing: true,
+				playerHidden: false
+			});
+
+
+			// Log Mixpanel event
+			// let selectedSet = nextProps.appState.get('currentSet');
+			// mixpanelTrackSetPlay(selectedSet);
+		});
 	}
 	componentWillReceiveProps(nextProps) {
 		let appState = this.props.appState;
@@ -50,11 +68,11 @@ export default class Player extends Base {
 	render() {
 		let appState = this.props.appState;
 		let currentSet = appState.get('currentSet');
-		let hidePlayer = appState.get('playerHidden') ? 'hidden' : '';
+		// let hidePlayer = appState.get('playerHidden') ? 'hidden' : '';{`flex-row ${hidePlayer}`}
 		let favorited = this.checkIfFavorited(currentSet.id);
 
 		return (
-			<div id='Player' className={`flex-row ${hidePlayer}`}>
+			<div id='Player' className='flex-row'>
 				<PlayerControl appState={appState} />
 				<div className='flex-column flex'>
 					<PlayerSeek appState={appState} />

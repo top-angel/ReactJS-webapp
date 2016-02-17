@@ -5,7 +5,7 @@ import Icon from './FaIcon';
 const NoFavorites = () => {
 	return (
 		<div id='NoFavorites' className='flex-column'>
-			<img src='images/noFavorites.png' />
+			<img src='/images/noFavorites.png' />
 			<p>
 				Click the <Icon>star-o</Icon> to save your favorite sets. 
 				<br/>
