@@ -1,10 +1,10 @@
-import React, {PropTypes} from 'react'
-import R from 'ramda'
-import {checkIfFavorited} from '../services/favoriteSet'
+import React, {PropTypes} from 'react';
+import R from 'ramda';
+import {checkIfFavorited} from '../services/favoriteSet';
 
-import Base from './Base'
-import SetTile from './SetTile'
-import InfiniteScrollify from './InfiniteScrollify'
+import Base from './Base';
+import SetTile from './SetTile';
+import InfiniteScrollify from './InfiniteScrollify';
 
 class SetContainer extends Base {
 	constructor(props) {
@@ -28,9 +28,9 @@ class SetContainer extends Base {
 		var tiles = this.props.sets.map((set, index) => {
 			// check if each set is favorited
 			let favorited = this.context.loginStatus ? checkIfFavorited(set.id, this.context.favoriteSetIds) : false
-
 			// show episode on set tiles
 			var setName = (set.episode != undefined && R.keys(set.episode).length != 0) ? `${set.event.event} - ${set.episode.episode}` : set.event.event
+			var bannerImage = (set.icon_image && set.icon_image.imageURL) ? set.icon_image.imageURL : set.event.banner_image.imageURL;
 			
 			return React.createElement(SetTile, {
 				key: index,
@@ -44,7 +44,7 @@ class SetContainer extends Base {
 				artistImage: set.artists[0].icon_image.imageURL_small,
 				popularity: set.popularity,
 				songUrl: set.songURL,
-				bannerImage: set.event.banner_image.imageURL,
+				bannerImage: bannerImage,
 				favorited: favorited
 			})
 		})
@@ -73,4 +73,5 @@ SetContainer.propTypes = {
 	onScroll: PropTypes.func
 }
 
-export default InfiniteScrollify(SetContainer)
+
+export default InfiniteScrollify(SetContainer);

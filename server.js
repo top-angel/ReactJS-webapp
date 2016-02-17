@@ -1,3 +1,5 @@
+// require('es6-promise').polyfill();
+
 var express = require('express');
 var path = require('path');
 var fs = require('fs');
@@ -14,6 +16,10 @@ app.use(function( req, res, next ) {
         return;
     }
     next();
+});
+
+app.get('/setrecords', function( req, res ) {
+    res.redirect('https://setrecords.setmine.com');
 });
 
 app.get('*', function( req, res, next ) {

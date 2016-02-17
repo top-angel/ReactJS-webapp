@@ -8,11 +8,19 @@ export function favoriteSet(setId, userId, push) {
 		user_id: userId,
 		set_id: setId
 	}).then(res => {
+		// console.log(res);
 		// doesn't return from the server yet :(
-		var favoriteSetIds = R.pluck('id', res.favorites.user.favorite_sets)
+		let favoriteSetIds = R.pluck('id', res.favorites.user.favorite_sets)
 
 		// store favorites in appState
-		push({ favoriteSetIds: favoriteSetIds });
+		let msg = res.favorites.favorited_set.unfavorited ? 'Set removed from your favorites' : 'Set added to your favorites';
+		push({
+			favoriteSetIds: favoriteSetIds,
+			snackbar: {
+				open: true,
+				message: msg
+			}
+		});
 	})
 }
 

@@ -25,12 +25,6 @@ export default class SetShare extends Base {
 		}
 
 		favoriteSet(this.props.id, user.id, push);
-		this.context.push({
-			snackbar: {
-				open: true,
-				message: 'Set added to your favorites'
-			}
-		});
 	}
 	shareToFacebook() {
 		shareToFacebook(this.props.id, this.props.artistImage);
