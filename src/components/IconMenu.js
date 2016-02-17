@@ -19,6 +19,7 @@ export default class IconMenu extends Base {
 		});
 	}
 	toggleDropdown(e) {
+		console.log('toggleDropdown', e);
 		e.stopPropagation();
 		this.setState({ open: !this.state.open });
 	}
@@ -29,18 +30,9 @@ export default class IconMenu extends Base {
 	}
 	renderChildren() {
 		return React.Children.map(this.props.children, (child, index) => {
-			let onClick;
-			if(child.props.onClick) {
-				onClick = () => {
-					child.props.onClick();
-					this.toggleDropdown();
-				}
-			} else {
-				onClick = this.toggleDropdown; 
-			}
 			return React.cloneElement(child, {
 				key: index,
-				onClick: onClick
+				onClick: this.toggleDropdown
 			})
 		})
 	}

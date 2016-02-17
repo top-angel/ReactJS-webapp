@@ -34,10 +34,10 @@ export default class Header extends Base {
 					<Link to='/about'>
 						<p>About</p>
 					</Link>
-					<a href='http://bit.ly/SetmineiOS' onClick={this.trackIos} title='view on App Store' className='click'>
+					<a href='http://bit.ly/SetmineiOS' title='view on App Store' className='click'>
 						<p>iOS</p>
 					</a>
-					<a href='http://bit.ly/SetmineAndroid' onClick={this.trackAndroid} title='view on Google Play'className='click'>
+					<a href='http://bit.ly/SetmineAndroid' title='view on Google Play' className='click'>
 						<p>Android</p>
 					</a>
 					{/*<Link to='/setstory'>
@@ -47,9 +47,10 @@ export default class Header extends Base {
 						<p>DMCA Notice</p>
 					</Link>
 				</IconMenu>
-				<IconMenu icon={<Icon>user</Icon>}>
+				<Icon onClick={this.toggleLogin} style={{cursor: 'pointer'}}>user</Icon>
+				{/*<IconMenu icon={<Icon>user</Icon>}>
 					<p onClick={this.toggleLogin}>Login</p>
-				</IconMenu>
+				</IconMenu>*/}
 			</nav>
 		);
 	}

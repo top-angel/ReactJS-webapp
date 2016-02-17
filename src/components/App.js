@@ -177,8 +177,7 @@ export default class App extends Base {
 				<Notifications snackbar={snackbar} playerHidden={playerHidden} />
 				<LoginOverlay 
 					style={motionStyle}
-					visible={showLogin}
-					close={() => push({ showLogin: false })} />
+					visible={showLogin} />
 				{playerHidden ? <div id='noplayer'/> : <Player appState={appState} />}
 			</div>
 		);
