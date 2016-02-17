@@ -1,7 +1,8 @@
 import React, {PropTypes} from 'react';
+import IndexLink from 'react-router/lib/IndexLink';
+import Link from 'react-router/lib/Link';
 import Base from './Base';
-import Tabs from './Tabs';
-import Tab from './Tab';
+import Nav from './Nav';
 
 export default class SetsPage extends Base {
 	constructor(props) {
@@ -13,13 +14,20 @@ export default class SetsPage extends Base {
 	render() {
 		return (
 			<div className='view'>
-				{/*<Tabs tabs={tabs} />*/}
-				<Tabs>
-					<Tab to='/sets'>RECENT</Tab>
-					<Tab to='/sets/popular'>POPULAR</Tab>
-					<Tab to='/sets/festivals'>FESTIVALS</Tab>
-					<Tab to='/sets/mixes'>MIXES</Tab>
-				</Tabs>
+				<Nav>
+					<IndexLink to='/sets'>
+						<p>RECENT</p>
+					</IndexLink>
+					<Link to='/sets/popular'>
+						<p>POPULAR</p>
+					</Link>
+					<Link to='/sets/festivals'>
+						<p>FESTIVALS</p>
+					</Link>
+					<Link to='/sets/mixes'>
+						<p>MIXES</p>
+					</Link>
+				</Nav>
 				{
 					React.cloneElement(this.props.children, {
 						appState: this.props.appState

@@ -7,6 +7,7 @@
 @import 'normalize';
 
 // components
+// @import 'About';
 @import 'ArtistTile';
 @import 'Avatar';
 @import 'DetailHeader';
@@ -22,6 +23,7 @@
 @import 'LoginOverlay';
 @import 'MixTile';
 @import 'NavBar';
+@import 'NoFavorites';
 @import 'Notifications';
 @import 'Overlay';
 @import 'Player';
@@ -41,70 +43,6 @@
 @import 'Track';
 @import 'TrackTile';
 @import 'View';
-
-// to refactor
-
-.activity-tile {
-	margin: 2% 1.5%;
-	.card(1);
-	background-size: 100% 100%;
-	width: 22%;
-	height:25vh;
-	color: white;
-	position: relative;
-	.createOverlay(0.3);
-	.activity {
-		position: absolute;
-		font-family: @regular;
-		top: 45%;
-		left: 5%;
-	}
-    img {
-		.size(48px, 48px);
-		.border-radius(50%);
-		border: solid 2px white;
-		margin: 10px;
-    }
-	.info {
-		background-color: fade(@dark-gray, 60%);
-		text-align: center;
-		position: absolute;
-		bottom: 0;
-		width:100%;
-	}
-	.small({
-		height: 25vh;
-		width: 46%;
-		margin: 2%;
-		font-size: 1.5rem;
-		img {
-			.size(120px, 120px);
-		}
-	});
-	.medium({
-		width:46%;
-		margin: 2%;
-	});
-}
-
-#address {
-	outline: 0;
-	font-family: inherit;
-	border: none;
-	background-color: inherit;
-}
-
-#AlphabetScroller {
-	position: fixed;
-	width: 5%;
-	right:0;
-	top: @headerHeight;
-	height:80vh;
-	background-color: @green;//test
-	color: @dark-gray;
-	text-align: center;
-	z-index: 1;
-}
 
 .dmca-container {
 	color: @dark-gray;
@@ -126,11 +64,4 @@
 	h4 {
 		margin-top: 0;
 	}
-}
-
-
-
-.sandbox {
-	.background(@dank-blue, @dank-green);
-	display: flex;
 }

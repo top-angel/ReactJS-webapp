@@ -1,12 +1,9 @@
 import React, {PropTypes} from 'react';
 import Loader from 'react-loader';
-
 import Base from './Base';
-import Tabs from './Tabs';
-import Tab from './Tab';
-import FeaturedEvents from './FeaturedEvents';
-import Location from './Location';
-import EventContainer from './EventContainer';
+import IndexLink from 'react-router/lib/IndexLink';
+import Link from 'react-router/lib/Link';
+import Nav from './Nav';
 
 export default class EventsPage extends Base {
 	constructor(props) {
@@ -16,16 +13,22 @@ export default class EventsPage extends Base {
 		this.context.push({ currentPage: 'Events' });
 	}
 	componentDidMount() {
-		// mixpanel.track("Events Page Open");
+		mixpanel.track("Events Page Open");
 	}
 	render() {
 		return (
 			<div className='view'>
-				<Tabs>
-					<Tab to='/events'>UPCOMING</Tab>
-					<Tab to='/events/closest'>NEAR YOU</Tab>
-					<Tab to='/events/featured'>FEATURED</Tab>
-				</Tabs>
+				<Nav>
+					<IndexLink to='/events'>
+						<p>UPCOMING</p>
+					</IndexLink>
+					<Link to='/events/closest'>
+						<p>NEAR YOU</p>
+					</Link>
+					<Link to='/events/featured'>
+						<p>FEATURED</p>
+					</Link>
+				</Nav>
 				{
 					React.cloneElement(this.props.children, {
 						appState: this.props.appState

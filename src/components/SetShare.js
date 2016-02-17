@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react';
 import Base from './Base';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { Motion } from 'react-motion';
 import { favoriteSet } from '../services/favoriteSet';
 import { shareToFacebook, shareToTwitter } from '../services/share';
 
@@ -20,17 +19,18 @@ export default class SetShare extends Base {
 	}
 	favoriteSet() {
 		var {user, loginStatus, push} = this.context;
-		if(loginStatus) {
-			favoriteSet(this.props.id, user.id, push);
-			this.context.push({
-				snackbar: {
-					open: true,
-					message: 'Set added to your favorites'
-				}
-			});
-		} else {
-			history.pushState(null, '/home/favorites');
+		if(!loginStatus) {
+			push({ showLogin: true });
+			return;
 		}
+
+		favoriteSet(this.props.id, user.id, push);
+		this.context.push({
+			snackbar: {
+				open: true,
+				message: 'Set added to your favorites'
+			}
+		});
 	}
 	shareToFacebook() {
 		shareToFacebook(this.props.id, this.props.artistImage);

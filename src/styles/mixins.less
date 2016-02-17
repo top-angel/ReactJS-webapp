@@ -31,14 +31,18 @@
 	.transition(background);
 	background: @color;
 	cursor: pointer;
-	&:hover {background: @color*0.9}
-	&:active {background: @color*0.8}
+	&:hover {background: @color*@hover}
+	&:active {background: @color*@active}
 }
 .actionColor(@color, @hover: 0.9, @active:0.8) {
+	color: @color;
 	.transition(color);
 	cursor: pointer;
 	&:hover {
-		color: @color;
+		color: @color*@hover;
+	}
+	&:active {
+		color: @color*@active;
 	}
 }
 

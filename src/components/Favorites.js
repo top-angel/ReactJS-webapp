@@ -11,13 +11,16 @@ export default class Favorites extends Base {
 		super(props);
 		this.autoBind('getFavoriteSets', 'renderFavorites');
 		this.state = {
-			loaded	: false,
+			loaded: false,
 			favorites: []
 		};
 	}
 	componentDidMount() {
-		if(this.context.loginStatus) {
+		const {loginStatus, push} = this.context;
+		if(loginStatus) {
 			this.getFavoriteSets(this.context.user.id);
+		} else {
+			push({ showLogin: true });
 		}
 		mixpanel.track("Favorites Page Open");
 	}
@@ -29,9 +32,9 @@ export default class Favorites extends Base {
 	getFavoriteSets(userId) {
 		api.get(`setmineuser/${userId}/stream?filter=favorites`).then(payload =>{
 			if(payload.setmineuser_stream.length == 0) {
-				this.setState({ loaded: true });
 				return;
 			}
+
 			this.setState({
 				favorites: payload.setmineuser_stream,
 				loaded: true
@@ -43,14 +46,14 @@ export default class Favorites extends Base {
 			return <NoFavorites />
 		}
 
-		return <SetContainer sets={this.state.favorites} />
-	}
-	render() {
 		return (
 			<Loader loaded={this.state.loaded}>
-				{this.renderFavorites()}
+				<SetContainer sets={this.state.favorites} />
 			</Loader>
 		);
+	}
+	render() {
+		return this.renderFavorites();
 	}
 }
 

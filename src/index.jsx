@@ -52,7 +52,7 @@ import history from './services/history';
 render(
 	<Router history={history}>
 		<Route path='/' component={App}>
-			<IndexRoute component={LandingPage}/>
+			<IndexRoute component={LandingPage} />
 
 			<Route path='play/:set' component={SetsPage}>
 				<IndexRoute component={Recent}/>

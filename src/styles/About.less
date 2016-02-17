@@ -1,0 +1,127 @@
+#About {
+	font-family: @light;
+	margin-top: @headerHeight;
+	text-align: center;
+	color: @dark-gray;
+	h1 {
+		font-size: 3rem;
+		font-family: inherit;
+	}
+	h3 {
+		font-family: @bold;
+		margin: 0;
+	}
+	p {
+		margin: 1rem auto;
+	}
+	div.contact {
+		font-size: 1rem;
+		p {
+			margin: 0.5rem;
+		}
+		i {
+			margin: auto 1rem;
+		}
+	}
+	section {
+		width: 100%;
+		>* {
+			padding: 0 15vw
+		}
+		.small({
+			>* {padding:0 5vw}
+			});
+		&.main {
+			// height: @pageHeightWithoutPlayer;
+			color: @white;
+			background: url(../images/setmusic/mainImage.jpg) no-repeat;
+			background-size: 100% 100%;
+			background-position: 50%;
+			font-size: 2rem;
+			.small({background-size: 150% 100%});
+		}
+		&.mission {
+			h3 {
+				font-size: 1.5rem;
+			}
+			p {
+				margin: 0 auto 3rem;
+			}
+			a {
+				border: solid 2px;
+				color: @blue;
+				margin:  2rem auto 4rem;
+				padding: 0.5rem 0.75rem;
+				.border-radius(3px);
+				&:hover {
+					.transition(0.2s);
+					.background(@blue, @white);
+					border: solid @blue 2px;
+				}
+			}
+		}
+		&.image {
+			height: 60vh;
+			background: url(../images/setmusic/products.jpg);
+			background-position: 50%;
+			background-size: 100% 100%;
+			.small({background-size: 150% 100%});
+		}
+		&.goal {
+			color: @white;
+			height: 60vh;
+			background: url(../images/setmusic/world.jpg);
+			background-size: 100% 100%;
+			background-position: 50%;
+			.small({background-size: 150% 100%});
+			h2 {
+				font-size: 2.25rem;
+				line-height: 3rem;
+				.small({font-size: 1.35rem});
+			}
+		}
+		&.products {
+			background: @light-gray;
+			a {
+				font-size: 4rem;
+			}
+			img {
+				.size(100px);
+				margin: 0 auto;
+			}
+			p {
+				font-size: 1.125rem;
+				font-size: 1.5rem;
+				line-height: 2rem;
+				margin: 0 13%;
+			}
+			>div {
+				margin: auto;
+				padding: 0 5vw;
+				.flex-row;
+				.small({.flex-column}, 650px);
+				.product {
+					width: 50%;
+					.small({
+						width:100%; 
+						margin: 2rem 0
+					}, 650px);
+				}
+			}
+		}
+		&.team {
+			font-size: 1rem;
+			img {
+				margin: 0 auto;
+				.border-radius(50%);
+				.size(150px);
+			}
+			.member {
+				margin: auto;
+				width: 20%;
+				.small({width:30%},1000px);
+				.small({width:50%}, 700px);
+			}
+		}
+	}
+}

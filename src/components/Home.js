@@ -33,11 +33,6 @@ export default class Home extends Base {
 	render() {
 		return (
 			<div className='view'>
-				{/*<Tabs>
-					<Tab to='/home'>STREAM</Tab>
-					<Tab to='/home/favorites' disabled={this.state.disabled} disabledText='Log in to start favoriting sets!'>FAVORITES</Tab>
-					<Tab to='/home/events' disabled={this.state.disabled} disabledText='Log in to see recommended events!'>NEW EVENTS</Tab>
-				</Tabs>*/}
 				<Nav>
 					<IndexLink to='/home'><p>STREAM</p></IndexLink>
 					{this.context.loginStatus ? <Link to='/home/favorites'><p>FAVORITES</p></Link> : <DisabledTab tooltip={favoritesTooltip}>FAVORITES</DisabledTab>}

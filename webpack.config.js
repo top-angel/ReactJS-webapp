@@ -7,17 +7,13 @@ var autoprefixer = require('autoprefixer');
 var buildPath = path.resolve(__dirname, 'public');
 var mainPath = path.resolve(__dirname, 'src', 'index.jsx');
 
-// TODO get autoprefixer to work
-
 module.exports = {
 	entry: {
 		setmine: mainPath
 	},
 	output: {
 		path: buildPath,
-		filename: '[name]-bundle.js',
-		pathinfo: true,
-		historyApiFallback: true
+		filename: '[name]-bundle.js'
 	},
 	resolve: {
 		extensions: ['', '.jsx', '.es6', '.js', '.less'],

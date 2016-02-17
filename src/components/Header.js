@@ -6,8 +6,8 @@ import IconMenu from './IconMenu';
 import Icon from './FaIcon';
 import LoginOverlay from './LoginOverlay';
 
-const trackAndroid = () => mixpanel.track("Android App Link Clicked");
-const trackIos = () => mixpanel.track("iOS App Link Clicked");
+// const trackAndroid = () => mixpanel.track("Android App Link Clicked");
+// const trackIos = () => mixpanel.track("iOS App Link Clicked");
 
 
 export default class Header extends Base {
@@ -18,6 +18,12 @@ export default class Header extends Base {
 	toggleLogin() {
 		this.context.push({ showLogin: !this.props.showLogin });
 	}
+	trackAndroid() {
+		mixpanel.track("Android App Link Clicked");
+	}
+	trackIos() {
+		mixpanel.track("iOS App Link Clicked");
+	}
 	render() {
 		const {currentPage} = this.props;
 
@@ -25,17 +31,17 @@ export default class Header extends Base {
 			<nav id='Header' className='flex-row'>
 				<Link to='/' className='icon-setmine' />
 				<div className='flex-fixed' style={{ margin: '0 3rem' }}>
-					<h4 onClick={() => this.context.push({ loginStatus: true })}>{currentPage}</h4>
+					<h4>{currentPage}</h4>
 				</div>
 				<SearchBar />
 				<IconMenu icon={<Icon>ellipsis-h</Icon>}>
 					<Link to='/about'>
 						<p>About</p>
 					</Link>
-					<a href='http://bit.ly/SetmineiOS' onClick={trackIos} title='view on App Store' className='click'>
+					<a href='http://bit.ly/SetmineiOS' onClick={this.trackIos} title='view on App Store' className='click'>
 						<p>iOS</p>
 					</a>
-					<a href='http://bit.ly/SetmineAndroid' onClick={trackAndroid} title='view on Google Play'className='click'>
+					<a href='http://bit.ly/SetmineAndroid' onClick={this.trackAndroid} title='view on Google Play'className='click'>
 						<p>Android</p>
 					</a>
 					<Link to='/setstory'>

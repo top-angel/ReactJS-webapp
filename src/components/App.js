@@ -161,8 +161,6 @@ export default class App extends Base {
 			o: spring(opacity, {stiffness: 80, damping: 25, precision: 0.1})
 		};
 
-		console.log(showLogin)
-
 		return (
 			<div id='App' className='flex-column'>
 				<DocMeta tags={tags} />
@@ -174,14 +172,6 @@ export default class App extends Base {
 					})
 				}
 				<Notifications snackbar={snackbar} playerHidden={playerHidden} />
-				{
-					// showLogin ? 
-					// 	<LoginOverlay 
-					// 		style={motionStyle}
-					// 		visible={showLogin}
-					// 		close={() => push({ showLogin: false })} />
-					// 	: null
-				}
 				<LoginOverlay 
 					style={motionStyle}
 					visible={showLogin}
