@@ -18,18 +18,28 @@ app.use(function( req, res, next ) {
     next();
 });
 
+app.use(function( req, res, next ) {
+    var prop = req.path; 
+    if(prop.substring(prop.length-1) == '/') {
+        prop = prop.substring(0, prop.length-1);
+        res.redirect('http://localhost:3000' + prop);
+        return;
+    }
+    next();
+});
+
 app.get('/setrecords', function( req, res ) {
     res.redirect('https://setrecords.setmine.com');
 });
 
 app.get('*', function( req, res, next ) {
-
     // For facebook metatags, HTML is read first then the og url is inserted before sending it as the response
+    
 
     fs.readFile(__dirname + '/public/index.html', 'utf8', function(err, text) {
-        console.log(text.indexOf('</head>'));
         var ogurl = '<meta property=\"og:url\" content=\"https://setmine.com/metadata/' + encodeURIComponent(req.path.substring(1)) + '\">';
         var textWithOGUrl = text.replace('</head>',  ogurl + '</head>');
+        console.log(req.path);
         res.send(textWithOGUrl);
     });
 });
