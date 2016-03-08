@@ -77,24 +77,24 @@ export function generateSound(loadStart, appState, push) {
 	});
 }
 
-export function mixpanelTrackSetPlay(set) {
-	// Log Mixpanel event
-	var setName = set.artist+' - '+set.event;
+// export function mixpanelTrackSetPlay(set) {
+// 	// Log Mixpanel event
+// 	var setName = set.artist+' - '+set.event;
 
-	mixpanel.track("Set Play", {
-		"set_id": set.id,
-		"set_name": setName,
-		"set_artist": set.artist,
-		"set_event": set.event
-	});
+// 	mixpanel.track("Set Play", {
+// 		"set_id": set.id,
+// 		"set_name": setName,
+// 		"set_artist": set.artist,
+// 		"set_event": set.event
+// 	});
 
-	// mixpanel user tracking
-	mixpanel.people.increment("play_count");
-	mixpanel.people.append("sets_played_ids", set.set_id);
-	mixpanel.people.append("sets_played_names", setName);
-	mixpanel.people.append("sets_played_artists", set.artist);
-	mixpanel.people.append("sets_played_events", set.event);
-}
+// 	// mixpanel user tracking
+// 	mixpanel.people.increment("play_count");
+// 	mixpanel.people.append("sets_played_ids", set.set_id);
+// 	mixpanel.people.append("sets_played_names", setName);
+// 	mixpanel.people.append("sets_played_artists", set.artist);
+// 	mixpanel.people.append("sets_played_events", set.event);
+// }
 
 // fetch set by id and play set
 export function playSet(setId, push, starttime = '00:00') {

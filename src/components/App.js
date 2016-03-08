@@ -11,6 +11,7 @@ import {getFavorites} from '../services/favoriteSet';
 import detectMobileService from '../services/detectMobileService';
 import {DEFAULT_IMAGE} from '../constants/constants';
 import history from '../services/history';
+import {trackSetPlay} from '../services/mixpanelService';
 
 import {spring, presets} from 'react-motion';
 
@@ -28,6 +29,9 @@ let initialAppState = Immutable.Map({
 	closestEvents: [],
 	currentPage: 'Setmine',
 	currentSet: {
+		artist: null,
+		setName: null,
+		event: null,
 		setLength: '00:00',
 		starttime: '00:00',
 		id: null
@@ -88,11 +92,6 @@ const tags = [
 	{name: "google-site-verification", content: "T4hZD9xTwig_RvyoXaV9XQDYw5ksKEQywRkqaW-CGY4"}
 ];
 
-// const playerBuffer = {
-// 	width: '100%',
-// 	height: 112
-// };
-
 let evtHandler = GlobalEventHandler(initialAppState);
 let evtTypes = evtHandler.types;
 let pushFn = evtHandler.push;
@@ -124,8 +123,15 @@ export default class App extends Base {
 		// play set if specified in url
 		if(!!this.props.params.set) {
 			let setId = this.props.params.set;
+			let set = this.state.appState.get('currentSet');
 			playSet(setId, push);
 			updatePlayCount(setId, this.state.appState.get('user').id);
+			trackSetPlay(
+				currentSet.id,
+				currentSet.setName,
+				currentSet.artist,
+				currentSet.event
+			);
 		}
 	}
 	componentWillUpdate(nextProps, nextState) {
