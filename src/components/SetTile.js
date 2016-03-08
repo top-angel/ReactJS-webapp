@@ -3,6 +3,7 @@ import Base from './Base';
 import { API_ROOT, S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE } from '../constants/constants';
 import history from '../services/history';
 import {playSet, updatePlayCount} from '../services/playerService';
+import {trackSetPlay} from '../services/mixpanelService';
 
 import SetShare from './SetShare';
 
@@ -28,6 +29,7 @@ export default class SetTile extends Base {
 	playSet() {
 		playSet(this.props.id, this.context.push);
 		updatePlayCount(this.props.id, this.context.user.id);
+		trackSetPlay(this.props.id, this.props.setName, this.props.artist, this.props.event);
 	}
 	render() {
 		var eventImage = {
