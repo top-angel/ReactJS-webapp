@@ -123,7 +123,8 @@ export default class App extends Base {
 		// play set if specified in url
 		if(!!this.props.params.set) {
 			let setId = this.props.params.set;
-			let set = this.state.appState.get('currentSet');
+			let currentSet = this.state.appState.get('currentSet');
+
 			playSet(setId, push);
 			updatePlayCount(setId, this.state.appState.get('user').id);
 			trackSetPlay(
