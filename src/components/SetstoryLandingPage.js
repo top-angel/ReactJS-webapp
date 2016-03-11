@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Icon from './FaIcon';
 import Footer from './Footer';
 
@@ -27,7 +27,7 @@ var SetstoryLandingPage = React.createClass({
 					</div>
 					<div className='aquire flex'>
 						<div className='uv flex-column flex-fixed'>
-							<h1>Acquire new customers by parterning with musicians.</h1>
+							<h2 style={{margin:'2rem'}}>Acquire new customers by parterning with musicians.</h2>
 							<div className='flex-row setstory-apps center'>
 								<a href='https://itunes.apple.com/us/app/setstory/id1044445159?mt=8' className='fa fa-apple fa-fw center'/>
 								<a href='https://play.google.com/store/apps/details?id=com.setmine.setstory' className='fa fa-android fa-fw center'/>
@@ -39,44 +39,44 @@ var SetstoryLandingPage = React.createClass({
 
 				<section className='beacon flex-column'>
 					<img src='/images/setstory/beaconIcon.png'/>
-					<p>We built a beacon network that brings customers to you by allowing artists to lock new music in venues, bars, & retail locations.</p>
+					<h4 style={{width: '60%'}}>We built a beacon network that brings customers to you by allowing artists to lock new music in venues, bars, & retail locations.</h4>
 				</section>
 
-				<section id='model'>
-					<div className='flex-column'>
-						<h6>1</h6>
+				<section className='model'>
+					<div className='col-xs-3'>
+						<p className='caption'>1</p>
 						<img src='/images/setmusic/model-setrecords.png'/>
 						<p>Artist locks exclusive music to a beacon at a venue</p>
 					</div>
-					<div className='flex-column'>
-						<h6>2</h6>
+					<div className='col-xs-3'>
+						<p className='caption'>2</p>
 						<img src='/images/setmusic/model-setmine.png'/>
 						<p>Users discover upcoming events & offers</p>
 					</div>
-					<div className='flex-column'>
-						<h6>3</h6>
+					<div className='col-xs-3'>
+						<p className='caption'>3</p>
 						<img src='/images/setmusic/model-user.png'/>
-						<p> Users travel to venue & unlock content</p>
+						<p> Users travel to venue & unlock music</p>
 					</div>
-					<div className='flex-column'>
-						<h6>4</h6>
+					<div className='col-xs-3'>
+						<p className='caption'>4</p>
 						<img src='/images/setmusic/model-setstory.png'/>
 						<p>Venue pays per content unlock</p>
 					</div>
 				</section>
 
 				<section className='offer flex-column'>
-					<h1>ACTIVATE AN OFFER TO GET STARTED</h1>
+					<h4>ACTIVATE AN OFFER TO GET STARTED</h4>
 					<div className='text-container flex-row flex-fixed'>
 						<div className='text flex-column flex'>
 							<div className='custom flex-row'>
-								<h2>Custom Offer</h2>
+								<h4>Custom Offer</h4>
 								<p>Attract potential customers with an additional promotion or discount</p>
 							</div>
 						</div>
 						<div className='text flex-column flex'>
 							<div className='inbox flex-row'>
-								<h2>Inbox</h2>
+								<h4>Inbox</h4>
 								<p>You pay nothing until a customer unlocks an offer which you must approve beforehand</p>
 							</div>
 						</div>
@@ -84,7 +84,7 @@ var SetstoryLandingPage = React.createClass({
 				</section>
 
 				<section className='metrics flex-column'>
-					<h2>FULL TRANSPARENCY THROUGH INSIGHTFUL METRICS</h2>
+					<h3>FULL TRANSPARENCY THROUGH INSIGHTFUL METRICS</h3>
 					<div className='morty flex'>
 						<div className='metricsPic flex-fixed'/>
 						<section className='text-container flex-column'>
@@ -113,7 +113,7 @@ var SetstoryLandingPage = React.createClass({
 });
 
 SetstoryLandingPage.contextTypes = {
-	push: React.PropTypes.func
+	push: PropTypes.func
 };
 
 export default SetstoryLandingPage;

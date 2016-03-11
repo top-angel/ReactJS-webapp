@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import Geosuggest from 'react-geosuggest';
 import {Link} from 'react-router';
 import api from '../services/api';
-import history from '../services/history';
 import Base from './Base';
 import Icon from './FaIcon';
 
@@ -14,6 +13,8 @@ export default class Location extends Base {
 			lat: 25.7753,
 			lng: -80.2089
 		}
+	}
+	componentWillMount() {
 		navigator.geolocation.getCurrentPosition(this.getCurrentPosition);
 		this.getClosestEvents();
 	}
@@ -38,7 +39,7 @@ export default class Location extends Base {
 		});
 
 		this.getClosestEvents();
-		history.pushState(null, '/events/closest');
+		this.context.router.push('/events/closest');
 	}
 	render() {
 		return (
@@ -55,7 +56,8 @@ export default class Location extends Base {
 };
 
 Location.contextTypes = {
-	push: PropTypes.func
+	push: PropTypes.func,
+	router: PropTypes.object.isRequired
 };
 
 Location.propTypes = {

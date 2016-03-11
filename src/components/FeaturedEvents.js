@@ -12,6 +12,8 @@ export default class FeaturedEvents extends Base {
 			loaded: false,
 			events: []
 		};
+	}
+	componentWillMount() {
 		this.getFeaturedEvents();
 	}
 	getFeaturedEvents() {

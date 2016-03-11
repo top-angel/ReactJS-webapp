@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {Link} from 'react-router';
 import _ from 'underscore';
 import api from '../services/api';
-import history from '../services/history';
 import Base from './Base';
 
 export default class SearchBar extends Base {
@@ -51,7 +50,7 @@ export default class SearchBar extends Base {
 				}
 			});
 
-			history.pushState(null, '/search');
+			this.context.router.push('/search');
 		})
 	}
 	render() {
@@ -69,5 +68,6 @@ export default class SearchBar extends Base {
 }
 
 SearchBar.contextTypes = {
-	push: React.PropTypes.func
+	push: React.PropTypes.func,
+	router: React.PropTypes.object
 };

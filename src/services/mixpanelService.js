@@ -22,5 +22,13 @@ module.exports = {
 		mixpanel.people.append("sets_played_artists", setArtist);
 		mixpanel.people.append("sets_played_events", setEvent);
 		console.log('set play tracked on mixpanel');
+	},
+	trackTrackPlay(artist, track, setArtist, event) {
+		mixpanel.track("Track Played", {
+			"Track Artist": this.props.artistName,
+			"Track Name": this.props.trackName,
+			"Set Artist": this.props.artist,
+			"Event": this.props.event
+		});
 	}
 };

@@ -1,5 +1,5 @@
 #SetstoryLandingPage {
-	font-family: @light;
+	font-family: Avenir Light;
 	margin-top: @headerHeight;
 	width: 100%;
 	background-color: @white;
@@ -15,13 +15,13 @@
     	background-size: 100% 100%;
     	
     	.mainLogo {
-    		margin: 1rem;
+    		margin: 2rem;
     		img{
     			.size(40px, 40px);
     			margin: auto 0;
     		}
     		h2 {
-    			margin: auto 0;
+    			margin: auto 1rem;
     		}
 		}
 	 	.aquire {
@@ -37,30 +37,20 @@
 	 			width: 50%;
 	 			height: 100%;
 	 		}
-	 		h1 {
-	 			margin: 2rem;
-	 			font-size: 3rem;
-	 			letter-spacing: 0.2rem;
-	 		}
 			.setstory-apps {
 		 		color: white;
-		 		font-size: 6rem;
-		 		margin-top: 3rem;
+		 		font-size: 12rem;
+		 		margin-top: 6rem;
 		 		width: 50%;
 			}
 	   	}
 	   	.small({
 	   		.aquire {
 	   			.flex-column;
-	   			h1 {
-		   			font-size: 2rem;
-		   		}
 		   		.uv {
 		   			width: 100%;
 		   		}
 		   		.setstory-apps {
-
-		   			font-size: 3rem;
 		   			margin-top: 0;
 		   		}
 	   		}
@@ -76,12 +66,7 @@
 		width: 100%;
 		img {
 			.size(110px , 110px);
-			margin: 2rem;
-		}
-		p {
-			width: 60%;
-			font-size: 1.75rem;
-			line-height: 2.5rem;
+			margin: 4rem;
 		}
 		.small({
 			height: 100vh;
@@ -95,9 +80,8 @@
 		background-position: center;
     	height: 100vh;
     	color: white;
-		h1 {
-			margin: 3vmax;
-			font-size: 1.5rem;
+		h4 {
+			margin: 2rem;
 			letter-spacing: 2px;
 			font-family: @bold;
 		}
@@ -114,15 +98,10 @@
 	    			width: 50%;
 	    			.small({width:100%});
     			}
-    			h2 {
+    			h4 {
 	    			color: @blue;
 	    			font-family: @bold;
 	    			letter-spacing: 2px;
-	    		}
-	    		p {
-	    			font-size: 1.1rem;
-	    			line-height: 1.5rem;
-	    			margin: 0;
 	    		}
     		}
     		.custom {
@@ -152,8 +131,7 @@
 		height: 100vh;
 		width: 100%;
 		.colors(@light-gray, @dark-gray);
-		h2 {
-			font-family: Avenir Bold;
+		h3 {
 			text-align: center;
 			width: 100%;
 			margin: 3rem 0;
@@ -164,15 +142,15 @@
 			.metricsPic{
 				background: url('/images/setstory/metrics.png') no-repeat;
 				background-position: center 0%;
-				background-size: 70%;
+				background-size: 75%;
 			}
 			.text-container {
-				font-size: 1.5rem;
 				width: 60%;
 				justify-content: center;
 				.flex-fixed-2x;
     			.text {
-    				margin-bottom: 8%;
+    				align-items: center;
+    				margin-bottom: 8rem;
     			}
     			
     			img {
@@ -181,17 +159,15 @@
     			}
 
     			p {
-    				margin: 0;
-    				margin-left: 4%;
+    				margin-left: 4rem;
     				width: 60%;
-    				line-height: 2rem;
     			}
 			}
 		}
 		.small({
 			height: 180vh;
 			.morty {
-				.flexContainer(column-reverse, vertical-reverse);
+				.flexContainer(column-reverse);
 				.text-container {
 					width: 100%;
 					justify-content: initial;
@@ -205,29 +181,18 @@
 	}
 }
 
-#model {
+section.model {
 	.colors(@blue, @white);
-	.flexContainer(row, horizontal, wrap);
+	.flexContainer(row, wrap);
 	text-align: center;
-	font-size: 1rem;
 	img {
 		.size(80px, 80px);
-		margin: 5vh auto 2vh;
+		margin: 4rem auto 2rem;
 	}
-	>div {
-		position: relative;
-		width: 50vw;
-	}
-	h6 {
-		font-size: 1.5rem;
+	.caption {
 		margin: 0;
 		position: absolute;
-		top: 2vw;
-		left: 2vw;
+		top: 2rem;
+		left: 2rem;
 	}
-	.desktop({
-		>div {
-			width: 25vw;
-		}
-	});
 }

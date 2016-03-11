@@ -1,14 +1,93 @@
 // fonts
+@font-face {
+	font-family: Avenir Light;
+	src: url(/fonts/Avenir-Light.ttf);
+}
 
 @font-face {
-    font-family: Avenir Regular;
-    src: url(/fonts/AvenirNextLTPro-Regular.otf);
+	font-family: Avenir Roman;
+	src: url(/fonts/Avenir-Roman.ttf);
 }
+
 @font-face {
-    font-family: Avenir Light;
-    src: url(/fonts/DistProTh.otf);
+	font-family: Avenir Medium;
+	src: url(/fonts/Avenir-Medium.ttf);
 }
+
 @font-face {
-    font-family: Avenir Bold;
-    src: url(/fonts/AvenirNextLTPro-Demi.otf);
+	font-family: Avenir Heavy;
+	src: url(/fonts/Avenir-Heavy.ttf);
+}
+
+// material font sizing
+h1, h2, h3, h4, h5, h6, p {
+	margin: 0;
+}
+
+h1.banner {
+	font-size:112px;
+	font-weight:300;
+	letter-spacing:-5px;
+	line-height:128px;
+}
+// display 3
+h1 {
+	font-size: 56px;
+	font-weight: 400;
+	line-height: 64px;
+}
+// display 2
+h2 {
+	font-size: 45px;
+	font-weight: 400;
+	line-height: 64px;
+}
+// display 1
+h3 {
+	font-size: 34px;
+	font-weight: 400;
+	line-height: 52px;
+}
+// header
+h4 {
+	font-size: 24px;
+	font-weight: 400;
+	line-height: 39px;
+}
+// title
+h5 {
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 32px;
+}
+// button
+h6 {
+	font-size: 1.75rem;
+	font-family: Avenir Medium;
+	line-height: 2.8rem;
+}
+button {
+	overflow: visible;
+	background: none;
+	border: none;
+	height: 36px;
+	font-size: 1.75rem;
+	font-family: Avenir Medium;
+	letter-spacing: 1px;
+	// padding: 0;
+	padding: 0 1rem;
+	&:focus {
+		outline: 0;
+	}
+}
+// text
+p {
+	font-size: @defaultFontSize;
+	line-height: @defaultFontSize*1.6;
+	&.menu {
+		font-family: Avenir Heavy;
+	}
+	&.caption {
+		font-size: 1.5rem;
+	}
 }

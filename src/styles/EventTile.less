@@ -3,8 +3,6 @@
 	border-radius: 3px;
 	background-size: 100% 100%;
 	height: @tileHeight;
-	// min-width: 360px;
-	width: 30%;
 
 	.body {
 		.colors(white, @dark-gray);
@@ -16,7 +14,7 @@
 		justify-content: space-between;
 	}
 	.event, .venue-container {
-		.flexContainer(row, horizontal, nowrap);
+		.flexContainer(row, nowrap);
 	}
 	.date, i {
 		color: @red;
@@ -56,11 +54,4 @@
 			background: @blue*0.9;
 		}
 	}
-
-	.small({
-		width: 100%;
-	});
-	.medium({
-		width: 47%;
-	});
 }

@@ -1,15 +1,11 @@
 .track-tile {
 	@trackImg: 8rem;
-	border: solid 1px @light-gray;
 	background-size: 100% 100%;
 	background-position: center;
 	background-repeat: no-repeat;
-	border-radius: 3px;
 	height: @trackTile;
-	position: relative;
-	// min-width: 320px;
 	.createOverlay(0.4);
-	width: 23%;
+	.tileBorder();
 
 	header, p {
 		cursor: pointer;
@@ -54,12 +50,5 @@
 	.event {
 		.actionBackground(@dark-gray);
 	}
-	
-	.medium({
-		width: 48%;
-		});
-	.small({
-		width: 100%;
-		});
 }
 	

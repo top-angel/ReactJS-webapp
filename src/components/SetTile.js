@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Base from './Base';
 import { API_ROOT, S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE } from '../constants/constants';
-import history from '../services/history';
 import {playSet, updatePlayCount} from '../services/playerService';
 import {trackSetPlay} from '../services/mixpanelService';
 
 import SetShare from './SetShare';
+const {func, object, bool} = PropTypes;
+
 
 export default class SetTile extends Base {
 	constructor(props) {
@@ -14,16 +15,16 @@ export default class SetTile extends Base {
 	}
 	openArtistPage() {
 		var route = this.props.artist.split(' ').join('_');
-		history.pushState(null, `/artist/${route}`);
+		this.context.router.push(`/artist/${route}`);
 		mixpanel.track("Artist Clicked", {
 			"Artist": this.props.artist
 		});
 	}
 	openFestivalPage() {
 		if(this.props.isRadiomix) {
-			history.pushState(null, `/mix/${this.props.eventId}`);
+			this.context.router.push(`/mix/${this.props.eventId}`);
 		} else {
-			history.pushState(null, `/festival/${this.props.eventId}`);
+			this.context.router.push(`/festival/${this.props.eventId}`);
 		}
 	}
 	playSet() {
@@ -37,38 +38,40 @@ export default class SetTile extends Base {
 		};
 
 		return (
-			<div className='set-tile flex-column' style={eventImage} >
-				<div className='detail flex-column'>
-					<img src={S3_ROOT_FOR_IMAGES+this.props.artistImage} onClick={this.openArtistPage} />
+			<div className='col-xs-6 col-sm-4 col-xl-3'>
+				<div className='set-tile flex-column' style={eventImage}>
+					<div className='detail flex-column'>
+						<img src={S3_ROOT_FOR_IMAGES+this.props.artistImage} onClick={this.openArtistPage} />
 
-					<div className='set-info flex-column flex-fixed-2x'>
-						<p className='set' onClick={this.openFestivalPage}>{this.props.setName}</p> 
-						<p className='artist caption' onClick={this.openArtistPage}>{this.props.artist}</p>
-						<SetShare 
-							id={this.props.id} 
-							favorited={this.props.favorited} />
-					</div>
-
-					<div className='horizontal-divider center'/>
-
-					<div className='flex-row flex-fixed flex-row'>
-						<div className='play flex-fixed' onClick={this.playSet}>
-							<p>
-								<i className='fa fa-play' />
-								{this.props.popularity}
-							</p>
+						<div className='set-info flex-column flex-fixed-2x'>
+							<p className='set' onClick={this.openFestivalPage}>{this.props.setName}</p> 
+							<p className='artist caption' onClick={this.openArtistPage}>{this.props.artist}</p>
+							<SetShare 
+								id={this.props.id} 
+								favorited={this.props.favorited} />
 						</div>
 
-						<div className='vertical-divider'/>
+						<div className='horizontal-divider center'/>
 
-						<div className='time flex-fixed flex-row'>
-							<p>
-								<i className='fa fa-clock-o' />
-								{this.props.setLength}
-							</p>
+						<div className='flex-row flex-fixed flex-row'>
+							<div className='play flex-fixed' onClick={this.playSet}>
+								<p>
+									<i className='fa fa-play' />
+									{this.props.popularity}
+								</p>
+							</div>
+
+							<div className='vertical-divider'/>
+
+							<div className='time flex-fixed flex-row'>
+								<p>
+									<i className='fa fa-clock-o' />
+									{this.props.setLength}
+								</p>
+							</div>
 						</div>
-					</div>
 
+					</div>
 				</div>
 			</div>
 		);
@@ -76,9 +79,10 @@ export default class SetTile extends Base {
 }
 
 SetTile.contextTypes = {
-	push: React.PropTypes.func,
-	user: React.PropTypes.object,
-	loginStatus: React.PropTypes.bool
+	push: func,
+	user: object,
+	loginStatus: bool,
+	router: object
 };
 
 SetTile.defaultProps = {

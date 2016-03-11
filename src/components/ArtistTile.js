@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE} from '../constants/constants';
-import history from '../services/history';
 
-const ArtistTile = ({artist, imageURL, setCount, eventCount}) => {
+const ArtistTile = ({artist, imageURL, setCount, eventCount}, {router}) => {
 	function openArtistPage() {
 		let route = artist.split(' ').join('_');
-		history.pushState(null, `/artist/${route}`);
+		router.push(`/artist/${route}`);
 		mixpanel.track("Artist Clicked", {
 			"Artist": artist
 		});
@@ -17,13 +16,28 @@ const ArtistTile = ({artist, imageURL, setCount, eventCount}) => {
 	let artistInfo = `${setCount} ${setText} | ${eventCount} ${eventText}`;
 
 	return (
-		<div className='artist-tile flex-column' onClick={openArtistPage} title={artist}>
-			<img src={S3_ROOT_FOR_IMAGES+imageURL} />
-			<h5>{artist}</h5>
-			<p>{artistInfo}</p>
+		<div className='col-xs-6 col-sm-4 col-md-3 col-lg-2'>
+			<div className='artist-tile flex-column' onClick={openArtistPage} title={artist}>
+				<img src={S3_ROOT_FOR_IMAGES+imageURL} />
+				<h5>{artist}</h5>
+				<p>{artistInfo}</p>
+			</div>
 		</div>
 	);
 }
+
+const {object, string, number} = PropTypes;
+
+ArtistTile.contextTypes = {
+	router: object
+};
+
+ArtistTile.propTypes = {
+	artist: string,
+	imageURL: string,
+	setCount: number,
+	eventCount: number
+};
 
 ArtistTile.defaultProps = {
 	imageURL: DEFAULT_IMAGE

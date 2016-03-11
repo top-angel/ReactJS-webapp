@@ -4,7 +4,7 @@ import Icon from './FaIcon';
 
 import { S3_ROOT_FOR_IMAGES } from '../constants/constants';
 import { playSet, updatePlayCount } from '../services/playerService';
-import history from '../services/history';
+import {trackTrackPlay} from '../services/mixpanelService';
 
 export default class TrackTile extends Base {
 	constructor(props) {
@@ -14,7 +14,7 @@ export default class TrackTile extends Base {
 	openArtistPage(e) {
 		e.stopPropagation();
 		var routePath = this.props.artist.split(' ').join('_');
-		history.pushState(null, `/artist/${routePath}`);
+		this.context.router.push(`/artist/${routePath}`);
 		mixpanel.track("Artist Clicked", {
 			"Artist": this.props.artist
 		});
@@ -22,9 +22,9 @@ export default class TrackTile extends Base {
 	openFestivalPage(e) {
 		e.stopPropagation();
 		if(this.props.isRadiomix == 0) {
-			history.pushState(null, `/festival/${this.props.eventId}`);
+			this.context.router.push(`/festival/${this.props.eventId}`);
 		} else {
-			history.pushState(null, `/mix/${this.props.eventId}`);
+			this.context.router.push(`/mix/${this.props.eventId}`);
 		}
 	}
 	playSet() {
@@ -33,12 +33,12 @@ export default class TrackTile extends Base {
 		this.trackPlay();
 	}
 	trackPlay() {
-		mixpanel.track("Track Played", {
-			"Track Artist": this.props.artistName,
-			"Track Name": this.props.trackName,
-			"Set Artist": this.props.artist,
-			"Event": this.props.event
-		});
+		trackTrackPlay(
+			this.props.artistName,
+			this.props.trackName,
+			this.props.artist,
+			this.props.event
+		);
 	}
 	render() {
 		var image = {
@@ -48,40 +48,45 @@ export default class TrackTile extends Base {
 		var time = `${this.props.startTime} | ${this.props.setLength}`;
 
 		return (
-			<div className='track-tile flex-column' style={image}>
-			    <div className='track-info flex-row'>
-			    	<img src={S3_ROOT_FOR_IMAGES+this.props.artistImage} />
-			    	<header onClick={this.playSet}>
-			    		<h5>{this.props.trackName}</h5>
-			    		<p className='play'><Icon size={14}>play</Icon>{time}</p>
-			    	</header>
-			    </div>
-			    <div className='set-info flex-column'>
-					<p className='artist' onClick={this.openArtistPage}>{this.props.artist}</p>
-					<p className='event' onClick={this.openFestivalPage}>{this.props.event}</p>
+			<div className='col-xs-6 col-sm-4 col-md-3 col-xl-2'>
+				<div className='track-tile flex-column' style={image}>
+				    <div className='track-info flex-row'>
+				    	<img src={S3_ROOT_FOR_IMAGES+this.props.artistImage} />
+				    	<header onClick={this.playSet}>
+				    		<h5>{this.props.trackName}</h5>
+				    		<p className='play'><Icon size={14}>play</Icon>{time}</p>
+				    	</header>
+				    </div>
+				    <div className='set-info flex-column'>
+						<p className='artist' onClick={this.openArtistPage}>{this.props.artist}</p>
+						<p className='event' onClick={this.openFestivalPage}>{this.props.event}</p>
+					</div>
 				</div>
 			</div>
 		);
 	}
 }
 
+const {func, object, string, number} = PropTypes;
+
 TrackTile.contextTypes = {
-	push: React.PropTypes.func,
-	user: React.PropTypes.object
+	push: func,
+	user: object,
+	router: object
 };
 
 TrackTile.propTypes = {
-	songName: PropTypes.string,
-	artistName: PropTypes.string,
-	trackName: PropTypes.string,
-	id: PropTypes.number,
-	songUrl: PropTypes.string,
-	startTime: PropTypes.string,
-	setLength: PropTypes.string,
-	event: PropTypes.string,
-	artist: PropTypes.string,
-	isRadiomix: PropTypes.number,
-	eventId: PropTypes.number,
-	bannerImage: PropTypes.string,
-	artistImage: PropTypes.string
+	songName: string,
+	artistName: string,
+	trackName: string,
+	id: number,
+	songUrl: string,
+	startTime: string,
+	setLength: string,
+	event: string,
+	artist: string,
+	isRadiomix: number,
+	eventId: number,
+	bannerImage: string,
+	artistImage: string
 };

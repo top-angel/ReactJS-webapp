@@ -10,7 +10,6 @@ import {startFacebookSDK} from '../services/loginService';
 import {getFavorites} from '../services/favoriteSet';
 import detectMobileService from '../services/detectMobileService';
 import {DEFAULT_IMAGE} from '../constants/constants';
-import history from '../services/history';
 import {trackSetPlay} from '../services/mixpanelService';
 
 import {spring, presets} from 'react-motion';

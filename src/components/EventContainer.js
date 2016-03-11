@@ -1,6 +1,12 @@
 import React, {PropTypes, Component} from 'react';
 import EventTile from './EventTile';
-// import Base from './Base';
+
+const error = (
+	<div className='flex-column error'>
+		<h5>No Upcoming Events Found.</h5>
+		<p>Check back soon. We're Adding more every day!</p>
+	</div>
+);
 
 export default class EventContainer extends Component {
 	constructor(props) {
@@ -10,33 +16,23 @@ export default class EventContainer extends Component {
 		return nextProps.events != this.props.events;
 	}
 	render() {
-		let tiles;
-		if(this.props.events.length == 0) {
-			tiles = (
-				<div className='flex-column error'>
-					<h5>No Upcoming Events Found.</h5>
-					<p>Check back soon. We're Adding more every day!</p>
-				</div>
-			);
-		} else {
-			tiles = this.props.events.map((event, index) => {
-				return React.createElement(EventTile, {
-					test: event,
-					key: index,
-					id: event.id,
-					event: event.event,
-					startDate: event.start_date,
-					bannerImage: event.banner_image.imageURL,
-					ticketLink: event.ticket_link,
-					venue: event.venue.venue,
-					address: event.venue.address
-				});
+		const tiles = this.props.events.map((event, index) => {
+			return React.createElement(EventTile, {
+				test: event,
+				key: index,
+				id: event.id,
+				event: event.event,
+				startDate: event.start_date,
+				bannerImage: event.banner_image.imageURL,
+				ticketLink: event.ticket_link,
+				venue: event.venue.venue,
+				address: event.venue.address
 			});
-		}
+		});
 
 		return (
 			<div className='tile-container'>
-				{tiles}
+				{this.props.events.length == 0 ? error : tiles}
 			</div>
 		);
 	}

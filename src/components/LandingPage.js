@@ -1,5 +1,4 @@
-import React from 'react';
-import history from '../services/history';
+import React, {PropTypes} from 'react';
 // import LandingHome from './LandingHome';
 // import LandingApp from './LandingApp';
 // import LandingBeacon from './LandingBeacon';
@@ -14,7 +13,7 @@ import history from '../services/history';
 // }
 class LandingPage extends React.Component {
 	componentWillMount() {
-		history.pushState(null, '/home');
+		this.context.router.push('/home');
 	}
 	render() {
 		return (
@@ -23,6 +22,10 @@ class LandingPage extends React.Component {
 			</div>
 		);
 	}
+}
+
+LandingPage.contextTypes = {
+	router: PropTypes.object.isRequired
 }
 
 export default LandingPage;

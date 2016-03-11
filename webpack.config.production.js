@@ -3,8 +3,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 
-var buildPath = path.resolve(__dirname, 'public');
 var mainPath = path.resolve(__dirname, 'src', 'index.jsx');
+var buildPath = path.resolve(__dirname, 'public');
 
 module.exports = {
 	entry: {
@@ -16,18 +16,18 @@ module.exports = {
 		filename: '/[name]-bundle.js',
 	},
 	resolve: {
-		extensions: ['', '.jsx', '.es6', '.js', '.less'],
+		extensions: ['', '.jsx', '.js', '.less'],
 		moduleDirectories: ['node_modules']
 	},
 	module: {
 		loaders: [
 			{
-				test: /\.jsx?$/,
+				test: /\.(js|jsx)?$/,
 				loader: 'babel-loader',
-				exclude: /node_modules/,
-				query: {
-					presets: ['es2015', 'react']
-				}
+				include: [
+					path.resolve(__dirname, 'src')
+				],
+				exclude: /node_modules/
 			},
 			{
 				test: /\.less$/,
@@ -45,6 +45,9 @@ module.exports = {
 			'Promise': 'exports?global.Promise!es6-promise',
 			'fetch': 'exports?self.fetch!whatwg-fetch'
 		}),
-		new ExtractTextPlugin('[name].css')
+		new ExtractTextPlugin('/[name].css'),
+		new webpack.DefinePlugin({
+		  'process.env': {NODE_ENV: '"production"'}
+		})
 	]
 };
