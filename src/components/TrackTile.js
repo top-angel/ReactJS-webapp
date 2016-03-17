@@ -9,12 +9,12 @@ import {trackTrackPlay} from '../services/mixpanelService';
 export default class TrackTile extends Base {
 	constructor(props) {
 		super(props);
-		this.autoBind('openArtistPage', 'openFestivalPage', 'playSet', 'trackPlay');
+		this.autoBind('openArtistPage', 'openFestivalPage', 'playSet', 'trackPlay', 'renderArtists');
 	}
-	openArtistPage(e) {
+	openArtistPage(e, artist) {
 		e.stopPropagation();
-		var routePath = this.props.artist.split(' ').join('_');
-		this.context.router.push(`/artist/${routePath}`);
+		const artistRoute = artist.split(' ').join('_');
+		this.context.router.push(`/artist/${artistRoute}`);
 		mixpanel.track("Artist Clicked", {
 			"Artist": this.props.artist
 		});
@@ -40,6 +40,14 @@ export default class TrackTile extends Base {
 			this.props.event
 		);
 	}
+	renderArtists() {
+		return this.props.artists.map((artist, index) => {
+			if(index === this.props.artists.length - 1) {
+				return <span key={index} onClick={e => this.openArtistPage(e, artist.artist)}>{artist.artist}</span>
+			}
+			return <span key={index} onClick={e => this.openArtistPage(e, artist.artist)}>{`${artist.artist}, `}</span>
+		})
+	}
 	render() {
 		var image = {
 			backgroundImage: `url('${S3_ROOT_FOR_IMAGES+this.props.bannerImage}')`,
@@ -58,7 +66,7 @@ export default class TrackTile extends Base {
 				    	</header>
 				    </div>
 				    <div className='set-info flex-column'>
-						<p className='artist' onClick={this.openArtistPage}>{this.props.artist}</p>
+						<p className='artist'>{this.renderArtists()}</p>
 						<p className='event' onClick={this.openFestivalPage}>{this.props.event}</p>
 					</div>
 				</div>

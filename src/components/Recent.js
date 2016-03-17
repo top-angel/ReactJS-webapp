@@ -4,6 +4,7 @@ import Loader from 'react-loader';
 import api from '../services/api';
 import SetContainer from './SetContainer';
 import Spinner from './Spinner';
+import R from 'ramda';
 
 export default class Recent extends Base {
 	constructor(props) {
@@ -22,9 +23,10 @@ export default class Recent extends Base {
 		mixpanel.track("Sets Page Open");
 	}
 	getRecentSets(page=this.state.page) {
-		api.get(`sets/recent?limit=24&page=${page}`).then(payload => {
+		api.get(`sets/recent?limit=48&page=${page}`).then(payload => {
 			// merge sets to existing sets
 			let sets = this.state.sets.concat(payload.sets_recent);
+			sets = R.uniq(sets);
 
 			this.setState({
 				loaded: true,

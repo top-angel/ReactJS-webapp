@@ -4,6 +4,7 @@ import Loader from 'react-loader';
 import api from '../services/api';
 import SetContainer from './SetContainer';
 import Spinner from './Spinner';
+import R from 'ramda';
 
 export default class Popular extends Base {
 	constructor(props) {
@@ -22,10 +23,11 @@ export default class Popular extends Base {
 		mixpanel.track("Popular Sets Page Open");
 	}
 	getPopularSets(page=this.state.page) {
-		api.get(`sets/popular?limit=24&page=${page}`).then(res => {
+		api.get(`sets/popular?limit=48&page=${page}`).then(res => {
 			// merge new sets to existing
 			let sets = this.state.sets.concat(res.sets_popular);
-
+			sets = R.uniq(sets);
+			
 			this.setState({
 				loaded: true,
 				sets: sets,

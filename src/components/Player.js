@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
-import {generateSound, mixpanelTrackSetPlay} from '../services/playerService';
+import {generateSound} from '../services/playerService';
+import {trackSetPlay} from '../services/mixpanelService';
 import {checkIfFavorited} from '../services/favoriteSet';
 
 import Base from './Base';
@@ -12,55 +13,28 @@ import SetShare from './SetShare';
 export default class Player extends Base {
 	constructor(props) {
 		super(props);
-		this.autoBind('checkIfFavorited');
+		this.autoBind('checkIfFavorited', 'playSet');
 	}
 	componentDidMount() {
-		// TODO move hide player toggle to appState maybe
-		// let sound = this.props.appState.get('sound');
-		// if(sound.durationEstimate != 0) {
-		// 	this.context.push({ playerHidden: false });
-		// }
-		let appState = this.props.appState;
-		let starttime = appState.get('currentSet').starttime;
-
-		generateSound(starttime, appState, this.context.push).then(smObj => {
-			//play a new set
-			// console.log(smObj);
-
+		this.playSet(this.props.appState);
+	}
+	componentWillReceiveProps(nextProps) {
+		const appState = this.props.appState;
+		if(nextProps.appState.get('currentSet') != appState.get('currentSet')) {
+			this.playSet(nextProps.appState);
+		} 
+	}
+	playSet(appState) {
+		generateSound(appState, this.context.push).then(smObj => {
 			this.context.push({
 				sound: smObj,
 				playing: true,
 				playerHidden: false
 			});
 
-
 			// Log Mixpanel event
-			// let selectedSet = nextProps.appState.get('currentSet');
-			// mixpanelTrackSetPlay(selectedSet);
-		});
-	}
-	componentWillReceiveProps(nextProps) {
-		let appState = this.props.appState;
-
-		if(nextProps.appState.get('currentSet') != appState.get('currentSet')) {
-			let starttime = nextProps.appState.get('currentSet').starttime;
-
-			generateSound(starttime, nextProps.appState, this.context.push).then(smObj => {
-				//play a new set
-				// console.log(smObj);
-
-				this.context.push({
-					sound: smObj,
-					playing: true,
-					playerHidden: false
-				});
-
-
-				// Log Mixpanel event
-				// let selectedSet = nextProps.appState.get('currentSet');
-				// mixpanelTrackSetPlay(selectedSet);
-			});
-		} 
+			trackSetPlay(appState.get('currentSet'));
+		})
 	}
 	checkIfFavorited(setId) {
 		return this.context.loginStatus ? checkIfFavorited(setId, this.context.favoriteSetIds) : false;
@@ -68,11 +42,10 @@ export default class Player extends Base {
 	render() {
 		let appState = this.props.appState;
 		let currentSet = appState.get('currentSet');
-		// let hidePlayer = appState.get('playerHidden') ? 'hidden' : '';{`flex-row ${hidePlayer}`}
 		let favorited = this.checkIfFavorited(currentSet.id);
 
 		return (
-			<div id='Player' className='flex-row'>
+			<div id='Player' className='flex-row-nowrap'>
 				<PlayerControl appState={appState} />
 				<div className='flex-column flex'>
 					<PlayerSeek appState={appState} />

@@ -1,21 +1,26 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes, Component} from 'react';
 import Icon from './FaIcon';
 import Footer from './Footer';
 
-var SetstoryLandingPage = React.createClass({
-	componentDidMount: function() {
-		$(window).scrollTo(0,0);
+class SetstoryLandingPage extends Component {
+	constructor(props) {
+		super(props);
+	}
+	componentWillMount() {
 		this.context.push({
 			currentPage: 'Setstory',
 			showNavbar: false
 		});
+	}
+	componentDidMount() {
+		$(window).scrollTo(0,0);
 		mixpanel.track("Setstory About Page Open");
-	},
+	}
 	componentWillUnmount() {
 		this.context.push({
 			showNavbar: true
 		});
-	},
+	}
 	render() {
 		return (
 			<div id='SetstoryLandingPage'>	
@@ -110,7 +115,7 @@ var SetstoryLandingPage = React.createClass({
 			</div>	
 		);
 	}
-});
+}
 
 SetstoryLandingPage.contextTypes = {
 	push: PropTypes.func

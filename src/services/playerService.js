@@ -36,31 +36,65 @@ export function changeTrack(appState, push, starttime, currentTrack) {
 }
 
 // create SoundManager sound object from a set
-export function generateSound(loadStart, appState, push) {
-	var sound = appState.get('sound');
-	var currentSet = appState.get('currentSet');
-	loadStart = MMSSToMilliseconds(loadStart);
+// export function generateSound(starttime, appState, push) {
+// 	var sound = appState.get('sound');
+// 	var currentSet = appState.get('currentSet');
+// 	starttime = MMSSToMilliseconds(starttime);
 
-	//// XXX TODO MOVE THIS
+// 	if(sound != null) {
+// 		soundManager.destroySound('currentSound');
+// 	}
+
+// 	var songUrl = S3_ROOT + currentSet.songUrl;
+
+// 	var soundConfig = {
+// 		id: 'currentSound',
+// 		url: songUrl,
+// 		load: starttime,
+// 		onload: function() {
+// 			var totalTime = sound.durationEstimate;
+// 		},
+// 		// volume: 0, //comment out for production
+// 		whileplaying: function() {
+// 			var currentTime = sound.position;
+// 			// UPDATE CURRENT TRACK HERE
+// 			var tracklist = appState.get('tracklist');
+// 			var currentTrack = _.debounce(updateCurrentTrack(sound, tracklist, push), 1000);
+
+// 			// count time
+// 			_.debounce(push({
+// 				timeElapsed: currentTime
+// 			}), 1000)
+// 		}
+// 	};
+
+// 	return smPromise.then(function() {
+// 		sound = soundManager.createSound(soundConfig);
+// 		sound.setPosition(starttime);
+// 		soundManager.play('currentSound');
+// 		return sound;
+// 	});
+// }
+
+export function generateSound(appState, push) {
+	let sound = appState.get('sound');
 	if(sound != null) {
 		soundManager.destroySound('currentSound');
 	}
 
-	var songUrl = S3_ROOT + currentSet.songUrl;
+	const currentSet = appState.get('currentSet');
+	const starttime = MMSSToMilliseconds(currentSet.starttime);
+	const songUrl = S3_ROOT + currentSet.songUrl;
 
-	var soundConfig = {
+	const soundConfig = {
 		id: 'currentSound',
 		url: songUrl,
-		load: loadStart,
-		onload: function() {
-			var totalTime = sound.durationEstimate;
-		},
-		// volume: 0, //comment out for production
+		load: starttime,
 		whileplaying: function() {
-			var currentTime = sound.position;
+			const currentTime = sound.position;
 			// UPDATE CURRENT TRACK HERE
-			var tracklist = appState.get('tracklist');
-			var currentTrack = _.debounce(updateCurrentTrack(sound, tracklist, push), 1000);
+			const tracklist = appState.get('tracklist');
+			const currentTrack = _.debounce(updateCurrentTrack(sound, tracklist, push), 1000);
 
 			// count time
 			_.debounce(push({
@@ -69,32 +103,13 @@ export function generateSound(loadStart, appState, push) {
 		}
 	};
 
-	return smPromise.then(function() {
+	return smPromise.then(() => {
 		sound = soundManager.createSound(soundConfig);
-		sound.setPosition(loadStart);
+		sound.setPosition(starttime);
 		soundManager.play('currentSound');
 		return sound;
 	});
 }
-
-// export function mixpanelTrackSetPlay(set) {
-// 	// Log Mixpanel event
-// 	var setName = set.artist+' - '+set.event;
-
-// 	mixpanel.track("Set Play", {
-// 		"set_id": set.id,
-// 		"set_name": setName,
-// 		"set_artist": set.artist,
-// 		"set_event": set.event
-// 	});
-
-// 	// mixpanel user tracking
-// 	mixpanel.people.increment("play_count");
-// 	mixpanel.people.append("sets_played_ids", set.set_id);
-// 	mixpanel.people.append("sets_played_names", setName);
-// 	mixpanel.people.append("sets_played_artists", set.artist);
-// 	mixpanel.people.append("sets_played_events", set.event);
-// }
 
 // fetch set by id and play set
 export function playSet(setId, push, starttime = '00:00') {
@@ -125,22 +140,6 @@ export function playSet(setId, push, starttime = '00:00') {
 		});
 	})
 }
-
-// DEPRECATED
-//scrub to a new position after clicking progress bar
-// export function scrub(position, appState, push) {
-// 	var sound = appState.get('sound');
-// 	var timeElapsed = appState.get('timeElapsed');
-
-// 	var setLength = sound.durationEstimate;
-// 	var newPosition = (position * setLength) / 100;
-
-// 	push({ timeElapsed: newPosition });
-
-// 	// SHEEEEIT DAS IT MAYNE
-// 	// _.debounce(sound.setPosition(newPosition), 10000);
-// 	sound.setPosition(newPosition);
-// }
 
 // play/pause a set
 export function togglePlay(sound) {

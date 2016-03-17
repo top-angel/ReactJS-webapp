@@ -12,11 +12,6 @@ export default class PlayerSeek extends Base {
 			isSeeking: false
 		};
 	}
-	// shouldComponentUpdate(nextProps, nextState) {
-	// 	if(nextProps.appState.get('timeElapsed') != this.props.appState.get('timeElapsed')) {
-	// 		return true;
-	// 	}
-	// }
 	bindSeekMouseEvents() {
 		document.addEventListener('mousemove', this.scrub);
 		document.addEventListener('mouseup', this.handleSeekMouseUp);

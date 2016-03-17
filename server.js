@@ -10,6 +10,7 @@ var port = isProduction ? 80 : 3000;
 
 app.use(express.static(__dirname + '/public'));
 
+// deep linking
 app.use(function( req, res, next ) {
     for(var prop in req.query) {
         res.redirect('https://www.setmine.com/' + prop);
@@ -18,11 +19,12 @@ app.use(function( req, res, next ) {
     next();
 });
 
+// setmusic.co 
 app.use(function( req, res, next ) {
     var prop = req.path; 
     if(prop.substring(prop.length-1) == '/') {
         prop = prop.substring(0, prop.length-1);
-        res.redirect('http://localhost:3000' + prop);
+        res.redirect('https://www.setmine.com' + prop);
         return;
     }
     next();
@@ -34,8 +36,6 @@ app.get('/setrecords', function( req, res ) {
 
 app.get('*', function( req, res, next ) {
     // For facebook metatags, HTML is read first then the og url is inserted before sending it as the response
-    
-
     fs.readFile(__dirname + '/public/index.html', 'utf8', function(err, text) {
         var ogurl = '<meta property=\"og:url\" content=\"https://setmine.com/metadata/' + encodeURIComponent(req.path.substring(1)) + '\">';
         var textWithOGUrl = text.replace('</head>',  ogurl + '</head>');

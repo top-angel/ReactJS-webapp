@@ -7,7 +7,7 @@ import hashHistory from 'react-router/lib/hashHistory';
 import browserHistory from 'react-router/lib/browserHistory';
 
 const isProduction = process.env.NODE_ENV === 'production';
-console.log('isProduction', isProduction);
+// console.log('isProduction', isProduction);
 const history = isProduction ? browserHistory : hashHistory;
 
 // components

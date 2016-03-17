@@ -3,21 +3,46 @@ import Base from './Base';
 import { API_ROOT, S3_ROOT_FOR_IMAGES, DEFAULT_IMAGE } from '../constants/constants';
 import {playSet, updatePlayCount} from '../services/playerService';
 import {trackSetPlay} from '../services/mixpanelService';
-
 import SetShare from './SetShare';
-const {func, object, bool} = PropTypes;
 
+const {func, object, bool, number, string, array} = PropTypes;
+
+const propTypes = {
+	id: number,
+	eventId: number,
+	setName: string,
+	event: string,
+	isRadiomix: number,
+	artists: array,
+	popularity: number,
+	songUrl: string,
+	bannerImage: string,
+	favorited: bool
+};
+
+const contextTypes = {
+	push: func,
+	user: object,
+	loginStatus: bool,
+	router: object
+};
+
+const defaultProps = {
+	favorited: false,
+	artistImage: DEFAULT_IMAGE
+};
 
 export default class SetTile extends Base {
 	constructor(props) {
 		super(props);
 		this.autoBind('openArtistPage', 'openFestivalPage', 'playSet');
 	}
-	openArtistPage() {
-		var route = this.props.artist.split(' ').join('_');
+	openArtistPage(artist) {
+		let route = artist.split(' ').join('_');
 		this.context.router.push(`/artist/${route}`);
+
 		mixpanel.track("Artist Clicked", {
-			"Artist": this.props.artist
+			"Artist": artist
 		});
 	}
 	openFestivalPage() {
@@ -30,10 +55,18 @@ export default class SetTile extends Base {
 	playSet() {
 		playSet(this.props.id, this.context.push);
 		updatePlayCount(this.props.id, this.context.user.id);
-		trackSetPlay(this.props.id, this.props.setName, this.props.artist, this.props.event);
+	}
+	renderArtists() {
+		return this.props.artists.map((artist, index) => {
+			if(index === this.props.artists.length - 1) {
+				return <span className='artist' key={index} onClick={() => this.openArtistPage(artist.artist)}>{artist.artist}</span>
+			}
+			return <span className='artist' key={index} onClick={() => this.openArtistPage(artist.artist)}>{`${artist.artist}, `}</span>
+		})
 	}
 	render() {
-		var eventImage = {
+		const artistImage = this.props.artists[0].icon_image.imageURL_small;
+		const eventImage = {
 			backgroundImage: `url(${S3_ROOT_FOR_IMAGES+this.props.bannerImage})`
 		};
 
@@ -41,11 +74,13 @@ export default class SetTile extends Base {
 			<div className='col-xs-6 col-sm-4 col-xl-3'>
 				<div className='set-tile flex-column' style={eventImage}>
 					<div className='detail flex-column'>
-						<img src={S3_ROOT_FOR_IMAGES+this.props.artistImage} onClick={this.openArtistPage} />
+						<img src={S3_ROOT_FOR_IMAGES+artistImage} onClick={this.openArtistPage} />
 
 						<div className='set-info flex-column flex-fixed-2x'>
 							<p className='set' onClick={this.openFestivalPage}>{this.props.setName}</p> 
-							<p className='artist caption' onClick={this.openArtistPage}>{this.props.artist}</p>
+							<p className='caption'>
+								{this.renderArtists()}
+							</p>
 							<SetShare 
 								id={this.props.id} 
 								favorited={this.props.favorited} />
@@ -78,14 +113,5 @@ export default class SetTile extends Base {
 	}
 }
 
-SetTile.contextTypes = {
-	push: func,
-	user: object,
-	loginStatus: bool,
-	router: object
-};
-
-SetTile.defaultProps = {
-	favorited: false,
-	artistImage: DEFAULT_IMAGE
-};
+SetTile.contextTypes = contextTypes;
+SetTile.defaultProps = defaultProps;

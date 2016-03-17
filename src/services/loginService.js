@@ -42,7 +42,6 @@ function statusChangeCallback(response, push) {
 	switch(response.status) {
 		case 'connected':
 			// Logged into setmine and Facebook.
-			console.log(response.authResponse)
 			registerFacebookUser(response.authResponse.accessToken, push)
 			break
 		case 'not_authorized':

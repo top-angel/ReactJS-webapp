@@ -40,8 +40,7 @@ module.exports = {
 		loaders: [
 			{
 				test: /\.(js|jsx)?$/,
-				// loader: 'babel',
-				loaders: ['react-hot', 'babel'],
+				loaders: ['react-hot', 'babel'], // plugins & presets in .babelrc file
 				include: [
 					path.resolve(__dirname, 'src')
 				],

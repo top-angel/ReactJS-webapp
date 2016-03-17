@@ -23,7 +23,7 @@ export default class TrackContainer extends Component {
 							startTime: track.starttime,
 							setLength: track.set_length,
 							event: track.event.event,
-							artist: track.artists[0].artist,
+							artists: track.artists,
 							isRadiomix: track.is_radiomix,
 							eventId: track.event_id,
 							bannerImage: track.event.banner_image.imageURL,

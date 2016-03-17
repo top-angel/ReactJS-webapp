@@ -62,8 +62,8 @@ let initialAppState = Immutable.Map({
 		upcomingEvents: [],
 		tracks: []
 	},
-	showNavbar: true,
 	showLogin: false,
+	showNavbar: true,
 	snackbar: {
 		open: false,
 		message: ''
@@ -126,12 +126,7 @@ export default class App extends Base {
 
 			playSet(setId, push);
 			updatePlayCount(setId, this.state.appState.get('user').id);
-			trackSetPlay(
-				currentSet.id,
-				currentSet.setName,
-				currentSet.artist,
-				currentSet.event
-			);
+			trackSetPlay(currentSet);
 		}
 	}
 	componentWillUpdate(nextProps, nextState) {
@@ -160,15 +155,7 @@ export default class App extends Base {
 		let snackbar = appState.get('snackbar');
 		let showLogin = appState.get('showLogin');
 		let showNavbar = appState.get('showNavbar');
-
 		let pageWidth = ((window.innerWidth - 64) / window.innerWidth) * 100 + '%';
-		let top = showLogin ? 0 : -100;
-		let opacity = showLogin ? 1 : 0;
-
-		let motionStyle = {
-			y: spring(top, {stiffness: 120, damping: 14, precision: 0.1}),
-			o: spring(opacity, {stiffness: 80, damping: 25, precision: 0.1})
-		};
 
 		return (
 			<div id='App' className='flex-column'>
@@ -181,9 +168,7 @@ export default class App extends Base {
 					})
 				}
 				<Notifications snackbar={snackbar} playerHidden={playerHidden} />
-				<LoginOverlay 
-					style={motionStyle}
-					visible={showLogin} />
+				<LoginOverlay open={showLogin} />
 				{playerHidden ? <div id='noplayer'/> : <Player appState={appState} />}
 			</div>
 		);

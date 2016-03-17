@@ -18,7 +18,7 @@ export default class Home extends Base {
 	}
 	componentWillMount() {
 		const { push, loginStatus } = this.context;
-		push({ currentPage: 'Home' });
+		push({ currentPage: 'Setmine' });
 		if(loginStatus) {
 			this.setState({ disabled: false });
 		}

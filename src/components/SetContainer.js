@@ -11,37 +11,34 @@ class SetContainer extends Base {
 		super(props)
 	}
 	shouldComponentUpdate(nextProps, nextState, nextContext) {
-		var oldFav = this.context.favoriteSetIds
-		var newFav = nextContext.favoriteSetIds
-		// only update if fetching new sets from api or user favorites a set
 		switch(true) {
 			case nextProps.sets != this.props.sets:
-				return true
-			case newFav != oldFav:
-				return true
+				return true;
+			case nextContext.favoriteSetIds != this.context.favoriteSetIds:
+				return true;
 			default:
-				return false
-				break
+				return false;
+				break;
 		}
 	}
 	render() {
 		var tiles = this.props.sets.map((set, index) => {
 			// check if each set is favorited
-			let favorited = this.context.loginStatus ? checkIfFavorited(set.id, this.context.favoriteSetIds) : false
+			const favorited = this.context.loginStatus ? checkIfFavorited(set.id, this.context.favoriteSetIds) : false;
+
 			// show episode on set tiles
-			var setName = (set.episode != undefined && R.keys(set.episode).length != 0) ? `${set.event.event} - ${set.episode.episode}` : set.event.event
-			var bannerImage = (set.icon_image && set.icon_image.imageURL) ? set.icon_image.imageURL : set.event.banner_image.imageURL;
-			
+			const setName = (set.episode != undefined && R.keys(set.episode).length != 0) ? `${set.event.event} - ${set.episode.episode}` : set.event.event;
+			const bannerImage = (set.icon_image && set.icon_image.imageURL) ? set.icon_image.imageURL : set.event.banner_image.imageURL;
+
 			return React.createElement(SetTile, {
 				key: index,
 				id: set.id,
+				setName: setName,
+				artists: set.artists,
+				event: set.event.event,
 				eventId: set.event_id,
 				isRadiomix: set.event.is_radiomix,
 				setLength: set.set_length,
-				artist: set.artists[0].artist,
-				event: set.event.event,
-				setName: setName,
-				artistImage: set.artists[0].icon_image.imageURL_small,
 				popularity: set.popularity,
 				songUrl: set.songURL,
 				bannerImage: bannerImage,
@@ -72,6 +69,5 @@ SetContainer.propTypes = {
 	sets: PropTypes.array.isRequired,
 	onScroll: PropTypes.func
 }
-
 
 export default InfiniteScrollify(SetContainer);
