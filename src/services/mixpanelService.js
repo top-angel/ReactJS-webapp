@@ -16,7 +16,7 @@ export function trackSetPlay(set) {
 			set_name: set.setName,
 			set_artist: set.artist,
 			set_event: set.event
-		})
+		});
 
 		// mixpanel user tracking
 		mixpanel.people.increment("play_count");
