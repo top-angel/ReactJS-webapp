@@ -62,7 +62,11 @@ export default class EventDetail extends Base {
 						<h3>{this.state.event}</h3>
 						<p>{this.state.date}</p>
 						<p title='Open in Google Maps' className='link' onClick={this.openMapLink}>{this.state.venue}</p>
-						<p id='DetailButton' onClick={this.openTicketLink}>TICKETS</p>
+						{this.state.ticketLink != null ? 
+							<p id='DetailButton' onClick={this.openTicketLink}>TICKETS</p>
+							:
+							null
+						}
 					</DetailHeader>
 					<div className='tab'>
 						<p>LINEUP</p>
