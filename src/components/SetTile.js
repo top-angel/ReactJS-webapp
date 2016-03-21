@@ -74,7 +74,7 @@ export default class SetTile extends Base {
 			<div className='col-xs-6 col-sm-4 col-xl-3'>
 				<div className='set-tile flex-column' style={eventImage}>
 					<div className='detail flex-column'>
-						<img src={S3_ROOT_FOR_IMAGES+artistImage} onClick={this.openArtistPage} />
+						<img src={S3_ROOT_FOR_IMAGES+artistImage} />
 
 						<div className='set-info flex-column flex-fixed-2x'>
 							<p className='set' onClick={this.openFestivalPage}>{this.props.setName}</p> 
