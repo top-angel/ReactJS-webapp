@@ -13,19 +13,6 @@
 // .fa-youtube:hover{color:@youtube-red;}
 // .fa-globe:hover{color:@purple;}
 
-// deprecated use actionbackground
-.active(@color, @multiplier: 0.8) {
-	color: @color;
-	&:active {
-		color: @color*@multiplier;
-	}
-}
-.active-bg(@color, @multiplier: 0.8) {
-		background-color: @color;
-	&:active {
-		background-color: @color*@multiplier;
-	}
-}
 
 .actionBackground(@color, @hover: 0.9, @active:0.8) {
 	.transition(background);
@@ -51,13 +38,10 @@
 	animation-duration: @time!important;
 	animation-delay: @delay!important;
 }
-// deprecated TODO refactor
-.background(@color, @textColor) {
-	background-color:@color;
-	color:@textColor;
-}
+
 .colors(@background, @text) {
-	.background(@background, @text)
+	background: @background;
+	color: @text;
 }
 .border-radius(@radius) {
 	-webkit-border-radius: @radius;

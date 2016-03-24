@@ -53,7 +53,7 @@ let initialAppState = Immutable.Map({
 	},
 	favorites: [],
 	favoriteSetIds: [],
-	loginStatus: false,
+	loginStatus: true,
 	playerHidden: true,
 	playing: false,
 	searchResults: {
