@@ -10,7 +10,6 @@ const ArtistTile = ({artist, imageURL, setCount, eventCount}, {router}) => {
 		});
 	}
 
-	let image = { backgroundImage: `url('${S3_ROOT_FOR_IMAGES+imageURL}')` };
 	let setText = setCount > 1 ? 'sets' : 'set';
 	let eventText = eventCount != 1 ? 'events' : 'event';
 	let artistInfo = `${setCount} ${setText} | ${eventCount} ${eventText}`;

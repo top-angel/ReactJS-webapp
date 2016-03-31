@@ -19,4 +19,6 @@ const LandingBeacon = () => {
 	)
 }
 
+// Unlock FREE exclusive music by walking to select retailers PLUS store discounts!
+
 export default LandingBeacon

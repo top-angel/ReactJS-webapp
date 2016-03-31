@@ -5,7 +5,7 @@ import _ from 'underscore';
 
 import api from './api';
 import {MMSSToMilliseconds} from './convert';
-import {S3_ROOT, API_ROOT} from '../constants/constants';
+import {S3_ROOT} from '../constants/constants';
 
 var soundManager = SM2.soundManager;
 

@@ -1,18 +1,14 @@
 import React from 'react';
-import Immutable from 'immutable';
 import DocMeta from 'react-doc-meta';
-import R from 'ramda';
 import InjectTapEventPlugin from 'react-tap-event-plugin';
 
+import initialAppState from '../services/appStateConfig';
 import GlobalEventHandler from '../services/globalEventHandler';
 import {playSet, updatePlayCount} from '../services/playerService';
 import {startFacebookSDK} from '../services/loginService';
 import {getFavorites} from '../services/favoriteSet';
 import detectMobileService from '../services/detectMobileService';
-import {DEFAULT_IMAGE} from '../constants/constants';
 import {trackSetPlay} from '../services/mixpanelService';
-
-import {spring, presets} from 'react-motion';
 
 // fix mobile touch events not registering
 InjectTapEventPlugin();
@@ -23,62 +19,6 @@ import NavBar from './NavBar';
 import Player from './Player';
 import Notifications from './Notifications';
 import LoginOverlay from './LoginOverlay';
-
-let initialAppState = Immutable.Map({
-	closestEvents: [],
-	currentPage: 'Setmine',
-	currentSet: {
-		artist: null,
-		setName: null,
-		event: null,
-		setLength: '00:00',
-		starttime: '00:00',
-		id: null
-	},
-	currentTrack: null,
-	detailData: {
-		sets: [],
-		upcomingEvents: [],
-		banner_image: {
-			imageURL: DEFAULT_IMAGE
-		},
-		icon_image: {
-			imageURL: DEFAULT_IMAGE
-		},
-		fb_link: null,
-		twitter_link: null,
-		instagram_link: null,
-		soundcloud_link: null,
-		youtube_link: null
-	},
-	favorites: [],
-	favoriteSetIds: [],
-	loginStatus: true,
-	playerHidden: true,
-	playing: false,
-	searchResults: {
-		artists: [],
-		sets: [],
-		upcomingEvents: [],
-		tracks: []
-	},
-	showLogin: false,
-	showNavbar: true,
-	snackbar: {
-		open: false,
-		message: ''
-	},
-	sound: {
-		durationEstimate: 0
-	},
-	timeElapsed: 0,
-	tracklist: [],
-	user: {
-		id: 67,
-		first_name: '',
-		last_name: ''
-	}
-});
 
 const tags = [
 	{property: "description", content: "Setmine is a music app dedicated to live events! Relive past music festivals: Ultra, Coachella + more! Find upcoming shows + buy tix + listen to DJs' sets"},
@@ -97,7 +37,7 @@ let pushFn = evtHandler.push;
 
 // wrapper for pushFn. data must be an object
 var push = data => pushFn({
-	type: 'SHALLOW_MERGE',
+	type: evtTypes.SHALLOW_MERGE,
 	data: data
 });
 
@@ -108,6 +48,14 @@ export default class App extends Base {
 		this.state = {
 			appState: initialAppState
 		};
+	}
+	getChildContext() {
+		return {
+			push: push,
+			user: this.state.appState.get('user'),
+			loginStatus: this.state.appState.get('loginStatus'),
+			favoriteSetIds: this.state.appState.get('favoriteSetIds')
+		}
 	}
 	componentWillMount() {
 		// initialize global appState and push fn
@@ -134,14 +82,6 @@ export default class App extends Base {
 			return true;
 		}
 	}
-	getChildContext() {
-		return {
-			push: push,
-			user: this.state.appState.get('user'),
-			loginStatus: this.state.appState.get('loginStatus'),
-			favoriteSetIds: this.state.appState.get('favoriteSetIds')
-		}
-	}
 	initializeApp() {
 		let self = this;
 		evtHandler.floodGate.subscribe(newState => {
@@ -160,7 +100,7 @@ export default class App extends Base {
 		return (
 			<div id='App' className='flex-column'>
 				<DocMeta tags={tags} />
-				<Header currentPage={currentPage} showLogin={showLogin} />
+				<Header currentPage={currentPage} showLogin={showLogin} location={this.props.location}/>
 				{showNavbar ? <NavBar /> : null}
 				{
 					React.cloneElement(this.props.children, {

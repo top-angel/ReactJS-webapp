@@ -10,7 +10,7 @@ module.exports = {
 			'./src/index.jsx'
 		]
 	},
-	devtool: 'cheap-source-map',
+	devtool: 'cheap-eval-source-map',
 	devServer: {
 		contentBase: './public', // where webpack-dev-server should look for static files
 		historyApiFallback: true,
@@ -49,6 +49,11 @@ module.exports = {
 			{
 				test: /\.less$/,
 				loader: 'style!css!autoprefixer!less',
+				exclude: /node_modules/
+			},
+			{
+				test: /\.(png|jpeg|svg)$/,
+				loader: 'file',
 				exclude: /node_modules/
 			}
 		]

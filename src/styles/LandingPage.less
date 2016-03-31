@@ -1,13 +1,39 @@
 #LandingPage {
-	.flex-column();
-	position: relative;
-	top: @headerHeight;
+	text-align: center;
+
+	section {
+		position: relative;
+		.size(100%, 100vh);
+		&.main {
+			background: url(/images/screens-background.png) no-repeat;
+			background-position: center;
+			background-size: 100%;
+			position: relative;
+			overflow: hidden;
+			> div {
+				.colors(@white, @dark-gray);
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 220px;
+				h4 {
+					margin: 6rem;
+				}
+			}
+		}
+	}
 }
 
+
+
+
+// old landing page
 #LandingHome {
 	position: relative;
-	// background: url(../images/landing-1.jpg) @dark-gray;
+	background: url(/images/landing-1.jpg) @dark-gray;
 	background-size: 100% 100%;
+	color: @white;
 	text-align: center;
 	.createOverlay(0.3, @dark-gray);
 	h1 {
@@ -44,7 +70,7 @@
 	}
 	.slide-1 {
 		.text-container {
-			.background(@green, white);
+			.colors(@green, white);
 		}
 		.image-container {
 			background: @white;
@@ -52,7 +78,7 @@
 	}
 	.slide-2 {
 		.text-container {
-			.background(@blue, white);
+			.colors(@blue, white);
 		}
 		.image-container {
 			background: @blue;
@@ -60,7 +86,7 @@
 	}
 	.slide-3 {
 		.text-container {
-			.background(@red, white);
+			.colors(@red, white);
 		}
 		.image-container {
 			background: @white;
@@ -79,7 +105,7 @@
 }
 #LandingBeacon {
 	position: relative;
-	// background-image: url(../images/beacon-offer.jpg);
+	background-image: url(/images/beacon-offer.jpg);
 	background-size: 33% 100%;
 	background-repeat: no-repeat;
 	font-size: 1.1rem;
