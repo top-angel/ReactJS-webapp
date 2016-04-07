@@ -39,7 +39,7 @@ module.exports = {
 	module: {
 		loaders: [
 			{
-				test: /\.(js|jsx)?$/,
+				test: /\.(js|jsx)$/,
 				loaders: ['react-hot', 'babel'], // plugins & presets in .babelrc file
 				include: [
 					path.resolve(__dirname, 'src')
@@ -48,7 +48,7 @@ module.exports = {
 			},
 			{
 				test: /\.less$/,
-				loader: 'style!css!autoprefixer!less',
+				loader: 'style!css!less',
 				exclude: /node_modules/
 			},
 			{

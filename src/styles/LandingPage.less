@@ -1,26 +1,89 @@
+.circle-base {
+	margin: auto;
+	border: solid 1px;
+	color: purple;
+	border-radius: 50%;
+}
+
 #LandingPage {
 	text-align: center;
+	.arrow {
+		&:extend(.circle-base);
+		.size(48px);
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+	}
 
 	section {
 		position: relative;
 		.size(100%, 100vh);
+
 		&.main {
 			background: url(/images/screens-background.png) no-repeat;
-			background-position: center;
-			background-size: 100%;
+			background-position: top center;
+			background-size: cover;
 			position: relative;
 			overflow: hidden;
+			justify-content: space-between;
+			h2 {
+				margin-top: 12rem;
+				color: @white;
+				@media(max-width: @xs) {
+					font-size: 24px;
+				}
+			}
 			> div {
 				.colors(@white, @dark-gray);
-				position: absolute;
-				bottom: 0;
-				left: 0;
 				width: 100%;
 				height: 220px;
 				h4 {
 					margin: 6rem;
+					-webkit-user-select: none;
 				}
 			}
+		}
+
+		&.info {
+			align-items: center;
+			justify-content: space-around;
+			li {
+				align-items: center;
+				justify-content: center;
+				&:nth-child(2n) {
+					.flex-row-reverse();
+					p {
+						text-align: right;
+					}
+				}
+				img {
+					// margin: 0 8rem;
+					width: 16rem;
+				}
+				p {
+					font-size: 2rem;
+					width: 32rem;
+					text-align: left;
+				}
+				.circle {
+					&:extend(.circle-base);
+					.size(12px);
+					margin: 0 2rem;
+				}
+			}
+		}
+	}
+
+	.app-links {
+		width: 32rem;
+		.colors(white, @dark-gray);
+		align-items: center;
+		justify-content: center;
+		border: solid 3px;
+		border-radius: 100px;
+		i {
+			margin: 0 2rem;
 		}
 	}
 }
