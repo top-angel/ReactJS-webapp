@@ -1,13 +1,10 @@
 import React, {PropTypes} from 'react';
 import Loader from 'react-loader';
-import Link from 'react-router/lib/Link';
 import R from 'ramda';
 import api from '../services/api';
 import {DEFAULT_IMAGE} from '../constants/constants';
 
 import Base from './Base';
-import SetContainer from './SetContainer';
-import EventContainer from './EventContainer';
 import DetailHeader from './DetailHeader';
 // import SocialMediaLinks from './SocialMediaLinks';
 import ShuffleButton from './ShuffleButton';
@@ -62,18 +59,6 @@ export default class ArtistDetail extends Base {
 		const artistInfo = `${this.state.setCount} ${setText} | ${this.state.eventCount} ${eventText}`;
 
 		const setIds = R.pluck('id', this.state.sets);
-		const tabs = [
-			{
-				text: 'SETS',
-				to: `/artist/${this.props.params.artist}`,
-				index: true
-			},
-			{
-				text: 'EVENTS',
-				to: `/artist/${this.props.params.artist}/events`,
-				index: false
-			}
-		];
 
 		return (
 			<Loader loaded={this.state.loaded}>

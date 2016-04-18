@@ -1,14 +1,25 @@
-nav#Header {
-	.colors(white, @dark-gray);
+.header-base {
+	height: @headerHeight;
 	height: 64px;
-	position: fixed;
+	position: fixed!important;
 	width: 100%;
 	z-index: 99;
 	align-items: center;
 	padding: 0 1rem;
+	.flex-row();
+}
+a.icon-setmine {
+	margin: auto 1rem;
+	font-size: 4rem;
+}
+
+#Header.header-main {
+	&:extend(.header-base);
+	.colors(white, @dark-gray);
 	.card(2);
-	a.icon-setmine {
-		margin: auto 1rem;
-		font-size: 4rem;
-	}
+}
+#Header.header-landing {
+	&:extend(.header-base);
+	background: transparent;
+	color: @white;	
 }

@@ -1,18 +1,14 @@
-import React from 'react';
-import Immutable from 'immutable';
+import React, {PropTypes} from 'react';
 import DocMeta from 'react-doc-meta';
-import R from 'ramda';
 import InjectTapEventPlugin from 'react-tap-event-plugin';
 
+import initialAppState from '../services/appStateConfig';
 import GlobalEventHandler from '../services/globalEventHandler';
 import {playSet, updatePlayCount} from '../services/playerService';
 import {startFacebookSDK} from '../services/loginService';
 import {getFavorites} from '../services/favoriteSet';
 import detectMobileService from '../services/detectMobileService';
-import {DEFAULT_IMAGE} from '../constants/constants';
 import {trackSetPlay} from '../services/mixpanelService';
-
-import {spring, presets} from 'react-motion';
 
 // fix mobile touch events not registering
 InjectTapEventPlugin();
@@ -23,62 +19,7 @@ import NavBar from './NavBar';
 import Player from './Player';
 import Notifications from './Notifications';
 import LoginOverlay from './LoginOverlay';
-
-let initialAppState = Immutable.Map({
-	closestEvents: [],
-	currentPage: 'Setmine',
-	currentSet: {
-		artist: null,
-		setName: null,
-		event: null,
-		setLength: '00:00',
-		starttime: '00:00',
-		id: null
-	},
-	currentTrack: null,
-	detailData: {
-		sets: [],
-		upcomingEvents: [],
-		banner_image: {
-			imageURL: DEFAULT_IMAGE
-		},
-		icon_image: {
-			imageURL: DEFAULT_IMAGE
-		},
-		fb_link: null,
-		twitter_link: null,
-		instagram_link: null,
-		soundcloud_link: null,
-		youtube_link: null
-	},
-	favorites: [],
-	favoriteSetIds: [],
-	loginStatus: false,
-	playerHidden: true,
-	playing: false,
-	searchResults: {
-		artists: [],
-		sets: [],
-		upcomingEvents: [],
-		tracks: []
-	},
-	showLogin: false,
-	showNavbar: true,
-	snackbar: {
-		open: false,
-		message: ''
-	},
-	sound: {
-		durationEstimate: 0
-	},
-	timeElapsed: 0,
-	tracklist: [],
-	user: {
-		id: 67,
-		first_name: '',
-		last_name: ''
-	}
-});
+import Loader from './Loader';
 
 const tags = [
 	{property: "description", content: "Setmine is a music app dedicated to live events! Relive past music festivals: Ultra, Coachella + more! Find upcoming shows + buy tix + listen to DJs' sets"},
@@ -97,42 +38,28 @@ let pushFn = evtHandler.push;
 
 // wrapper for pushFn. data must be an object
 var push = data => pushFn({
-	type: 'SHALLOW_MERGE',
+	type: evtTypes.SHALLOW_MERGE,
 	data: data
 });
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 export default class App extends Base {
+	static contextTypes = {
+		router: PropTypes.object
+	}
+	static childContextTypes = {
+		push: PropTypes.func,
+		user: PropTypes.object,
+		loginStatus: PropTypes.bool,
+		favoriteSetIds: PropTypes.array
+	}
 	constructor(props) {
 		super(props);
 		this.autoBind('initializeApp');
 		this.state = {
 			appState: initialAppState
 		};
-	}
-	componentWillMount() {
-		// initialize global appState and push fn
-		this.initializeApp();
-
-		// detect if user is on mobile web
-		detectMobileService.detectMobileBrowser();
-
-		// initialize Facebook SDK & check if user is logged in
-		startFacebookSDK(push);
-
-		// play set if specified in url
-		if(!!this.props.params.set) {
-			let setId = this.props.params.set;
-			let currentSet = this.state.appState.get('currentSet');
-
-			playSet(setId, push);
-			updatePlayCount(setId, this.state.appState.get('user').id);
-			trackSetPlay(currentSet);
-		}
-	}
-	componentWillUpdate(nextProps, nextState) {
-		if(nextState.appState.get('playerHidden') === false) {
-			return true;
-		}
 	}
 	getChildContext() {
 		return {
@@ -141,6 +68,40 @@ export default class App extends Base {
 			loginStatus: this.state.appState.get('loginStatus'),
 			favoriteSetIds: this.state.appState.get('favoriteSetIds')
 		}
+	}
+	componentWillMount() {
+		const {appState} = this.state;
+		const {router} = this.context;
+		// initialize global appState and push fn
+		this.initializeApp();
+
+		// detect if user is on mobile web
+		detectMobileService.detectMobileBrowser();
+		if(!isProduction) {
+			push({ loaded: true });
+		}
+
+		// initialize Facebook SDK & check if user is logged in
+		startFacebookSDK(push, router);
+
+		// play set if specified in url
+		if(!!this.props.params.set) {
+			let setId = this.props.params.set;
+			let currentSet = appState.get('currentSet');
+
+			playSet(setId, push);
+			updatePlayCount(setId, appState.get('user').id);
+			trackSetPlay(currentSet);
+		}
+	}
+	shouldComponentUpdate(nextProps, nextState) {
+		if(nextState.appState.get('playerHidden') === false) {
+			return true;
+		}
+		if(nextState.appState.get('loginStatus')) {
+			return true;
+		}
+		return true;
 	}
 	initializeApp() {
 		let self = this;
@@ -158,26 +119,21 @@ export default class App extends Base {
 		let pageWidth = ((window.innerWidth - 64) / window.innerWidth) * 100 + '%';
 
 		return (
-			<div id='App' className='flex-column'>
-				<DocMeta tags={tags} />
-				<Header currentPage={currentPage} showLogin={showLogin} />
-				{showNavbar ? <NavBar /> : null}
-				{
-					React.cloneElement(this.props.children, {
-						appState: appState
-					})
-				}
-				<Notifications snackbar={snackbar} playerHidden={playerHidden} />
-				<LoginOverlay open={showLogin} />
-				{playerHidden ? <div id='noplayer'/> : <Player appState={appState} />}
-			</div>
+			<Loader loaded={appState.get('loaded')}>
+				<div id='App' className='flex-column'>
+					<DocMeta tags={tags} />
+					<Header currentPage={currentPage} showLogin={showLogin} location={this.props.location}/>
+					{showNavbar ? <NavBar /> : null}
+					{
+						React.cloneElement(this.props.children, {
+							appState: appState
+						})
+					}
+					<Notifications snackbar={snackbar} playerHidden={playerHidden} />
+					<LoginOverlay open={showLogin} />
+					{playerHidden ? <div id='noplayer'/> : <Player appState={appState} />}
+				</div>
+			</Loader>
 		);
 	}
 }
-
-App.childContextTypes = {
-	push: React.PropTypes.func,
-	user: React.PropTypes.object,
-	loginStatus: React.PropTypes.bool,
-	favoriteSetIds: React.PropTypes.array,
-};

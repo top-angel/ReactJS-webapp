@@ -3,7 +3,7 @@ import R from 'ramda';
 import api from './api';
 import mixpanelService from './mixpanelService';
 
-export function startFacebookSDK(push) {
+export function startFacebookSDK(push, router) {
 	window.fbAsyncInit = function() {
 		FB.init({
 			appId      : '648288801959503',
@@ -24,7 +24,7 @@ export function startFacebookSDK(push) {
 			//
 			// These three cases are handled in the callback function.
 		FB.getLoginStatus(function(response) {
-			statusChangeCallback(response, push);
+			statusChangeCallback(response, push, router);
 		}.bind(this));
 	}.bind(this);
 
@@ -38,17 +38,19 @@ export function startFacebookSDK(push) {
 	}(document, 'script', 'facebook-jssdk'));
 }
 
-function statusChangeCallback(response, push) {
+function statusChangeCallback(response, push, router) {
+	push({ loaded: true });
 	switch(response.status) {
 		case 'connected':
 			// Logged into setmine and Facebook.
-			registerFacebookUser(response.authResponse.accessToken, push)
+			registerFacebookUser(response.authResponse.accessToken, push);
+			router.push('/sets');
 			break
 		case 'not_authorized':
 			console.log('Logged into Facebook, but you need to authorize this app')
 			break
 		default:
-			console.debug('Not logged into Facebook')
+			console.debug('Not logged into Facebook');
 	}
 }
 
@@ -59,7 +61,7 @@ function checkLoginState(push) {
 	}.bind(this));
 }
 
-// TODO test
+// FIXME
 function fetchProfilePicture(id) {
 	FB.api(
 		`/${id}picture`,
@@ -83,14 +85,6 @@ function registerFacebookUser(auth, push) {
 			user: user,
 			favoriteSetIds: favoriteSetIds
 		});
-		// push({
-		// 	type: 'SHALLOW_MERGE',
-		// 	data: {
-		// 		loginStatus: true,
-		// 		user: user,
-		// 		favoriteSetIds: favoriteSetIds
-		// 	}
-		// })
 
 		//track user after logging in for the first time
 		mixpanel.identify(user.facebook_id);

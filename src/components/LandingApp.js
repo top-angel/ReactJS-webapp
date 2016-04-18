@@ -1,5 +1,5 @@
 import React from 'react';
-import {fadeTransition} from '../services/animations'
+import {fadeTransition} from '../services/animations';
 
 var LandingApp = React.createClass({
 

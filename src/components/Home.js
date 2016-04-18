@@ -12,22 +12,22 @@ const eventsTooltip = 'Log in to see recommended events';
 export default class Home extends Base {
 	constructor(props) {
 		super(props);
-		this.state = {
-			disabled: true
-		};
+		// this.state = {
+		// 	disabled: true
+		// };
 	}
 	componentWillMount() {
 		const { push, loginStatus } = this.context;
 		push({ currentPage: 'Setmine' });
-		if(loginStatus) {
-			this.setState({ disabled: false });
-		}
+		// if(loginStatus) {
+		// 	this.setState({ disabled: false });
+		// }
 	}
 	componentWillReceiveProps(nextProps, nextContext) {
 		// console.log(this.context.loginStatus, nextContext.loginStatus);
-		if(nextContext.loginStatus) {
-			this.setState({ disabled: false });
-		}
+		// if(nextContext.loginStatus) {
+		// 	this.setState({ disabled: false });
+		// }
 	}
 	componentDidMount() {
 		mixpanel.track("User Home Page Open");

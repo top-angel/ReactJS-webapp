@@ -1,13 +1,11 @@
 import React, {PropTypes} from 'react';
 import R from 'ramda';
 import Loader from 'react-loader';
-import {colors} from '../constants/constants';
 import api from '../services/api';
 import {filterWithoutSets} from '../services/utilities';
 
 import Base from './Base';
 import ArtistTileContainer from './ArtistTileContainer';
-import ArtistTile from './ArtistTile';
 import Footer from './Footer';
 import Spinner from './Spinner';
 
@@ -23,7 +21,7 @@ export default class Artists extends Base {
 		this.fetchArtists(this.state.page);
 	}
 	componentWillMount() {
-		this.context.push({ currentPage: 'Artists' })	
+		this.context.push({ currentPage: 'Artists' });	
 	}
 	fetchArtists(page) {
 		api.get(`artists?page=${page}`).then(payload => {

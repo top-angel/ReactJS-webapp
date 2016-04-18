@@ -68,7 +68,7 @@ export default (
 			</Route>
 
 			<Route path='home' component={Home}>
-				<IndexRoute component={Recent}/>
+				<IndexRoute component={Stream}/>
 				<Route path='favorites' component={Favorites}/>
 				<Route path='sets' component={NewSets}/>
 				<Route path='events' component={NewEvents}/>
