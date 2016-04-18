@@ -30,6 +30,7 @@ export default Map({
     },
     favorites: [],
     favoriteSetIds: [],
+    loaded: false,
     loginStatus: false,
     playerHidden: true,
     playing: false,

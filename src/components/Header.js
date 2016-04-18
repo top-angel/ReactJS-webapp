@@ -16,7 +16,10 @@ const scrollStyle = {
 export default class Header extends Base {
     constructor(props) {
         super(props);
-        this.autoBind('handleScroll');
+        this.autoBind(
+            'handleScroll',
+            'login'
+        );
         this.state = {
             switchHeader: false
         }
@@ -31,7 +34,7 @@ export default class Header extends Base {
             window.addEventListener('scroll', this.handleScroll, false);
         }
     }
-    toggleLogin() {
+    login() {
         this.context.push({ showLogin: !this.props.showLogin });
     }
     trackAndroid() {
@@ -71,7 +74,7 @@ export default class Header extends Base {
                     this.context.loginStatus ? 
                         null :
                         <IconMenu icon={<Icon>user</Icon>}>
-                            <p onClick={this.toggleLogin}>Login</p>
+                            <p onClick={this.login}>Login</p>
                         </IconMenu>
                 }
                 <IconMenu icon={<Icon>ellipsis-h</Icon>}>

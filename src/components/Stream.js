@@ -60,9 +60,9 @@ export default class Stream extends Base {
         });
     }
     renderSets() {
-        // if(!this.context.loginStatus) {
-        //  return <Recent />
-        // }
+        if(!this.context.loginStatus) {
+         return <Recent />
+        }
 
         return (
             <Loader loaded={this.state.loaded}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import DocMeta from 'react-doc-meta';
 import InjectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -19,6 +19,7 @@ import NavBar from './NavBar';
 import Player from './Player';
 import Notifications from './Notifications';
 import LoginOverlay from './LoginOverlay';
+import Loader from './Loader';
 
 const tags = [
 	{property: "description", content: "Setmine is a music app dedicated to live events! Relive past music festivals: Ultra, Coachella + more! Find upcoming shows + buy tix + listen to DJs' sets"},
@@ -41,7 +42,18 @@ var push = data => pushFn({
 	data: data
 });
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 export default class App extends Base {
+	static contextTypes = {
+		router: PropTypes.object
+	}
+	static childContextTypes = {
+		push: PropTypes.func,
+		user: PropTypes.object,
+		loginStatus: PropTypes.bool,
+		favoriteSetIds: PropTypes.array
+	}
 	constructor(props) {
 		super(props);
 		this.autoBind('initializeApp');
@@ -58,29 +70,38 @@ export default class App extends Base {
 		}
 	}
 	componentWillMount() {
+		const {appState} = this.state;
+		const {router} = this.context;
 		// initialize global appState and push fn
 		this.initializeApp();
 
 		// detect if user is on mobile web
 		detectMobileService.detectMobileBrowser();
+		if(!isProduction) {
+			push({ loaded: true });
+		}
 
 		// initialize Facebook SDK & check if user is logged in
-		startFacebookSDK(push);
+		startFacebookSDK(push, router);
 
 		// play set if specified in url
 		if(!!this.props.params.set) {
 			let setId = this.props.params.set;
-			let currentSet = this.state.appState.get('currentSet');
+			let currentSet = appState.get('currentSet');
 
 			playSet(setId, push);
-			updatePlayCount(setId, this.state.appState.get('user').id);
+			updatePlayCount(setId, appState.get('user').id);
 			trackSetPlay(currentSet);
 		}
 	}
-	componentWillUpdate(nextProps, nextState) {
+	shouldComponentUpdate(nextProps, nextState) {
 		if(nextState.appState.get('playerHidden') === false) {
 			return true;
 		}
+		if(nextState.appState.get('loginStatus')) {
+			return true;
+		}
+		return true;
 	}
 	initializeApp() {
 		let self = this;
@@ -98,26 +119,21 @@ export default class App extends Base {
 		let pageWidth = ((window.innerWidth - 64) / window.innerWidth) * 100 + '%';
 
 		return (
-			<div id='App' className='flex-column'>
-				<DocMeta tags={tags} />
-				<Header currentPage={currentPage} showLogin={showLogin} location={this.props.location}/>
-				{showNavbar ? <NavBar /> : null}
-				{
-					React.cloneElement(this.props.children, {
-						appState: appState
-					})
-				}
-				<Notifications snackbar={snackbar} playerHidden={playerHidden} />
-				<LoginOverlay open={showLogin} />
-				{playerHidden ? <div id='noplayer'/> : <Player appState={appState} />}
-			</div>
+			<Loader loaded={appState.get('loaded')}>
+				<div id='App' className='flex-column'>
+					<DocMeta tags={tags} />
+					<Header currentPage={currentPage} showLogin={showLogin} location={this.props.location}/>
+					{showNavbar ? <NavBar /> : null}
+					{
+						React.cloneElement(this.props.children, {
+							appState: appState
+						})
+					}
+					<Notifications snackbar={snackbar} playerHidden={playerHidden} />
+					<LoginOverlay open={showLogin} />
+					{playerHidden ? <div id='noplayer'/> : <Player appState={appState} />}
+				</div>
+			</Loader>
 		);
 	}
 }
-
-App.childContextTypes = {
-	push: React.PropTypes.func,
-	user: React.PropTypes.object,
-	loginStatus: React.PropTypes.bool,
-	favoriteSetIds: React.PropTypes.array,
-};

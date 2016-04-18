@@ -11,25 +11,7 @@ const iconMargin = {
 const Footer = props => (
 	<footer id='Footer'>
 		<div className='links flex-column'>
-			{/*<Link to='/about'>
-				<p>About</p>
-			</Link>
-			<Link to='/legal'>
-				<p>DMCA Notice</p>
-			</Link>
-			<a href='http://bit.ly/SetmineiOS' onClick={trackIos} title='view on App Store' className='click'>
-				<p>iOS</p>
-			</a>
-			<a href='http://bit.ly/SetmineAndroid' onClick={trackAndroid} title='view on Google Play'className='click'>
-				<p>Android</p>
-			</a>
-			<Link to='/setstory'>
-				<p>Setstory</p>
-			</Link>*/}
-			<Link to='/'>
-				<p>Back to Setmine</p>
-			</Link>
-			<div className='flex-row' style={{ marginTop: 'auto' }}>
+			<div className='flex-row'>
 				<Icon style={iconMargin}>copyright</Icon>
 				<p>Setmusic LLC. 2015</p>
 			</div>

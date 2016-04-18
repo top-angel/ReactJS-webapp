@@ -33,6 +33,11 @@ module.exports = {
 				test: /\.less$/,
 				exclude: /node_modules/,
 				loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!less')
+			},
+			{
+				test: /\.(png|jpeg|svg)$/,
+				loader: 'file',
+				exclude: /node_modules/
 			}
 		]
 	},

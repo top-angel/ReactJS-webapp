@@ -1,36 +1,43 @@
 import React, {PropTypes} from 'react';
 const {number, string, bool, object, func} = PropTypes;
 
-const Icon = ({children, caption, fixed, style, onClick, size, className}) => {
-    const iconSize = size || 24;
-    const fixedStyle = {
-        textAlign: 'center',
-        width: iconSize
-    };
+const Icon = ({children, caption, fixed, style, onClick, size, className, title}) => {
+    const fixedClass = fixed ? 'fixed' : '';
+    const clickable = onClick ? 'clickable' : '';
+    const captionClass = caption ? 'clickable' : '';
 
-    let mergedClass = `${className} ion-${children}`;
+    const iconSize = size || 24;
+    // const fixedStyle = {
+    //     textAlign: 'center',
+    //     width: iconSize
+    // };
+
+    // let mergedClass = `${className} ion-${children}`;
     let mergedStyle = Object.assign({}, style, {
         fontSize: iconSize
     });
 
-    if(fixed) Object.assign(mergedStyle, fixedStyle);
-    if(onClick) {
-        Object.assign(mergedStyle, onClickStyle);
-        mergedClass += ' clickable';
-    }
+    // if(fixed) Object.assign(mergedStyle, fixedStyle);
+    // if(onClick) {
+    //     Object.assign(mergedStyle, {
+    //         cursor: 'pointer'
+    //     });
+    // }
 
-    const iconElement = React.createElement('i', {
-        displayName: 'Icon',
-        className: mergedClass,
-        style: mergedStyle,
-        onClick: onClick
-    });
+    const iconElement = (
+        <i
+            className={`icon ${className} ion-${children} ${fixedClass} ${clickable}`}
+            style={mergedStyle}
+            onClick={onClick}
+            title={title}
+        />
+    );
 
     if(caption) {
         return (
             <div className='flex-row-nowrap'>
                 {iconElement}
-                <p style={{marginLeft: '3rem'}}>
+                <p className='caption'>
                     {caption}
                 </p>
             </div>
