@@ -18,7 +18,7 @@ export default class Festivals extends Base {
 		this.getFestivals();
 	}
 	componentDidMount() {
-		mixpanel.track("Festivals Page Open")
+		mixpanel && mixpanel.track("Festivals Page Open")
 	}
 	getFestivals() {
 		api.get('events/festivals').then(payload => {

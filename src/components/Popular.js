@@ -20,7 +20,7 @@ export default class Popular extends Base {
 		this.getPopularSets();
 	}
 	componentDidMount() {
-		mixpanel.track("Popular Sets Page Open");
+		mixpanel && mixpanel.track("Popular Sets Page Open");
 	}
 	getPopularSets(page=this.state.page) {
 		api.get(`sets/popular?limit=48&page=${page}`).then(res => {
