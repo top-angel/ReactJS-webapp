@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import Base from './Base';
 import {Element, Events, animateScroll} from 'react-scroll';
 import Footer from './Footer';
-import ActionButton from './ActionButton';
 import Button from './Button';
 import Icon from './Icon';
 import {IOS_URL, ANDROID_URL} from '../constants/constants';
