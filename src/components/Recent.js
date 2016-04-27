@@ -20,7 +20,7 @@ export default class Recent extends Base {
 		this.getRecentSets();
 	}
 	componentDidMount() {
-		mixpanel.track("Sets Page Open");
+		mixpanel && mixpanel.track("Sets Page Open");
 	}
 	getRecentSets(page=this.state.page) {
 		api.get(`sets/recent?limit=48&page=${page}`).then(payload => {

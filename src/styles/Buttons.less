@@ -1,16 +1,31 @@
-#ActionButton {
+.Button {
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    height: 30px;
+    margin: 1rem;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    font-family: @light;
+
+    &.solid {
+        color: white;
+    }
+
+    &.clear {
+        border: solid 1px;
+    }
+}
+
+.ActionButton {
     @height: 48px;
     .actionBackground(@blue);
     .card(2);
-    color: @white;
     margin: -@height/2 auto;
-    display: flex;
-    align-items: center;
-    position: relative;
     height: @height;
     border-radius: 25px;
     padding: 0 3rem;
-    font-family: @light;
     letter-spacing: 2px;
     -webkit-user-select: none;
     &:active {
@@ -18,7 +33,8 @@
     }
 }
 
-#DetailButton {
+// TODO refactor
+#DetailButton, .DetailButton {
     border: solid 1px;
     padding: 1rem 2rem;
     cursor: pointer;

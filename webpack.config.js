@@ -10,7 +10,7 @@ module.exports = {
 			'./src/index.jsx'
 		]
 	},
-	devtool: 'cheap-eval-source-map',
+	devtool: '#cheap-module-eval-source-map',
 	devServer: {
 		contentBase: './public', // where webpack-dev-server should look for static files
 		historyApiFallback: true,

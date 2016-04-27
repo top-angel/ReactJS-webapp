@@ -6,6 +6,8 @@ import IconMenu from './IconMenu';
 import Icon from './FaIcon';
 import LoginOverlay from './LoginOverlay';
 import colors from '../constants/colors';
+import Ink from 'react-ink';
+import Button from './Button';
 
 const scrollStyle = {
     backgroundColor: colors.white,
@@ -38,10 +40,10 @@ export default class Header extends Base {
         this.context.push({ showLogin: !this.props.showLogin });
     }
     trackAndroid() {
-        if(mixpanel != undefined) mixpanel.track("Android App Link Clicked");
+        mixpanel && mixpanel.track("Android App Link Clicked");
     }
     trackIos() {
-        if(mixpanel != undefined) mixpanel.track("iOS App Link Clicked");
+        mixpanel && mixpanel.track("iOS App Link Clicked");
     }
     landingPageActive() {
         return this.props.location.pathname === '/';
@@ -59,23 +61,21 @@ export default class Header extends Base {
     }
     render() {
         const {currentPage} = this.props;
-        const headerType = this.landingPageActive() ? 'header-landing' : 'header-main';
+        const headerType = this.landingPageActive() ? 'Header--landing' : 'Header--main';
 
         const style = this.state.switchHeader ? scrollStyle : null;
 
         return (
-            <div id='Header' className={headerType} style={style}>
+            <div className={headerType} style={style}>
                 <Link to='/' className='icon-setmine' />
                 <div className='flex-fixed' style={{ margin: '0 3rem' }}>
                     <h4>{currentPage}</h4>
                 </div>
                 <SearchBar />
                 {
-                    this.context.loginStatus ? 
-                        null :
-                        <IconMenu icon={<Icon>user</Icon>}>
-                            <p onClick={this.login}>Login</p>
-                        </IconMenu>
+                    !this.context.loginStatus && (
+                        <Button solid className='Header__login-button' onClick={this.login}>Login</Button>
+                    )
                 }
                 <IconMenu icon={<Icon>ellipsis-h</Icon>}>
                     <Link to='/about'>
