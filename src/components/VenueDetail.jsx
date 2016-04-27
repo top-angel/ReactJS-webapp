@@ -2,20 +2,22 @@ import React, {PropTypes} from 'react';
 import Base from './Base';
 import DetailHeader from './DetailHeader';
 import EventContainer from './EventContainer';
-import Loader from 'react-loader';
+import Loader from './Loader';
 import api from '../services/api';
 
 const {func} = PropTypes;
-const contextTypes = {
-    push: func
-};
-
 const sethau5 = 1285;
 
 export default class VenueDetail extends Base {
+    static contextTypes = {
+        push: func
+    }
     constructor(props) {
         super(props);
-        // this.autoBind();
+        this.autoBind(
+            'fetchVenue',
+            'openMapLink'
+        );
         this.state = {
             loaded: false,
             venue: '',
@@ -31,14 +33,16 @@ export default class VenueDetail extends Base {
         this.context.push({ currentPage: 'Venues' });
     }
     fetchVenue(venueId) {
-        api.get(`venues/id/${venueId}`).then(payload => {
+        api.get(`venues/id/${venueId}?events=true`).then(payload => {
+            console.log(payload);
             this.setState({
                 venue: payload.venue,
                 address: payload.address,
                 bannerImage: payload.banner_image.imageURL,
-                iconImage: banner.icon_image.imageURL,
+                iconImage: payload.icon_image.imageURL,
                 beacon: payload.beacon,
-                events: []
+                events: payload.events,
+                loaded: true
             });
         });
     }
@@ -50,17 +54,17 @@ export default class VenueDetail extends Base {
         return (
             <Loader loaded={this.state.loaded}>
                 <div className='detail-view'>
-                    <DetailHeader image={this.state.venueImage}>
+                    <DetailHeader image={this.state.bannerImage}>
                         <h3>{this.state.venue}</h3>
-                        <p>{}</p>
+                        <p>{this.state.address}</p>
+                        <p id='DetailButton' onClick={this.openMapLink} title='Open in Google Maps'>Directions</p>
                     </DetailHeader>
                     <div className='tab'>
                         <p>EVENTS</p>
                     </div>
+                    <EventContainer events={this.state.events} />
                 </div>
             </Loader>
         );
     }
 }
-
-VenueDetail.contextTypes = contextTypes;

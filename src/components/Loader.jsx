@@ -3,14 +3,14 @@ import Base from './Base';
 import Spinner from './Spinner';
 
 const {bool, node} = PropTypes;
-const propTypes = {
-    loaded: bool,
-    children: node
-};
 
 export default class Loader extends Base {
-    constructor(props) {
-        super(props);
+    static propTypes = {
+        loaded: bool.isRequired,
+        children: node
+    }
+    constructor(props, context) {
+        super(props, context);
     }
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         if(nextProps.loaded) {
@@ -26,11 +26,9 @@ export default class Loader extends Base {
                 <div id='Loader'>
                     <Spinner />
                 </div>
-            )
+            );
         } else {
-            return children
+            return children;
         }
     }
 }
-
-Loader.propTypes = propTypes;
