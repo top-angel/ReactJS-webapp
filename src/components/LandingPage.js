@@ -3,6 +3,7 @@ import Base from './Base';
 import {Element, Events, animateScroll} from 'react-scroll';
 import Footer from './Footer';
 import ActionButton from './ActionButton';
+import Button from './Button';
 import Icon from './Icon';
 import {IOS_URL, ANDROID_URL} from '../constants/constants';
 
@@ -20,7 +21,7 @@ export default class LandingPage extends Base {
     }
     constructor(props) {
         super(props);
-        this.autoBind('scrollTo');
+        this.autoBind('scrollTo', 'handleClick');
     }
     componentWillMount() {
         this.context.push({
@@ -44,6 +45,11 @@ export default class LandingPage extends Base {
         Events.scrollEvent.remove('begin');
         Events.scrollEvent.remove('end');
     }
+    handleClick() {
+        setTimeout(() => {
+            this.context.router.push('/sets');
+        }, 150);
+    }
     scrollTo() {
         scroll.scrollTo((window.innerHeight - 250), {
             duration: 450
@@ -55,7 +61,7 @@ export default class LandingPage extends Base {
                 <section className='landing-page__section--main'>
                     <h2>Relive your favorite sets</h2>
                     <div className='flex-column'>
-                        <ActionButton to='/sets'>Listen Now</ActionButton>
+                        <Button solid onClick={this.handleClick} className='ActionButton'>ListenNow</Button>
                         <h4>Discover music festivals and live events around the globe.</h4>
                     </div>
                 </section>

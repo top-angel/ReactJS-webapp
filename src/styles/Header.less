@@ -1,4 +1,4 @@
-.header-base {
+.Header--base {
 	height: @headerHeight;
 	height: 64px;
 	position: fixed!important;
@@ -13,13 +13,17 @@ a.icon-setmine {
 	font-size: 4rem;
 }
 
-#Header.header-main {
-	&:extend(.header-base);
+.Header--main {
+	&:extend(.Header--base);
 	.colors(white, @dark-gray);
 	.card(2);
 }
-#Header.header-landing {
-	&:extend(.header-base);
+.Header--landing {
+	&:extend(.Header--base);
 	background: transparent;
 	color: @white;	
+}
+
+.Header__login-button {
+	.actionBackground(@blue);
 }

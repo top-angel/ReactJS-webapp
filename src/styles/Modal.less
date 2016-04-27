@@ -1,5 +1,4 @@
 .Modal {
-    // background: fade(@dark-gray, 50%);
     position: fixed;
     display: flex;
     top: 0;
@@ -14,30 +13,5 @@
         margin: auto;
         padding: 3rem;
         position: relative;
-    }
-}
-
-#LoginOverlay {
-    ul {
-        margin: 3rem 0;
-        padding: 0;
-    }
-    li {
-        margin: 1rem 0;
-    }
-    footer {
-        .flexContainer(row-reverse, horizontal-reverse);
-    }
-    button {
-        display: flex;
-        padding: 0 1rem;
-        color: @white;
-        align-items: center;
-        &.facebook {
-            .actionBackground(@facebook-blue);
-        }
-        &.nope {
-            .actionBackground(@red);
-        }
     }
 }

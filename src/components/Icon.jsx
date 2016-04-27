@@ -7,22 +7,9 @@ const Icon = ({children, caption, fixed, style, onClick, size, className, title}
     const captionClass = caption ? 'clickable' : '';
 
     const iconSize = size || 24;
-    // const fixedStyle = {
-    //     textAlign: 'center',
-    //     width: iconSize
-    // };
-
-    // let mergedClass = `${className} ion-${children}`;
     let mergedStyle = Object.assign({}, style, {
         fontSize: iconSize
     });
-
-    // if(fixed) Object.assign(mergedStyle, fixedStyle);
-    // if(onClick) {
-    //     Object.assign(mergedStyle, {
-    //         cursor: 'pointer'
-    //     });
-    // }
 
     const iconElement = (
         <i

@@ -84,7 +84,7 @@ export default class SearchResults extends Base {
 	}
 	render() {
 		let searchResults = this.props.appState.get('searchResults');
-		let {
+		const {
 			artists, 
 			sets, 
 			upcomingEvents, 
