@@ -39,7 +39,7 @@
     "node-libs-browser": "^0.5.2",
     "q": "^1.4.1",
     "ramda": "^0.17.1",
-    "react": "^0.14.7",
+    "react": "0.14.7",
     "react-art": "^0.14.0",
     "react-copy-to-clipboard": "^3.0.4",
     "react-geosuggest": "^1.15.1",
