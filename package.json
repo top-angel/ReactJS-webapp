@@ -50,6 +50,7 @@
     "react": "0.14.7",
     "react-art": "^0.14.0",
     "react-copy-to-clipboard": "^3.0.4",
+    "react-dom": "^15.0.1",
     "react-geosuggest": "^1.22.0",
     "react-ink": "^5.0.2",
     "react-loader": "^2.4.0",
