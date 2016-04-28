@@ -102,3 +102,19 @@ function registerFacebookUser(auth, push) {
 export function login(push) {
 	FB.login(checkLoginState(push));
 }
+// clears login data
+export function logout(push) {
+	FB.logout(res => {
+		console.log('Logged out of Facebook.');
+		console.log(res);
+		push({
+		    loginStatus: false,
+		    user: {
+		        id: 67,
+		        first_name: '',
+		        last_name: ''
+		    },
+		    favoriteSetIds: []
+		})
+	});
+}

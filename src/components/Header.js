@@ -8,6 +8,7 @@ import LoginOverlay from './LoginOverlay';
 import colors from '../constants/colors';
 import Ink from 'react-ink';
 import Button from './Button';
+import {logout} from '../services/loginService';
 
 const scrollStyle = {
     backgroundColor: colors.white,
@@ -19,6 +20,7 @@ export default class Header extends Base {
     constructor(props) {
         super(props);
         this.autoBind(
+            'handleLogout',
             'handleScroll',
             'login'
         );
@@ -47,6 +49,9 @@ export default class Header extends Base {
     }
     landingPageActive() {
         return this.props.location.pathname === '/';
+    }
+    handleLogout() {
+        logout(this.context.push);
     }
     handleScroll() {
         if(!this.landingPageActive()) {
@@ -92,6 +97,9 @@ export default class Header extends Base {
                     </Link>
                     <Link to='/legal'>
                         <p>DMCA Notice</p>
+                    </Link>
+                    <Link to='/' onClick={this.handleLogout}>
+                        <p>Log Out</p>
                     </Link>
                 </IconMenu>
             </div>
