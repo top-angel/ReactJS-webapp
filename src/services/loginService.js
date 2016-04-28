@@ -46,12 +46,13 @@ function statusChangeCallback(response, push, router) {
 			// Logged into setmine and Facebook.
 			registerFacebookUser(response.authResponse.accessToken, push);
 			router.push('/sets');
-			break
+			break;
 		case 'not_authorized':
 			console.log('Logged into Facebook, but you need to authorize this app')
-			break
+			break;
 		default:
 			console.debug('Not logged into Facebook');
+			break;
 	}
 	
 }
@@ -102,7 +103,9 @@ function registerFacebookUser(auth, push) {
 
 // starts login process
 export function login(push, router) {
-	FB.login(checkLoginState(push, router));
+	FB.login(function() {
+		checkLoginState(push, router);
+	});
 }
 // clears login data
 export function logout(push) {
