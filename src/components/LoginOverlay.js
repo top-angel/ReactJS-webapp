@@ -9,9 +9,9 @@ const margin = {
     marginRight: '2rem'
 };
 
-export default function LoginOverlay({open, style}, {push}) {
+export default function LoginOverlay({open, style}, {push, router}) {
     const handleLogin = () => {
-        login(push);
+        login(push, router);
         push({ showLogin: false });
     }
     return (
@@ -55,7 +55,8 @@ export default function LoginOverlay({open, style}, {push}) {
 }
 
 LoginOverlay.contextTypes = {
-    push: PropTypes.func
+    push: PropTypes.func,
+    router: PropTypes.object
 };
 
 LoginOverlay.propTypes = {

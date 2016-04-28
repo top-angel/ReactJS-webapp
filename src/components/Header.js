@@ -70,6 +70,8 @@ export default class Header extends Base {
 
         const style = this.state.switchHeader ? scrollStyle : null;
 
+        console.log(this.context.loginStatus)
+
         return (
             <div className={headerType} style={style}>
                 <Link to='/' className='icon-setmine' />
@@ -98,7 +100,7 @@ export default class Header extends Base {
                     <Link to='/legal'>
                         <p>DMCA Notice</p>
                     </Link>
-                    <Link to='/' onClick={this.handleLogout}>
+                    <Link to='/' onClick={this.handleLogout.bind(this)}>
                         <p>Log Out</p>
                     </Link>
                 </IconMenu>

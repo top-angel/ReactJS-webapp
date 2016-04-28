@@ -40,6 +40,7 @@ export function startFacebookSDK(push, router) {
 
 function statusChangeCallback(response, push, router) {
 	push({ loaded: true });
+	console.log(response);
 	switch(response.status) {
 		case 'connected':
 			// Logged into setmine and Facebook.
@@ -55,9 +56,9 @@ function statusChangeCallback(response, push, router) {
 }
 
 // check if user is logged in
-function checkLoginState(push) {
+function checkLoginState(push, router) {
 	FB.getLoginStatus(function(response) {
-		statusChangeCallback(response, push);
+		statusChangeCallback(response, push, router);
 	}.bind(this));
 }
 
@@ -99,8 +100,8 @@ function registerFacebookUser(auth, push) {
 }
 
 // starts login process
-export function login(push) {
-	FB.login(checkLoginState(push));
+export function login(push, router) {
+	FB.login(checkLoginState(push, router));
 }
 // clears login data
 export function logout(push) {
