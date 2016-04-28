@@ -60,7 +60,7 @@ export default class LandingPage extends Base {
                 <section className='landing-page__section--main'>
                     <h2>Relive your favorite sets</h2>
                     <div className='flex-column'>
-                        <Button solid onClick={this.handleClick} className='ActionButton'>ListenNow</Button>
+                        <Button solid onClick={this.handleClick} className='ActionButton'>Listen Now</Button>
                         <h4>Discover music festivals and live events around the globe.</h4>
                     </div>
                 </section>

@@ -10,7 +10,7 @@ export function startFacebookSDK(push, router) {
 			cookie     : true,  // enable cookies to allow the server to access
 												// the session
 			xfbml      : true,  // parse social plugins on this page
-			version    : 'v2.1' // use version 2.1
+			version    : 'v2.5' // use version 2.1
 		});
 			// Now that we've initialized the JavaScript SDK, we call
 			// FB.getLoginStatus().  This function gets the state of the
@@ -53,6 +53,7 @@ function statusChangeCallback(response, push, router) {
 		default:
 			console.debug('Not logged into Facebook');
 	}
+	
 }
 
 // check if user is logged in

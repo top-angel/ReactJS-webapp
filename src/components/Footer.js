@@ -24,7 +24,7 @@ const Footer = props => (
 			</div>
 			<ul>
 				<li>
-					<a className='flex-row' href='mailto:jesus@setmine.com'>
+					<a className='flex-row' href='mailto:contact@setmine.com'>
 						<Icon style={iconMargin}>envelope-o</Icon>
 						<p>jesus@setmine.com</p>
 					</a>
