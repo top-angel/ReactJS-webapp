@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import Base from './Base';
 import Link from 'react-router/lib/Link';
+import Ink from 'react-ink';
 
 const {number, element, func, any, string, bool, object} = PropTypes;
 const style = {
@@ -40,15 +41,6 @@ export default class Tab extends Base {
 		);
 	}
 	render() {
-		// let { width, children, to, disabled } = this.props;
-		// let style = disabled ? {color: '#bdc3c7'} : null;
-
-		// let mergedStyle = Object.assign({}, style, {width: width+'%'});
-		// return (
-		// 	<Link to={to} onClick={this.handleClick} style={{ width: width+'%'}}>
-		// 		<p>{children}</p>
-		// 	</Link>
-		// );
 		return this.renderTab();
 	}
 }
