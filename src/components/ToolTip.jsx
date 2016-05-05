@@ -4,7 +4,7 @@ const {oneOf, object} = PropTypes;
 const ToolTip = ({style, children}) => {
 	return (
 		<div className='tooltip' style={style}>
-			{children}
+			<p>{children}</p>
 		</div>
 	);
 }

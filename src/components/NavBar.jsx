@@ -4,6 +4,7 @@ import Base from './Base';
 import Link from 'react-router/lib/Link';
 import Icon from './FaIcon';
 import ToolTip from './ToolTip';
+import Ink from 'react-ink';
 
 export default class NavBar extends Base {
 	constructor(props) {
@@ -12,22 +13,26 @@ export default class NavBar extends Base {
 	render() {
 		let height = ((window.innerHeight - 64) / window.innerHeight) * 100 + '%';
 		return (
-			<nav id='NavBar' className='flex-column' style={{ height: height }}>
+			<nav className='NavBar' style={{ height: height }}>
 				<Link to='/home' activeClassName='active'>
 					<Icon size={24}>home</Icon>
-					<ToolTip><p>Home</p></ToolTip>
+					<ToolTip>Home</ToolTip>
+					<Ink />
 				</Link>
 				<Link to='/sets' activeClassName='active'>
 					<Icon size={24}>music</Icon>
-					<ToolTip><p>Sets</p></ToolTip>
+					<ToolTip>Sets</ToolTip>
+					<Ink />
 				</Link>
 				<Link to='/events' activeClassName='active'>
 					<Icon size={24}>calendar</Icon>
-					<ToolTip><p>Events</p></ToolTip>
+					<ToolTip>Events</ToolTip>
+					<Ink />
 				</Link>
 				<Link to='/artists' activeClassName='active'>
 					<Icon size={24}>users</Icon>
-					<ToolTip><p>Artists</p></ToolTip>
+					<ToolTip>Artists</ToolTip>
+					<Ink />
 				</Link>
 			</nav>
 		);

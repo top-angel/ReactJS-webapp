@@ -34,8 +34,16 @@ export default class Tab extends Base {
 			return <div className='tab' style={mergedStyle} title={disabledText}><p>{children}</p></div>
 		}
 
+		// FIXME active className isn't applying to artist detail tabs
 		return (
-			<Link to={to} onClick={this.handleClick} style={mergedStyle}>
+			<Link
+				className='Tab'
+				activeClassName='Tab--active'
+				to={to} 
+				onClick={this.handleClick} 
+				onlyActiveOnIndex
+				style={mergedStyle}
+			>
 				<p>{children}</p>
 			</Link>
 		);
