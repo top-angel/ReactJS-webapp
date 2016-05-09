@@ -84,7 +84,7 @@ export default class App extends Base {
         }
 
         // initialize Facebook SDK & check if user is logged in
-        startFacebookSDK(push, router);
+        startFacebookSDK(push, router, this.props.location.pathname);
 
         // play set if specified in url
         if(!!this.props.params.set) {

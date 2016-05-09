@@ -3,7 +3,7 @@ import R from 'ramda';
 import api from './api';
 import mixpanelService from './mixpanelService';
 
-export function startFacebookSDK(push, router) {
+export function startFacebookSDK(push, router, path) {
 	window.fbAsyncInit = function() {
 		FB.init({
 			appId      : '648288801959503',
@@ -24,7 +24,7 @@ export function startFacebookSDK(push, router) {
 			//
 			// These three cases are handled in the callback function.
 		FB.getLoginStatus(function(response) {
-			statusChangeCallback(response, push, router);
+			statusChangeCallback(response, push, router, path);
 		}.bind(this));
 	}.bind(this);
 
@@ -38,14 +38,17 @@ export function startFacebookSDK(push, router) {
 	}(document, 'script', 'facebook-jssdk'));
 }
 
-function statusChangeCallback(response, push, router) {
+function statusChangeCallback(response, push, router, path) {
 	push({ loaded: true });
 	console.log(response);
 	switch(response.status) {
 		case 'connected':
 			// Logged into setmine and Facebook.
 			registerFacebookUser(response.authResponse.accessToken, push);
-			router.push('/sets');
+			console.log(path);
+			if(!path || path == '/') {
+				router.push('/sets');
+			}
 			break;
 		case 'not_authorized':
 			console.log('Logged into Facebook, but you need to authorize this app')
@@ -58,9 +61,9 @@ function statusChangeCallback(response, push, router) {
 }
 
 // check if user is logged in
-function checkLoginState(push, router) {
+function checkLoginState(push, router, path) {
 	FB.getLoginStatus(function(response) {
-		statusChangeCallback(response, push, router);
+		statusChangeCallback(response, push, router, path);
 	}.bind(this));
 }
 
@@ -102,9 +105,9 @@ function registerFacebookUser(auth, push) {
 }
 
 // starts login process
-export function login(push, router) {
+export function login(push, router, path) {
 	FB.login(function() {
-		checkLoginState(push, router);
+		checkLoginState(push, router, path);
 	});
 }
 // clears login data
