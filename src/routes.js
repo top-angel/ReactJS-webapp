@@ -44,6 +44,9 @@ import SetContainer from './components/SetContainer';
 import EventContainer from './components/EventContainer';
 import ArtistTileContainer from './components/ArtistTileContainer';
 
+import BlogsPage from './components/BlogsPage';
+import BlogPost from './components/BlogPost';
+
 import DMCA from './components/DMCA';
 import Setmusic from './components/Setmusic';
 import SetstoryLandingPage from './components/SetstoryLandingPage';
@@ -68,6 +71,9 @@ export default (
 				<Route path='festivals' component={Festivals} />
 			</Route>
 
+            <Route path='blogs' component={BlogsPage} />
+            <Route path='blogs/:blog_id' component={BlogPost} />
+
 			<Route path='home' component={Home}>
 				<IndexRoute component={Stream} />
 				<Route path='favorites' component={Favorites} />
@@ -88,7 +94,7 @@ export default (
 				<IndexRoute component={SetContainer} />
 				<Route path='events' component={EventContainer} />
 			</Route>
-			
+
 			<Route path='venue/:venue' component={VenueDetail} />
 			<Route path='event/:event' component={EventDetail} />
 			<Route path='festival/:festival' component={FestivalDetail} />
