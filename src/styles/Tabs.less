@@ -12,6 +12,7 @@
 		align-items: center;
 		justify-content: space-around;
 		cursor: pointer;
+		position: relative;
 		&:hover {
 			background: @light-gray*0.95;
 			.transition(background);
@@ -58,9 +59,11 @@
 .Tab--active {
 	background-color: @light-gray * 0.9;
 	cursor: pointer;
+	border-bottom: solid 3px @blue;
+	.transition();
 }
 
 .Tab--disabled, .disabled-tab {
 	&:extend(.tab-base);
-	color: @gray;
+	.colors(#cfd4d6, @gray);
 }

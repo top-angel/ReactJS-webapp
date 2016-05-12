@@ -61,13 +61,13 @@ export default class Tabs extends Base {
 		return (
 			<nav className='Tabs' style={mergedStyle}>
 				{this.renderTabs()}
-				<Motion style={{ left: spring(this.state.left, presets.gentle) }} >
+				{/*<Motion style={{ left: spring(this.state.left, presets.gentle) }} >
 					{
 						({left}) => (
 							<InkBar width={inkbarWidth} animation={left}/>
 						)
 					}
-				</Motion>
+				</Motion>*/}
 			</nav>
 		);
 	}
