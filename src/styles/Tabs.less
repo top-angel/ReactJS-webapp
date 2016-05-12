@@ -1,4 +1,5 @@
 #Tabs {
+	&:extend(.flex-row);
 	.colors(@light-gray, @dark-gray);
 	.card(1);
 	height: @tabsHeight;
@@ -11,6 +12,7 @@
 		align-items: center;
 		justify-content: space-around;
 		cursor: pointer;
+		position: relative;
 		&:hover {
 			background: @light-gray*0.95;
 			.transition(background);
@@ -26,20 +28,42 @@
 	}
 }
 
+// new tabs
+.Tabs {
+	&:extend(.flex-row);
+	height: @tabsHeight;
+	width: 100%;
+	position: fixed;
+	top: @headerHeight;
+	z-index: 98;
+	.card(1);
+}
+
 .tab-base {
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
-	background: @light-gray;
+	position: relative;
 	height: @tabsHeight;
+	background: @light-gray;
+	&:hover {
+		background: @light-gray * 0.95;
+	}
 }
 
-.tab {
-	&:extend(.tab-base);
-	color: @dark-gray;
+.Tab {
+	&:extend(.tab-base all);
+	cursor: pointer;
 }
 
-.disabled-tab {
+.Tab--active {
+	background-color: @light-gray * 0.9;
+	cursor: pointer;
+	border-bottom: solid 3px @blue;
+	.transition();
+}
+
+.Tab--disabled, .disabled-tab {
 	&:extend(.tab-base);
-	color: @gray;
+	.colors(#cfd4d6, @gray);
 }

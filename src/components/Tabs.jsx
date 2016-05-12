@@ -14,13 +14,16 @@ export default class Tabs extends Base {
 		this.state = {
 			left: 0
 		};
+
+		this.tabWidth = this.getTabWidth();
 	}
 	componentWillReceiveProps(nextProps) {
+		// TODO don't need this
 		// change position of inkbar while scrolling
-		if(nextProps.selectedIndex) {
-			let left = nextProps.selectedIndex * this.getTabWidth();
-			this.setState({ left: left });
-		}
+		// if(nextProps.selectedIndex) {
+		// 	let left = nextProps.selectedIndex * this.getTabWidth();
+		// 	this.setState({ left: left });
+		// }
 	}
 	getTabWidth() {
 		let count = React.Children.count(this.props.children);
@@ -28,12 +31,15 @@ export default class Tabs extends Base {
 		return width;
 	}
 	handleClick(value, e, tab) {
+		// shifts inkbar based on tab width & positioning
 		let newLeft = (this.getTabWidth() * tab.props.tabIndex);
 		this.setState({ left: newLeft });
 
-		if(this.props.onSelect) {
-			this.props.onSelect(value, e, tab);
-		}
+		// scrolls to position
+		// TODO delete
+		// if(this.props.onSelect) {
+		// 	this.props.onSelect(value, e, tab);
+		// }
 	}
 	renderTabs() {
 		return React.Children.map(this.props.children, (tab, index) => {
@@ -41,26 +47,27 @@ export default class Tabs extends Base {
 				key: index,
 				onClick: this.handleClick,
 				width: this.getTabWidth(),
-				tabIndex: index,
-				activeClassName: 'active'
+				tabIndex: index
+				// activeClassName: 'active'
 			}, tab.props.children);
 		});
 	}
 	render() {
+		console.log(this.tabWidth);
 		const inkbarWidth = this.getTabWidth() + '%';
 		const style = this.props.type == 'detail' ? {} : fixedTabs;
 		let mergedStyle = Object.assign({}, style, this.props.style);
 
 		return (
-			<nav id='Tabs' className='flex-row' style={mergedStyle}>
+			<nav className='Tabs' style={mergedStyle}>
 				{this.renderTabs()}
-				<Motion style={{ left: spring(this.state.left, presets.gentle) }} >
+				{/*<Motion style={{ left: spring(this.state.left, presets.gentle) }} >
 					{
 						({left}) => (
 							<InkBar width={inkbarWidth} animation={left}/>
 						)
 					}
-				</Motion>
+				</Motion>*/}
 			</nav>
 		);
 	}

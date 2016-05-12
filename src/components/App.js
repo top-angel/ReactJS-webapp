@@ -124,7 +124,7 @@ export default class App extends Base {
                 <div id='App' className='flex-column'>
                     <DocMeta tags={tags} />
                     <Header currentPage={currentPage} showLogin={showLogin} location={this.props.location}/>
-                    {showNavbar ? <NavBar /> : null}
+                    {showNavbar && <NavBar />}
                     {
                         React.cloneElement(this.props.children, {
                             appState: appState
@@ -132,7 +132,7 @@ export default class App extends Base {
                     }
                     <Notifications snackbar={snackbar} playerHidden={playerHidden} />
                     <LoginOverlay open={showLogin} />
-                    {playerHidden ? <div id='noplayer'/> : <Player appState={appState} />}
+                    {!playerHidden && <Player appState={appState} />}
                 </div>
             </Loader>
         );
