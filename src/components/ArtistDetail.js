@@ -69,7 +69,7 @@ export default class ArtistDetail extends Base {
 						<ShuffleButton setIds={setIds} />
 					</DetailHeader>
 					<Tabs type='detail' style={tabStyle}>
-						<Tab to={`/artist/${this.props.params.artist}`}>SETS</Tab>
+						<Tab to={`/artist/${this.props.params.artist}`} index>SETS</Tab>
 						<Tab to={`/artist/${this.props.params.artist}/events`}>EVENTS</Tab>
 					</Tabs>
 					{

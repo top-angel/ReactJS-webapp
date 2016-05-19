@@ -4,6 +4,7 @@ import Base from './Base';
 import IndexLink from 'react-router/lib/IndexLink';
 import Link from 'react-router/lib/Link';
 import Nav from './Nav';
+import Ink from 'react-ink';
 
 export default class EventsPage extends Base {
 	constructor(props) {
@@ -21,12 +22,15 @@ export default class EventsPage extends Base {
 				<Nav>
 					<IndexLink to='/events'>
 						<p>UPCOMING</p>
+						<Ink />
 					</IndexLink>
 					<Link to='/events/closest'>
 						<p>NEAR YOU</p>
+						<Ink />
 					</Link>
 					<Link to='/events/featured'>
 						<p>FEATURED</p>
+						<Ink />
 					</Link>
 				</Nav>
 				{

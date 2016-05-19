@@ -1,14 +1,27 @@
 import React, {PropTypes} from 'react';
 import Base from './Base';
 import Link from 'react-router/lib/Link';
+import IndexLink from 'react-router/lib/IndexLink';
+import Ink from 'react-ink';
 
 const {number, element, func, any, string, bool, object} = PropTypes;
-const style = {
-	background: '#cfd4d6',
-	color: '#bdc3c7'
-};
 
 export default class Tab extends Base {
+	static propTypes = {
+		to: string,
+		width: number,
+		children: any.isRequired,
+		onClick: func, // inherited from Tabs
+		disabled: bool,
+		disabledText: string,
+		index: bool
+	}
+	static contextTypes = {
+		loginStatus: bool
+	}
+	static defaultProps = {
+		index: false
+	}
 	constructor(props) {
 		super(props);
 		this.autoBind('handleClick', 'renderTab');
@@ -25,43 +38,40 @@ export default class Tab extends Base {
 		} else return false;
 	}
 	renderTab() {
-		const { width, children, to, disabled, disabledText } = this.props;
-		let disabledStyle = disabled ? style : null;
-		let mergedStyle = Object.assign({}, disabledStyle, {width: width+'%'});
+		const { width, children, to, disabled, disabledText, index } = this.props;
+		let style = { width: width.toString() + '%'};
 
 		if(disabled) {
-			return <div className='tab' style={mergedStyle} title={disabledText}><p>{children}</p></div>
+			return <div className='Tab--disabled' title={disabledText}><p>{children}</p></div>
 		}
 
+		// FIXME active className isn't applying to artist detail tabs
+		if(index) {
+			return (
+				<IndexLink
+					className='Tab'
+					activeClassName='Tab--active'
+					to={to}
+					onClick={this.handleClick}
+					style={style}
+				>
+					<p>{children.toUpperCase()}</p>
+				</IndexLink>
+			);
+		}
 		return (
-			<Link to={to} onClick={this.handleClick} style={mergedStyle}>
+			<Link
+				className='Tab'
+				activeClassName='Tab--active'
+				to={to} 
+				onClick={this.handleClick} 
+				style={style}
+			>
 				<p>{children}</p>
 			</Link>
 		);
 	}
 	render() {
-		// let { width, children, to, disabled } = this.props;
-		// let style = disabled ? {color: '#bdc3c7'} : null;
-
-		// let mergedStyle = Object.assign({}, style, {width: width+'%'});
-		// return (
-		// 	<Link to={to} onClick={this.handleClick} style={{ width: width+'%'}}>
-		// 		<p>{children}</p>
-		// 	</Link>
-		// );
 		return this.renderTab();
 	}
 }
-
-Tab.contextTypes = {
-	loginStatus: bool
-};
-
-Tab.propTypes = {
-	to: string,
-	width: number,
-	children: any.isRequired,
-	onClick: func, // inherited from Tabs
-	disabled: bool,
-	disabledText: string
-};
