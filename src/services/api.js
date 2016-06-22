@@ -37,10 +37,6 @@ module.exports = {
 		)
 	},
 	graph(query) {
-        console.log("graphql request");
-        console.log('==query==');
-        console.log(query);
-
 		return (
 			fetch(`${API_ROOT}graphql`, {
 				method: 'post',
