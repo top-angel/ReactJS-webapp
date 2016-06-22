@@ -104,6 +104,8 @@ export default (
 
 			<Route path='about' component={About} />
 			<Route path='setstory' component={SetstoryLandingPage} />
+			<Route path='setstory/:action' component={SetstoryLandingPage} />
+
 		</Route>
 	</Router>
 );

@@ -38,11 +38,14 @@ export default {
                         window.location = 'setmine://setmine.com/' + pathWithoutLeadingSlash; break;
                     case 'offer':
                         window.location = 'setmine://setmine.com/' + pathWithoutLeadingSlash; break;
+                    case 'setstory':
+                        window.location = 'setstory://setmine.com/' + pathWithoutLeadingSlash; break;
                 }
 
             } else {
                 window.location = 'setmine://setmine.com/bugfix';
             }
         }
+
     }
 };
