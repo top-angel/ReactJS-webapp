@@ -34,6 +34,10 @@ export default class NavBar extends Base {
 					<ToolTip>Artists</ToolTip>
 					<Ink />
 				</Link>
+                <Link to='/blogs' activeClassName='active'>
+                    <Icon size={24}>newspaper-o</Icon>
+                    <ToolTip><p>Blog</p></ToolTip>
+                </Link>
 			</nav>
 		);
 	}
