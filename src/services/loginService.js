@@ -4,6 +4,7 @@ import api from './api';
 import mixpanelService from './mixpanelService';
 
 export function startFacebookSDK(push, router, path) {
+	console.log('startFacebookSDK')
 	window.fbAsyncInit = function() {
 		FB.init({
 			appId      : '648288801959503',

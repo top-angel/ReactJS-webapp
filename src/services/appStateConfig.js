@@ -13,6 +13,7 @@ export default Map({
         id: null
     },
     currentTrack: null,
+    deepLink: 'intent://www.setmine.com/#Intent;scheme=setmine;package=com.setmine.android;end',
     detailData: {
         sets: [],
         upcomingEvents: [],
@@ -30,7 +31,7 @@ export default Map({
     },
     favorites: [],
     favoriteSetIds: [],
-    loaded: false,
+    loaded: true,
     loginStatus: false,
     playerHidden: true,
     playing: false,

@@ -48,6 +48,7 @@ import DMCA from './components/DMCA';
 import Setmusic from './components/Setmusic';
 import SetstoryLandingPage from './components/SetstoryLandingPage';
 import About from './components/About';
+import RecoveryDeepLink from './components/RecoveryDeepLink';
 
 export default (
 	<Router history={history}>
@@ -105,7 +106,9 @@ export default (
 			<Route path='about' component={About} />
 			<Route path='setstory' component={SetstoryLandingPage} />
 			<Route path='setstory/:action' component={SetstoryLandingPage} />
+			<Route path='setstory/:action/:data' component={SetstoryLandingPage} />
 
 		</Route>
+
 	</Router>
 );

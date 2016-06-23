@@ -75,7 +75,7 @@ export default class Header extends Base {
         return (
             <div className={headerType} style={style}>
                 <Link to='/' className='icon-setmine' />
-                <div className='flex-fixed' style={{ margin: '0 3rem' }}>
+                <div className='title flex-fixed' style={{ margin: '0 3rem' }}>
                     <h4>{currentPage}</h4>
                 </div>
                 <SearchBar />
