@@ -18,7 +18,7 @@ export default {
         return (Android() || BlackBerry() || iOS() || Opera() || Windows());
     },
     detectMobileBrowser() {
-        // console.log(window.location.pathname);
+        console.log(window.location.pathname);
         if(this.iOS()) {
             if(window.location.pathname.length > 0) {
                 var pathWithoutLeadingSlash = window.location.pathname.substring(1);
