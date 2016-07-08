@@ -40,7 +40,7 @@ class SetstoryLandingPage extends Component {
 									<h2 style={{margin:'2rem'}}>Acquire new customers by parterning with musicians.</h2>
 									<div className='flex-row setstory-apps center'>
 										<a href='https://itunes.apple.com/us/app/setstory/id1044445159?mt=8' className='fa fa-apple fa-fw center'/>
-										<a href='https://play.google.com/store/apps/details?id=com.setmine.setstory' className='fa fa-android fa-fw center'/>
+										<a href='https://play.google.com/store/apps/details?id=com.setmusic.setstory' className='fa fa-android fa-fw center'/>
 									</div>
 								</div>
 								<div className='landingPhones flex-fixed '/>
