@@ -2,6 +2,8 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 
+var buildPath = path.resolve(__dirname, 'public');
+
 module.exports = {
 	entry: {
 		setmine: [
@@ -10,16 +12,18 @@ module.exports = {
 			'./src/index.jsx'
 		]
 	},
-	devtool: '#cheap-module-eval-source-map',
+	devtool: 'cheap-module-eval-source-map',
 	devServer: {
 		contentBase: './public', // where webpack-dev-server should look for static files
 		historyApiFallback: true,
 		colors: true,
+
 		hot: true
 	},
 	output: {
-		path: path.resolve(__dirname, 'public'), // where webpack saves bundled files
+		path: buildPath, // where webpack saves bundled files
 		filename: '[name]-bundle.js', // name of output file
+		pathinfo: true
 	},
 	resolve: {
 		extensions: ['', '.jsx', '.js', '.less'],

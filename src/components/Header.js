@@ -16,7 +16,7 @@ const scrollStyle = {
     boxShadow: '0 3px 6px rgba(49, 53, 66, 0.16), 0 3px 6px rgba(49, 53, 66, 0.23)'
 };
 
-export default class Header extends Base {
+class Header extends Base {
     constructor(props) {
         super(props);
         this.autoBind(
