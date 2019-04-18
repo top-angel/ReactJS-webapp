@@ -1,13 +1,13 @@
 import React, {PropTypes} from 'react';
 import Base from './Base';
-import {Element, Events, animateScroll} from 'react-scroll';
+// import {Element, Events, animateScroll} from 'react-scroll';
 import Footer from './Footer';
 import Button from './Button';
 import Icon from './Icon';
 import {IOS_URL, ANDROID_URL} from '../constants/constants';
 
 const {object, func} = PropTypes;
-const scroll = animateScroll;
+// const scroll = animateScroll;
 
 import unlockImg from '../images/beacons.png';
 import calendarImg from '../images/calendar.png';
@@ -29,20 +29,20 @@ export default class LandingPage extends Base {
         });
     }
     componentDidMount() {
-        Events.scrollEvent.register('begin', () => {
-            console.log('begin');
-        });
+        // Events.scrollEvent.register('begin', () => {
+        //     console.log('begin');
+        // });
 
-        Events.scrollEvent.register('end', () => {
-            console.log('end');
-        });
+        // Events.scrollEvent.register('end', () => {
+        //     console.log('end');
+        // });
 
-        scroll.scrollToTop();
+        // scroll.scrollToTop();
     }
     componentWillUnmount() {
         this.context.push({ showNavbar: true });
-        Events.scrollEvent.remove('begin');
-        Events.scrollEvent.remove('end');
+        // Events.scrollEvent.remove('begin');
+        // Events.scrollEvent.remove('end');
     }
     handleClick() {
         setTimeout(() => {
@@ -50,9 +50,9 @@ export default class LandingPage extends Base {
         }, 150);
     }
     scrollTo() {
-        scroll.scrollTo((window.innerHeight - 250), {
-            duration: 450
-        });
+        // scroll.scrollTo((window.innerHeight - 250), {
+        //     duration: 450
+        // });
     }
     render() {
         return (
@@ -102,7 +102,7 @@ export default class LandingPage extends Base {
                         </Icon>
                     </div>
                 </section>
-                <h5 className='landing-page__scroll-back' onClick={animateScroll.scrollToTop}>Back to Top</h5>
+                {/* <h5 className='landing-page__scroll-back' onClick={animateScroll.scrollToTop}>Back to Top</h5> */}
                 <Footer/>
             </div>
         );

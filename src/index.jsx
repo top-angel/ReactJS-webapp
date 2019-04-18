@@ -5,6 +5,8 @@ import routes from './routes';
 import './styles/index.less';
 
 const bodyMount = document.getElementById('body-mount-point');
+console.log('bodyMount')
+console.log(bodyMount)
 
 render(
 	routes	

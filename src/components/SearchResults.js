@@ -10,8 +10,8 @@ import EventContainer from './EventContainer';
 import TrackContainer from './TrackContainer';
 import SearchTab from './SearchTab';
 
-import { Element, Events, animateScroll} from 'react-scroll';
-const scroll = animateScroll;
+// import { Element, Events, animateScroll} from 'react-scroll';
+// const scroll = animateScroll;
 const scrollDuration = 200;
 
 export default class SearchResults extends Base {
@@ -30,16 +30,16 @@ export default class SearchResults extends Base {
 		// window.addEventListener('scroll', this.onScroll, false);
 		// setTimeout(this.getNodeOffsets, 3000);
 
-		Events.scrollEvent.register('begin', (to, element) => {
-			console.log(to, element);
-            console.log('begin');
-        });
-
-        Events.scrollEvent.register('end', () => {
-            console.log('end');
-        });
-
-        scroll.scrollToTop();
+// 		Events.scrollEvent.register('begin', (to, element) => {
+// 			console.log(to, element);
+//             console.log('begin');
+//         });
+// 
+//         Events.scrollEvent.register('end', () => {
+//             console.log('end');
+//         });
+// 
+//         scroll.scrollToTop();
 	}
 	componentWillReceiveProps(nextProps, nextState) {
 		// if(nextProps.appState.get('searchResults') != this.props.appState.get('searchResults')) {
@@ -115,22 +115,22 @@ export default class SearchResults extends Base {
 					<SearchTab to='tracks'>tracks</SearchTab>
 				</Tabs>
 				<div className='SearchPage__results'>
-					<Element name='artists'>
-						<h6 className='SearchPage__header'>ARTISTS</h6>
-						<ArtistTileContainer artists={artists} />
-					</Element>
-					<Element name='sets'>
-						<h6 className='SearchPage__header'>SETS</h6>
-						<SetContainer sets={sets} />
-					</Element>
-					<Element name='events'>
-						<h6 className='SearchPage__header'>EVENTS</h6>
-						<EventContainer events={upcomingEvents} />
-					</Element>
-					<Element name='tracks'>
-						<h6 className='SearchPage__header'>TRACKS</h6>
-						<TrackContainer tracks={tracks} />
-					</Element>
+					{/* <Element name='artists'> */}
+					{/* 	<h6 className='SearchPage__header'>ARTISTS</h6> */}
+					{/* 	<ArtistTileContainer artists={artists} /> */}
+					{/* </Element> */}
+					{/* <Element name='sets'> */}
+					{/* 	<h6 className='SearchPage__header'>SETS</h6> */}
+					{/* 	<SetContainer sets={sets} /> */}
+					{/* </Element> */}
+					{/* <Element name='events'> */}
+					{/* 	<h6 className='SearchPage__header'>EVENTS</h6> */}
+					{/* 	<EventContainer events={upcomingEvents} /> */}
+					{/* </Element> */}
+					{/* <Element name='tracks'> */}
+					{/* 	<h6 className='SearchPage__header'>TRACKS</h6> */}
+					{/* 	<TrackContainer tracks={tracks} /> */}
+					{/* </Element> */}
 				</div>
 			</div>
 		);

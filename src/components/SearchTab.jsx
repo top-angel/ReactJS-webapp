@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import Base from './Base';
-import {Link} from 'react-scroll';
+// import {Link} from 'react-scroll';
 import Ink from 'react-ink';
 
 const {number, string, func} = PropTypes;
@@ -17,20 +17,24 @@ export default class SearchTab extends Base {
         let { width, children, to, duration, offset, tabIndex } = this.props;
 
         return (
-            <Link 
-                className='Tab'
-                activeClass='Tab--active'
-                to={to}
-                style={{ width: width.toString() + '%'}}
-                onClick={this.handleClick}
-                spy
-                smooth
-                offset={offset}
-                duration={duration}
-            >
+            // <Link 
+            //     className='Tab'
+            //     activeClass='Tab--active'
+            //     to={to}
+            //     style={{ width: width.toString() + '%'}}
+            //     onClick={this.handleClick}
+            //     spy
+            //     smooth
+            //     offset={offset}
+            //     duration={duration}
+            // >
+            //     <p>{children.toUpperCase()}</p>
+            //     <Ink />
+            // </Link>
+            <div>
                 <p>{children.toUpperCase()}</p>
                 <Ink />
-            </Link>
+            </div>
         );
     }
 }

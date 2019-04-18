@@ -17,7 +17,8 @@ module.exports = {
 		contentBase: './public', // where webpack-dev-server should look for static files
 		historyApiFallback: true,
 		colors: true,
-
+		host: '127.0.0.1',
+		port: 8080,
 		hot: true
 	},
 	output: {
@@ -52,7 +53,7 @@ module.exports = {
 			},
 			{
 				test: /\.less$/,
-				loader: 'style!css!less',
+				loader: 'style!css-loader!less',
 				exclude: /node_modules/
 			},
 			{

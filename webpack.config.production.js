@@ -32,7 +32,7 @@ module.exports = {
             {
                 test: /\.less$/,
                 exclude: /node_modules/,
-                loader: ExtractTextPlugin.extract('style', 'css!postcss!less')
+                loader: ExtractTextPlugin.extract('style', 'css-loader!postcss!less')
             },
             {
                 test: /\.(png|jpeg|svg)$/,
